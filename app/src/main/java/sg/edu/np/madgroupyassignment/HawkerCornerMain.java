@@ -1,6 +1,7 @@
 package sg.edu.np.madgroupyassignment;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -19,7 +20,7 @@ public class HawkerCornerMain extends AppCompatActivity {
         setContentView(R.layout.activity_hawker_corner_main);
 
         //Creating List of hawker corner stalls for display !!- Need to change to actual stalls, how to change pic + user's?
-        for (int i = 0; i < 10; i++){
+        for (int i = 0; i < 10; i++) {
             HawkerCornerStalls newstall = new HawkerCornerStalls();
             newstall.hcstallname = "Stall " + i;
             newstall.hcauthor = "Author " + i;
@@ -33,6 +34,7 @@ public class HawkerCornerMain extends AppCompatActivity {
 
         hcmainrv.setAdapter(hcadapter);
         hcmainrv.setLayoutManager(hclayout);
+
 
     }
 }
