@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "53157396272",
+    "project_id": "lobang-corner",
+    "storage_bucket": "lobang-corner.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:53157396272:android:e2503a7660003a286812f5",
+        "android_client_info": {
+          "package_name": "sg.edu.np.madgroupyassignment"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "53157396272-2n1vsc59348prmorkq1rbjae3ie3svbk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBr_nUlXgmEW77njxVGm4tSfL0RUMztbh0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "53157396272-2n1vsc59348prmorkq1rbjae3ie3svbk.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
