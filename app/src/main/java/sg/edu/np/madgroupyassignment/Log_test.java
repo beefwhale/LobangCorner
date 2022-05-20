@@ -35,6 +35,7 @@ import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
 
 import org.parceler.Parcels;
+import org.w3c.dom.Text;
 
 public class Log_test extends AppCompatActivity {
 
@@ -58,6 +59,17 @@ public class Log_test extends AppCompatActivity {
         setContentView(R.layout.activity_log_test);
 
         BtnChoose = findViewById(R.id.idBtnChoose);
+
+        //Hi its zixian, just added this to get to my hawker corner, if this gets pushed can just remove
+        TextView test = findViewById(R.id.idHawkList);
+        test.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(Log_test.this, HawkerCornerMain.class);
+                startActivity(i);
+            }
+        });
+
         BtnUp = findViewById(R.id.idBtnUp);
         ImgView = findViewById(R.id.idImgPre);
         testtitle = findViewById(R.id.TestTitle);
