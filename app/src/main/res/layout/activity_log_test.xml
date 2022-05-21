@@ -132,11 +132,18 @@
             android:layout_below="@+id/idBtnUp"
             android:layout_marginTop="20dp" />
 
-        <TextView
+        <Button
+            android:id="@+id/idLogout"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_below="@id/idImgPre"
-            android:text="testBottom"
+            android:layout_marginStart="100dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="100dp"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/custom_button_back"
+            android:text="Logout"
+            android:textAllCaps="false"
             android:textColor="@color/white" />
 
         <ProgressBar

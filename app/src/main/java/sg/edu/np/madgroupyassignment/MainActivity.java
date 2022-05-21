@@ -5,6 +5,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 import com.google.android.material.navigation.NavigationView;
@@ -19,8 +22,13 @@ public class MainActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         bottomNavigationView = findViewById(R.id.bottomNavigationView);
-
         Home homeFragment = new Home();
+        Log_test profile = new Log_test();
+
+        FragmentManager fm = getSupportFragmentManager();
+        FragmentTransaction ft = fm.beginTransaction();
+
+        ft.add(R.id.MainFragment, homeFragment).commit();
         bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener(){
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -46,7 +54,7 @@ public class MainActivity extends AppCompatActivity{
                 }
                 switch (item.getItemId()) {
                     case R.id.profile:
-                        getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, homeFragment).commit();
+                        getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, profile).commit();
                         return true;
                 }
                 return false;

@@ -5,7 +5,9 @@ import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 
 import android.content.ContentResolver;
 import android.content.Intent;
@@ -13,9 +15,11 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.webkit.MimeTypeMap;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -37,10 +41,11 @@ import com.squareup.picasso.Picasso;
 import org.parceler.Parcels;
 import org.w3c.dom.Text;
 
-public class Log_test extends AppCompatActivity {
+public class Log_test extends Fragment {
 
+    private View view;
     private UserProfile userProfile;
-    private Button BtnChoose, BtnUp;
+    private Button BtnChoose, BtnUp, Logout;
     private ImageView ImgView;
     private TextView testtitle;
     private String Email;
@@ -53,27 +58,18 @@ public class Log_test extends AppCompatActivity {
 
     ActivityResultLauncher<String> getPhoto;
 
+
+    @Nullable
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_log_test);
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        view = inflater.inflate(R.layout.activity_log_test, null);
 
-        BtnChoose = findViewById(R.id.idBtnChoose);
-
-        //Hi its zixian, just added this to get to my hawker corner, if this gets pushed can just remove
-        TextView test = findViewById(R.id.idHawkList);
-        test.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(Log_test.this, HawkerCornerMain.class);
-                startActivity(i);
-            }
-        });
-
-        BtnUp = findViewById(R.id.idBtnUp);
-        ImgView = findViewById(R.id.idImgPre);
-        testtitle = findViewById(R.id.TestTitle);
-        loadingPB = findViewById(R.id.PBloading);
+        BtnChoose = view.findViewById(R.id.idBtnChoose);
+        Logout = view.findViewById(R.id.idLogout);
+        BtnUp = view.findViewById(R.id.idBtnUp);
+        ImgView = view.findViewById(R.id.idImgPre);
+        testtitle = view.findViewById(R.id.TestTitle);
+        loadingPB = view.findViewById(R.id.PBloading);
         mAuth = FirebaseAuth.getInstance();
 
         getPhoto = registerForActivityResult(
@@ -87,7 +83,7 @@ public class Log_test extends AppCompatActivity {
                 }
         );
 
-        userProfile = Parcels.unwrap(getIntent().getParcelableExtra("UserProfile"));
+        userProfile = Parcels.unwrap(getActivity().getIntent().getParcelableExtra("UserProfile"));
         Log.i("Test_Check", userProfile.getUID());
         if (userProfile != null) {
             testtitle.setText(userProfile.getUsername().toString());
@@ -111,10 +107,19 @@ public class Log_test extends AppCompatActivity {
                 upPost();
             }
         });
+
+        Logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                LogOut();
+            }
+        });
+
+        return view;
     }
 
     private String getFileExt(Uri uri) {
-        ContentResolver cR = getContentResolver();
+        ContentResolver cR = getActivity().getContentResolver();
         MimeTypeMap mime = MimeTypeMap.getSingleton();
         return mime.getExtensionFromMimeType(cR.getType(uri));
     }
@@ -135,7 +140,7 @@ public class Log_test extends AppCompatActivity {
                                 }
                             }, 500);
 
-                            Toast.makeText(Log_test.this, "Upload Succesful", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getActivity(), "Upload Succesful", Toast.LENGTH_SHORT).show();
                             ImgUp imgUp = new ImgUp(Email.substring(0, 7).toLowerCase() + "-LbcUID", taskSnapshot.getMetadata().getReference().getDownloadUrl().toString());
                             String UpID = databaseReference.push().getKey();
                             databaseReference.child(UpID).setValue(imgUp);
@@ -144,7 +149,7 @@ public class Log_test extends AppCompatActivity {
                     .addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception e) {
-                            Toast.makeText(Log_test.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_SHORT).show();
                         }
                     })
                     .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
@@ -154,29 +159,16 @@ public class Log_test extends AppCompatActivity {
                         }
                     });
         }else{
-            Toast.makeText(Log_test.this, "No file selected", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), "No file selected", Toast.LENGTH_SHORT).show();
         }
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
+    private void LogOut() {
+        Toast.makeText(getActivity(), "User Logged out...", Toast.LENGTH_SHORT).show();
+        mAuth.signOut();
+        Intent i = new Intent(getActivity(), Login.class);
+        startActivity(i);
+        getActivity().finish();
     }
 
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        int id = item.getItemId();
-        switch (id) {
-            case R.id.idLogout:
-                Toast.makeText(Log_test.this, "User Logged out...", Toast.LENGTH_SHORT).show();
-                mAuth.signOut();
-                Intent i = new Intent(Log_test.this, Login.class);
-                startActivity(i);
-                this.finish();
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-    }
 }
