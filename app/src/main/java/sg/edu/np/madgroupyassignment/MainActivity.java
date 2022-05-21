@@ -2,25 +2,54 @@ package sg.edu.np.madgroupyassignment;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
 
-public class MainActivity extends AppCompatActivity {
+import androidx.annotation.NonNull;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.navigation.NavigationBarView;
+import com.google.android.material.navigation.NavigationView;
 
+import android.view.MenuItem;
+
+public class MainActivity extends AppCompatActivity{
+
+    BottomNavigationView bottomNavigationView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        bottomNavigationView = findViewById(R.id.bottomNavigationView);
 
-        Button b = findViewById(R.id.buttontomainhc);   //Button just to bring me to hawkercorner, to be removed
-
-        b.setOnClickListener(new View.OnClickListener() {
+        Home homeFragment = new Home();
+        bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener(){
             @Override
-            public void onClick(View view) {
-                Intent i = new Intent(MainActivity.this, HawkerCornerMain.class);
-                startActivity(i);
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.home:
+                        getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, homeFragment).commit();
+                        return true;
+                }
+                switch (item.getItemId()) {
+                    case R.id.explore:
+                        getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, homeFragment).commit();
+                        return true;
+                }
+                switch (item.getItemId()) {
+                    case R.id.hc:
+                        getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, homeFragment).commit();
+                        return true;
+                }
+                switch (item.getItemId()) {
+                    case R.id.rc:
+                        getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, homeFragment).commit();
+                        return true;
+                }
+                switch (item.getItemId()) {
+                    case R.id.profile:
+                        getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, homeFragment).commit();
+                        return true;
+                }
+                return false;
             }
         });
     }

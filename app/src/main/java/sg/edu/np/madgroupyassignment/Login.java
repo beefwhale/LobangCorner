@@ -101,7 +101,7 @@ public class Login extends AppCompatActivity {
                 loadingPB.setVisibility(View.GONE);
                 Toast.makeText(Login.this, "Login Successful...", Toast.LENGTH_SHORT).show();
 
-                Intent i = new Intent(Login.this, Log_test.class);
+                Intent i = new Intent(Login.this, MainActivity.class);
                 Bundle bundle = new Bundle();
                 bundle.putParcelable("UserProfile", Parcels.wrap(userProfile));
                 i.putExtras(bundle);
