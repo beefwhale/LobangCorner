@@ -71,7 +71,6 @@ public class Registration extends AppCompatActivity {
                 String Email = email.getText().toString();
                 String Password = password.getText().toString();
                 String CnfPwd = cnfpassword.getText().toString();
-                UID = Email.substring(0, 7).toLowerCase() + "-LbcUID";
 
                 if (!Password.equals(CnfPwd)) {
                     loadingPB.setVisibility(View.GONE);
@@ -84,6 +83,8 @@ public class Registration extends AppCompatActivity {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()) {
+                                UID = task.getResult().getUser().getUid();
+
                                 SeedMap = new HashMap<String, ImgUp>();
                                 SeedMap.put("Seed", new ImgUp("You", "http://www.xinhuanet.com/english/2020-08/03/139259771_15964101188651n.jpg"));
                                 CreateProfile(UID, Username, Email, SeedMap);
@@ -110,6 +111,7 @@ public class Registration extends AppCompatActivity {
 
     private void CreateProfile(String UID, String Username, String Email, HashMap<String, ImgUp> SeedMap) {
         userProfile = new UserProfile(UID, Username, Email, SeedMap);
+
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {

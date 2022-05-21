@@ -76,7 +76,8 @@ public class Login extends AppCompatActivity {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()) {
-                                GetProfile(Email);
+                                UID = task.getResult().getUser().getUid();
+                                GetProfile(UID);
                             } else {
                                 loadingPB.setVisibility(View.GONE);
                                 Toast.makeText(Login.this, "Failed to login", Toast.LENGTH_SHORT).show();
@@ -90,13 +91,12 @@ public class Login extends AppCompatActivity {
 
     }
 
-    private void GetProfile(String Email) {
-        databaseReference = firebaseDatabase.getReference("UserProfile").child(Email.substring(0, 7).toLowerCase() + "-LbcUID");
+    private void GetProfile(String UID) {
+        databaseReference = firebaseDatabase.getReference("UserProfile").child(UID);
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 userProfile = snapshot.getValue(UserProfile.class);
-                Log.i("Log_Check", userProfile.getUID());
 
                 loadingPB.setVisibility(View.GONE);
                 Toast.makeText(Login.this, "Login Successful...", Toast.LENGTH_SHORT).show();

@@ -27,8 +27,11 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -47,8 +50,8 @@ public class Log_test extends Fragment {
     private UserProfile userProfile;
     private Button BtnChoose, BtnUp, Logout;
     private ImageView ImgView;
-    private TextView testtitle;
-    private String Email;
+    private TextView Username;
+    private String UID;
     private ProgressBar loadingPB;
 
     private Uri ImageUri;
@@ -68,7 +71,7 @@ public class Log_test extends Fragment {
         Logout = view.findViewById(R.id.idLogout);
         BtnUp = view.findViewById(R.id.idBtnUp);
         ImgView = view.findViewById(R.id.idImgPre);
-        testtitle = view.findViewById(R.id.TestTitle);
+        Username = view.findViewById(R.id.TestTitle);
         loadingPB = view.findViewById(R.id.PBloading);
         mAuth = FirebaseAuth.getInstance();
 
@@ -84,14 +87,13 @@ public class Log_test extends Fragment {
         );
 
         userProfile = Parcels.unwrap(getActivity().getIntent().getParcelableExtra("UserProfile"));
-        Log.i("Test_Check", userProfile.getUID());
         if (userProfile != null) {
-            testtitle.setText(userProfile.getUsername().toString());
-            Email = userProfile.getEmail().toString();
+            Username.setText(userProfile.getUsername().toString());
+            UID = userProfile.getUID();
         }
 
         storageReference = FirebaseStorage.getInstance().getReference("ImgUps");
-        databaseReference = FirebaseDatabase.getInstance().getReference("UserProfile").child(Email.substring(0, 7).toLowerCase() + "-LbcUID").child("hawkList");
+        databaseReference = FirebaseDatabase.getInstance().getReference("UserProfile").child(UID).child("hawkList");
         //^to be changed
 
         BtnChoose.setOnClickListener(new View.OnClickListener() {
@@ -125,7 +127,7 @@ public class Log_test extends Fragment {
     }
 
     private void upPost() {
-        if (ImageUri!=null){
+        if (ImageUri != null) {
             StorageReference fileReference = storageReference.child(System.currentTimeMillis() + "." + getFileExt(ImageUri));
 
             fileReference.putFile(ImageUri)
@@ -141,7 +143,7 @@ public class Log_test extends Fragment {
                             }, 500);
 
                             Toast.makeText(getActivity(), "Upload Succesful", Toast.LENGTH_SHORT).show();
-                            ImgUp imgUp = new ImgUp(Email.substring(0, 7).toLowerCase() + "-LbcUID", taskSnapshot.getMetadata().getReference().getDownloadUrl().toString());
+                            ImgUp imgUp = new ImgUp(UID, taskSnapshot.getMetadata().getReference().getDownloadUrl().toString());
                             String UpID = databaseReference.push().getKey();
                             databaseReference.child(UpID).setValue(imgUp);
                         }
@@ -158,7 +160,7 @@ public class Log_test extends Fragment {
                             loadingPB.setVisibility(View.VISIBLE);
                         }
                     });
-        }else{
+        } else {
             Toast.makeText(getActivity(), "No file selected", Toast.LENGTH_SHORT).show();
         }
     }
