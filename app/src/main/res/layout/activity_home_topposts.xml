@@ -7,22 +7,24 @@
 
     <ImageView
         android:id="@+id/toppost_img"
-        android:layout_width="282dp"
-        android:layout_height="156dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
+        android:layout_width="fill_parent"
+        android:layout_height="160dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
+        android:adjustViewBounds="true"
+        android:scaleType="centerCrop"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.494"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@android:drawable/sym_def_app_icon" />
+        app:srcCompat="@drawable/_728518_ashorthike2020_08_3111_37_11_35" />
+
 
     <TextView
         android:id="@+id/toppost_header"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="8dp"
         android:text="TextView"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
