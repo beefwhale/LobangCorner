@@ -1,11 +1,13 @@
 package sg.edu.np.madgroupyassignment;
 
 import android.content.Context;
+import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
@@ -17,7 +19,7 @@ public class ToppostAdapter extends RecyclerView.Adapter<ToppostViewHolder> {
     ArrayList<ToppostData> data;
     Context c;
 
-    public ToppostAdapter(Context c,ArrayList<ToppostData> data){
+    public ToppostAdapter(Context c, ArrayList<ToppostData> data){
         this.data = data; //"this" refers to this class
         this.c = c;
     }
@@ -29,7 +31,9 @@ public class ToppostAdapter extends RecyclerView.Adapter<ToppostViewHolder> {
         //parent is the parameter, provided. It is where we nest recycler view.
         View item = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.activity_home_topposts, null, false);
-        return new ToppostViewHolder(item);
+        View item2 = LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.activity_home_latestposts, null, false);
+        return new ToppostViewHolder(item, item2);
     }
 
     @Override

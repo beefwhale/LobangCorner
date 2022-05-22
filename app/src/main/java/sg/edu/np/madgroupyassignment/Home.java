@@ -1,12 +1,14 @@
 package sg.edu.np.madgroupyassignment;
 
 import androidx.annotation.Nullable;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,6 +37,7 @@ public class Home extends Fragment {
             //d.tp_img = "Description" + randdesc;
             data.add(d);
         }
+
         RecyclerView rv = view.findViewById(R.id.tp_rv);
         LinearLayoutManager layout = new LinearLayoutManager(c, LinearLayoutManager.HORIZONTAL, false);
         ToppostAdapter adapter = new ToppostAdapter(c, data);
@@ -47,12 +50,14 @@ public class Home extends Fragment {
         ArrayList<ToppostData> lp_data = new ArrayList<>();
         for (int i = 1; i < 11; i++) {
             ToppostData d = new ToppostData();
-            d.tp_header = "Insert Title" + i;
+            d.tp_header = "egg" + i;
             lp_data.add(d);
         }
+
+
         RecyclerView lp_rv = view.findViewById(R.id.lp_rv);
-        LinearLayoutManager lp_layout = new LinearLayoutManager(c, LinearLayoutManager.HORIZONTAL, false);
-        ToppostAdapter lp_adapter = new ToppostAdapter(c, lp_data);
+        LinearLayoutManager lp_layout = new LinearLayoutManager(c, LinearLayoutManager.VERTICAL, false);
+        ToppostAdapter lp_adapter = new ToppostAdapter(c,lp_data);
 
         // Giving RV adapter and layout
         lp_rv.setLayoutManager(lp_layout);

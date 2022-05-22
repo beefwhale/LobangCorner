@@ -17,7 +17,7 @@
         app:layout_constraintHorizontal_bias="0.494"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/_728518_ashorthike2020_08_3111_37_11_35" />
+        app:srcCompat="@drawable/ashorthike" />
 
 
     <TextView

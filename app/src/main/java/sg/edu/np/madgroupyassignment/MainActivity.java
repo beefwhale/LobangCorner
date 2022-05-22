@@ -38,11 +38,6 @@ public class MainActivity extends AppCompatActivity{
                         return true;
                 }
                 switch (item.getItemId()) {
-                    case R.id.explore:
-                        getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, homeFragment).commit();
-                        return true;
-                }
-                switch (item.getItemId()) {
                     case R.id.hc:
                         getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, homeFragment).commit();
                         return true;

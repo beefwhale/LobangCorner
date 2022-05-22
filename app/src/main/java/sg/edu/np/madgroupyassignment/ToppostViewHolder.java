@@ -15,19 +15,21 @@ public class ToppostViewHolder extends RecyclerView.ViewHolder {
     ImageView tp_img;
 
     //Latest posts elements
-    //TextView lp_header;
-    //ImageView lp_img;
+    TextView lp_header;
+    ImageView lp_img;
 
     View viewItem;
-    public ToppostViewHolder(View item){
+    View viewItem2;
+    public ToppostViewHolder(View item, View lp){
         super(item);
         viewItem = item;
+        viewItem2 = lp;
 
         tp_header= item.findViewById(R.id.toppost_header);
         tp_img = item.findViewById(R.id.toppost_img);
 
-        //lp_header= item.findViewById(R.id.latestpost_header);
-        //lp_img = item.findViewById(R.id.latestpost_img);
+        lp_header= lp.findViewById(R.id.latestpost_header);
+        lp_img = lp.findViewById(R.id.latestpost_img);
 
     }
 }
