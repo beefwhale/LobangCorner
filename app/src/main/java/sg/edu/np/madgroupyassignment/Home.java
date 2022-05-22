@@ -51,12 +51,12 @@ public class Home extends Fragment {
             lp_data.add(d);
         }
         RecyclerView lp_rv = view.findViewById(R.id.lp_rv);
-        LinearLayoutManager lp_layout = new LinearLayoutManager(c, LinearLayoutManager.VERTICAL, false);
+        LinearLayoutManager lp_layout = new LinearLayoutManager(c, LinearLayoutManager.HORIZONTAL, false);
         ToppostAdapter lp_adapter = new ToppostAdapter(c, lp_data);
 
         // Giving RV adapter and layout
-        lp_rv.setAdapter(lp_adapter);
         lp_rv.setLayoutManager(lp_layout);
+        lp_rv.setAdapter(lp_adapter);
         return view;
     }
 }
