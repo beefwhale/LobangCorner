@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">MAD Group Y Assignment</string>
+    <string-array name="sortby">
+        <item>Sort by</item>
+        <item>Highest Rating</item>
+        <item>Most popular</item>
+        <item>Alphebatically</item>
+    </string-array>
 </resources>
