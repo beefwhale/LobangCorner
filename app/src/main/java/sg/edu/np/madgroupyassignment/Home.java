@@ -26,6 +26,11 @@ public class Home extends Fragment {
     @Override // Use onCreate View for Fragments
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_home, container, false);
+        /*View lp_view = view.findViewById(R.id.lp_layout);
+        View tp_view = view.findViewById(R.id.toppost_layout);
+        View chosen_view;*/
+
+        Integer pos;
 
 
         // Top Post RV
@@ -37,10 +42,16 @@ public class Home extends Fragment {
             //d.tp_img = "Description" + randdesc;
             data.add(d);
         }
-
+        pos = data.size();
         RecyclerView rv = view.findViewById(R.id.tp_rv);
         LinearLayoutManager layout = new LinearLayoutManager(c, LinearLayoutManager.HORIZONTAL, false);
-        ToppostAdapter adapter = new ToppostAdapter(c, data);
+        /*if (data.size() < 10){
+            chosen_view = tp_view;
+        }
+        else{
+            chosen_view = lp_view;
+        }*/
+        ToppostAdapter adapter = new ToppostAdapter(c, data, pos);
 
         // Giving Top Post RV adapter and layout
         rv.setAdapter(adapter);
@@ -54,10 +65,16 @@ public class Home extends Fragment {
             lp_data.add(d);
         }
 
-
+        pos = lp_data.size();
         RecyclerView lp_rv = view.findViewById(R.id.lp_rv);
         LinearLayoutManager lp_layout = new LinearLayoutManager(c, LinearLayoutManager.VERTICAL, false);
-        ToppostAdapter lp_adapter = new ToppostAdapter(c,lp_data);
+        /*if (data.size() < 10){
+            chosen_view = tp_view;
+        }
+        else{
+            chosen_view = lp_view;
+        }*/
+        ToppostAdapter lp_adapter = new ToppostAdapter(c,lp_data, pos);
 
         // Giving RV adapter and layout
         lp_rv.setLayoutManager(lp_layout);

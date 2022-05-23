@@ -18,10 +18,13 @@ import java.util.ArrayList;
 public class ToppostAdapter extends RecyclerView.Adapter<ToppostViewHolder> {
     ArrayList<ToppostData> data;
     Context c;
+    //View chosen_view;
+    Integer pos;
 
-    public ToppostAdapter(Context c, ArrayList<ToppostData> data){
+    public ToppostAdapter(Context c, ArrayList<ToppostData> data, Integer pos){
         this.data = data; //"this" refers to this class
         this.c = c;
+        this.pos = pos;
     }
 
     @NonNull
@@ -29,11 +32,17 @@ public class ToppostAdapter extends RecyclerView.Adapter<ToppostViewHolder> {
     public ToppostViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         //creating the layout here
         //parent is the parameter, provided. It is where we nest recycler view.
-        View item = LayoutInflater.from(parent.getContext())
+
+        View item;
+        if (pos < 10){
+             item = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.activity_home_topposts, null, false);
-        View item2 = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.activity_home_latestposts, null, false);
-        return new ToppostViewHolder(item, item2);
+        }
+        else{
+            item = LayoutInflater.from(parent.getContext())
+                    .inflate(R.layout.activity_home_latestposts, null, false);
+        }
+        return new ToppostViewHolder(item);
     }
 
     @Override
