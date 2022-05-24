@@ -40,6 +40,7 @@ public class Login extends AppCompatActivity {
     private UserProfile userProfile;
     private FirebaseDatabase firebaseDatabase;
     private DatabaseReference databaseReference;
+    private ValueEventListener Listener;
 
 
     @Override
@@ -93,7 +94,7 @@ public class Login extends AppCompatActivity {
 
     private void GetProfile(String UID) {
         databaseReference = firebaseDatabase.getReference("UserProfile").child(UID);
-        databaseReference.addValueEventListener(new ValueEventListener() {
+        Listener = databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 userProfile = snapshot.getValue(UserProfile.class);
@@ -106,6 +107,7 @@ public class Login extends AppCompatActivity {
                 bundle.putParcelable("UserProfile", Parcels.wrap(userProfile));
                 i.putExtras(bundle);
 
+                databaseReference.removeEventListener(Listener);
                 startActivity(i);
                 finish();
             }
@@ -115,6 +117,7 @@ public class Login extends AppCompatActivity {
 
             }
         });
+
     }
 }
 
