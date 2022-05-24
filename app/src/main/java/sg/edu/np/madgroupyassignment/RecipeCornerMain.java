@@ -1,10 +1,12 @@
 package sg.edu.np.madgroupyassignment;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -25,7 +28,7 @@ import java.util.Comparator;
 
 
 public class RecipeCornerMain extends Fragment implements AdapterView.OnItemSelectedListener {
-    Context c;
+    Context c = null;
     // creating variables for
     // our ui components.
     private RecyclerView recipeRV;
@@ -35,16 +38,20 @@ public class RecipeCornerMain extends Fragment implements AdapterView.OnItemSele
     private RecipeAdapter adapter;
     private ArrayList<RecipeCorner> recipeModalArrayList;
 
-    public RecipeCornerMain(){this.c = c;}
-
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        c= context;
+    }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         View view = inflater.inflate(R.layout.activity_recipe_corner_main, container, false);
 
+        Spinner sortSpinner;
         //spinner for sorting/filtering
-        Spinner sortSpinner = view.findViewById(R.id.spinner);
-        ArrayAdapter sortAdapter = new ArrayAdapter<String>(RecipeCornerMain.this, android.R.layout.simple_list_item_1,
+        sortSpinner = (Spinner) view.findViewById(R.id.spinner);
+        ArrayAdapter sortAdapter = new ArrayAdapter<String>(c, android.R.layout.simple_list_item_1,
                 getResources().getStringArray(R.array.sortby));
         sortAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         sortSpinner.setAdapter(sortAdapter);
@@ -78,6 +85,7 @@ public class RecipeCornerMain extends Fragment implements AdapterView.OnItemSele
 
         return view;
     }
+
 
     private void sortrating(int i){
         ArrayList<RecipeCorner> sortlist = new ArrayList<>();
