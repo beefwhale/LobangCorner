@@ -31,10 +31,11 @@ public class HCChosenStall extends Fragment {
         Button hcclikebtn = view.findViewById(R.id.hcclikebtn);
         TextView hccparagraph = view.findViewById(R.id.hccparagraph);
 
-        //Intent to retrieve info from hawker corner.
-        Intent chosenstallno = getActivity().getIntent();
-        int positionofstall = chosenstallno.getIntExtra("stallposition", 0);
-        HawkerCornerStalls chosenstall = HawkerCornerMain.stallsList.get(positionofstall);
+        //Bundle to get info from Hawker Corner Main
+        Bundle bundle = this.getArguments();
+
+        int chosenstallno = (int) bundle.getInt("stallposition");
+        HawkerCornerStalls chosenstall = HawkerCornerMain.stallsList.get(chosenstallno);
 
         chosenstallname.setText(chosenstall.hcstallname);
         hccusername.setText(chosenstall.hcauthor);

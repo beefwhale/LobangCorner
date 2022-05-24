@@ -69,7 +69,7 @@ public class HawkerCornerMain extends Fragment {
 
         //If the filtered list is empty, meaning no matches, show toast
         if (filteredList.isEmpty()){
-            Toast.makeText(view.getContext(), "No Matching Stalls or Users", Toast.LENGTH_LONG).show();
+            Toast.makeText(view.getContext(), "No Matching Stalls or Users", Toast.LENGTH_SHORT).show();
         }
         //Else, set the recyclerview's adapter to filteredlist
         else{
