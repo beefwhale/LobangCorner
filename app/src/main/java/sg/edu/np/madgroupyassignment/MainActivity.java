@@ -25,7 +25,7 @@ public class MainActivity extends AppCompatActivity{
         Home homeFragment = new Home();
         Log_test profile = new Log_test();
         HawkerCornerMain hcmain = new HawkerCornerMain();
-
+        RecipeCornerMain rcmain = new RecipeCornerMain();
         FragmentManager fm = getSupportFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
 
@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity{
                 }
                 switch (item.getItemId()) {
                     case R.id.rc:
-                        getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, homeFragment).commit();
+                        getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, rcmain).commit();
                         return true;
                 }
                 switch (item.getItemId()) {

@@ -1,12 +1,16 @@
 package sg.edu.np.madgroupyassignment;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.SearchView;
@@ -20,8 +24,8 @@ import java.util.Collections;
 import java.util.Comparator;
 
 
-public class RecipeCornerMain extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
-
+public class RecipeCornerMain extends Fragment implements AdapterView.OnItemSelectedListener {
+    Context c;
     // creating variables for
     // our ui components.
     private RecyclerView recipeRV;
@@ -31,24 +35,26 @@ public class RecipeCornerMain extends AppCompatActivity implements AdapterView.O
     private RecipeAdapter adapter;
     private ArrayList<RecipeCorner> recipeModalArrayList;
 
+    public RecipeCornerMain(){this.c = c;}
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_recipe_corner_main);
+        View view = inflater.inflate(R.layout.activity_recipe_corner_main, container, false);
 
         //spinner for sorting/filtering
-        Spinner sortSpinner = findViewById(R.id.spinner);
-        ArrayAdapter sortAdapter = new ArrayAdapter<String>(RecipeCornerMain.this,
-                android.R.layout.simple_list_item_1, getResources().getStringArray(R.array.sortby));
+        Spinner sortSpinner = view.findViewById(R.id.spinner);
+        ArrayAdapter sortAdapter = new ArrayAdapter<String>(RecipeCornerMain.this, android.R.layout.simple_list_item_1,
+                getResources().getStringArray(R.array.sortby));
         sortAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         sortSpinner.setAdapter(sortAdapter);
         sortSpinner.setOnItemSelectedListener(this);
 
         // initializing our variables.
-        recipeRV = findViewById(R.id.idRVRecipe);
+        recipeRV = view.findViewById(R.id.idRVRecipe);
 
         // getting search view of our item.
-        SearchView searchView = findViewById(R.id.SearchID);
+        SearchView searchView = view.findViewById(R.id.SearchID);
 
         // below line is to call set on query text listener method.
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -69,6 +75,8 @@ public class RecipeCornerMain extends AppCompatActivity implements AdapterView.O
         // calling method to
         // build recycler view.
         buildRecyclerView();
+
+        return view;
     }
 
     private void sortrating(int i){
@@ -115,7 +123,7 @@ public class RecipeCornerMain extends AppCompatActivity implements AdapterView.O
         if (filteredlist.isEmpty()) {
             // if no item is added in filtered list we are
             // displaying a toast message as no data found.
-            Toast.makeText(this, "No Data Found..", Toast.LENGTH_SHORT).show();
+            Toast.makeText(c, "No Data Found..", Toast.LENGTH_SHORT).show();
         } else {
             // at last we are passing that filtered
             // list to our adapter class.
@@ -146,10 +154,10 @@ public class RecipeCornerMain extends AppCompatActivity implements AdapterView.O
 
 
         // initializing our adapter class.
-        adapter = new RecipeAdapter(recipeModalArrayList, RecipeCornerMain.this);
+        adapter = new RecipeAdapter(recipeModalArrayList, c);
 
         // adding layout manager to our recycler view.
-        LinearLayoutManager manager = new LinearLayoutManager(this);
+        LinearLayoutManager manager = new LinearLayoutManager(c);
         recipeRV.setHasFixedSize(true);
 
         // setting layout manager
