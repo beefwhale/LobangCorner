@@ -11,17 +11,19 @@ public class UserProfile{
     String UID;
     String username;
     String email;
-    HashMap<String, ImgUp> HawkList;
+    HashMap<String, Object> HawkList;
+    HashMap<String, Object> RcpList;
 
     public UserProfile() {
 
     }
 
-    public UserProfile(String UID, String username, String email, HashMap<String, ImgUp> hawkList) {
+    public UserProfile(String UID, String username, String email, HashMap<String, Object> hawkList, HashMap<String, Object> rcpList) {
         this.UID = UID;
         this.username = username;
         this.email = email;
         HawkList = hawkList;
+        RcpList = rcpList;
     }
 
     public String getUID() {
@@ -48,11 +50,17 @@ public class UserProfile{
         this.email = email;
     }
 
-    public HashMap<String, ImgUp> getHawkList() {
+    public HashMap<String, Object> getHawkList() {
         return HawkList;
     }
 
-    public void setHawkList(HashMap<String, ImgUp> hawkList) {
+    public void setHawkList(HashMap<String, Object> hawkList) {
         HawkList = hawkList;
+    }
+
+    public  HashMap<String, Object> getRcpList() { return RcpList;}
+
+    public void setRcpList(HashMap<String, Object> rcpList) {
+        RcpList = rcpList;
     }
 }

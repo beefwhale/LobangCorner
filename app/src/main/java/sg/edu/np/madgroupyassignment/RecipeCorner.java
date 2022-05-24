@@ -11,6 +11,11 @@ public class RecipeCorner {
     String ingredients;
     String steps;
 
+    //Empty constructor
+    public RecipeCorner(){
+
+    }
+
     // creating constructor for our variables.
     public RecipeCorner(String recipeName, String recipeDescription, int recipeRating,
                        int noOfRaters, String userName) {

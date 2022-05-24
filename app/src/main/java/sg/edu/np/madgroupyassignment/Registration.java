@@ -34,7 +34,7 @@ public class Registration extends AppCompatActivity {
     private Button regBtn;
     private ProgressBar loadingPB;
     private TextView loginTV;
-    private HashMap<String, ImgUp> SeedMap;
+    private HashMap<String, Object> HawkSeed, RcpSeed;
     private FirebaseAuth mAuth;
     private UserProfile userProfile;
     private FirebaseDatabase firebaseDatabase;
@@ -44,6 +44,7 @@ public class Registration extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registration);
+
         username = findViewById(R.id.idUserName);
         email = findViewById(R.id.idEmail);
         password = findViewById(R.id.idPassword);
@@ -85,9 +86,12 @@ public class Registration extends AppCompatActivity {
                             if (task.isSuccessful()) {
                                 UID = task.getResult().getUser().getUid();
 
-                                SeedMap = new HashMap<String, ImgUp>();
-                                SeedMap.put("Seed", new ImgUp("You", "http://www.xinhuanet.com/english/2020-08/03/139259771_15964101188651n.jpg"));
-                                CreateProfile(UID, Username, Email, SeedMap);
+                                HawkSeed = new HashMap<String, Object>();
+                                HawkSeed.put("Seed", "http://www.xinhuanet.com/english/2020-08/03/139259771_15964101188651n.jpg");
+                                RcpSeed = new HashMap<String, Object>();
+                                RcpSeed.put("Seed", "TestRcpSeed");
+
+                                CreateProfile(UID, Username, Email, HawkSeed, RcpSeed);
 
                                 Toast.makeText(Registration.this, "User Registered...", Toast.LENGTH_SHORT).show();
                                 Intent i = new Intent(Registration.this, Login.class);
@@ -109,8 +113,8 @@ public class Registration extends AppCompatActivity {
     }
 
 
-    private void CreateProfile(String UID, String Username, String Email, HashMap<String, ImgUp> SeedMap) {
-        userProfile = new UserProfile(UID, Username, Email, SeedMap);
+    private void CreateProfile(String UID, String Username, String Email, HashMap<String, Object> HawkSeed, HashMap<String, Object> RcpSeed) {
+        userProfile = new UserProfile(UID, Username, Email, HawkSeed, RcpSeed);
 
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override

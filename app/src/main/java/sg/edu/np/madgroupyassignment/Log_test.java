@@ -44,11 +44,16 @@ import com.squareup.picasso.Picasso;
 import org.parceler.Parcels;
 import org.w3c.dom.Text;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class Log_test extends Fragment {
+
+    private HashMap<String, Object> UptV;
 
     private View view;
     private UserProfile userProfile;
-    private Button BtnChoose, BtnUp, Logout;
+    private Button BtnChoose, BtnUp, Logout, Test;
     private ImageView ImgView;
     private TextView Username;
     private String UID;
@@ -57,7 +62,7 @@ public class Log_test extends Fragment {
     private Uri ImageUri;
     private FirebaseAuth mAuth;
     private StorageReference storageReference;
-    private DatabaseReference databaseReference;
+    private DatabaseReference databaseReference, databaseReferencetest;
 
     ActivityResultLauncher<String> getPhoto;
 
@@ -70,6 +75,7 @@ public class Log_test extends Fragment {
         BtnChoose = view.findViewById(R.id.idBtnChoose);
         Logout = view.findViewById(R.id.idLogout);
         BtnUp = view.findViewById(R.id.idBtnUp);
+        Test = view.findViewById(R.id.idBtnTest);
         ImgView = view.findViewById(R.id.idImgPre);
         Username = view.findViewById(R.id.TestTitle);
         loadingPB = view.findViewById(R.id.PBloading);
@@ -90,6 +96,7 @@ public class Log_test extends Fragment {
         if (userProfile != null) {
             Username.setText(userProfile.getUsername().toString());
             UID = userProfile.getUID();
+            UptV = userProfile.getRcpList();
         }
 
         storageReference = FirebaseStorage.getInstance().getReference("ImgUps");
@@ -110,6 +117,13 @@ public class Log_test extends Fragment {
             }
         });
 
+        Test.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                RcpUp(UptV);
+            }
+        });
+
         Logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -118,6 +132,16 @@ public class Log_test extends Fragment {
         });
 
         return view;
+    }
+
+    private void RcpUp(HashMap<String, Object> UptV) {
+        RecipeCorner RCP = new RecipeCorner("Testname", "TestDescription", 5, 5, "TestUser");
+        databaseReferencetest = FirebaseDatabase.getInstance().getReference();
+        String PostID = databaseReferencetest.push().getKey();
+        databaseReferencetest.child("Posts").child("Recipes").child(PostID).setValue(RCP);
+
+        UptV.put(PostID, PostID);
+        databaseReferencetest.child("UserProfile").child(mAuth.getUid()).child("rcpList").updateChildren(UptV);
     }
 
     private String getFileExt(Uri uri) {
