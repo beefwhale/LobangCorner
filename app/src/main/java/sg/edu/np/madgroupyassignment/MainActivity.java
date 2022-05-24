@@ -24,6 +24,7 @@ public class MainActivity extends AppCompatActivity{
         bottomNavigationView = findViewById(R.id.bottomNavigationView);
         Home homeFragment = new Home();
         Log_test profile = new Log_test();
+        HawkerCornerMain hcmain = new HawkerCornerMain();
 
         FragmentManager fm = getSupportFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
@@ -39,7 +40,7 @@ public class MainActivity extends AppCompatActivity{
                 }
                 switch (item.getItemId()) {
                     case R.id.hc:
-                        getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, homeFragment).commit();
+                        getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, hcmain).commit();
                         return true;
                 }
                 switch (item.getItemId()) {
