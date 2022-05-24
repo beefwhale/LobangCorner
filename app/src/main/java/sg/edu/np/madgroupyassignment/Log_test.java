@@ -140,24 +140,16 @@ public class Log_test extends Fragment {
     private void RcpUp(HashMap<String, Object> UptV) {
         databaseReferencetest = FirebaseDatabase.getInstance().getReference();
 
-        databaseReferencetest.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                RecipeCorner RCP = new RecipeCorner("Testname", "TestDescription", 5, 5, "TestUser");
-                String PostID = databaseReferencetest.push().getKey();
-                databaseReferencetest.child("Posts").child("Recipes").child(PostID).setValue(RCP);
+        RecipeCorner RCP = new RecipeCorner("Testname", "TestDescription", 4, 5, "TestUser");
+        String PostID = databaseReferencetest.push().getKey();
+        databaseReferencetest.child("Posts").child("Recipes").child(PostID).setValue(RCP);
 
-                UptV.put(PostID, PostID);
-                databaseReferencetest.child("UserProfile").child(mAuth.getUid()).child("rcpList").updateChildren(UptV);
-                Toast.makeText(getActivity(), "Recipe Uploaded", Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
+        UptV.put(PostID, PostID);
+        databaseReferencetest.child("UserProfile").child(mAuth.getUid()).child("rcpList").updateChildren(UptV);
+        Toast.makeText(getActivity(), "Recipe Uploaded", Toast.LENGTH_SHORT).show();
     }
+
+
 
     private String getFileExt(Uri uri) {
         ContentResolver cR = getActivity().getContentResolver();
