@@ -1,5 +1,7 @@
 package sg.edu.np.madgroupyassignment;
 
+import java.util.HashMap;
+
 public class RecipeCorner {
     // variables for recipe corner class
     String recipeName;
@@ -8,7 +10,7 @@ public class RecipeCorner {
     Integer noOfRaters;
     String userName;
     Integer duration;
-    String ingredients;
+    HashMap<String, Object> ingredients;
     String steps;
 
     //Empty constructor

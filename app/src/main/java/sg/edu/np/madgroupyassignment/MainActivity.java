@@ -23,6 +23,7 @@ public class MainActivity extends AppCompatActivity{
         setContentView(R.layout.activity_main);
         bottomNavigationView = findViewById(R.id.bottomNavigationView);
         Home homeFragment = new Home();
+        RecipeForm recipeFragment = new RecipeForm();
         Log_test profile = new Log_test();
         HawkerCornerMain hcmain = new HawkerCornerMain();
 
@@ -46,6 +47,11 @@ public class MainActivity extends AppCompatActivity{
                 switch (item.getItemId()) {
                     case R.id.rc:
                         getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, homeFragment).commit();
+                        return true;
+                }
+                switch (item.getItemId()) {
+                    case R.id.recipeform:
+                        getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, recipeFragment).commit();
                         return true;
                 }
                 switch (item.getItemId()) {
