@@ -71,7 +71,6 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeViewHolder>{
                 context.startActivity(i);
             }
         });
-
     }
 
     @Override
@@ -79,5 +78,4 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeViewHolder>{
         // returning the size of array list.
         return recipeArrayList.size();
     }
-
 }

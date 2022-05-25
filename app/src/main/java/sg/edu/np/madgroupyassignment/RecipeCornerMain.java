@@ -1,12 +1,9 @@
 package sg.edu.np.madgroupyassignment;
-
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,7 +12,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -25,10 +21,10 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashMap;
 
-
-public class RecipeCornerMain extends Fragment implements AdapterView.OnItemSelectedListener {
-    Context c = null;
+public class RecipeCornerMain extends Fragment implements AdapterView.OnItemSelectedListener{
+    Context c;
     // creating variables for
     // our ui components.
     private RecyclerView recipeRV;
@@ -38,21 +34,19 @@ public class RecipeCornerMain extends Fragment implements AdapterView.OnItemSele
     private RecipeAdapter adapter;
     private ArrayList<RecipeCorner> recipeModalArrayList;
 
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        c= context;
+    public RecipeCornerMain(){
+        this.c = c;
     }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+
         View view = inflater.inflate(R.layout.activity_recipe_corner_main, container, false);
 
-        Spinner sortSpinner;
         //spinner for sorting/filtering
-        sortSpinner = (Spinner) view.findViewById(R.id.spinner);
-        ArrayAdapter sortAdapter = new ArrayAdapter<String>(c, android.R.layout.simple_list_item_1,
-                getResources().getStringArray(R.array.sortby));
+        Spinner sortSpinner = view.findViewById(R.id.spinner);
+        ArrayAdapter sortAdapter = new ArrayAdapter<String>(getActivity(),
+                android.R.layout.simple_list_item_1, getResources().getStringArray(R.array.sortby));
         sortAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         sortSpinner.setAdapter(sortAdapter);
         sortSpinner.setOnItemSelectedListener(this);
@@ -85,7 +79,6 @@ public class RecipeCornerMain extends Fragment implements AdapterView.OnItemSele
 
         return view;
     }
-
 
     private void sortrating(int i){
         ArrayList<RecipeCorner> sortlist = new ArrayList<>();
@@ -131,7 +124,7 @@ public class RecipeCornerMain extends Fragment implements AdapterView.OnItemSele
         if (filteredlist.isEmpty()) {
             // if no item is added in filtered list we are
             // displaying a toast message as no data found.
-            Toast.makeText(c, "No Data Found..", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), "No Data Found..", Toast.LENGTH_SHORT).show();
         } else {
             // at last we are passing that filtered
             // list to our adapter class.
@@ -143,12 +136,15 @@ public class RecipeCornerMain extends Fragment implements AdapterView.OnItemSele
 
         // below line we are creating a new array list
         recipeModalArrayList = new ArrayList<>();
+        //HashMap<String, Object> testhash = new HashMap<String, Object>();
+        //testhash.put("testString", "testobject");
+        //testhash.put("testString", "testobject");
 
         // below line is to add data to our array list.
         recipeModalArrayList.add(new RecipeCorner("Cream Cheese Rangoons", "Crispy Cream-Cheese filled Rangoons that are easy to make at home",
                 3, 10, "Yongqing"));
         recipeModalArrayList.add(new RecipeCorner("Ondeh-Ondeh", "Traditional Gula-Melaka Filled Ondeh-Ondeh",
-                3, 6, "Celcius"));
+                3, 6, "Celsius"));
         recipeModalArrayList.add(new RecipeCorner("Dumpling", "Delicious and Juicy Pork and Chives Dumpling",
                 2, 4, "Yong Chuen"));
         recipeModalArrayList.add(new RecipeCorner("Pineapple Tarts", "Best-Ever Pineapple Tarts",
@@ -157,15 +153,16 @@ public class RecipeCornerMain extends Fragment implements AdapterView.OnItemSele
                 5, 20, "Hasanah"));
         recipeModalArrayList.add(new RecipeCorner("Nine Layered Kueh", "Bright and Colourful Nine Layered Kueh",
                 3, 9, "Wesley"));
-        recipeModalArrayList.add(new RecipeCorner("Curry Path", "Chinese Curry Path", 0, 2,"Teo"));
-        recipeModalArrayList.add(new RecipeCorner("Chiffon Cake", "Pandan Chiffon Cake", 4, 2,"Q"));
-
+        recipeModalArrayList.add(new RecipeCorner("Curry Path", "Chinese Curry Path",
+                0, 2,"Teo"));
+        recipeModalArrayList.add(new RecipeCorner("Chiffon Cake", "Pandan Chiffon Cake",
+                4, 2,"Q"));
 
         // initializing our adapter class.
-        adapter = new RecipeAdapter(recipeModalArrayList, c);
+        adapter = new RecipeAdapter(recipeModalArrayList, getActivity());
 
         // adding layout manager to our recycler view.
-        LinearLayoutManager manager = new LinearLayoutManager(c);
+        LinearLayoutManager manager = new LinearLayoutManager(getActivity());
         recipeRV.setHasFixedSize(true);
 
         // setting layout manager
@@ -175,8 +172,8 @@ public class RecipeCornerMain extends Fragment implements AdapterView.OnItemSele
         // setting adapter to
         // our recycler view.
         recipeRV.setAdapter(adapter);
-
     }
+
 
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
@@ -199,4 +196,3 @@ public class RecipeCornerMain extends Fragment implements AdapterView.OnItemSele
 
     }
 }
-

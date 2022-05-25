@@ -1,33 +1,40 @@
 package sg.edu.np.madgroupyassignment;
-
+//app crash cuz of fragment
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
-public class RecipeCornerPosts extends AppCompatActivity {
-
+public class RecipeCornerPosts extends Fragment {
+    //Context c;
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_recipe_corner_posts);
+        View view = inflater.inflate(R.layout.activity_recipe_corner_posts, container, false);
 
-        Intent i = getIntent();
-        ((TextView)findViewById(R.id.idRecipeName))
+        //setContentView(R.layout.activity_recipe_corner_posts);
+
+        Intent i = getActivity().getIntent();
+        ((TextView)view.findViewById(R.id.idRecipeName))
                 .setText(i.getStringExtra("name"));
-        ((TextView)findViewById(R.id.idRecipeDescription))
+        ((TextView)view.findViewById(R.id.idRecipeDescription))
                 .setText(i.getStringExtra("desc"));
-        ((TextView)findViewById(R.id.rating)).
+        ((TextView)view.findViewById(R.id.rating)).
                 setText(i.getStringExtra("rating"));
-        RatingBar r = findViewById(R.id.ratingBar);
+        RatingBar r = view.findViewById(R.id.ratingBar);
         r.setRating(i.getIntExtra("ratingbar", 0));
-        ((TextView)findViewById(R.id.idUser)).
+        ((TextView)view.findViewById(R.id.idUser)).
                 setText(i.getStringExtra("username"));
+        return view;
     }
 }
