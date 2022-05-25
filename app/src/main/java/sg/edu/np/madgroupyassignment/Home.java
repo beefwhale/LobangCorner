@@ -1,7 +1,6 @@
 package sg.edu.np.madgroupyassignment;
 
 import androidx.annotation.Nullable;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -19,19 +18,16 @@ public class Home extends Fragment {
     Context c;
 
     public Home() {
-        this.c = c; // extending scope of Home cus u cant called Home.this anymore
+        this.c= c; // extending scope of Home cus u cant called Home.this anymore
     }
 
     @Nullable
     @Override // Use onCreate View for Fragments
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_home, container, false);
-        /*View lp_view = view.findViewById(R.id.lp_layout);
-        View tp_view = view.findViewById(R.id.toppost_layout);
-        View chosen_view;*/
+        //*View lp_view = view.findViewById(R.id.lp_layout);
 
         Integer pos;
-
 
         // Top Post RV
         ArrayList<ToppostData> data = new ArrayList<>();
@@ -45,12 +41,6 @@ public class Home extends Fragment {
         pos = data.size();
         RecyclerView rv = view.findViewById(R.id.tp_rv);
         LinearLayoutManager layout = new LinearLayoutManager(c, LinearLayoutManager.HORIZONTAL, false);
-        /*if (data.size() < 10){
-            chosen_view = tp_view;
-        }
-        else{
-            chosen_view = lp_view;
-        }*/
         ToppostAdapter adapter = new ToppostAdapter(c, data, pos);
 
         // Giving Top Post RV adapter and layout
@@ -68,17 +58,12 @@ public class Home extends Fragment {
         pos = lp_data.size();
         RecyclerView lp_rv = view.findViewById(R.id.lp_rv);
         LinearLayoutManager lp_layout = new LinearLayoutManager(c, LinearLayoutManager.VERTICAL, false);
-        /*if (data.size() < 10){
-            chosen_view = tp_view;
-        }
-        else{
-            chosen_view = lp_view;
-        }*/
         ToppostAdapter lp_adapter = new ToppostAdapter(c,lp_data, pos);
 
         // Giving RV adapter and layout
         lp_rv.setLayoutManager(lp_layout);
         lp_rv.setAdapter(lp_adapter);
+
         return view;
     }
 }
