@@ -1,5 +1,6 @@
 package sg.edu.np.madgroupyassignment;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -14,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class RecipePostIngredients extends Fragment {
 
@@ -24,6 +26,7 @@ public class RecipePostIngredients extends Fragment {
     EditText qty;
     EditText unit;
     ImageView add;
+    static HashMap<String, Object> totalIngred;
 
     public RecipePostIngredients() {
 
@@ -72,6 +75,13 @@ public class RecipePostIngredients extends Fragment {
                 }
             }
         });
+
+        totalIngred = new HashMap<String, Object>(); //INGREDIENT parameter
+        for (int i=0; i<ingredList.size(); i++){
+            String iName = ingredList.get(i).name;
+            String qtyAndUnit = ingredList.get(i).qty + " " + ingredList.get(i).unit;
+            totalIngred.put(iName, qtyAndUnit);
+        }
 
         return f3;
     }

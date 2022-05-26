@@ -2,6 +2,7 @@ package sg.edu.np.madgroupyassignment;
 
 import android.os.Bundle;
 
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -9,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -23,6 +25,8 @@ public class RecipePostSteps extends Fragment {
     static RVAdapterSteps adapter;
     EditText input;
     ImageView add;
+    static String finalSteps;
+    Button submitButton;
 
     public RecipePostSteps() {
         // Required empty public constructor
@@ -60,6 +64,26 @@ public class RecipePostSteps extends Fragment {
                 }
             }
         });
+
+
+        finalSteps = ""; //STEPS parameter
+        for (int i=0; i<items.size(); i++){
+            finalSteps = finalSteps + "Step " + (i+1) + ": " +
+                    items.get(i) + "\n";
+        }
+//
+//        submitButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Fragment chosenfragment = new RecipePostMain();
+//                AppCompatActivity activity = (AppCompatActivity) view.getContext();
+//                Bundle bundle = new Bundle();
+//                bundle.putString("test", finalSteps);
+//                chosenfragment.setArguments(bundle);
+//                activity.getSupportFragmentManager().beginTransaction().replace(R.id.recipeform, chosenfragment).addToBackStack(null).commit();
+//            }
+//        });
+
 
         return f2;
     }
