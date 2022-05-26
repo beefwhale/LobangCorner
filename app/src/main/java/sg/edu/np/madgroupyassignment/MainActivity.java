@@ -23,45 +23,52 @@ public class MainActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         bottomNavigationView = findViewById(R.id.bottomNavigationView);
+
+        //Calling classes to replace upon nav bar click
         Home homeFragment = new Home();
-        RecipeForm recipeFragment = new RecipeForm();
+        RecipeForm recipeFragment = new RecipeForm(); //temp
         Log_test profile = new Log_test();
         HawkerCornerMain hcmain = new HawkerCornerMain();
         RecipeCornerMain rcmain = new RecipeCornerMain();
-        FragmentManager fm = getSupportFragmentManager();
-        FragmentTransaction ft = fm.beginTransaction();
 
-        ft.replace(R.id.MainFragment, homeFragment).commit();
+        if(savedInstanceState == null){
+            FragmentManager fm = getSupportFragmentManager();
+            fm.beginTransaction()
+                    .replace(R.id.MainFragment, homeFragment)
+                    .commit();
+        }
+        //Upon Bottom Nav Bar click
         bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener(){
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.home:
-                        getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, homeFragment).commit();
+                        getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, homeFragment, null).commit();
                         return true;
                 }
                 switch (item.getItemId()) {
                     case R.id.hc:
-                        getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, hcmain).commit();
+                        getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, hcmain,null).commit();
                         return true;
                 }
                 switch (item.getItemId()) {
                     case R.id.rc:
-                        getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, rcmain).commit();
+                        getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, rcmain,null).commit();
                         return true;
                 }
                 switch (item.getItemId()) {
                     case R.id.recipeform:
-                        getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, recipeFragment).commit();
+                        getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, recipeFragment,null).commit(); //temp segment
                         return true;
                 }
                 switch (item.getItemId()) {
                     case R.id.profile:
-                        getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, profile).commit();
+                        getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, profile, null).commit();
                         return true;
                 }
                 return false;
             }
         });
     }
+
 }
