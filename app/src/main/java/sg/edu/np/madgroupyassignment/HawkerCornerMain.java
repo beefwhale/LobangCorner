@@ -10,11 +10,19 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 import android.widget.Toast;
 
-import java.util.ArrayList;
+import com.google.android.material.navigation.NavigationBarView;
 
-public class HawkerCornerMain extends Fragment {
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+
+//Class is a fragment and will implement some methods for filtering
+public class HawkerCornerMain extends Fragment implements AdapterView.OnItemSelectedListener {
     //Class for the Main Page of Hawker Corner.
 
     //Set list to static so accessible by all class.
@@ -55,6 +63,15 @@ public class HawkerCornerMain extends Fragment {
                 return true;
             }
         });
+
+        //Making of Spinner Filter
+        Spinner hcmainSpinner = view.findViewById(R.id.hcmainspinner);
+
+        //Getting spinner filters and making Array Adapter to configure the spinner
+        String[] hcmainFilters = getResources().getStringArray(R.array.filters);
+        ArrayAdapter adapter = new ArrayAdapter(getContext(), android.R.layout.simple_spinner_item, hcmainFilters);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        hcmainSpinner.setAdapter(adapter);
     }
 
     //A method to filter the list of hawker stalls
@@ -77,5 +94,52 @@ public class HawkerCornerMain extends Fragment {
             HCMainsAdapter filteredstalls = new HCMainsAdapter(filteredList);
             hcmrvforfilter.setAdapter(filteredstalls);
         }
+    }
+
+    //Two methods to override from the superclass, methods for filtering
+    @Override
+    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+        int chosenfilter = (int) adapterView.getItemAtPosition(i);
+
+        //Filter that sorts our lists items in ascending order
+        if (chosenfilter == 1){         //To Filter Stall Name Ascending
+            Collections.sort(stallsList, new Comparator<HawkerCornerStalls>() {
+                @Override
+                public int compare(HawkerCornerStalls stall1, HawkerCornerStalls stall2) {
+                    return stall1.hcstallname.compareToIgnoreCase(stall2.hcstallname);
+                }
+            });
+        }
+        else if (chosenfilter == 2){    //To Filter Stall Name Descending
+            Collections.sort(stallsList, new Comparator<HawkerCornerStalls>() {
+                @Override
+                public int compare(HawkerCornerStalls stall1, HawkerCornerStalls stall2) {
+                    return stall1.hcstallname.compareToIgnoreCase(stall2.hcstallname);
+                }
+            });
+            Collections.reverse(stallsList);
+        }
+        else if (chosenfilter == 3){    //To Filter Author Ascending
+            Collections.sort(stallsList, new Comparator<HawkerCornerStalls>() {
+                @Override
+                public int compare(HawkerCornerStalls stall1, HawkerCornerStalls stall2) {
+                    return stall1.hcauthor.compareToIgnoreCase(stall2.hcauthor);
+                }
+            });
+        }
+        else{   //To Filter Author reverse
+            Collections.sort(stallsList, new Comparator<HawkerCornerStalls>() {
+                @Override
+                public int compare(HawkerCornerStalls stall1, HawkerCornerStalls stall2) {
+                    return stall1.hcauthor.compareToIgnoreCase(stall2.hcauthor);
+                }
+            });
+            Collections.reverse(stallsList);
+        }
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> adapterView) {
+
     }
 }

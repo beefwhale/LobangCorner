@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="filters">
+        <item>Stall Name Ascending</item>
+        <item>Stall Name Descending</item>
+        <item>Author Name Ascending</item>
+        <item>Author Name Descending</item>
+    </string-array>
+</resources>
