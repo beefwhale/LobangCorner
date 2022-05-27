@@ -4,7 +4,10 @@ import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,12 +20,13 @@ import android.widget.Toast;
 import org.w3c.dom.Text;
 
 import java.io.StringBufferInputStream;
+import java.text.Normalizer;
 
 
 public class RecipePostMain extends Fragment {
 
-    NumberPicker numPicker;
-    static int min;
+    EditText durInput;
+    static String min;
 
     EditText titleInput;
     static String title;
@@ -30,7 +34,7 @@ public class RecipePostMain extends Fragment {
     EditText descInput;
     static String desc;
 
-    Button submitButton;
+    private FormsViewModel viewModel;
 
     public RecipePostMain() {
 
@@ -40,35 +44,67 @@ public class RecipePostMain extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View f1 = inflater.inflate(R.layout.fragment_recipe_post_main, container, false);
-        numPicker = f1.findViewById(R.id.numberPicker);
+        durInput = f1.findViewById(R.id.minuteInput);
         titleInput = f1.findViewById(R.id.RecipeTitle);
         descInput = f1.findViewById(R.id.Desc);
 
 
-        numPicker.setMinValue(0);
-        numPicker.setMaxValue(1440);
-
-
-        numPicker.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
+        //TitleInput Data Transfer
+        titleInput.addTextChangedListener(new TextWatcher() {
             @Override
-            public void onValueChange(NumberPicker numberPicker, int i, int i1) {
-                min = i1; //DURATION value
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                title = titleInput.getText().toString(); //NAME parameter
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                viewModel = new ViewModelProvider(requireParentFragment()).get(FormsViewModel.class);
+                viewModel.selectRecipeName(title);
             }
         });
 
-        title = titleInput.getText().toString(); //NAME parameter
-        desc = descInput.getText().toString(); //DESCRIPTION parameter
-//        Bundle bundle = this.getArguments();
-//        String test = (String) bundle.getString("test");
-//
-//        submitButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Toast.makeText(getActivity(), test, Toast.LENGTH_SHORT).show();
-//            }
-//        });
+        //DescInput Data Transfer
+        descInput.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
 
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                desc = descInput.getText().toString(); //DESC parameter
 
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                viewModel = new ViewModelProvider(requireParentFragment()).get(FormsViewModel.class);
+                viewModel.selectRecipeDesc(desc);
+            }
+        });
+
+        //Duration Input Data Transfer
+        durInput.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                min = durInput.getText().toString(); //DURATION parameter
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                viewModel = new ViewModelProvider(requireParentFragment()).get(FormsViewModel.class);
+                viewModel.selectRecipeDuration(min);
+            }
+        });
 
 
 

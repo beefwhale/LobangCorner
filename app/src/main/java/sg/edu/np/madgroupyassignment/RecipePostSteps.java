@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -26,7 +27,7 @@ public class RecipePostSteps extends Fragment {
     EditText input;
     ImageView add;
     static String finalSteps;
-    Button submitButton;
+    private FormsViewModel viewModel;
 
     public RecipePostSteps() {
         // Required empty public constructor
@@ -40,7 +41,7 @@ public class RecipePostSteps extends Fragment {
         items = new ArrayList<>();
 
         recyclerView = f2.findViewById(R.id.f2recyclerView);
-        adapter = new RVAdapterSteps(getActivity().getApplicationContext(),items);
+        adapter = new RVAdapterSteps(getActivity().getApplicationContext(),items,requireParentFragment());
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity().getApplicationContext()));
 
@@ -61,28 +62,24 @@ public class RecipePostSteps extends Fragment {
                 else{
                     addItem(text); //add input string to list
                     input.setText(""); //set text back to empty after entering
+                    finalSteps = ""; //STEPS parameter
+                    for (int i=0; i<items.size(); i++){
+                        if (i==(items.size()-1)){
+                            finalSteps = finalSteps + "Step " + (i+1) + ": " +
+                                    items.get(i);
+                        }
+                        else if (i!=(items.size()-1)){
+                            finalSteps = finalSteps + "Step " + (i+1) + ": " +
+                                    items.get(i) + "\n";
+                        }
+                    }
+
+                    viewModel = new ViewModelProvider(requireParentFragment()).get(FormsViewModel.class);
+                    viewModel.selectRecipeSteps(finalSteps);
                 }
             }
         });
 
-
-        finalSteps = ""; //STEPS parameter
-        for (int i=0; i<items.size(); i++){
-            finalSteps = finalSteps + "Step " + (i+1) + ": " +
-                    items.get(i) + "\n";
-        }
-//
-//        submitButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Fragment chosenfragment = new RecipePostMain();
-//                AppCompatActivity activity = (AppCompatActivity) view.getContext();
-//                Bundle bundle = new Bundle();
-//                bundle.putString("test", finalSteps);
-//                chosenfragment.setArguments(bundle);
-//                activity.getSupportFragmentManager().beginTransaction().replace(R.id.recipeform, chosenfragment).addToBackStack(null).commit();
-//            }
-//        });
 
 
         return f2;
