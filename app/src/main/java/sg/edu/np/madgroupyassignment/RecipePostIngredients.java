@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -27,6 +28,7 @@ public class RecipePostIngredients extends Fragment {
     EditText unit;
     ImageView add;
     static HashMap<String, Object> totalIngred;
+    FormsViewModel viewModel;
 
     public RecipePostIngredients() {
 
@@ -40,7 +42,7 @@ public class RecipePostIngredients extends Fragment {
         ingredList = new ArrayList<>();
 
         recyclerView = f3.findViewById(R.id.f3recyclerView); //Defining listView
-        adapter = new RVAdapterIngred(getActivity().getApplicationContext(),ingredList);
+        adapter = new RVAdapterIngred(getActivity().getApplicationContext(),ingredList,requireParentFragment());
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity().getApplicationContext()));
 
@@ -49,7 +51,6 @@ public class RecipePostIngredients extends Fragment {
         qty = f3.findViewById(R.id.QtyInput); //Defining Qty input
         unit = f3.findViewById(R.id.UntInput); //Defining Unit input
         add = f3.findViewById(R.id.f3add); //Defining "plus sign" image
-
         //Make the plus sign add item
         add.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -72,16 +73,20 @@ public class RecipePostIngredients extends Fragment {
                     ingredientName.setText(""); //set text back to empty after entering
                     qty.setText(""); //set text back to empty after entering
                     unit.setText(""); //set text back to empty after entering
+
+                    totalIngred = new HashMap<String, Object>(); //INGREDIENT parameter
+                    for (int i=0; i<ingredList.size(); i++){
+                        String iName = ingredList.get(i).name;
+                        String qtyAndUnit = ingredList.get(i).qty + " " + ingredList.get(i).unit;
+                        totalIngred.put(iName, qtyAndUnit);
+                    }
+
+                    viewModel = new ViewModelProvider(requireParentFragment()).get(FormsViewModel.class);
+                    viewModel.selectRecipeIngred(totalIngred);
                 }
             }
         });
 
-        totalIngred = new HashMap<String, Object>(); //INGREDIENT parameter
-        for (int i=0; i<ingredList.size(); i++){
-            String iName = ingredList.get(i).name;
-            String qtyAndUnit = ingredList.get(i).qty + " " + ingredList.get(i).unit;
-            totalIngred.put(iName, qtyAndUnit);
-        }
 
         return f3;
     }

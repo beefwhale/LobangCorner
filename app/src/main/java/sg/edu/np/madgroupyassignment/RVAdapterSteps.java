@@ -11,6 +11,8 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.lifecycle.ViewModelStoreOwner;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
@@ -18,10 +20,14 @@ import java.util.ArrayList;
 public class RVAdapterSteps extends RecyclerView.Adapter<RVAdapterSteps.ViewHolder>{
     ArrayList<String> list;
     Context context;
+    ViewModelStoreOwner VMSO;
+    String finalSteps;
+    FormsViewModel viewModel;
 
-    public RVAdapterSteps(Context context, ArrayList<String> items){
+    public RVAdapterSteps(Context context, ArrayList<String> items, ViewModelStoreOwner vmso){
         this.context = context;
         list = items;
+        VMSO = vmso;
     }
 
     @NonNull
@@ -45,6 +51,20 @@ public class RVAdapterSteps extends RecyclerView.Adapter<RVAdapterSteps.ViewHold
             @Override
             public void onClick(View view) {
                 RecipePostSteps.removeItem(holder.getAdapterPosition());//allow remove of step using imageview
+                finalSteps = ""; //STEPS parameter
+                for (int i=0; i<list.size(); i++){
+                    if (i==(list.size()-1)){
+                        finalSteps = finalSteps + "Step " + (i+1) + ": " +
+                                list.get(i);
+                    }
+                    else if (i!=(list.size()-1)){
+                        finalSteps = finalSteps + "Step " + (i+1) + ": " +
+                                list.get(i) + "\n";
+                    }
+                }
+
+                viewModel = new ViewModelProvider(VMSO).get(FormsViewModel.class);
+                viewModel.selectRecipeSteps(finalSteps);
             }
         });
     }

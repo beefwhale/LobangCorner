@@ -9,7 +9,7 @@ public class RecipeCorner {
     Integer recipeRating;
     Integer noOfRaters;
     String userName;
-    Integer duration;
+    String duration;
     HashMap<String, Object> ingredients;
     String steps;
 

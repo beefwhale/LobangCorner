@@ -11,17 +11,24 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.lifecycle.ViewModelStoreOwner;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class RVAdapterIngred extends RecyclerView.Adapter<RVAdapterIngred.ViewHolder> {
     ArrayList<Ingredient> list;
     Context context;
+    ViewModelStoreOwner VMSO;
+    HashMap<String, Object> totalIngred;
+    FormsViewModel viewModel;
 
-    public RVAdapterIngred(Context context, ArrayList<Ingredient> ingreds){
+    public RVAdapterIngred(Context context, ArrayList<Ingredient> ingreds, ViewModelStoreOwner vmso){
         this.context = context;
         list = ingreds;
+        VMSO = vmso;
 
     }
 
@@ -50,6 +57,15 @@ public class RVAdapterIngred extends RecyclerView.Adapter<RVAdapterIngred.ViewHo
             @Override
             public void onClick(View view) {
                 RecipePostIngredients.removeItem(holder.getAdapterPosition());//allow remove of ingredient using imageview
+                totalIngred = new HashMap<String, Object>(); //INGREDIENT parameter
+                for (int i=0; i<list.size(); i++){
+                    String iName = list.get(i).name;
+                    String qtyAndUnit =list.get(i).qty + " " + list.get(i).unit;
+                    totalIngred.put(iName, qtyAndUnit);
+                }
+
+                viewModel = new ViewModelProvider(VMSO).get(FormsViewModel.class);
+                viewModel.selectRecipeIngred(totalIngred);
             }
         });
     }
