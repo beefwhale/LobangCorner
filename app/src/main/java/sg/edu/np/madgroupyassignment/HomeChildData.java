@@ -5,11 +5,8 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
-public class HomeData {
-    public ImageView wklyfeat_img;
-    public RecyclerView tp_rv;
-    public String lp_header;
-
+public class HomeChildData {
+    // Data of TOPPOST layout file
     public String tp_header;
     public ImageView tp_img;
 

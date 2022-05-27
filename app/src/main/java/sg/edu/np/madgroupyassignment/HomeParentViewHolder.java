@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 /**
  * Top post RV ViewHolder for Home page
  */
-public class ToppostViewHolder extends RecyclerView.ViewHolder {
+public class HomeParentViewHolder extends RecyclerView.ViewHolder {
     // Top post and Latest post elements
     TextView tp_header;
     ImageView tp_img;
@@ -19,7 +19,7 @@ public class ToppostViewHolder extends RecyclerView.ViewHolder {
     RecyclerView parent_rv;
 
     View viewItem;
-    public ToppostViewHolder(View item){
+    public HomeParentViewHolder(View item){
         super(item);
         viewItem = item;
         parent_rv = item.findViewById(R.id.home_main_rv);

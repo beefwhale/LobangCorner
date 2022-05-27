@@ -23,23 +23,19 @@ public class Home extends Fragment {
     @Nullable
     @Override // Use onCreate View for Fragments
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.activity_home, container, false);
+        View view = inflater.inflate(R.layout.activity_home_parent, container, false);
 
-
-        Integer pos;
-
-        // MAIN (Latest) Post RV
-        ArrayList<ToppostData> lp_data = new ArrayList<>();
+        // Parent (Latest) Post RV
+        ArrayList<HomeParentData> lp_data = new ArrayList<>();
         for (int i = 1; i < 11; i++) {
-            ToppostData d = new ToppostData();
+            HomeParentData d = new HomeParentData();
             d.tp_header = "egg" + i;
             lp_data.add(d);
         }
 
-        pos = lp_data.size();
         RecyclerView home_main_rv = view.findViewById(R.id.home_main_rv);
         LinearLayoutManager main_layout = new LinearLayoutManager(c, LinearLayoutManager.VERTICAL, false);
-        ToppostAdapter tp_adapter = new ToppostAdapter(c,lp_data, pos);
+        HomeParentAdapter tp_adapter = new HomeParentAdapter(c,lp_data);
 
         // Giving RV adapter and layout
         home_main_rv.setAdapter(tp_adapter);

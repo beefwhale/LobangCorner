@@ -2,7 +2,7 @@ package sg.edu.np.madgroupyassignment;
 
 import android.widget.ImageView;
 
-public class ToppostData {
+public class HomeParentData {
     /**
      * Top post RV data for Home page
      */
