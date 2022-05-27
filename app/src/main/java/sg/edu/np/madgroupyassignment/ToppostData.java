@@ -8,4 +8,5 @@ public class ToppostData {
      */
     public String tp_header;
     public ImageView tp_img;
+
 }

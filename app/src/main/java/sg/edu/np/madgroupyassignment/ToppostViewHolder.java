@@ -10,25 +10,25 @@ import androidx.recyclerview.widget.RecyclerView;
  * Top post RV ViewHolder for Home page
  */
 public class ToppostViewHolder extends RecyclerView.ViewHolder {
-    // Top posts elements
+    // Top post and Latest post elements
     TextView tp_header;
     ImageView tp_img;
 
     //Latest posts elements
     TextView lp_header;
-    ImageView lp_img;
+    RecyclerView parent_rv;
 
     View viewItem;
     public ToppostViewHolder(View item){
         super(item);
         viewItem = item;
+        parent_rv = item.findViewById(R.id.home_main_rv);
 
+        lp_header= item.findViewById(R.id.lp_header);
+
+        // LP and TP elements use the same id
         tp_header= item.findViewById(R.id.toppost_header);
         tp_img = item.findViewById(R.id.toppost_img);
-
-        //lp_header= item.findViewById(R.id.latestpost_header);
-        //lp_img = item.findViewById(R.id.latestpost_header);
-
 
     }
 }
