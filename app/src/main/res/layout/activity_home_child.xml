@@ -9,6 +9,7 @@
         android:id="@+id/lp_header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
         android:text="Latest Posts"
         android:textSize="24sp"
@@ -20,17 +21,22 @@
         android:layout_width="match_parent"
         android:layout_height="2dp"
         android:layout_below="@id/tp_rv"
-        android:layout_marginTop="24dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
         android:layout_marginBottom="24dp"
         android:background="#DCDCDC"
         app:layout_constraintBottom_toTopOf="@+id/lp_header"
-        app:layout_constraintTop_toBottomOf="@+id/tp_rv"
-        tools:layout_editor_absoluteX="34dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tp_rv" />
 
     <TextView
         android:id="@+id/wklyfeat_header"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
         android:text="This Week's Feature!"
         android:textSize="24sp"
         app:layout_constraintStart_toStartOf="parent"
@@ -39,12 +45,15 @@
 
     <ImageView
         android:id="@+id/wklyfeat_img"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_below="@id/wklyfeat_header"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
         android:adjustViewBounds="true"
         android:src="@drawable/ashorthike"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/wklyfeat_header"
         app:srcCompat="@drawable/ashorthike" />
@@ -54,6 +63,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/wklyfeat_img"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:text="Top Posts"
         android:textSize="24sp"
@@ -65,7 +75,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/tp_header"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
         android:nestedScrollingEnabled="false"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tp_header" />
 
