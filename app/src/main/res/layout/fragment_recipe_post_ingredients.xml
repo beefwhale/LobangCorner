@@ -5,6 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:paddingBottom="17dp"
     tools:context=".RecipePostIngredients">
 
     <!-- TODO: Update blank fragment layout -->
@@ -54,6 +55,8 @@
             android:layout_marginLeft="7sp"
             android:layout_toRightOf="@+id/UntInput"
             android:src="@drawable/add" />
+
+
     </RelativeLayout>
 
     <androidx.recyclerview.widget.RecyclerView

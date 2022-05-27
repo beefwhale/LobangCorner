@@ -9,6 +9,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:paddingBottom="40dp"
         tools:context=".RecipePostMain">
 
         <!-- TODO: Update blank fragment layout -->
@@ -84,35 +85,13 @@
             app:layout_constraintTop_toBottomOf="@+id/rbutton1" />
 
         <NumberPicker
-            android:id="@+id/numberPicker2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/numberPicker"
-            app:layout_constraintTop_toBottomOf="@+id/minutes" />
-
-        <NumberPicker
             android:id="@+id/numberPicker"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            app:layout_constraintEnd_toStartOf="@+id/numberPicker2"
-            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/hours" />
-
-        <TextView
-            android:id="@+id/hours"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
-            android:text="Hours"
-            app:layout_constraintEnd_toStartOf="@+id/minutes"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/rText2" />
+            app:layout_constraintTop_toBottomOf="@+id/minutes" />
 
         <TextView
             android:id="@+id/minutes"
@@ -121,8 +100,7 @@
             android:layout_marginTop="30dp"
             android:text="Minutes"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/hours"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/rText2" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
