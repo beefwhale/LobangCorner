@@ -62,14 +62,15 @@ public class RecipeForm extends Fragment {
 
 
         RecipePostVPAdapter vpAdapter = new RecipePostVPAdapter(getChildFragmentManager(), getLifecycle());
-        vpAdapter.addFragment(new RecipePostMain(),"Recipe Post");
-        vpAdapter.addFragment(new RecipePostSteps(),"Recipe Steps");
-        vpAdapter.addFragment(new RecipePostIngredients(),"Recipe Ingredients");
+        vpAdapter.addFragment(new RecipePostMain(), "Recipe Post");
+        vpAdapter.addFragment(new RecipePostSteps(), "Recipe Steps");
+        vpAdapter.addFragment(new RecipePostIngredients(), "Recipe Ingredients");
         viewPager.setAdapter(vpAdapter);
         viewPager.setSaveEnabled(false);
 
-        new TabLayoutMediator(tabLayout, viewPager,new TabLayoutMediator.TabConfigurationStrategy() {
-            @Override public void onConfigureTab(@NonNull TabLayout.Tab tab, int position) {
+        new TabLayoutMediator(tabLayout, viewPager, new TabLayoutMediator.TabConfigurationStrategy() {
+            @Override
+            public void onConfigureTab(@NonNull TabLayout.Tab tab, int position) {
                 tab.setText(vpAdapter.getPageTitle(position));
             }
         }).attach();
@@ -112,9 +113,9 @@ public class RecipeForm extends Fragment {
                     }
                 });
 
-                recipeCorner = new RecipeCorner(recipeName,recipeDesc,0,0,username);
+                recipeCorner = new RecipeCorner(recipeName, recipeDesc, 0, 0, username);
                 userCurrentRcp = userProfile.getRcpList();
-                RcpUp(userCurrentRcp,recipeCorner);
+                RcpUp(userCurrentRcp, recipeCorner);
 
 
 //                Toast.makeText(getActivity(), "Post Success", Toast.LENGTH_SHORT).show();
@@ -122,8 +123,6 @@ public class RecipeForm extends Fragment {
 
             }
         });
-
-
 
         return recipeform;
     }

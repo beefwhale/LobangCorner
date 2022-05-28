@@ -100,43 +100,10 @@
             android:textSize="15sp" />
 
         <Button
-            android:id="@+id/idBtnChoose"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/idAbtme"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginEnd="20dp"
-            android:background="@drawable/custom_button_back"
-            android:text="Choose"
-            android:textAllCaps="false"
-            android:textColor="@color/white" />
-
-        <Button
-            android:id="@+id/idBtnUp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/idBtnChoose"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="20dp"
-            android:background="@drawable/custom_button_back"
-            android:text="Upload"
-            android:textAllCaps="false"
-            android:textColor="@color/white" />
-
-        <ImageView
-            android:id="@+id/idImgPre"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_below="@+id/idBtnUp"
-            android:layout_marginTop="20dp" />
-
-        <Button
             android:id="@+id/idLogout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/idImgPre"
+            android:layout_below="@id/idAbtme"
             android:layout_marginStart="100dp"
             android:layout_marginTop="20dp"
             android:layout_marginEnd="100dp"
@@ -145,6 +112,7 @@
             android:text="Logout"
             android:textAllCaps="false"
             android:textColor="@color/white" />
+
         <Button
             android:id="@+id/idBtnTest"
             android:layout_width="match_parent"

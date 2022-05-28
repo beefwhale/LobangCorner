@@ -30,7 +30,7 @@ import java.util.Locale;
 public class Registration extends AppCompatActivity {
 
     private TextInputEditText username, email, password, cnfpassword;
-    private String UID;
+    private String UID, profP;
     private Button regBtn;
     private ProgressBar loadingPB;
     private TextView loginTV;
@@ -86,12 +86,13 @@ public class Registration extends AppCompatActivity {
                             if (task.isSuccessful()) {
                                 UID = task.getResult().getUser().getUid();
 
+                                profP = "https://firebasestorage.googleapis.com/v0/b/lobang-corner.appspot.com/o/DefaultProfilePic%2FBlobus.PNG?alt=media&token=2f89a9bb-8292-4578-8d0e-b2fa7e37676d";
                                 HawkSeed = new HashMap<String, Object>();
-                                HawkSeed.put("Seed", "http://www.xinhuanet.com/english/2020-08/03/139259771_15964101188651n.jpg");
+                                HawkSeed.put("Seed", "HawkSeed");
                                 RcpSeed = new HashMap<String, Object>();
-                                RcpSeed.put("Seed", "TestRcpSeed");
+                                RcpSeed.put("Seed", "RcpSeed");
 
-                                CreateProfile(UID, Username, Email, HawkSeed, RcpSeed);
+                                CreateProfile(UID, Username, Email, profP, HawkSeed, RcpSeed);
 
                                 Toast.makeText(Registration.this, "User Registered...", Toast.LENGTH_SHORT).show();
                                 Intent i = new Intent(Registration.this, Login.class);
@@ -113,8 +114,8 @@ public class Registration extends AppCompatActivity {
     }
 
 
-    private void CreateProfile(String UID, String Username, String Email, HashMap<String, Object> HawkSeed, HashMap<String, Object> RcpSeed) {
-        userProfile = new UserProfile(UID, Username, Email, HawkSeed, RcpSeed);
+    private void CreateProfile(String UID, String Username, String Email, String profP, HashMap<String, Object> HawkSeed, HashMap<String, Object> RcpSeed) {
+        userProfile = new UserProfile(UID, Username, Email, profP , HawkSeed, RcpSeed);
 
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override

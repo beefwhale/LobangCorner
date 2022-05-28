@@ -77,8 +77,14 @@ public class Login extends AppCompatActivity {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()) {
-                                UID = task.getResult().getUser().getUid();
-                                GetProfile(UID);
+                                loadingPB.setVisibility(View.GONE);
+                                Toast.makeText(Login.this, "Login Successful...", Toast.LENGTH_SHORT).show();
+                                Intent i = new Intent(Login.this, MainActivity.class);
+
+                                startActivity(i);
+                                finish();
+//                                UID = task.getResult().getUser().getUid();
+//                                GetProfile(UID);
                             } else {
                                 loadingPB.setVisibility(View.GONE);
                                 Toast.makeText(Login.this, "Failed to login", Toast.LENGTH_SHORT).show();
@@ -91,35 +97,35 @@ public class Login extends AppCompatActivity {
 
 
     }
+//
+//    private void GetProfile(String UID) {
+//        databaseReference = firebaseDatabase.getReference("UserProfile").child(UID);
+//        Listener = databaseReference.addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                userProfile = snapshot.getValue(UserProfile.class);
+//
+//                loadingPB.setVisibility(View.GONE);
+//                Toast.makeText(Login.this, "Login Successful...", Toast.LENGTH_SHORT).show();
+//
+//                Intent i = new Intent(Login.this, MainActivity.class);
+//                Bundle bundle = new Bundle();
+//                bundle.putParcelable("UserProfile", Parcels.wrap(userProfile));
+//                i.putExtras(bundle);
+//
+//                databaseReference.removeEventListener(Listener);
+//                startActivity(i);
+//                finish();
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError error) {
+//
+//            }
+//        });
 
-    private void GetProfile(String UID) {
-        databaseReference = firebaseDatabase.getReference("UserProfile").child(UID);
-        Listener = databaseReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                userProfile = snapshot.getValue(UserProfile.class);
-
-                loadingPB.setVisibility(View.GONE);
-                Toast.makeText(Login.this, "Login Successful...", Toast.LENGTH_SHORT).show();
-
-                Intent i = new Intent(Login.this, MainActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putParcelable("UserProfile", Parcels.wrap(userProfile));
-                i.putExtras(bundle);
-
-                databaseReference.removeEventListener(Listener);
-                startActivity(i);
-                finish();
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-
-    }
 }
+
 
 //    @Override
 //    protected void onStart() {
