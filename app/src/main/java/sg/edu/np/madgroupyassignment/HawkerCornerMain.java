@@ -10,11 +10,19 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 import android.widget.Toast;
 
-import java.util.ArrayList;
+import com.google.android.material.navigation.NavigationBarView;
 
-public class HawkerCornerMain extends Fragment {
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+
+//Class is a fragment and will implement some methods for filtering
+public class HawkerCornerMain extends Fragment implements AdapterView.OnItemSelectedListener {
     //Class for the Main Page of Hawker Corner.
 
     //Set list to static so accessible by all class.
@@ -25,12 +33,25 @@ public class HawkerCornerMain extends Fragment {
     }
 
     public void onViewCreated(View view, Bundle savedInstanceState){
-        //Creating List of hawker corner stalls for display !!- Need to change to actual stalls, how to change pic + user's?
-        for (int i = 0; i < 10; i++) {
-            HawkerCornerStalls newstall = new HawkerCornerStalls();
-            newstall.hcstallname = "Stall " + i;
-            newstall.hcauthor = "Author " + i;
-            stallsList.add(newstall);
+        //Populate hawker corner's stallList, temporary and will change to get data from firebase
+        //Will create method to retrieve from db
+        ArrayList<HawkerCornerStalls> hcDBList = new ArrayList<>();
+        //If empty, means havent populate from firebase
+        if (stallsList.isEmpty()){
+            for (int i = 0; i < 10; i++) {
+                HawkerCornerStalls newstall = new HawkerCornerStalls();
+                newstall.hcstallname = "Stall " + i;
+                newstall.hcauthor = "Author " + i;
+                stallsList.add(newstall);
+            }
+        }
+        //If not empty, check if size is same, if not same, means new stalls, repopulate
+        else if (stallsList.size() != hcDBList.size()){
+
+        }
+        //Not empty and same size, no new stalls
+        else{
+
         }
 
         //Defining Recycler View info & Setting Layout and Adapter.
@@ -55,6 +76,16 @@ public class HawkerCornerMain extends Fragment {
                 return true;
             }
         });
+
+        //Making of Spinner Filter
+        Spinner hcmainSpinner = view.findViewById(R.id.hcmainspinner);
+
+        //Getting spinner filters and making Array Adapter to configure the spinner
+        String[] hcmainFilters = getResources().getStringArray(R.array.filters);
+        ArrayAdapter adapter = new ArrayAdapter(getContext(), android.R.layout.simple_spinner_item, hcmainFilters);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        hcmainSpinner.setAdapter(adapter);
+        hcmainSpinner.setOnItemSelectedListener(this);
     }
 
     //A method to filter the list of hawker stalls
@@ -77,5 +108,49 @@ public class HawkerCornerMain extends Fragment {
             HCMainsAdapter filteredstalls = new HCMainsAdapter(filteredList);
             hcmrvforfilter.setAdapter(filteredstalls);
         }
+    }
+
+    //Two methods to override from the superclass, methods for filtering
+    @Override
+    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+        switch (i) {
+            case 0:
+                break;
+            case 1:
+                Collections.sort(stallsList, new Comparator<HawkerCornerStalls>() {
+                    @Override
+                    public int compare(HawkerCornerStalls stall1, HawkerCornerStalls stall2) {
+                        return stall1.hcstallname.compareToIgnoreCase(stall2.hcstallname);
+                    }
+                });
+            case 2:
+                Collections.sort(stallsList, new Comparator<HawkerCornerStalls>() {
+                    @Override
+                    public int compare(HawkerCornerStalls stall1, HawkerCornerStalls stall2) {
+                        return stall1.hcstallname.compareToIgnoreCase(stall2.hcstallname);
+                    }
+                });
+                Collections.reverse(stallsList);
+            case 3:
+                Collections.sort(stallsList, new Comparator<HawkerCornerStalls>() {
+                    @Override
+                    public int compare(HawkerCornerStalls stall1, HawkerCornerStalls stall2) {
+                        return stall1.hcauthor.compareToIgnoreCase(stall2.hcauthor);
+                    }
+                });
+            case 4:
+                Collections.sort(stallsList, new Comparator<HawkerCornerStalls>() {
+                    @Override
+                    public int compare(HawkerCornerStalls stall1, HawkerCornerStalls stall2) {
+                        return stall1.hcauthor.compareToIgnoreCase(stall2.hcauthor);
+                    }
+                });
+                Collections.reverse(stallsList);
+        }
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> adapterView) {
+
     }
 }

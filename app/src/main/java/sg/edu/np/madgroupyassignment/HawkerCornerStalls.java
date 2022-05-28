@@ -11,11 +11,14 @@ public class HawkerCornerStalls {
     public ImageView hccoverimg;    //cover image for display in main
     public String hcstallname;      //stallname of hawker
     public String hcauthor;         //author who made hawker post
-    public ImageView chosenstallimg;       //image in chosen stall post
-    public ImageView hccuserpfp;           //user profile pic who made the post
-    public TextView hccusername;           //user's name
-    public Button hcclikebtn;              //liked on the post
-    public TextView hccparagraph;          //description of stall
+    public ImageView chosenstallimg;     //image in chosen stall post
+    public ImageView hccuserpfp;        //user profile pic who made the post
+    public TextView hccusername;       //user's name
+    public Boolean hccliked;          //liked on the post
+    public TextView hccparagraph;    //description of stall
+    public TextView hccaddress;     //Address of hawker stall
+    public TextView daysopen;      //How to make it so that user can enter different days and appear in two records
+    public TextView hoursopen;    //Same as ^
 
     //Constructors
     public HawkerCornerStalls (){
@@ -71,12 +74,12 @@ public class HawkerCornerStalls {
         this.hccusername = hccusername;
     }
 
-    public Button getHcclikebtn() {
-        return hcclikebtn;
+    public Boolean getHccliked() {
+        return hccliked;
     }
 
-    public void setHcclikebtn(Button hcclikebtn) {
-        this.hcclikebtn = hcclikebtn;
+    public void setHccliked(Boolean hccliked) {
+        this.hccliked = hccliked;
     }
 
     public TextView getHccparagraph() {
@@ -85,5 +88,29 @@ public class HawkerCornerStalls {
 
     public void setHccparagraph(TextView hccparagraph) {
         this.hccparagraph = hccparagraph;
+    }
+
+    public TextView getHccaddress() {
+        return hccaddress;
+    }
+
+    public void setHccaddress(TextView hccaddress) {
+        this.hccaddress = hccaddress;
+    }
+
+    public TextView getDaysopen() {
+        return daysopen;
+    }
+
+    public void setDaysopen(TextView daysopen) {
+        this.daysopen = daysopen;
+    }
+
+    public TextView getHoursopen() {
+        return hoursopen;
+    }
+
+    public void setHoursopen(TextView hoursopen) {
+        this.hoursopen = hoursopen;
     }
 }

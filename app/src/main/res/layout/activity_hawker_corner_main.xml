@@ -17,11 +17,11 @@
             android:id="@+id/hawkercornerrv"
             android:layout_width="0dp"
             android:layout_height="660dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="8dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/hawkercornersearch" />
+            app:layout_constraintTop_toBottomOf="@+id/hcmainspinner" />
 
         <androidx.appcompat.widget.SearchView
             android:id="@+id/hawkercornersearch"
@@ -33,5 +33,19 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <Spinner
+            android:id="@+id/hcmainspinner"
+            android:layout_width="365dp"
+            android:layout_height="48dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="8dp"
+            android:background="@drawable/searchview_design"
+            android:spinnerMode="dropdown"
+            android:contentDescription="@string/sort_by"
+            app:layout_constraintBottom_toTopOf="@+id/hawkercornerrv"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/hawkercornersearch" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>
