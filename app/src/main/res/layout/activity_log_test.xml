@@ -43,7 +43,7 @@
             android:weightSum="2">
 
             <TextView
-                android:id="@+id/idHawkList"
+                android:id="@+id/idHawkObj"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="35dp"
@@ -57,7 +57,7 @@
                 android:textColor="@color/white" />
 
             <TextView
-                android:id="@+id/idRecList"
+                android:id="@+id/idRcpObj"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="15dp"
@@ -93,8 +93,9 @@
             android:layout_below="@+id/idAbtHead"
             android:layout_marginTop="8dp"
             android:gravity="left"
+            android:minHeight="130dp"
             android:paddingHorizontal="17dp"
-            android:text="Lorem iptsum Lorem iptsum Lorem iptsum Lorem iptsum Lorem iptsum Lorem iptsumLorem iptsumLorem iptsumLorem iptsumLorem iptsumLorem iptsumLorem iptsumLorem iptsum"
+            android:text="About me"
             android:textAllCaps="false"
             android:textColor="@color/white"
             android:textSize="15sp" />

@@ -30,7 +30,7 @@ import java.util.Locale;
 public class Registration extends AppCompatActivity {
 
     private TextInputEditText username, email, password, cnfpassword;
-    private String UID, profP;
+    private String UID, profP, aboutMe;
     private Button regBtn;
     private ProgressBar loadingPB;
     private TextView loginTV;
@@ -52,10 +52,12 @@ public class Registration extends AppCompatActivity {
         regBtn = findViewById(R.id.idBtnReg);
         loadingPB = findViewById(R.id.PBloading);
         loginTV = findViewById(R.id.idEUlog);
+
         mAuth = FirebaseAuth.getInstance();
         firebaseDatabase = FirebaseDatabase.getInstance("https://lobang-corner-default-rtdb.asia-southeast1.firebasedatabase.app");
         databaseReference = firebaseDatabase.getReference("UserProfile");
 
+//        Move to login page
         loginTV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -64,15 +66,19 @@ public class Registration extends AppCompatActivity {
             }
         });
 
+//        Registering new user
         regBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 loadingPB.setVisibility(View.VISIBLE);
+
+//                Getting registration information
                 String Username = username.getText().toString();
                 String Email = email.getText().toString();
                 String Password = password.getText().toString();
                 String CnfPwd = cnfpassword.getText().toString();
 
+//                Checking that information is correct
                 if (!Password.equals(CnfPwd)) {
                     loadingPB.setVisibility(View.GONE);
                     Toast.makeText(Registration.this, "Ensure both passwords are the same", Toast.LENGTH_SHORT).show();
@@ -80,20 +86,26 @@ public class Registration extends AppCompatActivity {
                     loadingPB.setVisibility(View.GONE);
                     Toast.makeText(Registration.this, "Please enter credentials", Toast.LENGTH_SHORT).show();
                 } else {
+
+//                    Creating user
                     mAuth.createUserWithEmailAndPassword(Email, Password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()) {
                                 UID = task.getResult().getUser().getUid();
 
+//                                Setting default data
                                 profP = "https://firebasestorage.googleapis.com/v0/b/lobang-corner.appspot.com/o/DefaultProfilePic%2FBlobus.PNG?alt=media&token=2f89a9bb-8292-4578-8d0e-b2fa7e37676d";
+                                aboutMe = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. ";
                                 HawkSeed = new HashMap<String, Object>();
                                 HawkSeed.put("Seed", "HawkSeed");
                                 RcpSeed = new HashMap<String, Object>();
                                 RcpSeed.put("Seed", "RcpSeed");
 
-                                CreateProfile(UID, Username, Email, profP, HawkSeed, RcpSeed);
+//                                Creating new user profile
+                                CreateProfile(UID, Username, Email, profP,aboutMe, HawkSeed, RcpSeed);
 
+//                                Sending user to login page after registration
                                 Toast.makeText(Registration.this, "User Registered...", Toast.LENGTH_SHORT).show();
                                 Intent i = new Intent(Registration.this, Login.class);
                                 startActivity(i);
@@ -113,21 +125,12 @@ public class Registration extends AppCompatActivity {
 
     }
 
+    private void CreateProfile(String UID, String Username, String Email, String profP, String aboutMe, HashMap<String, Object> HawkSeed, HashMap<String, Object> RcpSeed) {
+//        Creating new userProfile object
+        userProfile = new UserProfile(UID, Username, Email, profP, aboutMe, HawkSeed, RcpSeed);
+//        Adding user profile to database
+        databaseReference.child(UID).setValue(userProfile);
 
-    private void CreateProfile(String UID, String Username, String Email, String profP, HashMap<String, Object> HawkSeed, HashMap<String, Object> RcpSeed) {
-        userProfile = new UserProfile(UID, Username, Email, profP , HawkSeed, RcpSeed);
-
-        databaseReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                loadingPB.setVisibility(View.GONE);
-                databaseReference.child(UID).setValue(userProfile);
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(Registration.this, "Error - " + error.toString(), Toast.LENGTH_SHORT).show();
-            }
-        });
+        loadingPB.setVisibility(View.GONE);
     }
 }

@@ -7,8 +7,11 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
+
 import android.content.ContentResolver;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.media.Image;
 import android.net.Uri;
@@ -20,6 +23,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.MimeTypeMap;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -40,6 +44,7 @@ import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
+
 import org.parceler.Parcels;
 import org.w3c.dom.Text;
 
@@ -48,12 +53,15 @@ import java.util.HashMap;
 
 public class Log_test extends Fragment {
 
-    private UserProfile userProfile;
-    private TextView Username;
-    private String UID, profileImg;
-    private Button logout;
-    private ImageView profP;
+    private static UserProfile userProfile;
+    private static TextView username, aboutme, hwkObj, rcpObj;
+    private static ImageView profP;
+    private static String UID, aboutMeInput;
+    private static ArrayList<RecipeCorner> recipeCorners;
+    private static ArrayList<HawkerCornerStalls> hawkerCornerStalls;
+    private Button logout, testbtn;
     private ProgressBar loadingPB;
+    private EditText input;
 
     private Uri ImageUri;
     private FirebaseAuth mAuth;
@@ -67,59 +75,84 @@ public class Log_test extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_log_test, null);
 
+        profP = view.findViewById(R.id.idProfP);
+        username = view.findViewById(R.id.TestTitle);
+        aboutme = view.findViewById(R.id.idAbtme);
+        hwkObj = view.findViewById(R.id.idHawkObj);
+        rcpObj = view.findViewById(R.id.idRcpObj);
+        logout = view.findViewById(R.id.idLogout);
+        loadingPB = view.findViewById(R.id.PBloading);
+        testbtn = view.findViewById(R.id.idBtnTest);
+
         mAuth = FirebaseAuth.getInstance();
-        storageReference = FirebaseStorage.getInstance().getReference("ImgUps");
+        storageReference = FirebaseStorage.getInstance().getReference();
         firebaseDatabase = FirebaseDatabase.getInstance();
         databaseReference = firebaseDatabase.getReference();
 
-        profP = view.findViewById(R.id.idProfP);
-        Username = view.findViewById(R.id.TestTitle);
-        logout = view.findViewById(R.id.idLogout);
-        loadingPB = view.findViewById(R.id.PBloading);
-        UID = mAuth.getCurrentUser().getUid();
+//        Initial page set
+        updatePage();
 
-        databaseReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                UserProfile retrieved = snapshot.child("UserProfile").child(UID).getValue(UserProfile.class);
-                userProfile = retrieved;
-                ArrayList<RecipeCorner> rcpList = new ArrayList<>();
-
-//                Recipes not added
-//                for (DataSnapshot objectEntry : snapshot.child("Posts").child("Recipes").getChildren()) {
-//                    RecipeCorner rcpObject = objectEntry.getValue(RecipeCorner.class);
-//                    rcpList.add(rcpObject);
-//                }
-
-                //Load profile pic
-                Picasso.get().load(retrieved.getProfileImg()).into(profP);
-                Username.setText(retrieved.getUsername());
-                profileImg = retrieved.getProfileImg();
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                Log.i("test", error.getMessage());
-            }
-        });
-
+//        Getting image
         getPhoto = registerForActivityResult(
                 new ActivityResultContracts.GetContent(),
                 new ActivityResultCallback<Uri>() {
                     @Override
                     public void onActivityResult(Uri result) {
                         ImageUri = result;
-                        //Picasso.get().load(result).into(ImgView);
                         upPost();
                     }
                 }
         );
 
-        //Getting image when profile pic is clicked
+//        Getting image when profile pic is clicked
         profP.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 getPhoto.launch("image/*");
+            }
+        });
+
+        aboutme.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                builder.setTitle("Change profile description");
+                input = new EditText(getActivity());
+                builder.setView(input);
+
+                builder.setPositiveButton("Submit", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        aboutMeInput = input.getText().toString();
+                        updateAboutMe(aboutMeInput);
+                    }
+                });
+
+                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+
+                    }
+                });
+
+                AlertDialog alert = builder.create();
+                alert.show();
+            }
+        });
+
+//        User hawker posts
+        hwkObj.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+
+//        User recipe posts
+        rcpObj.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
             }
         });
 
@@ -131,28 +164,56 @@ public class Log_test extends Fragment {
             }
         });
 
+//        Test button
+        testbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                updatePage();
+            }
+        });
+
         return view;
     }
 
+//    Updating profile page
+    public void updatePage() {
+        Picasso.get().load(userProfile.getProfileImg()).into(profP);
+        username.setText(userProfile.getUsername());
+        aboutme.setText(userProfile.getAboutMe());
+        hwkObj.setText("" + hawkerCornerStalls.size() + "\n\nHawker Posts");
+        rcpObj.setText("" + recipeCorners.size() + "\n\nRecipe Post");
+        UID = userProfile.getUID();
+    }
+
+//    Getting file extension
     private String getFileExt(Uri uri) {
         ContentResolver cR = getActivity().getContentResolver();
         MimeTypeMap mime = MimeTypeMap.getSingleton();
         return mime.getExtensionFromMimeType(cR.getType(uri));
     }
 
-//    Upload chosen image to firebase and set download uri to user profile
+//    Setting new about me
+    private void updateAboutMe(String newAboutMe){
+        HashMap<String, Object> data = new HashMap<>();
+
+        data.put("aboutMe", newAboutMe);
+        databaseReference.child("UserProfile").child(UID).updateChildren(data);
+    }
+
+//    Upload chosen image to firebase and change profile picture in user profile
     private void upPost() {
         if (ImageUri != null) {
-            StorageReference fileReference = storageReference.child(System.currentTimeMillis() + "." + getFileExt(ImageUri));
+            StorageReference fileReference = storageReference.child("ImgUps").child(System.currentTimeMillis() + "." + getFileExt(ImageUri));
 
+//            Putting new profile image into storage
             fileReference.putFile(ImageUri)
                     .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                             loadingPB.setVisibility(View.GONE);
-
                             Toast.makeText(getActivity(), "Upload Successful", Toast.LENGTH_SHORT).show();
 
+//                            Getting new image url
                             fileReference.getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
                                 @Override
                                 public void onComplete(@NonNull Task<Uri> task) {
@@ -162,6 +223,12 @@ public class Log_test extends Fragment {
                                     databaseReference.child("UserProfile").child(UID).updateChildren(profilePic);
                                 }
                             });
+
+//                            Deleting old image from storage if not default
+                            StorageReference storageLocationCheck = FirebaseStorage.getInstance().getReferenceFromUrl(userProfile.getProfileImg());
+                            if (storageLocationCheck.getParent().getName().equals("ImgUps")){
+                                storageLocationCheck.delete();
+                            }
 
                         }
                     });
@@ -178,6 +245,19 @@ public class Log_test extends Fragment {
 
         startActivity(i);
         getActivity().finish();
+    }
+
+    //Getting data on change
+    public void setUserProfile(UserProfile userProfile){
+        this.userProfile = userProfile;
+    }
+
+    public void setRecipePosts(ArrayList<RecipeCorner> rcpList) {
+        recipeCorners = rcpList;
+    }
+
+    public void setHawkerPosts(ArrayList<HawkerCornerStalls> hwkList) {
+        hawkerCornerStalls = hwkList;
     }
 
 }

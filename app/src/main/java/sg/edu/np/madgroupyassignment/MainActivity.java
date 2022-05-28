@@ -19,22 +19,24 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
 
 import android.util.Log;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity{
 
-//    private String UID;
-//    private UserProfile retrivedUserProfile;
-//    private ArrayList<RecipeCorner> rcpList;
-//    private ArrayList<HawkerCornerStalls> hawkList;
-//    private FirebaseAuth mAuth;
-//    private FirebaseDatabase firebaseDatabase;
-//    private DatabaseReference databaseReference;
-//    private ValueEventListener Listener;
+    private String UID;
+    private Boolean profileFirstUpdate;
+    private UserProfile userProfile;
+    private ArrayList<RecipeCorner> rcpList;
+    private ArrayList<HawkerCornerStalls> hwkList;
+    private FirebaseAuth mAuth;
+    private FirebaseDatabase firebaseDatabase;
+    private DatabaseReference databaseReference;
 
     BottomNavigationView bottomNavigationView;
 
@@ -43,41 +45,54 @@ public class MainActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-//        rcpList = new ArrayList<>();
-//        mAuth = FirebaseAuth.getInstance();
-//        firebaseDatabase = FirebaseDatabase.getInstance();
-//        databaseReference = firebaseDatabase.getReference();
-//        UID = mAuth.getCurrentUser().getUid();
-//
-//        //Updates fragments when database changes
-//        Listener = databaseReference.addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot snapshot) {
-//
-//                //Getting user profile
-//                retrivedUserProfile = snapshot.child("UserProfile").child(UID).getValue(UserProfile.class);
-//
-//                //Getting recipe posts
-//                for (DataSnapshot objectEntry : snapshot.child("Posts").child("Recipes").getChildren()) {
-//                    RecipeCorner rcpObject = objectEntry.getValue(RecipeCorner.class);
-//                    rcpList.add(rcpObject);
-//                }
-//
-//                //Add update for hawker posts
-//
-//                //Sending data to profile page
-////                Log_test log_test = new Log_test();
-////                log_test.profileToProfilePage(retrivedUserProfile);
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError error) {
-//
-//            }
-//        });
+        Log_test log_test = new Log_test();
+        rcpList = new ArrayList<>();
+        hwkList = new ArrayList<>();
+        profileFirstUpdate = true;
 
+        mAuth = FirebaseAuth.getInstance();
+        firebaseDatabase = FirebaseDatabase.getInstance();
+        databaseReference = firebaseDatabase.getReference();
+        UID = mAuth.getCurrentUser().getUid();
 
         bottomNavigationView = findViewById(R.id.bottomNavigationView);
+
+//        Getting data from database
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                Getting user profile
+                userProfile = snapshot.child("UserProfile").child(UID).getValue(UserProfile.class);
+
+//                Getting recipe posts - now used right now
+                for (DataSnapshot objectEntry : snapshot.child("Posts").child("Recipes").getChildren()) {
+                    RecipeCorner rcpObject = objectEntry.getValue(RecipeCorner.class);
+                    rcpList.add(rcpObject);
+                }
+
+//                Getting hawker posts - not used right now
+                for (DataSnapshot objectEntry : snapshot.child("Posts").child("Hawkers").getChildren()) {
+                    HawkerCornerStalls hwkObject = objectEntry.getValue(HawkerCornerStalls.class);
+                    hwkList.add(hwkObject);
+                }
+
+                //Sending data to fragments
+//                Updating profile page
+                log_test.setUserProfile(userProfile);
+                log_test.setRecipePosts(rcpList);
+                log_test.setHawkerPosts(hwkList);
+                if (profileFirstUpdate != true) {
+                    log_test.updatePage();
+                }
+                profileFirstUpdate = false;
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Log.i("test", error.getMessage());
+            }
+        });
 
         //Calling classes to replace upon nav bar click
         Home homeFragment = new Home();
@@ -92,6 +107,7 @@ public class MainActivity extends AppCompatActivity{
                     .replace(R.id.MainFragment, homeFragment)
                     .commit();
         }
+
         //Upon Bottom Nav Bar click
         bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
