@@ -113,7 +113,7 @@ public class RecipeForm extends Fragment {
                     }
                 });
 
-                recipeCorner = new RecipeCorner(recipeName, recipeDesc, 0, 0, username);
+                recipeCorner = new RecipeCorner(recipeName, recipeDesc, 0, 0, username, duration, steps);
                 userCurrentRcp = userProfile.getRcpList();
                 RcpUp(userCurrentRcp, recipeCorner);
 

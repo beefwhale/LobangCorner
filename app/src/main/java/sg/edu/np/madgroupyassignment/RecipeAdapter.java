@@ -3,12 +3,15 @@ package sg.edu.np.madgroupyassignment;
 import android.content.Context;
 import android.content.Intent;
 import android.media.Rating;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RatingBar;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
@@ -59,16 +62,19 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeViewHolder>{
         holder.ratingNo.setText(item.getNoOfRaters().toString());
         holder.ratingBar.setRating(item.getRecipeRating());
         holder.userName.setText("By: " + item.getUserName());
+        //idk how to pass the image to the posts activity
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(context, RecipeCornerPosts.class);
-                i.putExtra("name", item.getRecipeName());
-                i.putExtra("desc", item.getRecipeDescription());
-                i.putExtra("rating", item.getNoOfRaters().toString());
-                i.putExtra("ratingbar", item.getRecipeRating());
-                i.putExtra("username", "By: " + item.getUserName());
-                context.startActivity(i);
+
+                AppCompatActivity activity = (AppCompatActivity) view.getContext();
+                Fragment rcpFragment = new RecipeCornerPosts();
+                Bundle bundle = new Bundle();
+                bundle.putInt("recipeNo", holder.getAdapterPosition());
+                rcpFragment.setArguments(bundle);
+
+                activity.getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.MainFragment, rcpFragment).addToBackStack(null).commit();
             }
         });
     }
