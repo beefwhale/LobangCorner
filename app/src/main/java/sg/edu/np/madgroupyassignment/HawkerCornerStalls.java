@@ -26,16 +26,16 @@ public class HawkerCornerStalls {
     };
 
     public HawkerCornerStalls(ImageView hccoverimg, String hcstallname, String hcauthor,
-                              Boolean hccliked, TextView hccparagraph, TextView hccaddress,
-                              TextView daysopen, TextView hoursopen){
+                              Boolean hccliked, String hccparagraph, String hccaddress,
+                              String daysopen, String hoursopen){
         this.hccoverimg = hccoverimg;
         this.hcstallname = hcstallname;
         this.hcauthor = hcauthor;
         this.hccliked = hccliked;
-        this.hccparagraph = hccparagraph;
-        this.hccaddress = hccaddress;
-        this.daysopen = daysopen;
-        this.hoursopen = hoursopen;
+        this.hccparagraph.setText(hccparagraph);
+        this.hccaddress.setText(hccaddress);
+        this.daysopen.setText(daysopen);
+        this.hoursopen.setText(hoursopen);
     }
 
     //Getters and setters
