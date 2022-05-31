@@ -21,11 +21,13 @@ import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import org.parceler.Parcels;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.Locale;
 
 public class HawkerForm extends Fragment {
@@ -38,6 +40,7 @@ public class HawkerForm extends Fragment {
     int opHour, opMin, clHour, clMin;
 
     Button test;
+    Button submit;
     EditText sNInput;
     EditText dInput;
     EditText aInput;
@@ -56,6 +59,7 @@ public class HawkerForm extends Fragment {
     private FirebaseAuth mAuth;
     private static UserProfile userProfile;
     String username;
+    HashMap<String, Object> userCurrentHwk;
 
 
     HawkerCornerStalls hCS;
@@ -70,6 +74,7 @@ public class HawkerForm extends Fragment {
         View hf = inflater.inflate(R.layout.fragment_hawker_form, container, false);
 
         test = hf.findViewById(R.id.hbutton2);//Cover image button
+        submit = hf.findViewById(R.id.submitBtn);
 
         openingTime = "00:00";
         closingTime = "00:00";
@@ -277,9 +282,19 @@ public class HawkerForm extends Fragment {
         test.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+            }
+        });
+
+        submit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
                 username = userProfile.getUsername(); //USERNAME parameter
                 userPfpUrl = userProfile.getProfileImg();
-                hCS = new HawkerCornerStalls(stallName,username,false,desc,address,daysOpen,finalTime,userPfpUrl);
+                String timeStamp = String.valueOf(System.currentTimeMillis());
+                hCS = new HawkerCornerStalls(stallName,username,false,desc,address,daysOpen,finalTime,userPfpUrl, timeStamp);
+
+                userCurrentHwk = userProfile.getHawkList();
+                HwkUp(userCurrentHwk, hCS);
                 //Toast.makeText(getActivity(),finalTime, Toast.LENGTH_SHORT).show();
             }
         });
@@ -287,6 +302,18 @@ public class HawkerForm extends Fragment {
 
 
         return hf;
+    }
+
+    private void HwkUp(HashMap<String, Object> userHwkList, HawkerCornerStalls HwkObj) {
+        databaseReferencetest = FirebaseDatabase.getInstance().getReference();
+        mAuth = FirebaseAuth.getInstance();
+
+        String PostID = databaseReferencetest.push().getKey();
+        databaseReferencetest.child("Posts").child("Hawkers").child(PostID).setValue(HwkObj);
+
+        userHwkList.put(PostID, PostID);
+        databaseReferencetest.child("UserProfile").child(mAuth.getUid()).child("hawkList").updateChildren(userHwkList);
+        Toast.makeText(getActivity(), "HawkerPost Uploaded", Toast.LENGTH_SHORT).show();
     }
 
     public void retrieveUserProfile(UserProfile userProfile){

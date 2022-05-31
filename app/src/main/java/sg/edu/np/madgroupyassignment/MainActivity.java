@@ -49,6 +49,7 @@ public class MainActivity extends AppCompatActivity{
         RecipeForm recipeForm = new RecipeForm();
         HawkerForm hawkerForm = new HawkerForm();
         HawkerCornerMain hawkerCornerMain = new HawkerCornerMain();
+        RecipeCornerMain recipeCornerMain = new RecipeCornerMain();
         rcpList = new ArrayList<>();
         hwkList = new ArrayList<>();
         profileFirstUpdate = true;
@@ -95,6 +96,11 @@ public class MainActivity extends AppCompatActivity{
                 hawkerCornerMain.getHawkerList(hwkList);
                 if (hawkerCornerMain.hcadapter != null){
                     hawkerCornerMain.hcadapter.notifyDataSetChanged();
+                }
+
+                recipeCornerMain.getRecipeList(rcpList);
+                if (recipeCornerMain.adapter != null){
+                    recipeCornerMain.adapter.notifyDataSetChanged();
                 }
 
 

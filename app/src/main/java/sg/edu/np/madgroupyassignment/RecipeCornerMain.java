@@ -31,7 +31,7 @@ public class RecipeCornerMain extends Fragment implements AdapterView.OnItemSele
 
     // variable for our adapter
     // class and array list
-    private RecipeAdapter adapter;
+    public RecipeAdapter adapter;
     public static ArrayList<RecipeCorner> recipeModalArrayList = new ArrayList<>();
 
     public RecipeCornerMain(){
@@ -191,5 +191,9 @@ public class RecipeCornerMain extends Fragment implements AdapterView.OnItemSele
     @Override
     public void onNothingSelected(AdapterView<?> adapterView) {
 
+    }
+
+    public void getRecipeList(ArrayList<RecipeCorner> recipeList){
+        recipeModalArrayList = recipeList;
     }
 }
