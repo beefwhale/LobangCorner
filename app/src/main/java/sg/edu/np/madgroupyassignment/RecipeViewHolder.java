@@ -24,8 +24,8 @@ public class RecipeViewHolder extends RecyclerView.ViewHolder {
         userName = itemView.findViewById(R.id.idUser);
         foodImage = itemView.findViewById(R.id.imageView);
         ratingBar = itemView.findViewById(R.id.ratingBar);
-        ingreds = itemView.findViewById(R.id.idIngreds);
-        steps = itemView.findViewById(R.id.idSteps);
-        duration = itemView.findViewById(R.id.idDuration);
+        //ingreds = itemView.findViewById(R.id.idIngreds);
+        //steps = itemView.findViewById(R.id.idSteps);
+        //duration = itemView.findViewById(R.id.idDuration);
     }
 }

@@ -7,6 +7,8 @@ import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -16,6 +18,9 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
+
+import java.util.ArrayList;
+import java.util.HashMap;
 
 
 public class RecipeCornerPosts extends Fragment {
@@ -38,10 +43,21 @@ public class RecipeCornerPosts extends Fragment {
 
         TextView duration = view.findViewById(R.id.idDuration);
         TextView steps = view.findViewById(R.id.idSteps);
+        TextView ingred = view.findViewById(R.id.idIngreds);
 
         Bundle b = this.getArguments();
         int rcNo = (int) b.getInt("recipeNo");
-        RecipeCorner recipePost = RecipeCornerMain.recipeModalArrayList.get(rcNo);
+        RecipeCorner recipePost;
+        if (RecipeCornerMain.recipeModalArrayList.size() != 0){
+            // Normal Recipe Corner List
+             recipePost = RecipeCornerMain.recipeModalArrayList.get(rcNo);
+        }
+        else{
+            // profile Recipe Corner List
+             recipePost = ProfileRecipeRV.recipeCornersList.get(rcNo);
+        }
+
+
 
         n.setText(recipePost.recipeName);
         d.setText(recipePost.recipeDescription);
@@ -51,8 +67,10 @@ public class RecipeCornerPosts extends Fragment {
         //i.setImage
         duration.setText("Duration: " + recipePost.duration + " mins");
         steps.setText(recipePost.steps);
-
+        ingred.setText(recipePost.ingredients);
 
         return view;
     }
+
+
 }

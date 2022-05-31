@@ -35,7 +35,16 @@ public class HCChosenStall extends Fragment {
         Bundle bundle = this.getArguments();
 
         int chosenstallno = (int) bundle.getInt("stallposition");
-        HawkerCornerStalls chosenstall = HawkerCornerMain.stallsList.get(chosenstallno);
+        HawkerCornerStalls chosenstall;
+        if (HawkerCornerMain.stallsList .size() != 0){
+            // list for normal HC
+             chosenstall = HawkerCornerMain.stallsList.get(chosenstallno);
+        }
+        else{
+            // list for Profile linked HC
+             chosenstall = ProfileHawkerRV.hawkerCornersList.get(chosenstallno);
+        }
+
 
         chosenstallname.setText(chosenstall.hcstallname);
         hccusername.setText(chosenstall.hcauthor);
