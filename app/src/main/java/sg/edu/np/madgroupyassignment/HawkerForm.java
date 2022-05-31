@@ -290,7 +290,8 @@ public class HawkerForm extends Fragment {
             public void onClick(View view) {
                 username = userProfile.getUsername(); //USERNAME parameter
                 userPfpUrl = userProfile.getProfileImg();
-                hCS = new HawkerCornerStalls(stallName,username,false,desc,address,daysOpen,finalTime,userPfpUrl);
+                String timeStamp = String.valueOf(System.currentTimeMillis());
+                hCS = new HawkerCornerStalls(stallName,username,false,desc,address,daysOpen,finalTime,userPfpUrl, timeStamp);
 
                 userCurrentHwk = userProfile.getHawkList();
                 HwkUp(userCurrentHwk, hCS);
