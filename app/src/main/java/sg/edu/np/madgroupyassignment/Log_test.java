@@ -1,27 +1,29 @@
 package sg.edu.np.madgroupyassignment;
 
-import androidx.activity.result.ActivityResult;
+
 import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
+
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 
 import android.content.ContentResolver;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.MimeTypeMap;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -31,7 +33,6 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -47,148 +48,188 @@ import com.squareup.picasso.Picasso;
 import org.parceler.Parcels;
 import org.w3c.dom.Text;
 
+import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
 
 public class Log_test extends Fragment {
 
-    private HashMap<String, Object> UptV;
-
-    private View view;
-    private UserProfile userProfile;
-    private Button BtnChoose, BtnUp, Logout, Test;
-    private ImageView ImgView;
-    private TextView Username;
-    private String UID;
+    private static UserProfile userProfile;
+    private static TextView username, aboutme, hwkObj, rcpObj;
+    private static ImageView profP;
+    private static String UID, aboutMeInput;
+    private static ArrayList<RecipeCorner> recipeCorners;
+    private static ArrayList<HawkerCornerStalls> hawkerCornerStalls;
+    private Button logout, testbtn;
     private ProgressBar loadingPB;
+    private EditText input;
 
     private Uri ImageUri;
     private FirebaseAuth mAuth;
     private StorageReference storageReference;
-    private DatabaseReference databaseReference, databaseReferencetest;
+    private DatabaseReference databaseReference;
+    private FirebaseDatabase firebaseDatabase;
 
     ActivityResultLauncher<String> getPhoto;
 
-
-    @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.activity_log_test, null);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.activity_log_test, null);
 
-        BtnChoose = view.findViewById(R.id.idBtnChoose);
-        Logout = view.findViewById(R.id.idLogout);
-        BtnUp = view.findViewById(R.id.idBtnUp);
-        Test = view.findViewById(R.id.idBtnTest);
-        ImgView = view.findViewById(R.id.idImgPre);
-        Username = view.findViewById(R.id.TestTitle);
+        profP = view.findViewById(R.id.idProfP);
+        username = view.findViewById(R.id.TestTitle);
+        aboutme = view.findViewById(R.id.idAbtme);
+        hwkObj = view.findViewById(R.id.idHawkObj);
+        rcpObj = view.findViewById(R.id.idRcpObj);
+        logout = view.findViewById(R.id.idLogout);
         loadingPB = view.findViewById(R.id.PBloading);
-        mAuth = FirebaseAuth.getInstance();
+        testbtn = view.findViewById(R.id.idBtnTest);
 
+        mAuth = FirebaseAuth.getInstance();
+        storageReference = FirebaseStorage.getInstance().getReference();
+        firebaseDatabase = FirebaseDatabase.getInstance();
+        databaseReference = firebaseDatabase.getReference();
+
+//        Initial page set
+        updatePage();
+
+//        Getting image
         getPhoto = registerForActivityResult(
                 new ActivityResultContracts.GetContent(),
                 new ActivityResultCallback<Uri>() {
                     @Override
                     public void onActivityResult(Uri result) {
                         ImageUri = result;
-                        Picasso.get().load(result).into(ImgView);
+                        upPost();
                     }
                 }
         );
 
-        userProfile = Parcels.unwrap(getActivity().getIntent().getParcelableExtra("UserProfile"));
-        if (userProfile != null) {
-            Username.setText(userProfile.getUsername().toString());
-            UID = userProfile.getUID();
-            UptV = userProfile.getRcpList();
-        }
-
-        storageReference = FirebaseStorage.getInstance().getReference("ImgUps");
-        databaseReference = FirebaseDatabase.getInstance().getReference("UserProfile").child(UID).child("hawkList");
-        //^to be changed
-
-        BtnChoose.setOnClickListener(new View.OnClickListener() {
+//        Getting image when profile pic is clicked
+        profP.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 getPhoto.launch("image/*");
             }
         });
 
-        BtnUp.setOnClickListener(new View.OnClickListener() {
+        aboutme.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                upPost();
+                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                builder.setTitle("Change profile description");
+                input = new EditText(getActivity());
+                builder.setView(input);
+
+                builder.setPositiveButton("Submit", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        aboutMeInput = input.getText().toString();
+                        updateAboutMe(aboutMeInput);
+                    }
+                });
+
+                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+
+                    }
+                });
+
+                AlertDialog alert = builder.create();
+                alert.show();
             }
         });
 
-        Test.setOnClickListener(new View.OnClickListener() {
+//        User hawker posts
+        hwkObj.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                RcpUp(UptV);
+
             }
         });
 
-        Logout.setOnClickListener(new View.OnClickListener() {
+//        User recipe posts
+        rcpObj.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+
+//        Sign up button
+        logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 LogOut();
             }
         });
 
+//        Test button
+        testbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                updatePage();
+            }
+        });
+
         return view;
     }
 
-    private void RcpUp(HashMap<String, Object> UptV) {
-        databaseReferencetest = FirebaseDatabase.getInstance().getReference();
-
-        RecipeCorner RCP = new RecipeCorner("Testname", "TestDescription", 4, 5, "TestUser");
-        String PostID = databaseReferencetest.push().getKey();
-        databaseReferencetest.child("Posts").child("Recipes").child(PostID).setValue(RCP);
-
-        UptV.put(PostID, PostID);
-        databaseReferencetest.child("UserProfile").child(mAuth.getUid()).child("rcpList").updateChildren(UptV);
-        Toast.makeText(getActivity(), "Recipe Uploaded", Toast.LENGTH_SHORT).show();
+//    Updating profile page
+    public void updatePage() {
+        Picasso.get().load(userProfile.getProfileImg()).into(profP);
+        username.setText(userProfile.getUsername());
+        aboutme.setText(userProfile.getAboutMe());
+        hwkObj.setText("" + hawkerCornerStalls.size() + "\n\nHawker Posts");
+        rcpObj.setText("" + recipeCorners.size() + "\n\nRecipe Post");
+        UID = userProfile.getUID();
     }
 
-
-
+//    Getting file extension
     private String getFileExt(Uri uri) {
         ContentResolver cR = getActivity().getContentResolver();
         MimeTypeMap mime = MimeTypeMap.getSingleton();
         return mime.getExtensionFromMimeType(cR.getType(uri));
     }
 
+//    Setting new about me
+    private void updateAboutMe(String newAboutMe){
+        HashMap<String, Object> data = new HashMap<>();
+
+        data.put("aboutMe", newAboutMe);
+        databaseReference.child("UserProfile").child(UID).updateChildren(data);
+    }
+
+//    Upload chosen image to firebase and change profile picture in user profile
     private void upPost() {
         if (ImageUri != null) {
-            StorageReference fileReference = storageReference.child(System.currentTimeMillis() + "." + getFileExt(ImageUri));
+            StorageReference fileReference = storageReference.child("ImgUps").child(System.currentTimeMillis() + "." + getFileExt(ImageUri));
 
+//            Putting new profile image into storage
             fileReference.putFile(ImageUri)
                     .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                            Handler handler = new Handler();
-                            handler.postDelayed(new Runnable() {
-                                @Override
-                                public void run() {
-                                    loadingPB.setVisibility(View.GONE);
-                                }
-                            }, 500);
+                            loadingPB.setVisibility(View.GONE);
+                            Toast.makeText(getActivity(), "Upload Successful", Toast.LENGTH_SHORT).show();
 
-                            Toast.makeText(getActivity(), "Upload Succesful", Toast.LENGTH_SHORT).show();
-                            ImgUp imgUp = new ImgUp(UID, taskSnapshot.getMetadata().getReference().getDownloadUrl().toString());
-                            String UpID = databaseReference.push().getKey();
-                            databaseReference.child(UpID).setValue(imgUp);
-                        }
-                    })
-                    .addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_SHORT).show();
-                        }
-                    })
-                    .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
-                        @Override
-                        public void onProgress(@NonNull UploadTask.TaskSnapshot snapshot) {
-                            loadingPB.setVisibility(View.VISIBLE);
+//                            Getting new image url
+                            fileReference.getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Uri> task) {
+                                    HashMap<String, Object> profilePic = new HashMap<>();
+
+                                    profilePic.put("profileImg", task.getResult().toString());
+                                    databaseReference.child("UserProfile").child(UID).updateChildren(profilePic);
+                                }
+                            });
+
+//                            Deleting old image from storage if not default
+                            StorageReference storageLocationCheck = FirebaseStorage.getInstance().getReferenceFromUrl(userProfile.getProfileImg());
+                            if (storageLocationCheck.getParent().getName().equals("ImgUps")){
+                                storageLocationCheck.delete();
+                            }
+
                         }
                     });
         } else {
@@ -196,12 +237,27 @@ public class Log_test extends Fragment {
         }
     }
 
+    //Register for new account
     private void LogOut() {
         Toast.makeText(getActivity(), "User Logged out...", Toast.LENGTH_SHORT).show();
         mAuth.signOut();
         Intent i = new Intent(getActivity(), Login.class);
+
         startActivity(i);
         getActivity().finish();
+    }
+
+    //Getting data on change
+    public void setUserProfile(UserProfile userProfile){
+        this.userProfile = userProfile;
+    }
+
+    public void setRecipePosts(ArrayList<RecipeCorner> rcpList) {
+        recipeCorners = rcpList;
+    }
+
+    public void setHawkerPosts(ArrayList<HawkerCornerStalls> hwkList) {
+        hawkerCornerStalls = hwkList;
     }
 
 }

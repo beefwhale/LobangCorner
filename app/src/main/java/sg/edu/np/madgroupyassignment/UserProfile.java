@@ -7,10 +7,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 @org.parceler.Parcel
-public class UserProfile{
+public class UserProfile {
     String UID;
     String username;
     String email;
+    String profileImg;
+    String aboutMe;
     HashMap<String, Object> HawkList;
     HashMap<String, Object> RcpList;
 
@@ -18,10 +20,12 @@ public class UserProfile{
 
     }
 
-    public UserProfile(String UID, String username, String email, HashMap<String, Object> hawkList, HashMap<String, Object> rcpList) {
+    public UserProfile(String UID, String username, String email, String profileImg, String aboutMe, HashMap<String, Object> hawkList, HashMap<String, Object> rcpList) {
         this.UID = UID;
         this.username = username;
         this.email = email;
+        this.profileImg = profileImg;
+        this.aboutMe = aboutMe;
         HawkList = hawkList;
         RcpList = rcpList;
     }
@@ -50,6 +54,18 @@ public class UserProfile{
         this.email = email;
     }
 
+    public String getProfileImg() {
+        return profileImg;
+    }
+
+    public void setProfileImg(String profileImg) {
+        this.profileImg = profileImg;
+    }
+
+    public String getAboutMe() {return aboutMe;}
+
+    public void setAboutMe(String aboutMe) {this.aboutMe = aboutMe;}
+
     public HashMap<String, Object> getHawkList() {
         return HawkList;
     }
@@ -58,7 +74,9 @@ public class UserProfile{
         HawkList = hawkList;
     }
 
-    public  HashMap<String, Object> getRcpList() { return RcpList;}
+    public HashMap<String, Object> getRcpList() {
+        return RcpList;
+    }
 
     public void setRcpList(HashMap<String, Object> rcpList) {
         RcpList = rcpList;

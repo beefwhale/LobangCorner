@@ -1,7 +1,8 @@
 package sg.edu.np.madgroupyassignment;
-//app crash cuz of fragment
+//unsure of how to put the data(duration,ingreds, steps) in from recipecorner
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -12,29 +13,46 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+
 public class RecipeCornerPosts extends Fragment {
-    //Context c;
+    Context c;
+
+    public RecipeCornerPosts(){this.c =c;};
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         View view = inflater.inflate(R.layout.activity_recipe_corner_posts, container, false);
 
-        //setContentView(R.layout.activity_recipe_corner_posts);
 
-        Intent i = getActivity().getIntent();
-        ((TextView)view.findViewById(R.id.idRecipeName))
-                .setText(i.getStringExtra("name"));
-        ((TextView)view.findViewById(R.id.idRecipeDescription))
-                .setText(i.getStringExtra("desc"));
-        ((TextView)view.findViewById(R.id.rating)).
-                setText(i.getStringExtra("rating"));
-        RatingBar r = view.findViewById(R.id.ratingBar);
-        r.setRating(i.getIntExtra("ratingbar", 0));
-        ((TextView)view.findViewById(R.id.idUser)).
-                setText(i.getStringExtra("username"));
+        TextView n = view.findViewById(R.id.idRecipeName);
+        TextView d = view.findViewById(R.id.idRecipeDescription);
+        TextView id = view.findViewById(R.id.idUser);
+        TextView r = view.findViewById(R.id.rating);
+        RatingBar rb = view.findViewById(R.id.ratingBar);
+        ImageView i = view.findViewById(R.id.imageView);
+
+        TextView duration = view.findViewById(R.id.idDuration);
+        TextView steps = view.findViewById(R.id.idSteps);
+
+        Bundle b = this.getArguments();
+        int rcNo = (int) b.getInt("recipeNo");
+        RecipeCorner recipePost = RecipeCornerMain.recipeModalArrayList.get(rcNo);
+
+        n.setText(recipePost.recipeName);
+        d.setText(recipePost.recipeDescription);
+        id.setText("By: " + recipePost.userName);
+        r.setText(recipePost.noOfRaters.toString());
+        rb.setRating(recipePost.recipeRating);
+        //i.setImage
+        duration.setText("Duration: " + recipePost.duration + " mins");
+        steps.setText(recipePost.steps);
+
+
         return view;
     }
 }

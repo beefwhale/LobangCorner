@@ -64,4 +64,9 @@ public class HCMainsAdapter extends RecyclerView.Adapter<HCMainViewHolder> {
         return stallsList.size();
     }
 
+    //Method to notify change from filter
+    public void sortChange(ArrayList<HawkerCornerStalls> newList){
+        this.stallsList = newList;
+        notifyDataSetChanged();
+    }
 }

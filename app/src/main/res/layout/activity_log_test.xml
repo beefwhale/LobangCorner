@@ -43,7 +43,7 @@
             android:weightSum="2">
 
             <TextView
-                android:id="@+id/idHawkList"
+                android:id="@+id/idHawkObj"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="35dp"
@@ -57,7 +57,7 @@
                 android:textColor="@color/white" />
 
             <TextView
-                android:id="@+id/idRecList"
+                android:id="@+id/idRcpObj"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="15dp"
@@ -93,50 +93,18 @@
             android:layout_below="@+id/idAbtHead"
             android:layout_marginTop="8dp"
             android:gravity="left"
+            android:minHeight="130dp"
             android:paddingHorizontal="17dp"
-            android:text="Lorem iptsum Lorem iptsum Lorem iptsum Lorem iptsum Lorem iptsum Lorem iptsumLorem iptsumLorem iptsumLorem iptsumLorem iptsumLorem iptsumLorem iptsumLorem iptsum"
+            android:text="About me"
             android:textAllCaps="false"
             android:textColor="@color/white"
             android:textSize="15sp" />
 
         <Button
-            android:id="@+id/idBtnChoose"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/idAbtme"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginEnd="20dp"
-            android:background="@drawable/custom_button_back"
-            android:text="Choose"
-            android:textAllCaps="false"
-            android:textColor="@color/white" />
-
-        <Button
-            android:id="@+id/idBtnUp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/idBtnChoose"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="20dp"
-            android:background="@drawable/custom_button_back"
-            android:text="Upload"
-            android:textAllCaps="false"
-            android:textColor="@color/white" />
-
-        <ImageView
-            android:id="@+id/idImgPre"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_below="@+id/idBtnUp"
-            android:layout_marginTop="20dp" />
-
-        <Button
             android:id="@+id/idLogout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/idImgPre"
+            android:layout_below="@id/idAbtme"
             android:layout_marginStart="100dp"
             android:layout_marginTop="20dp"
             android:layout_marginEnd="100dp"
@@ -145,6 +113,7 @@
             android:text="Logout"
             android:textAllCaps="false"
             android:textColor="@color/white" />
+
         <Button
             android:id="@+id/idBtnTest"
             android:layout_width="match_parent"
