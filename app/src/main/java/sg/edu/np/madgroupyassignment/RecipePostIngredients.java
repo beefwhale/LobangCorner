@@ -27,7 +27,8 @@ public class RecipePostIngredients extends Fragment {
     EditText qty;
     EditText unit;
     ImageView add;
-    static HashMap<String, Object> totalIngred;
+    String totalIngred;
+    ArrayList<String> totalIngredList;
     FormsViewModel viewModel;
 
     public RecipePostIngredients() {
@@ -74,11 +75,22 @@ public class RecipePostIngredients extends Fragment {
                     qty.setText(""); //set text back to empty after entering
                     unit.setText(""); //set text back to empty after entering
 
-                    totalIngred = new HashMap<String, Object>(); //INGREDIENT parameter
+                    totalIngredList = new ArrayList<>();
+                    totalIngred = "";
+
                     for (int i=0; i<ingredList.size(); i++){
-                        String iName = ingredList.get(i).name;
-                        String qtyAndUnit = ingredList.get(i).qty + " " + ingredList.get(i).unit;
-                        totalIngred.put(iName, qtyAndUnit);
+                        String ingredString = ingredList.get(i).qty + " " + ingredList.get(i).unit + " " + ingredList.get(i).name;
+                        totalIngredList.add(ingredString);
+
+                    }
+
+                    for (int i=0; i<totalIngredList.size(); i++){
+                        if (i==(totalIngredList.size()-1)){
+                            totalIngred = totalIngred + totalIngredList.get(i);
+                        }
+                        else if (i!=(totalIngredList.size()-1)){
+                            totalIngred = totalIngred + totalIngredList.get(i) + "\n";
+                        }
                     }
 
                     viewModel = new ViewModelProvider(requireParentFragment()).get(FormsViewModel.class);

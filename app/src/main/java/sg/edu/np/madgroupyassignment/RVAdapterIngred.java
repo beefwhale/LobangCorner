@@ -15,6 +15,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelStoreOwner;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -22,8 +23,9 @@ public class RVAdapterIngred extends RecyclerView.Adapter<RVAdapterIngred.ViewHo
     ArrayList<Ingredient> list;
     Context context;
     ViewModelStoreOwner VMSO;
-    HashMap<String, Object> totalIngred;
+    String totalIngred;
     FormsViewModel viewModel;
+    ArrayList<String> totalIngredList;
 
     public RVAdapterIngred(Context context, ArrayList<Ingredient> ingreds, ViewModelStoreOwner vmso){
         this.context = context;
@@ -56,12 +58,22 @@ public class RVAdapterIngred extends RecyclerView.Adapter<RVAdapterIngred.ViewHo
         remove.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                totalIngredList = new ArrayList<>();
+                totalIngred = "";
                 RecipePostIngredients.removeItem(holder.getAdapterPosition());//allow remove of ingredient using imageview
-                totalIngred = new HashMap<String, Object>(); //INGREDIENT parameter
                 for (int i=0; i<list.size(); i++){
-                    String iName = list.get(i).name;
-                    String qtyAndUnit =list.get(i).qty + " " + list.get(i).unit;
-                    totalIngred.put(iName, qtyAndUnit);
+                    String ingredString = list.get(i).name + " " + list.get(i).qty + " " + list.get(i).unit;
+                    totalIngredList.add(ingredString);
+
+                }
+
+                for (int i=0; i<totalIngredList.size(); i++){
+                    if (i==(totalIngredList.size()-1)){
+                        totalIngred = totalIngred + totalIngredList.get(i);
+                    }
+                    else if (i!=(totalIngredList.size()-1)){
+                        totalIngred = totalIngred + totalIngredList.get(i) + "\n";
+                    }
                 }
 
                 viewModel = new ViewModelProvider(VMSO).get(FormsViewModel.class);

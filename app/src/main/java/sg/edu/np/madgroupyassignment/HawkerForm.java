@@ -19,6 +19,11 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+
+import org.parceler.Parcels;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Locale;
@@ -44,6 +49,14 @@ public class HawkerForm extends Fragment {
     String address;
     String openingTime;
     String closingTime;
+
+    private DatabaseReference databaseReferencetest;
+    private FirebaseAuth mAuth;
+    UserProfile userProfile;
+    String username;
+
+
+    HawkerCornerStalls hCS;
 
     public HawkerForm() {
 
@@ -111,6 +124,8 @@ public class HawkerForm extends Fragment {
             }
         });
 
+
+        //Select Opening and Closing Time
         opTInput.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -127,7 +142,6 @@ public class HawkerForm extends Fragment {
                 TimePickerDialog timePickerDialog = new TimePickerDialog(getActivity(),TimePickerDialog.THEME_HOLO_LIGHT,
                         onTimeSetListener,opHour,opMin,true);
 
-//                openingTime = String.format(Locale.getDefault(), "%02d:%02d", opHour, opMin);
 
                 timePickerDialog.setTitle("Select Time");
                 timePickerDialog.show();
@@ -150,7 +164,6 @@ public class HawkerForm extends Fragment {
                 TimePickerDialog timePickerDialog = new TimePickerDialog(getActivity(),TimePickerDialog.THEME_HOLO_LIGHT,
                         onTimeSetListener,clHour,clMin,true);
 
-//                closingTime = String.format(Locale.getDefault(), "%02d:%02d", clHour, clMin);
 
                 timePickerDialog.setTitle("Select Time");
                 timePickerDialog.show();
@@ -219,7 +232,7 @@ public class HawkerForm extends Fragment {
                         openDayBtn.setText(stringBuilder.toString());
                         daysOpen = ""; //String with all the stuff
                         for (int j =0;j<dayList.size();j++){
-                            daysOpen = daysOpen + dayArray[dayList.get(j)] +" ";
+                            daysOpen = daysOpen + dayArray[dayList.get(j)] +", ";
                         }
                     }
                 });
@@ -256,7 +269,10 @@ public class HawkerForm extends Fragment {
         test.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getActivity(), openingTime, Toast.LENGTH_SHORT).show();
+                userProfile = Parcels.unwrap(getActivity().getIntent().getParcelableExtra("UserProfile"));
+                username = userProfile.getUsername(); //USERNAME parameter
+                //hCS = new HawkerCornerStalls(stallName,username,false,desc,address,daysOpen,ti);
+                Toast.makeText(getActivity(),daysOpen, Toast.LENGTH_SHORT).show();
             }
         });
 

@@ -169,4 +169,8 @@ public class HawkerCornerMain extends Fragment implements AdapterView.OnItemSele
         });
         return stallsList;
     }
+
+    public void getHawkerList(ArrayList<HawkerCornerStalls> hawkerList){
+        stallsList = hawkerList;
+    }
 }

@@ -25,10 +25,10 @@ public class HawkerCornerStalls {
 
     };
 
-    public HawkerCornerStalls(ImageView hccoverimg, String hcstallname, String hcauthor,
+    public HawkerCornerStalls(/*ImageView hccoverimg,*/ String hcstallname, String hcauthor,
                               Boolean hccliked, String hccparagraph, String hccaddress,
                               String daysopen, String hoursopen){
-        this.hccoverimg = hccoverimg;
+        //this.hccoverimg = hccoverimg;
         this.hcstallname = hcstallname;
         this.hcauthor = hcauthor;
         this.hccliked = hccliked;

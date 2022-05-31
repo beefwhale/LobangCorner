@@ -30,14 +30,15 @@ public class RecipeForm extends Fragment {
     private TabLayout tabLayout;
     private ViewPager2 viewPager;
     Button submitButton;
-    UserProfile userProfile;
+    private static UserProfile userProfile;
     FormsViewModel viewModel;
     private DatabaseReference databaseReferencetest;
     private FirebaseAuth mAuth;
 
 
+
     String username;
-    HashMap<String, Object> totalIngred;
+    String totalIngred;
     String recipeName;
     String recipeDesc;
     String duration;
@@ -80,7 +81,7 @@ public class RecipeForm extends Fragment {
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                userProfile = Parcels.unwrap(getActivity().getIntent().getParcelableExtra("UserProfile"));
+//                userProfile = Parcels.unwrap(getActivity().getIntent().getParcelableExtra("UserProfile"));
                 username = userProfile.getUsername(); //USERNAME parameter
                 viewModel.getSelectedRecipeName().observe(getViewLifecycleOwner(), new Observer<String>() {
                     @Override
@@ -106,19 +107,20 @@ public class RecipeForm extends Fragment {
                         steps = s; //STEPS parameter
                     }
                 });
-                viewModel.getSelectedRecipeIngred().observe(getViewLifecycleOwner(), new Observer<HashMap<String, Object>>() {
+                viewModel.getSelectedRecipeIngred().observe(getViewLifecycleOwner(), new Observer<String>() {
                     @Override
-                    public void onChanged(HashMap<String, Object> stringObjectHashMap) {
-                        totalIngred = stringObjectHashMap;//INGREDIENT parameter
+                    public void onChanged(String s) {
+                        totalIngred = s;//INGREDIENT parameter
                     }
                 });
 
+                String timeStamp = String.valueOf(System.currentTimeMillis());
                 recipeCorner = new RecipeCorner(recipeName, recipeDesc, 0, 0, username, duration, steps);
                 userCurrentRcp = userProfile.getRcpList();
                 RcpUp(userCurrentRcp, recipeCorner);
 
 
-//                Toast.makeText(getActivity(), "Post Success", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getActivity(), totalIngred, Toast.LENGTH_SHORT).show();
 
 
             }
@@ -137,6 +139,10 @@ public class RecipeForm extends Fragment {
         userRcpList.put(PostID, PostID);
         databaseReferencetest.child("UserProfile").child(mAuth.getUid()).child("rcpList").updateChildren(userRcpList);
         Toast.makeText(getActivity(), "Recipe Uploaded", Toast.LENGTH_SHORT).show();
+    }
+
+    public void retrieveUserProfile(UserProfile userProfile){
+        this.userProfile = userProfile;
     }
 
 

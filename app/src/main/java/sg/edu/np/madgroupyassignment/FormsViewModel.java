@@ -43,7 +43,7 @@ public class FormsViewModel extends ViewModel {
         return selectedRecipeSteps;
     }
 
-    private final MutableLiveData<HashMap<String, Object>> selectedRecipeIngred = new MutableLiveData<HashMap<String, Object>>();
-    public void selectRecipeIngred(HashMap<String, Object> hashMap){selectedRecipeIngred.setValue(hashMap);}
-    public LiveData<HashMap<String, Object>> getSelectedRecipeIngred(){return selectedRecipeIngred;}
+    private final MutableLiveData<String> selectedRecipeIngred = new MutableLiveData<String>();
+    public void selectRecipeIngred(String string){selectedRecipeIngred.setValue(string);}
+    public LiveData<String> getSelectedRecipeIngred(){return selectedRecipeIngred;}
 }
