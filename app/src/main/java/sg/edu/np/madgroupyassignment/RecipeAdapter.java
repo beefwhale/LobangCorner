@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.media.Rating;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,11 +24,13 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeViewHolder>{
     // creating a variable for array list and context.
     private ArrayList<RecipeCorner> recipeArrayList;
     private Context context;
+    private Integer count;
 
     // creating a constructor for our variables.
     public RecipeAdapter(ArrayList<RecipeCorner> recipeArrayList, Context context) {
         this.recipeArrayList = recipeArrayList;
         this.context = context;
+        this.count = count;
     }
 
     public void sort(ArrayList<RecipeCorner> sortllist){
@@ -49,7 +52,9 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeViewHolder>{
     @Override
     public RecipeViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         // below line is to inflate our layout.
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.recipe_corner_layout, parent, false);
+        View view;
+        view = LayoutInflater.from(parent.getContext()).inflate(R.layout.recipe_corner_layout, parent, false);
+
         return new RecipeViewHolder(view);
     }
 
@@ -57,7 +62,9 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeViewHolder>{
     public void onBindViewHolder(@NonNull RecipeViewHolder holder, int position) {
         // setting data to our views of recycler view.
         RecipeCorner item = recipeArrayList.get(position);
-        holder.recipeName.setText(item.getRecipeName());
+        //Log.d("list name", item.recipeName);
+
+        holder.recipeName.setText(item.recipeName);
         holder.recipeDesc.setText(item.getRecipeDescription());
         holder.ratingNo.setText(item.getNoOfRaters().toString());
         holder.ratingBar.setRating(item.getRecipeRating());
