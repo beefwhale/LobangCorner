@@ -82,9 +82,10 @@
                 android:id="@+id/divider"
                 android:layout_width="350dp"
                 android:layout_height="1dp"
-                android:layout_marginTop="32dp"
+                android:layout_marginTop="36dp"
                 android:background="#FF1D1D"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.491"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
@@ -121,19 +122,9 @@
                 android:layout_marginTop="40dp"
                 android:background="#FF1D1D"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.524"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/idIngreds" />
-
-            <TextView
-                android:id="@+id/idIngreds"
-                android:layout_width="330dp"
-                android:layout_height="235dp"
-                android:layout_marginTop="20dp"
-                android:text="TextView"
-                android:textSize="16sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/ingredHeader" />
 
             <TextView
                 android:id="@+id/idSteps"
@@ -167,6 +158,16 @@
                 android:text="TextView"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/idRecipeDescription" />
+
+            <TextView
+                android:id="@+id/idIngreds"
+                android:layout_width="336dp"
+                android:layout_height="245dp"
+                android:layout_marginTop="20dp"
+                android:text="TextView"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/ingredHeader" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
