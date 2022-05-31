@@ -146,7 +146,10 @@ public class Log_test extends Fragment {
         hwkObj.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                AppCompatActivity activity = (AppCompatActivity) view.getContext();
+                Fragment profileHcFragment = new ProfileHawkerRV();
+                activity.getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.MainFragment, profileHcFragment).addToBackStack(null).commit();
             }
         });
 
