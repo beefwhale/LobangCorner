@@ -15,10 +15,10 @@ public class HawkerCornerStalls {
     public String hcauthor;         //author who made hawker post
     public ImageView hccuserpfp;        //user profile pic who made the post
     public Boolean hccliked;          //liked on the post
-    public TextView hccparagraph;    //description of stall
-    public TextView hccaddress;     //Address of hawker stall
-    public TextView daysopen;      //How to make it so that user can enter different days and appear in two records
-    public TextView hoursopen;    //Same as ^
+    public String hccparagraph;    //description of stall
+    public String hccaddress;     //Address of hawker stall
+    public String daysopen;      //How to make it so that user can enter different days and appear in two records
+    public String hoursopen;    //Same as ^
 
     //Constructors
     public HawkerCornerStalls (){
@@ -32,10 +32,10 @@ public class HawkerCornerStalls {
         this.hcstallname = hcstallname;
         this.hcauthor = hcauthor;
         this.hccliked = hccliked;
-        this.hccparagraph.setText(hccparagraph);
-        this.hccaddress.setText(hccaddress);
-        this.daysopen.setText(daysopen);
-        this.hoursopen.setText(hoursopen);
+        this.hccparagraph = hccparagraph;
+        this.hccaddress = hccaddress;
+        this.daysopen = daysopen;
+        this.hoursopen = hoursopen;
     }
 
     //Getters and setters
@@ -79,35 +79,35 @@ public class HawkerCornerStalls {
         this.hccliked = hccliked;
     }
 
-    public TextView getHccparagraph() {
+    public String getHccparagraph() {
         return hccparagraph;
     }
 
-    public void setHccparagraph(TextView hccparagraph) {
+    public void setHccparagraph(String hccparagraph) {
         this.hccparagraph = hccparagraph;
     }
 
-    public TextView getHccaddress() {
+    public String getHccaddress() {
         return hccaddress;
     }
 
-    public void setHccaddress(TextView hccaddress) {
+    public void setHccaddress(String hccaddress) {
         this.hccaddress = hccaddress;
     }
 
-    public TextView getDaysopen() {
+    public String getDaysopen() {
         return daysopen;
     }
 
-    public void setDaysopen(TextView daysopen) {
+    public void setDaysopen(String daysopen) {
         this.daysopen = daysopen;
     }
 
-    public TextView getHoursopen() {
+    public String getHoursopen() {
         return hoursopen;
     }
 
-    public void setHoursopen(TextView hoursopen) {
+    public void setHoursopen(String hoursopen) {
         this.hoursopen = hoursopen;
     }
 }
