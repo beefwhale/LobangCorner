@@ -5,15 +5,15 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import org.w3c.dom.Text;
+
 public class HawkerCornerStalls {
     //Data for the HawkerCornerStalls
 
     public ImageView hccoverimg;    //cover image for display in main
     public String hcstallname;      //stallname of hawker
     public String hcauthor;         //author who made hawker post
-    public ImageView chosenstallimg;     //image in chosen stall post
     public ImageView hccuserpfp;        //user profile pic who made the post
-    public TextView hccusername;       //user's name
     public Boolean hccliked;          //liked on the post
     public TextView hccparagraph;    //description of stall
     public TextView hccaddress;     //Address of hawker stall
@@ -24,6 +24,19 @@ public class HawkerCornerStalls {
     public HawkerCornerStalls (){
 
     };
+
+    public HawkerCornerStalls(ImageView hccoverimg, String hcstallname, String hcauthor,
+                              Boolean hccliked, TextView hccparagraph, TextView hccaddress,
+                              TextView daysopen, TextView hoursopen){
+        this.hccoverimg = hccoverimg;
+        this.hcstallname = hcstallname;
+        this.hcauthor = hcauthor;
+        this.hccliked = hccliked;
+        this.hccparagraph = hccparagraph;
+        this.hccaddress = hccaddress;
+        this.daysopen = daysopen;
+        this.hoursopen = hoursopen;
+    }
 
     //Getters and setters
     public ImageView getHccoverimg() {
@@ -50,28 +63,12 @@ public class HawkerCornerStalls {
         this.hcauthor = hcauthor;
     }
 
-    public ImageView getChosenstallimg() {
-        return chosenstallimg;
-    }
-
-    public void setChosenstallimg(ImageView chosenstallimg) {
-        this.chosenstallimg = chosenstallimg;
-    }
-
     public ImageView getHccuserpfp() {
         return hccuserpfp;
     }
 
     public void setHccuserpfp(ImageView hccuserpfp) {
         this.hccuserpfp = hccuserpfp;
-    }
-
-    public TextView getHccusername() {
-        return hccusername;
-    }
-
-    public void setHccusername(TextView hccusername) {
-        this.hccusername = hccusername;
     }
 
     public Boolean getHccliked() {
