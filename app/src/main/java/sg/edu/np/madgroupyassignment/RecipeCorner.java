@@ -13,7 +13,7 @@ public class RecipeCorner {
     String steps;
     String ingredients;
     String postTimeStamp;
-
+    String foodImage;
 
     //Empty constructor
     public RecipeCorner(){
@@ -23,7 +23,7 @@ public class RecipeCorner {
     // creating constructor for our variables.
     public RecipeCorner(String recipeName, String recipeDescription, int recipeRating,
                        int noOfRaters, String userName, String duration,
-                         String steps, String ingredients/*, String postTimeStamp*/) {
+                         String steps, String ingredients, String postTimeStamp/*, String foodImage*/) {
         this.recipeName = recipeName;
         this.recipeDescription = recipeDescription;
         this.recipeRating = recipeRating;
@@ -33,6 +33,7 @@ public class RecipeCorner {
         this.steps = steps;
         this.ingredients = ingredients;
         this.postTimeStamp = postTimeStamp;
+        this.foodImage = foodImage;
     }
 
 
@@ -96,5 +97,13 @@ public class RecipeCorner {
 
     public void setPostTimeStamp(String postTimeStamp) {
         this.postTimeStamp = postTimeStamp;
+    }
+
+    public String getFoodImage() {
+        return foodImage;
+    }
+
+    public void setFoodImage(String foodImage) {
+        this.foodImage = foodImage;
     }
 }
