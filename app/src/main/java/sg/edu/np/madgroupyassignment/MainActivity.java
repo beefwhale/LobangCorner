@@ -97,6 +97,7 @@ public class MainActivity extends AppCompatActivity{
         //Calling classes to replace upon nav bar click
         Home homeFragment = new Home();
         RecipeForm recipeFragment = new RecipeForm(); //temp
+        HawkerForm hawkerFragment = new HawkerForm(); //temp
         Log_test profile = new Log_test();
         HawkerCornerMain hcmain = new HawkerCornerMain();
         RecipeCornerMain rcmain = new RecipeCornerMain();
@@ -129,7 +130,7 @@ public class MainActivity extends AppCompatActivity{
                 }
                 switch (item.getItemId()) {
                     case R.id.recipeform:
-                        getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, recipeFragment, null).commit(); //temp segment
+                        getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, hawkerFragment, null).commit(); //temp segment
                         return true;
                 }
                 switch (item.getItemId()) {
