@@ -28,6 +28,7 @@
         android:background="#DCDCDC"
         app:layout_constraintBottom_toTopOf="@+id/lp_header"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tp_rv" />
 
@@ -65,10 +66,50 @@
         android:layout_below="@id/wklyfeat_img"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:text="Top Posts"
+        android:text="Explore"
         android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@+id/idLLView"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/wklyfeat_img" />
+
+    <LinearLayout
+        android:id="@+id/idLLView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:orientation="horizontal"
+        android:weightSum="2"
+        app:layout_constraintBottom_toTopOf="@+id/tp_rv"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tp_header">
+
+        <ImageView
+            android:id="@+id/imageView5"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="20dp"
+            android:layout_weight="1"
+
+            android:scaleType="fitCenter"
+            app:srcCompat="@drawable/ashorthike"
+            tools:layout_editor_absoluteX="92dp"
+            tools:layout_editor_absoluteY="403dp" />
+
+        <ImageView
+            android:id="@+id/imageView6"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="8dp"
+            android:layout_weight="1"
+            android:scaleType="fitCenter"
+            app:srcCompat="@drawable/ashorthike"
+            tools:layout_editor_absoluteX="92dp"
+            tools:layout_editor_absoluteY="403dp" />
+
+    </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/tp_rv"
@@ -76,9 +117,11 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/tp_header"
         android:layout_marginStart="8dp"
+        android:layout_marginTop="200dp"
         android:layout_marginEnd="8dp"
         android:nestedScrollingEnabled="false"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tp_header" />
 

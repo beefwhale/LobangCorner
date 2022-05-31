@@ -1,14 +1,49 @@
 package sg.edu.np.madgroupyassignment;
 
+import android.app.TimePickerDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.text.format.Time;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.TimePicker;
+import android.widget.Toast;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Locale;
 
 public class HawkerForm extends Fragment {
+
+    TextView openDayBtn;
+    boolean[] selectedDay;
+    ArrayList<Integer> dayList = new ArrayList<>();
+    String daysOpen;
+    String[] dayArray = {"Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"};
+    int opHour, opMin, clHour, clMin;
+
+    Button test;
+    EditText sNInput;
+    EditText dInput;
+    EditText aInput;
+    Button opTInput;
+    Button clTInput;
+
+    String stallName;
+    String desc;
+    String address;
+    String openingTime;
+    String closingTime;
 
     public HawkerForm() {
 
@@ -18,6 +53,215 @@ public class HawkerForm extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View hf = inflater.inflate(R.layout.fragment_hawker_form, container, false);
+
+        test = hf.findViewById(R.id.hbutton2);//Cover image button
+
+        openingTime = "00:00";
+        closingTime = "00:00";
+
+        //Assign variable
+        sNInput = hf.findViewById(R.id.StallName);
+        dInput = hf.findViewById(R.id.Desc);
+        aInput = hf.findViewById(R.id.addrInput);
+        opTInput = hf.findViewById(R.id.openingTime);
+        clTInput = hf.findViewById(R.id.closingTime);
+
+
+        //Assigning Stall Name to variable
+        sNInput.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                stallName = sNInput.getText().toString();
+            }
+            @Override
+            public void afterTextChanged(Editable editable) {
+            }
+        });
+
+
+        //Assigning Description to variable
+        dInput.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                desc = dInput.getText().toString();
+            }
+            @Override
+            public void afterTextChanged(Editable editable) {
+            }
+        });
+
+
+        //Assigning Address to variable
+        aInput.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                address = aInput.getText().toString();
+            }
+            @Override
+            public void afterTextChanged(Editable editable) {
+            }
+        });
+
+        opTInput.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                TimePickerDialog.OnTimeSetListener onTimeSetListener= new TimePickerDialog.OnTimeSetListener() {
+                    @Override
+                    public void onTimeSet(TimePicker timePicker, int selectedHr, int selectedMin) {
+                        opHour = selectedHr;
+                        opMin = selectedMin;
+                        opTInput.setText(String.format(Locale.getDefault(), "%02d:%02d", opHour, opMin));
+                        openingTime = String.format(Locale.getDefault(), "%02d:%02d", opHour, opMin);
+                    }
+                };
+
+                TimePickerDialog timePickerDialog = new TimePickerDialog(getActivity(),TimePickerDialog.THEME_HOLO_LIGHT,
+                        onTimeSetListener,opHour,opMin,true);
+
+//                openingTime = String.format(Locale.getDefault(), "%02d:%02d", opHour, opMin);
+
+                timePickerDialog.setTitle("Select Time");
+                timePickerDialog.show();
+            }
+        });
+
+        clTInput.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                TimePickerDialog.OnTimeSetListener onTimeSetListener= new TimePickerDialog.OnTimeSetListener() {
+                    @Override
+                    public void onTimeSet(TimePicker timePicker, int selectedHr, int selectedMin) {
+                        clHour = selectedHr;
+                        clMin = selectedMin;
+                        clTInput.setText(String.format(Locale.getDefault(), "%02d:%02d", clHour, clMin));
+                        closingTime = String.format(Locale.getDefault(), "%02d:%02d", clHour, clMin);
+                    }
+                };
+
+                TimePickerDialog timePickerDialog = new TimePickerDialog(getActivity(),TimePickerDialog.THEME_HOLO_LIGHT,
+                        onTimeSetListener,clHour,clMin,true);
+
+//                closingTime = String.format(Locale.getDefault(), "%02d:%02d", clHour, clMin);
+
+                timePickerDialog.setTitle("Select Time");
+                timePickerDialog.show();
+            }
+        });
+
+
+
+
+
+
+        //*************************************Everything from here onwards is for Opening Days********************************
+        //Assign variable
+        openDayBtn = hf.findViewById(R.id.openDaysBtn);
+
+        //Initialize selected day array
+        selectedDay = new boolean[dayArray.length];
+
+        openDayBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //initialize alert dialog
+                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity()); //Context is getActivity
+
+                //Set title
+                builder.setTitle("Select Day");
+                //Set dialog non cancelable
+                builder.setCancelable(false);
+
+                builder.setMultiChoiceItems(dayArray, selectedDay, new DialogInterface.OnMultiChoiceClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i, boolean b) {
+                        //Check condition
+                        if (b) {
+                            //when checkbox selected
+                            //add position in day list
+                            dayList.add(i);
+                            //Sort day list
+                            Collections.sort(dayList);
+                        }
+                        else{
+                            //When checkbox unselected
+                            //Remove position from day list
+                            dayList.remove(Integer.valueOf(i));
+                        }
+                    }
+                });
+
+                builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        //Initialize string builder
+                        StringBuilder stringBuilder = new StringBuilder();
+                        //use for loop
+                        for (int j = 0; j<dayList.size(); j++){
+                            //Concat array value
+                            stringBuilder.append(dayArray[dayList.get(j)]);
+                            //Check condition
+                            if (j != dayList.size()-1){
+                                //When j value not equal to day list size -1
+                                //Add comma
+                                stringBuilder.append(", ");
+                            }
+                        }
+                        //to set text of list
+                        openDayBtn.setText(stringBuilder.toString());
+                        daysOpen = ""; //String with all the stuff
+                        for (int j =0;j<dayList.size();j++){
+                            daysOpen = daysOpen + dayArray[dayList.get(j)] +" ";
+                        }
+                    }
+                });
+
+                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        //dismiss Dialog
+                        dialogInterface.dismiss();
+                    }
+                });
+
+                builder.setNeutralButton("Clear All", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        // Use for loop
+                        for (int j=0; j<selectedDay.length; j++){
+                            //Remove all selection
+                            selectedDay[j] = false;
+                            //Clear day list
+                            dayList.clear();
+                            //Clear text view values
+                            openDayBtn.setText("");
+                            daysOpen = "";
+                        }
+                    }
+                });
+                //Show dialog
+                builder.show();
+
+            }
+        });
+
+        test.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(getActivity(), openingTime, Toast.LENGTH_SHORT).show();
+            }
+        });
+
+
+
         return hf;
     }
 }

@@ -5,25 +5,38 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import org.w3c.dom.Text;
+
 public class HawkerCornerStalls {
     //Data for the HawkerCornerStalls
 
     public ImageView hccoverimg;    //cover image for display in main
     public String hcstallname;      //stallname of hawker
     public String hcauthor;         //author who made hawker post
-    public ImageView chosenstallimg;     //image in chosen stall post
     public ImageView hccuserpfp;        //user profile pic who made the post
-    public TextView hccusername;       //user's name
     public Boolean hccliked;          //liked on the post
-    public TextView hccparagraph;    //description of stall
-    public TextView hccaddress;     //Address of hawker stall
-    public TextView daysopen;      //How to make it so that user can enter different days and appear in two records
-    public TextView hoursopen;    //Same as ^
+    public String hccparagraph;    //description of stall
+    public String hccaddress;     //Address of hawker stall
+    public String daysopen;      //How to make it so that user can enter different days and appear in two records
+    public String hoursopen;    //Same as ^
 
     //Constructors
     public HawkerCornerStalls (){
 
     };
+
+    public HawkerCornerStalls(ImageView hccoverimg, String hcstallname, String hcauthor,
+                              Boolean hccliked, String hccparagraph, String hccaddress,
+                              String daysopen, String hoursopen){
+        this.hccoverimg = hccoverimg;
+        this.hcstallname = hcstallname;
+        this.hcauthor = hcauthor;
+        this.hccliked = hccliked;
+        this.hccparagraph = hccparagraph;
+        this.hccaddress = hccaddress;
+        this.daysopen = daysopen;
+        this.hoursopen = hoursopen;
+    }
 
     //Getters and setters
     public ImageView getHccoverimg() {
@@ -50,28 +63,12 @@ public class HawkerCornerStalls {
         this.hcauthor = hcauthor;
     }
 
-    public ImageView getChosenstallimg() {
-        return chosenstallimg;
-    }
-
-    public void setChosenstallimg(ImageView chosenstallimg) {
-        this.chosenstallimg = chosenstallimg;
-    }
-
     public ImageView getHccuserpfp() {
         return hccuserpfp;
     }
 
     public void setHccuserpfp(ImageView hccuserpfp) {
         this.hccuserpfp = hccuserpfp;
-    }
-
-    public TextView getHccusername() {
-        return hccusername;
-    }
-
-    public void setHccusername(TextView hccusername) {
-        this.hccusername = hccusername;
     }
 
     public Boolean getHccliked() {
@@ -82,35 +79,35 @@ public class HawkerCornerStalls {
         this.hccliked = hccliked;
     }
 
-    public TextView getHccparagraph() {
+    public String getHccparagraph() {
         return hccparagraph;
     }
 
-    public void setHccparagraph(TextView hccparagraph) {
+    public void setHccparagraph(String hccparagraph) {
         this.hccparagraph = hccparagraph;
     }
 
-    public TextView getHccaddress() {
+    public String getHccaddress() {
         return hccaddress;
     }
 
-    public void setHccaddress(TextView hccaddress) {
+    public void setHccaddress(String hccaddress) {
         this.hccaddress = hccaddress;
     }
 
-    public TextView getDaysopen() {
+    public String getDaysopen() {
         return daysopen;
     }
 
-    public void setDaysopen(TextView daysopen) {
+    public void setDaysopen(String daysopen) {
         this.daysopen = daysopen;
     }
 
-    public TextView getHoursopen() {
+    public String getHoursopen() {
         return hoursopen;
     }
 
-    public void setHoursopen(TextView hoursopen) {
+    public void setHoursopen(String hoursopen) {
         this.hoursopen = hoursopen;
     }
 }

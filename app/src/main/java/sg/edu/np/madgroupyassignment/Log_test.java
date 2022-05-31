@@ -8,6 +8,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import android.content.ContentResolver;
@@ -141,6 +142,7 @@ public class Log_test extends Fragment {
         });
 
 //        User hawker posts
+
         hwkObj.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -148,11 +150,14 @@ public class Log_test extends Fragment {
             }
         });
 
-//        User recipe posts
+//        User recipe posts leads to RV
         rcpObj.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                AppCompatActivity activity = (AppCompatActivity) view.getContext();
+                Fragment profileRcpFragment = new ProfileRecipeRV();
+                activity.getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.MainFragment, profileRcpFragment).addToBackStack(null).commit();
             }
         });
 
