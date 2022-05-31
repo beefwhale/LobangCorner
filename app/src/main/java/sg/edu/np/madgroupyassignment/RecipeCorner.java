@@ -10,9 +10,8 @@ public class RecipeCorner {
     Integer noOfRaters;
     String userName;
     String duration;
-    //HashMap<String, Object> ingredients;
     String steps;
-    HashMap<String, Object> ingredients;
+    String ingredients;
 
     //Empty constructor
     public RecipeCorner(){
@@ -22,7 +21,7 @@ public class RecipeCorner {
     // creating constructor for our variables.
     public RecipeCorner(String recipeName, String recipeDescription, int recipeRating,
                        int noOfRaters, String userName, String duration,
-                         String steps/*, HashMap<String, Object> ingredients*/) {
+                         String steps, String ingredients) {
         this.recipeName = recipeName;
         this.recipeDescription = recipeDescription;
         this.recipeRating = recipeRating;
@@ -30,7 +29,7 @@ public class RecipeCorner {
         this.userName = userName;
         this.duration = duration;
         this.steps = steps;
-        //this.ingredients = ingredients;
+        this.ingredients = ingredients;
     }
 
 
@@ -80,9 +79,9 @@ public class RecipeCorner {
 
     public void setDuration(String duration){this.duration = duration; }
 
-    /*public HashMap<String, Object> getIngredients(){return ingredients; }
+    public String getIngredients(){return ingredients; }
 
-    public void setIngredients(HashMap<String, Object> ingredients){this.ingredients = ingredients; } */
+    public void setIngredients(String ingredients){this.ingredients = ingredients; }
 
     public String getSteps(){return steps; }
 
