@@ -142,6 +142,7 @@ public class Log_test extends Fragment {
         });
 
 //        User hawker posts
+
         hwkObj.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
