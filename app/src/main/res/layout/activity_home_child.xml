@@ -17,20 +17,19 @@
         app:layout_constraintTop_toBottomOf="@+id/view" />
 
     <View
-        android:id="@+id/view"
+        android:id="@+id/view2"
         android:layout_width="match_parent"
         android:layout_height="2dp"
         android:layout_below="@id/tp_rv"
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="24dp"
+        android:layout_marginBottom="16dp"
         android:background="#DCDCDC"
-        app:layout_constraintBottom_toTopOf="@+id/lp_header"
+        app:layout_constraintBottom_toTopOf="@+id/tp_header"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tp_rv" />
+        app:layout_constraintTop_toBottomOf="@+id/wklyfeat_img" />
 
     <TextView
         android:id="@+id/wklyfeat_header"
@@ -59,6 +58,38 @@
         app:layout_constraintTop_toBottomOf="@+id/wklyfeat_header"
         app:srcCompat="@drawable/ashorthike" />
 
+    <ImageView
+        android:id="@+id/wklyfeat_img2"
+        android:layout_width="180dp"
+        android:layout_height="160dp"
+        android:layout_below="@id/wklyfeat_header"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:adjustViewBounds="true"
+        android:scaleType="centerCrop"
+        android:src="@drawable/ashorthike"
+        app:layout_constraintEnd_toStartOf="@+id/wklyfeat_img3"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tp_header"
+        app:srcCompat="@drawable/ashorthike" />
+
+    <ImageView
+        android:id="@+id/wklyfeat_img3"
+        android:layout_width="180dp"
+        android:layout_height="160dp"
+        android:layout_below="@id/wklyfeat_header"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:adjustViewBounds="true"
+        android:scaleType="centerCrop"
+        android:src="@drawable/ashorthike"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/wklyfeat_img2"
+        app:layout_constraintTop_toBottomOf="@+id/tp_header"
+        app:srcCompat="@drawable/ashorthike" />
+
     <TextView
         android:id="@+id/tp_header"
         android:layout_width="match_parent"
@@ -70,46 +101,24 @@
         android:textSize="24sp"
         app:layout_constraintBottom_toTopOf="@+id/idLLView"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/wklyfeat_img" />
+        app:layout_constraintTop_toBottomOf="@+id/view2" />
 
-    <LinearLayout
-        android:id="@+id/idLLView"
+    <View
+        android:id="@+id/view"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:orientation="horizontal"
-        android:weightSum="2"
-        app:layout_constraintBottom_toTopOf="@+id/tp_rv"
+        android:layout_height="2dp"
+        android:layout_below="@id/tp_rv"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="24dp"
+        android:background="#DCDCDC"
+        app:layout_constraintBottom_toTopOf="@+id/lp_header"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tp_header">
+        app:layout_constraintTop_toBottomOf="@+id/tp_rv" />
 
-        <ImageView
-            android:id="@+id/imageView5"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="20dp"
-            android:layout_weight="1"
-
-            android:scaleType="fitCenter"
-            app:srcCompat="@drawable/ashorthike"
-            tools:layout_editor_absoluteX="92dp"
-            tools:layout_editor_absoluteY="403dp" />
-
-        <ImageView
-            android:id="@+id/imageView6"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="8dp"
-            android:layout_weight="1"
-            android:scaleType="fitCenter"
-            app:srcCompat="@drawable/ashorthike"
-            tools:layout_editor_absoluteX="92dp"
-            tools:layout_editor_absoluteY="403dp" />
-
-    </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/tp_rv"
@@ -117,12 +126,34 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/tp_header"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="200dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:nestedScrollingEnabled="false"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tp_header" />
+        app:layout_constraintTop_toBottomOf="@+id/wklyfeat_img2" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginBottom="8dp"
+        android:text="Hawker Corner"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@+id/wklyfeat_img2"
+        app:layout_constraintStart_toStartOf="@+id/wklyfeat_img2" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginBottom="8dp"
+        android:text="Recipe Corner"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@+id/wklyfeat_img3"
+        app:layout_constraintStart_toStartOf="@+id/wklyfeat_img3" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
