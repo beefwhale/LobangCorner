@@ -49,10 +49,12 @@ public class HawkerForm extends Fragment {
     String address;
     String openingTime;
     String closingTime;
+    String userPfpUrl;
+    String finalTime;
 
     private DatabaseReference databaseReferencetest;
     private FirebaseAuth mAuth;
-    UserProfile userProfile;
+    private static UserProfile userProfile;
     String username;
 
 
@@ -126,6 +128,8 @@ public class HawkerForm extends Fragment {
 
 
         //Select Opening and Closing Time
+        finalTime = "";
+
         opTInput.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -136,6 +140,7 @@ public class HawkerForm extends Fragment {
                         opMin = selectedMin;
                         opTInput.setText(String.format(Locale.getDefault(), "%02d:%02d", opHour, opMin));
                         openingTime = String.format(Locale.getDefault(), "%02d:%02d", opHour, opMin);
+                        finalTime = openingTime;
                     }
                 };
 
@@ -158,6 +163,7 @@ public class HawkerForm extends Fragment {
                         clMin = selectedMin;
                         clTInput.setText(String.format(Locale.getDefault(), "%02d:%02d", clHour, clMin));
                         closingTime = String.format(Locale.getDefault(), "%02d:%02d", clHour, clMin);
+                        finalTime = finalTime +" - "+closingTime;
                     }
                 };
 
@@ -169,6 +175,8 @@ public class HawkerForm extends Fragment {
                 timePickerDialog.show();
             }
         });
+
+
 
 
 
@@ -269,15 +277,19 @@ public class HawkerForm extends Fragment {
         test.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                userProfile = Parcels.unwrap(getActivity().getIntent().getParcelableExtra("UserProfile"));
                 username = userProfile.getUsername(); //USERNAME parameter
-                //hCS = new HawkerCornerStalls(stallName,username,false,desc,address,daysOpen,ti);
-                Toast.makeText(getActivity(),daysOpen, Toast.LENGTH_SHORT).show();
+                userPfpUrl = userProfile.getProfileImg();
+                hCS = new HawkerCornerStalls(stallName,username,false,desc,address,daysOpen,finalTime,userPfpUrl);
+                //Toast.makeText(getActivity(),finalTime, Toast.LENGTH_SHORT).show();
             }
         });
 
 
 
         return hf;
+    }
+
+    public void retrieveUserProfile(UserProfile userProfile){
+        this.userProfile = userProfile;
     }
 }

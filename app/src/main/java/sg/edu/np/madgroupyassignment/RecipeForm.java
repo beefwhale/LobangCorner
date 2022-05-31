@@ -83,6 +83,7 @@ public class RecipeForm extends Fragment {
             public void onClick(View view) {
 //                userProfile = Parcels.unwrap(getActivity().getIntent().getParcelableExtra("UserProfile"));
                 username = userProfile.getUsername(); //USERNAME parameter
+
                 viewModel.getSelectedRecipeName().observe(getViewLifecycleOwner(), new Observer<String>() {
                     @Override
                     public void onChanged(String s) {
@@ -115,7 +116,7 @@ public class RecipeForm extends Fragment {
                 });
 
                 String timeStamp = String.valueOf(System.currentTimeMillis());
-                recipeCorner = new RecipeCorner(recipeName, recipeDesc, 0, 0, username, duration, steps);
+                recipeCorner = new RecipeCorner(recipeName, recipeDesc, 0, 0, username, duration, steps,totalIngred);
                 userCurrentRcp = userProfile.getRcpList();
                 RcpUp(userCurrentRcp, recipeCorner);
 

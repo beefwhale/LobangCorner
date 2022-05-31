@@ -47,6 +47,7 @@ public class MainActivity extends AppCompatActivity{
 
         Log_test log_test = new Log_test();
         RecipeForm recipeForm = new RecipeForm();
+        HawkerForm hawkerForm = new HawkerForm();
         HawkerCornerMain hawkerCornerMain = new HawkerCornerMain();
         rcpList = new ArrayList<>();
         hwkList = new ArrayList<>();
@@ -89,6 +90,7 @@ public class MainActivity extends AppCompatActivity{
                 profileFirstUpdate = false;
 
                 recipeForm.retrieveUserProfile(userProfile);
+                hawkerForm.retrieveUserProfile(userProfile);
 
                 hawkerCornerMain.getHawkerList(hwkList);
                 if (hawkerCornerMain.hcadapter != null){
@@ -140,7 +142,7 @@ public class MainActivity extends AppCompatActivity{
                 }
                 switch (item.getItemId()) {
                     case R.id.recipeform:
-                        getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, recipeFragment, null).commit(); //temp segment
+                        getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, hawkerFragment, null).commit(); //temp segment
                         return true;
                 }
                 switch (item.getItemId()) {

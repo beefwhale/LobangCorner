@@ -13,7 +13,7 @@ public class HawkerCornerStalls {
     public ImageView hccoverimg;    //cover image for display in main
     public String hcstallname;      //stallname of hawker
     public String hcauthor;         //author who made hawker post
-    public ImageView hccuserpfp;        //user profile pic who made the post
+    public String hccuserpfp;        //user profile pic who made the post
     public Boolean hccliked;          //liked on the post
     public String hccparagraph;    //description of stall
     public String hccaddress;     //Address of hawker stall
@@ -27,7 +27,7 @@ public class HawkerCornerStalls {
 
     public HawkerCornerStalls(/*ImageView hccoverimg,*/ String hcstallname, String hcauthor,
                               Boolean hccliked, String hccparagraph, String hccaddress,
-                              String daysopen, String hoursopen){
+                              String daysopen, String hoursopen, String hccuserpfp){
         //this.hccoverimg = hccoverimg;
         this.hcstallname = hcstallname;
         this.hcauthor = hcauthor;
@@ -36,6 +36,7 @@ public class HawkerCornerStalls {
         this.hccaddress = hccaddress;
         this.daysopen = daysopen;
         this.hoursopen = hoursopen;
+        this.hccuserpfp = hccuserpfp;
     }
 
     //Getters and setters
@@ -63,11 +64,11 @@ public class HawkerCornerStalls {
         this.hcauthor = hcauthor;
     }
 
-    public ImageView getHccuserpfp() {
+    public String getHccuserpfp() {
         return hccuserpfp;
     }
 
-    public void setHccuserpfp(ImageView hccuserpfp) {
+    public void setHccuserpfp(String hccuserpfp) {
         this.hccuserpfp = hccuserpfp;
     }
 
