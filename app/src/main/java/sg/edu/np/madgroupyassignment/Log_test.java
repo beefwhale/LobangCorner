@@ -55,11 +55,11 @@ import java.util.HashMap;
 public class Log_test extends Fragment {
 
     private static UserProfile userProfile;
-    private static TextView username, aboutme, hwkObj, rcpObj;
-    private static ImageView profP;
     private static String UID, aboutMeInput;
     private static ArrayList<RecipeCorner> recipeCorners;
     private static ArrayList<HawkerCornerStalls> hawkerCornerStalls;
+    private static TextView username, aboutme, hwkObj, rcpObj;
+    private static ImageView profP;
     private Button logout, testbtn;
     private ProgressBar loadingPB;
     private EditText input;
@@ -75,8 +75,6 @@ public class Log_test extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_log_test, null);
-        MainActivity mainActivity = new MainActivity();
-        mainActivity.profileFirstUpdate = false;
 
         profP = view.findViewById(R.id.idProfP);
         username = view.findViewById(R.id.TestTitle);
@@ -144,7 +142,6 @@ public class Log_test extends Fragment {
         });
 
 //        User hawker posts
-
         hwkObj.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -155,7 +152,7 @@ public class Log_test extends Fragment {
             }
         });
 
-//        User recipe posts leads to RV
+//        User recipe posts
         rcpObj.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -187,12 +184,16 @@ public class Log_test extends Fragment {
 
 //    Updating profile page
     public void updatePage() {
+        MainActivity mainActivity = new MainActivity();
+        mainActivity.profileFirstUpdate = false;
+
         Picasso.get().load(userProfile.getProfileImg()).into(profP);
         username.setText(userProfile.getUsername());
         aboutme.setText(userProfile.getAboutMe());
-        hwkObj.setText("" + hawkerCornerStalls.size() + "\n\nHawker Posts");
-        rcpObj.setText("" + recipeCorners.size() + "\n\nRecipe Post");
+        hwkObj.setText("" + (userProfile.getHawkList().size()-1) + "\n\nHawker Posts");
+        rcpObj.setText("" + (userProfile.getRcpList().size()-1) + "\n\nRecipe Post");
         UID = userProfile.getUID();
+
     }
 
 //    Getting file extension
@@ -227,10 +228,20 @@ public class Log_test extends Fragment {
                             fileReference.getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
                                 @Override
                                 public void onComplete(@NonNull Task<Uri> task) {
+                                    String downUrl = task.getResult().toString();
                                     HashMap<String, Object> profilePic = new HashMap<>();
-
-                                    profilePic.put("profileImg", task.getResult().toString());
+                                    profilePic.put("profileImg", downUrl);
                                     databaseReference.child("UserProfile").child(UID).updateChildren(profilePic);
+
+                                    HashMap<String, Object> hawkerPostProfileImgUpdate = new HashMap<>();
+                                    hawkerPostProfileImgUpdate.put("hccuserpfp", downUrl);
+
+//                                    Change hawker post profile picture
+                                    for (String hawkerPostUpdate : userProfile.getHawkList().keySet()){
+                                        if (!hawkerPostUpdate.equals("Seed")) {
+                                            databaseReference.child("Posts").child("Hawkers").child(hawkerPostUpdate).updateChildren(hawkerPostProfileImgUpdate);
+                                        }
+                                    }
                                 }
                             });
 

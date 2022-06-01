@@ -1,5 +1,7 @@
 package sg.edu.np.madgroupyassignment;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -16,6 +18,15 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.google.android.material.navigation.NavigationBarView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import org.parceler.Parcels;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -35,7 +46,6 @@ public class ProfileHawkerRV extends Fragment {
     HCMainsAdapter hcadapter;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState){
-
         View view = inflater.inflate(R.layout.activity_profile_hawkerrv, parent, false);
 
         //Populate hawker corner's stallList, temporary and will change to get data from firebase
@@ -69,4 +79,9 @@ public class ProfileHawkerRV extends Fragment {
 
         return view;
     }
+
+    public void getHawkerList(ArrayList<HawkerCornerStalls> hawkerList){
+        hawkerCornersList = hawkerList;
+    }
+
 }

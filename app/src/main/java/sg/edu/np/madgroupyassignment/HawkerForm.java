@@ -58,6 +58,7 @@ public class HawkerForm extends Fragment {
     private DatabaseReference databaseReferencetest;
     private FirebaseAuth mAuth;
     private static UserProfile userProfile;
+    String ownerUID;
     String username;
     HashMap<String, Object> userCurrentHwk;
 
@@ -288,10 +289,12 @@ public class HawkerForm extends Fragment {
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 username = userProfile.getUsername(); //USERNAME parameter
                 userPfpUrl = userProfile.getProfileImg();
+                ownerUID = userProfile.getUID();
                 String timeStamp = String.valueOf(System.currentTimeMillis());
-                hCS = new HawkerCornerStalls(stallName,username,false,desc,address,daysOpen,finalTime,userPfpUrl, timeStamp);
+                hCS = new HawkerCornerStalls(ownerUID, stallName,username,false,desc,address,daysOpen,finalTime,userPfpUrl, timeStamp);
 
                 userCurrentHwk = userProfile.getHawkList();
                 HwkUp(userCurrentHwk, hCS);

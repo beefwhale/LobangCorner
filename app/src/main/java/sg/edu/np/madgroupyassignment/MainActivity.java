@@ -30,7 +30,7 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity{
 
     private String UID;
-    Boolean profileFirstUpdate;
+    public static Boolean profileFirstUpdate;
     private UserProfile userProfile;
     private ArrayList<RecipeCorner> rcpList;
     private ArrayList<HawkerCornerStalls> hwkList;
@@ -46,6 +46,7 @@ public class MainActivity extends AppCompatActivity{
         setContentView(R.layout.activity_main);
 
         Log_test log_test = new Log_test();
+        ProfileHawkerRV profileHawkerRV = new ProfileHawkerRV();
         RecipeForm recipeForm = new RecipeForm();
         HawkerForm hawkerForm = new HawkerForm();
         HawkerCornerMain hawkerCornerMain = new HawkerCornerMain();
@@ -91,15 +92,23 @@ public class MainActivity extends AppCompatActivity{
                     log_test.updatePage();
                 }
 
-
+                //Sending user profile to forms
                 recipeForm.retrieveUserProfile(userProfile);
                 hawkerForm.retrieveUserProfile(userProfile);
 
+                //Updating hawker corner
                 hawkerCornerMain.getHawkerList(hwkList);
                 if (hawkerCornerMain.hcadapter != null){
                     hawkerCornerMain.hcadapter.notifyDataSetChanged();
                 }
 
+                //Updating user hawker posts
+                profileHawkerRV.getHawkerList(hwkList);
+                if (hawkerCornerMain.hcadapter != null){
+                    hawkerCornerMain.hcadapter.notifyDataSetChanged();
+                }
+
+                //Updating recipe corner
                 recipeCornerMain.getRecipeList(rcpList);
                 if (recipeCornerMain.adapter != null){
                     recipeCornerMain.adapter.notifyDataSetChanged();
