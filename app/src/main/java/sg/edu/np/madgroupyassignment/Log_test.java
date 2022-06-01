@@ -54,12 +54,12 @@ import java.util.HashMap;
 
 public class Log_test extends Fragment {
 
-    private static UserProfile userProfile;
-    private static String UID, aboutMeInput;
-    private static ArrayList<RecipeCorner> recipeCorners;
-    private static ArrayList<HawkerCornerStalls> hawkerCornerStalls;
-    private static TextView username, aboutme, hwkObj, rcpObj;
-    private static ImageView profP;
+    private UserProfile userProfile;
+    private String aboutMeInput;
+    private ArrayList<RecipeCorner> recipeCorners;
+    private ArrayList<HawkerCornerStalls> hawkerCornerStalls;
+    private TextView username, aboutme, hwkObj, rcpObj;
+    private ImageView profP;
     private Button logout, testbtn;
     private ProgressBar loadingPB;
     private EditText input;
@@ -90,8 +90,38 @@ public class Log_test extends Fragment {
         firebaseDatabase = FirebaseDatabase.getInstance();
         databaseReference = firebaseDatabase.getReference();
 
-//        Initial page set
-        updatePage();
+//        Getting user profile
+        databaseReference.child("UserProfile").child(mAuth.getUid()).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                userProfile = snapshot.getValue(UserProfile.class);
+                updatePage();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+//        Getting posts, unsure if needed
+        databaseReference.child("Posts").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot rcpObj : snapshot.child("Recipes").getChildren()){
+                    recipeCorners.add(rcpObj.getValue(RecipeCorner.class));
+                }
+                for (DataSnapshot hwkObj : snapshot.child("Hawkers").getChildren()) {
+                    hawkerCornerStalls.add(hwkObj.getValue(HawkerCornerStalls.class));
+                }
+                getUserPost();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
 
 //        Getting image
         getPhoto = registerForActivityResult(
@@ -183,17 +213,25 @@ public class Log_test extends Fragment {
     }
 
 //    Updating profile page
-    public void updatePage() {
-        MainActivity mainActivity = new MainActivity();
-        mainActivity.profileFirstUpdate = false;
-
+    private void updatePage() {
         Picasso.get().load(userProfile.getProfileImg()).into(profP);
         username.setText(userProfile.getUsername());
         aboutme.setText(userProfile.getAboutMe());
         hwkObj.setText("" + (userProfile.getHawkList().size()-1) + "\n\nHawker Posts");
         rcpObj.setText("" + (userProfile.getRcpList().size()-1) + "\n\nRecipe Post");
-        UID = userProfile.getUID();
+    }
 
+//    Removes all non-user posts
+    private void getUserPost() {
+        ArrayList<RecipeCorner> notUserRecipe = new ArrayList<>();
+        ArrayList<HawkerCornerStalls> notUserHawker = new ArrayList<>();
+
+        for (HawkerCornerStalls hwkObj : hawkerCornerStalls) {
+            if (!hwkObj.getHcOwner().equals(mAuth.getUid())){
+                notUserHawker.add(hwkObj);
+            }
+        }
+        hawkerCornerStalls.removeAll(notUserHawker);
     }
 
 //    Getting file extension
@@ -208,7 +246,7 @@ public class Log_test extends Fragment {
         HashMap<String, Object> data = new HashMap<>();
 
         data.put("aboutMe", newAboutMe);
-        databaseReference.child("UserProfile").child(UID).updateChildren(data);
+        databaseReference.child("UserProfile").child(userProfile.getUID()).updateChildren(data);
     }
 
 //    Upload chosen image to firebase and change profile picture in user profile
@@ -231,7 +269,7 @@ public class Log_test extends Fragment {
                                     String downUrl = task.getResult().toString();
                                     HashMap<String, Object> profilePic = new HashMap<>();
                                     profilePic.put("profileImg", downUrl);
-                                    databaseReference.child("UserProfile").child(UID).updateChildren(profilePic);
+                                    databaseReference.child("UserProfile").child(userProfile.getUID()).updateChildren(profilePic);
 
                                     HashMap<String, Object> hawkerPostProfileImgUpdate = new HashMap<>();
                                     hawkerPostProfileImgUpdate.put("hccuserpfp", downUrl);
@@ -266,19 +304,6 @@ public class Log_test extends Fragment {
 
         startActivity(i);
         getActivity().finish();
-    }
-
-    //Getting data on change
-    public void setUserProfile(UserProfile userProfile){
-        this.userProfile = userProfile;
-    }
-
-    public void setRecipePosts(ArrayList<RecipeCorner> rcpList) {
-        recipeCorners = rcpList;
-    }
-
-    public void setHawkerPosts(ArrayList<HawkerCornerStalls> hwkList) {
-        hawkerCornerStalls = hwkList;
     }
 
 }

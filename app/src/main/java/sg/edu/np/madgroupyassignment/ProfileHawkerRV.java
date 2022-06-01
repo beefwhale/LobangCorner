@@ -80,8 +80,4 @@ public class ProfileHawkerRV extends Fragment {
         return view;
     }
 
-    public void getHawkerList(ArrayList<HawkerCornerStalls> hawkerList){
-        hawkerCornersList = hawkerList;
-    }
-
 }

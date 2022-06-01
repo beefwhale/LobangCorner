@@ -36,9 +36,10 @@ public class HCChosenStall extends Fragment {
 
         int chosenstallno = (int) bundle.getInt("stallposition");
         HawkerCornerStalls chosenstall;
-        if (HawkerCornerMain.stallsList .size() != 0){
+        HawkerCornerMain hawkerCornerMain = new HawkerCornerMain();
+        if (hawkerCornerMain.stallsList .size() != 0){
             // list for normal HC
-             chosenstall = HawkerCornerMain.stallsList.get(chosenstallno);
+             chosenstall = hawkerCornerMain.stallsList.get(chosenstallno);
         }
         else{
             // list for Profile linked HC

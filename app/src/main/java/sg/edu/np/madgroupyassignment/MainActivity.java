@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity{
     public static Boolean profileFirstUpdate;
     private UserProfile userProfile;
     private ArrayList<RecipeCorner> rcpList;
-    private ArrayList<HawkerCornerStalls> hwkList;
+    ArrayList<HawkerCornerStalls> hwkList;
     private FirebaseAuth mAuth;
     private FirebaseDatabase firebaseDatabase;
     private DatabaseReference databaseReference;
@@ -46,7 +46,6 @@ public class MainActivity extends AppCompatActivity{
         setContentView(R.layout.activity_main);
 
         Log_test log_test = new Log_test();
-        ProfileHawkerRV profileHawkerRV = new ProfileHawkerRV();
         RecipeForm recipeForm = new RecipeForm();
         HawkerForm hawkerForm = new HawkerForm();
         HawkerCornerMain hawkerCornerMain = new HawkerCornerMain();
@@ -69,50 +68,9 @@ public class MainActivity extends AppCompatActivity{
 //                Getting user profile
                 userProfile = snapshot.child("UserProfile").child(UID).getValue(UserProfile.class);
 
-//                Getting recipe posts - now used right now
-                rcpList.removeAll(rcpList);
-                for (DataSnapshot objectEntry : snapshot.child("Posts").child("Recipes").getChildren()) {
-                    RecipeCorner rcpObject = objectEntry.getValue(RecipeCorner.class);
-                    rcpList.add(rcpObject);
-                }
-
-//                Getting hawker posts - not used right now
-                hwkList.removeAll(hwkList);
-                for (DataSnapshot objectEntry : snapshot.child("Posts").child("Hawkers").getChildren()) {
-                    HawkerCornerStalls hwkObject = objectEntry.getValue(HawkerCornerStalls.class);
-                    hwkList.add(hwkObject);
-                }
-
-                //Sending data to fragments
-//                Updating profile page
-                log_test.setUserProfile(userProfile);
-                log_test.setRecipePosts(rcpList);
-                log_test.setHawkerPosts(hwkList);
-                if (profileFirstUpdate != true) {
-                    log_test.updatePage();
-                }
-
                 //Sending user profile to forms
                 recipeForm.retrieveUserProfile(userProfile);
                 hawkerForm.retrieveUserProfile(userProfile);
-
-                //Updating hawker corner
-                hawkerCornerMain.getHawkerList(hwkList);
-                if (hawkerCornerMain.hcadapter != null){
-                    hawkerCornerMain.hcadapter.notifyDataSetChanged();
-                }
-
-                //Updating user hawker posts
-                profileHawkerRV.getHawkerList(hwkList);
-                if (hawkerCornerMain.hcadapter != null){
-                    hawkerCornerMain.hcadapter.notifyDataSetChanged();
-                }
-
-                //Updating recipe corner
-                recipeCornerMain.getRecipeList(rcpList);
-                if (recipeCornerMain.adapter != null){
-                    recipeCornerMain.adapter.notifyDataSetChanged();
-                }
 
 
             }
