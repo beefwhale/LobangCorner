@@ -75,6 +75,8 @@ public class Log_test extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_log_test, null);
+        MainActivity mainActivity = new MainActivity();
+        mainActivity.profileFirstUpdate = false;
 
         profP = view.findViewById(R.id.idProfP);
         username = view.findViewById(R.id.TestTitle);

@@ -30,7 +30,7 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity{
 
     private String UID;
-    private Boolean profileFirstUpdate;
+    Boolean profileFirstUpdate;
     private UserProfile userProfile;
     private ArrayList<RecipeCorner> rcpList;
     private ArrayList<HawkerCornerStalls> hwkList;
@@ -69,12 +69,14 @@ public class MainActivity extends AppCompatActivity{
                 userProfile = snapshot.child("UserProfile").child(UID).getValue(UserProfile.class);
 
 //                Getting recipe posts - now used right now
+                rcpList.removeAll(rcpList);
                 for (DataSnapshot objectEntry : snapshot.child("Posts").child("Recipes").getChildren()) {
                     RecipeCorner rcpObject = objectEntry.getValue(RecipeCorner.class);
                     rcpList.add(rcpObject);
                 }
 
 //                Getting hawker posts - not used right now
+                hwkList.removeAll(hwkList);
                 for (DataSnapshot objectEntry : snapshot.child("Posts").child("Hawkers").getChildren()) {
                     HawkerCornerStalls hwkObject = objectEntry.getValue(HawkerCornerStalls.class);
                     hwkList.add(hwkObject);
@@ -88,7 +90,7 @@ public class MainActivity extends AppCompatActivity{
                 if (profileFirstUpdate != true) {
                     log_test.updatePage();
                 }
-                profileFirstUpdate = false;
+
 
                 recipeForm.retrieveUserProfile(userProfile);
                 hawkerForm.retrieveUserProfile(userProfile);
