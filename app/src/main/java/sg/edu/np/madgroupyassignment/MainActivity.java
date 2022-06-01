@@ -30,10 +30,7 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity{
 
     private String UID;
-    public static Boolean profileFirstUpdate;
     private UserProfile userProfile;
-    private ArrayList<RecipeCorner> rcpList;
-    ArrayList<HawkerCornerStalls> hwkList;
     private FirebaseAuth mAuth;
     private FirebaseDatabase firebaseDatabase;
     private DatabaseReference databaseReference;
@@ -45,14 +42,8 @@ public class MainActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Log_test log_test = new Log_test();
         RecipeForm recipeForm = new RecipeForm();
         HawkerForm hawkerForm = new HawkerForm();
-        HawkerCornerMain hawkerCornerMain = new HawkerCornerMain();
-        RecipeCornerMain recipeCornerMain = new RecipeCornerMain();
-        rcpList = new ArrayList<>();
-        hwkList = new ArrayList<>();
-        profileFirstUpdate = true;
 
         mAuth = FirebaseAuth.getInstance();
         firebaseDatabase = FirebaseDatabase.getInstance();
@@ -71,7 +62,6 @@ public class MainActivity extends AppCompatActivity{
                 //Sending user profile to forms
                 recipeForm.retrieveUserProfile(userProfile);
                 hawkerForm.retrieveUserProfile(userProfile);
-
 
             }
 

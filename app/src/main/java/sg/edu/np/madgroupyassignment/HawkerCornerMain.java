@@ -71,22 +71,24 @@ public class HawkerCornerMain extends Fragment implements AdapterView.OnItemSele
         //Populate hawker corner's stallList, temporary and will change to get data from firebase
         //Will create method to retrieve from db
         //If empty, means havent populate from firebase
-        if (stallsList.isEmpty()){
-            for (int i = 0; i < 10; i++) {
-                HawkerCornerStalls newstall = new HawkerCornerStalls();
-                newstall.hcstallname = "Stall " + i;
-                newstall.hcauthor = "Author " + i;
-                stallsList.add(newstall);
-            }
-        }
-        //If not empty, check if size is same, if not same, means new stalls, repopulate
-        else if (stallsList.size() != hcDBList.size()){
 
-        }
-        //Not empty and same size, no new stalls
-        else{
-
-        }
+        //Commented out to test database grabbing.
+//        if (stallsList.isEmpty()){
+//            for (int i = 0; i < 10; i++) {
+//                HawkerCornerStalls newstall = new HawkerCornerStalls();
+//                newstall.hcstallname = "Stall " + i;
+//                newstall.hcauthor = "Author " + i;
+//                stallsList.add(newstall);
+//            }
+//        }
+//        //If not empty, check if size is same, if not same, means new stalls, repopulate
+//        else if (stallsList.size() != hcDBList.size()){
+//
+//        }
+//        //Not empty and same size, no new stalls
+//        else{
+//
+//        }
 
         //Defining Recycler View info & Setting Layout and Adapter.
         hcmainrv = view.findViewById(R.id.hawkercornerrv);

@@ -76,6 +76,9 @@ public class Log_test extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_log_test, null);
 
+        recipeCorners = new ArrayList<>();
+        hawkerCornerStalls = new ArrayList<>();
+
         profP = view.findViewById(R.id.idProfP);
         username = view.findViewById(R.id.TestTitle);
         aboutme = view.findViewById(R.id.idAbtme);
@@ -114,7 +117,7 @@ public class Log_test extends Fragment {
                 for (DataSnapshot hwkObj : snapshot.child("Hawkers").getChildren()) {
                     hawkerCornerStalls.add(hwkObj.getValue(HawkerCornerStalls.class));
                 }
-                getUserPost();
+                //getUserPost();
             }
 
             @Override
@@ -222,17 +225,17 @@ public class Log_test extends Fragment {
     }
 
 //    Removes all non-user posts
-    private void getUserPost() {
-        ArrayList<RecipeCorner> notUserRecipe = new ArrayList<>();
-        ArrayList<HawkerCornerStalls> notUserHawker = new ArrayList<>();
-
-        for (HawkerCornerStalls hwkObj : hawkerCornerStalls) {
-            if (!hwkObj.getHcOwner().equals(mAuth.getUid())){
-                notUserHawker.add(hwkObj);
-            }
-        }
-        hawkerCornerStalls.removeAll(notUserHawker);
-    }
+//    private void getUserPost() {
+//        ArrayList<RecipeCorner> notUserRecipe = new ArrayList<>();
+//        ArrayList<HawkerCornerStalls> notUserHawker = new ArrayList<>();
+//
+//        for (HawkerCornerStalls hwkObj : hawkerCornerStalls) {
+//            if (hwkObj.getHcOwner()){
+//                notUserHawker.add(hwkObj);
+//            }
+//        }
+//        hawkerCornerStalls.removeAll(notUserHawker);
+//    }
 
 //    Getting file extension
     private String getFileExt(Uri uri) {
