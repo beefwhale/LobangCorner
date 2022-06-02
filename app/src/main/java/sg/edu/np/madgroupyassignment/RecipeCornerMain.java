@@ -39,36 +39,36 @@ public class RecipeCornerMain extends Fragment implements AdapterView.OnItemSele
     // variable for our adapter
     // class and array list
     public RecipeAdapter adapter;
-    public ArrayList<RecipeCorner> recipeModalArrayList = new ArrayList<>();
+    public static ArrayList<RecipeCorner> recipeModalArrayList = new ArrayList<>();
 
     public RecipeCornerMain(){
         this.c = c;
     }
 
-    private FirebaseDatabase firebaseDatabase;
-    private DatabaseReference databaseReference;
+//    private FirebaseDatabase firebaseDatabase;
+//    private DatabaseReference databaseReference;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_recipe_corner_main, container, false);
 
-        firebaseDatabase = FirebaseDatabase.getInstance();
-        databaseReference = firebaseDatabase.getReference().child("Posts").child("Recipes");
-
-        databaseReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for (DataSnapshot objectEntry : snapshot.child("Posts").child("Recipes").getChildren()) {
-                    RecipeCorner rcpObject = objectEntry.getValue(RecipeCorner.class);
-                    recipeModalArrayList.add(rcpObject);
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
+//        firebaseDatabase = FirebaseDatabase.getInstance();
+//        databaseReference = firebaseDatabase.getReference().child("Posts").child("Recipes");
+//
+//        databaseReference.addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                for (DataSnapshot objectEntry : snapshot.child("Posts").child("Recipes").getChildren()) {
+//                    RecipeCorner rcpObject = objectEntry.getValue(RecipeCorner.class);
+//                    recipeModalArrayList.add(rcpObject);
+//                }
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError error) {
+//
+//            }
+//        });
 
 
         //spinner for sorting/filtering
@@ -219,5 +219,9 @@ public class RecipeCornerMain extends Fragment implements AdapterView.OnItemSele
     @Override
     public void onNothingSelected(AdapterView<?> adapterView) {
 
+    }
+
+    public void getRecipeList(ArrayList<RecipeCorner> recipeModalArrayList) {
+        this.recipeModalArrayList = recipeModalArrayList;
     }
 }

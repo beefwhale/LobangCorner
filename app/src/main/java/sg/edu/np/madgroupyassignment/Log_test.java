@@ -54,12 +54,12 @@ import java.util.HashMap;
 
 public class Log_test extends Fragment {
 
-    private UserProfile userProfile;
-    private String aboutMeInput;
-    private ArrayList<RecipeCorner> recipeCorners;
-    private ArrayList<HawkerCornerStalls> hawkerCornerStalls;
-    private TextView username, aboutme, hwkObj, rcpObj;
-    private ImageView profP;
+    private static UserProfile userProfile;
+    private static String aboutMeInput;
+    private static ArrayList<RecipeCorner> recipeCorners;
+    private static ArrayList<HawkerCornerStalls> hawkerCornerStalls;
+    private static TextView username, aboutme, hwkObj, rcpObj;
+    private static ImageView profP;
     private Button logout, testbtn;
     private ProgressBar loadingPB;
     private EditText input;
@@ -94,37 +94,39 @@ public class Log_test extends Fragment {
         databaseReference = firebaseDatabase.getReference();
 
 //        Getting user profile
-        databaseReference.child("UserProfile").child(mAuth.getUid()).addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                userProfile = snapshot.getValue(UserProfile.class);
-                updatePage();
-            }
+//        databaseReference.child("UserProfile").child(mAuth.getUid()).addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                userProfile = snapshot.getValue(UserProfile.class);
+//                updatePage();
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError error) {
+//
+//            }
+//        });
+//
+////        Getting posts, unsure if needed
+//        databaseReference.child("Posts").addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                for (DataSnapshot rcpObj : snapshot.child("Recipes").getChildren()){
+//                    recipeCorners.add(rcpObj.getValue(RecipeCorner.class));
+//                }
+//                for (DataSnapshot hwkObj : snapshot.child("Hawkers").getChildren()) {
+//                    hawkerCornerStalls.add(hwkObj.getValue(HawkerCornerStalls.class));
+//                }
+//                //getUserPost();
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError error) {
+//
+//            }
+//        });
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-
-//        Getting posts, unsure if needed
-        databaseReference.child("Posts").addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for (DataSnapshot rcpObj : snapshot.child("Recipes").getChildren()){
-                    recipeCorners.add(rcpObj.getValue(RecipeCorner.class));
-                }
-                for (DataSnapshot hwkObj : snapshot.child("Hawkers").getChildren()) {
-                    hawkerCornerStalls.add(hwkObj.getValue(HawkerCornerStalls.class));
-                }
-                //getUserPost();
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
+        updatePage();
 
 //        Getting image
         getPhoto = registerForActivityResult(
@@ -216,7 +218,10 @@ public class Log_test extends Fragment {
     }
 
 //    Updating profile page
-    private void updatePage() {
+    public void updatePage() {
+        MainActivity mainActivity = new MainActivity();
+        mainActivity.profileFirstUpdate = false;
+
         Picasso.get().load(userProfile.getProfileImg()).into(profP);
         username.setText(userProfile.getUsername());
         aboutme.setText(userProfile.getAboutMe());
@@ -307,6 +312,18 @@ public class Log_test extends Fragment {
 
         startActivity(i);
         getActivity().finish();
+    }
+
+    public void setUserProfile(UserProfile userProfile) {
+        this.userProfile = userProfile;
+    }
+
+    public void setRecipePosts(ArrayList<RecipeCorner> recipeCorner) {
+        this.recipeCorners = recipeCorner;
+    }
+
+    public void setHawkerPosts(ArrayList<HawkerCornerStalls> hawkerCornerStalls) {
+        this.hawkerCornerStalls = hawkerCornerStalls;
     }
 
 }
