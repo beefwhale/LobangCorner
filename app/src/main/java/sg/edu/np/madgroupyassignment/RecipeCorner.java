@@ -4,6 +4,7 @@ import java.util.HashMap;
 
 public class RecipeCorner {
     // variables for recipe corner class
+    String owner;
     String recipeName;
     String recipeDescription;
     Integer recipeRating;
@@ -21,9 +22,10 @@ public class RecipeCorner {
     }
 
     // creating constructor for our variables.
-    public RecipeCorner(String recipeName, String recipeDescription, int recipeRating,
+    public RecipeCorner(String owner, String recipeName, String recipeDescription, int recipeRating,
                        int noOfRaters, String userName, String duration,
                          String steps, String ingredients, String postTimeStamp/*, String foodImage*/) {
+        this.owner = owner;
         this.recipeName = recipeName;
         this.recipeDescription = recipeDescription;
         this.recipeRating = recipeRating;
@@ -39,6 +41,14 @@ public class RecipeCorner {
 
 
     // creating getter and setter methods.
+    public String getOwner() {
+        return owner;
+    }
+
+    public void setOwner(String owner) {
+        this.owner = owner;
+    }
+
     public String getRecipeName() {
         return recipeName;
     }

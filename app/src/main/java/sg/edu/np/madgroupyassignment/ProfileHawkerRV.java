@@ -35,11 +35,7 @@ import java.util.Comparator;
 //Class for hawker corner main page is a fragment
 public class ProfileHawkerRV extends Fragment {
 
-    //Set list to static so accessible by all class & create list to get from Database.
-    //hawker corner DBList will be used as a copy by filter to use no filter and get original order
-    //stallsList will take up the database list in the codes
-    public static ArrayList<HawkerCornerStalls> hawkerCornersList = new ArrayList<>();
-    ArrayList<HawkerCornerStalls> hcDBList = new ArrayList<>();
+    static ArrayList<HawkerCornerStalls> hawkerCornersList = new ArrayList<>();
 
     //Recyclerview & Adapter so different functions can access
     RecyclerView hcmainrv;
@@ -48,9 +44,7 @@ public class ProfileHawkerRV extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState){
         View view = inflater.inflate(R.layout.activity_profile_hawkerrv, parent, false);
 
-        //Populate hawker corner's stallList, temporary and will change to get data from firebase
-        //Will create method to retrieve from db
-        //If empty, means havent populate from firebase
+        //Populate user's stall List, temporary and will change to get data from firebase
         if (hawkerCornersList.isEmpty()){
             for (int i = 0; i < 10; i++) {
                 HawkerCornerStalls newstall = new HawkerCornerStalls();
@@ -59,16 +53,8 @@ public class ProfileHawkerRV extends Fragment {
                 hawkerCornersList.add(newstall);
             }
         }
-        //If not empty, check if size is same, if not same, means new stalls, repopulate
-        else if (hawkerCornersList.size() != hcDBList.size()){
 
-        }
-        //Not empty and same size, no new stalls
-        else{
 
-        }
-
-        //Defining Recycler View info & Setting Layout and Adapter.
         hcmainrv = view.findViewById(R.id.hawkercornerrv);
         hcadapter = new HCMainsAdapter(hawkerCornersList);
         LinearLayoutManager hclayout = new LinearLayoutManager(view.getContext());
@@ -78,6 +64,11 @@ public class ProfileHawkerRV extends Fragment {
 
 
         return view;
+    }
+
+//    Getting user posts
+    public void getUserHawkerPosts(ArrayList<HawkerCornerStalls> userHawkerPosts) {
+        this.hawkerCornersList = userHawkerPosts;
     }
 
 }

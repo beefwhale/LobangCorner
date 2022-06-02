@@ -57,8 +57,7 @@ public class Log_test extends Fragment {
     private static UserProfile userProfile;
     private static String aboutMeInput;
     private static ArrayList<RecipeCorner> recipeCorners;
-    public static ArrayList<HawkerCornerStalls> hawkerCornerStalls;
-    private ArrayList<HawkerCornerStalls> testlist = new ArrayList<>();
+    private static ArrayList<HawkerCornerStalls> hawkerCornerStalls;
     private static TextView username, aboutme, hwkObj, rcpObj;
     private static ImageView profP;
     private Button logout, testbtn;
@@ -203,12 +202,33 @@ public class Log_test extends Fragment {
         ArrayList<RecipeCorner> notUserRecipe = new ArrayList<>();
         ArrayList<HawkerCornerStalls> notUserHawker = new ArrayList<>();
 
+        //Setting user hawker posts
         for (HawkerCornerStalls hwkObj : hawkerCornerStalls) {
             if (!hwkObj.getHcOwner().equals(userProfile.getUID())){
                 notUserHawker.add(hwkObj);
             }
         }
         hawkerCornerStalls.removeAll(notUserHawker);
+
+        ProfileHawkerRV profileHawkerRV = new ProfileHawkerRV();
+        profileHawkerRV.getUserHawkerPosts(hawkerCornerStalls);
+        if (profileHawkerRV.hcadapter != null){
+            profileHawkerRV.hcadapter.notifyDataSetChanged();
+        }
+
+        //Setting user recipe posts
+        for (RecipeCorner rcpObj : recipeCorners) {
+            if (!rcpObj.getOwner().equals(userProfile.getUID())){
+                notUserRecipe.add(rcpObj);
+            }
+        }
+        recipeCorners.removeAll(notUserRecipe);
+
+        ProfileRecipeRV profileRecipeRV = new ProfileRecipeRV();
+        profileRecipeRV.getUserRecipePosts(recipeCorners);
+        if (profileRecipeRV.adapter != null){
+            profileRecipeRV.adapter.notifyDataSetChanged();
+        }
     }
 
 //    Getting file extension
@@ -226,7 +246,7 @@ public class Log_test extends Fragment {
         databaseReference.child("UserProfile").child(userProfile.getUID()).updateChildren(data);
     }
 
-//    Upload chosen image to firebase and change profile picture in user profile
+//    Upload chosen image to firebase and changes profile picture in user profile
     private void upPost() {
         if (ImageUri != null) {
             StorageReference fileReference = storageReference.child("ImgUps").child(System.currentTimeMillis() + "." + getFileExt(ImageUri));
@@ -283,6 +303,8 @@ public class Log_test extends Fragment {
         getActivity().finish();
     }
 
+
+    //Update on database change
     public void setUserProfile(UserProfile userProfile) {
         this.userProfile = userProfile;
     }

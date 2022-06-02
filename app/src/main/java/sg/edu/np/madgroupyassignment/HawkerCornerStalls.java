@@ -5,6 +5,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import org.parceler.Parcel;
 import org.w3c.dom.Text;
 
 public class HawkerCornerStalls {
