@@ -57,7 +57,8 @@ public class Log_test extends Fragment {
     private static UserProfile userProfile;
     private static String aboutMeInput;
     private static ArrayList<RecipeCorner> recipeCorners;
-    private static ArrayList<HawkerCornerStalls> hawkerCornerStalls;
+    public static ArrayList<HawkerCornerStalls> hawkerCornerStalls;
+    private ArrayList<HawkerCornerStalls> testlist = new ArrayList<>();
     private static TextView username, aboutme, hwkObj, rcpObj;
     private static ImageView profP;
     private Button logout, testbtn;
@@ -76,9 +77,6 @@ public class Log_test extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_log_test, null);
 
-        recipeCorners = new ArrayList<>();
-        hawkerCornerStalls = new ArrayList<>();
-
         profP = view.findViewById(R.id.idProfP);
         username = view.findViewById(R.id.TestTitle);
         aboutme = view.findViewById(R.id.idAbtme);
@@ -93,39 +91,7 @@ public class Log_test extends Fragment {
         firebaseDatabase = FirebaseDatabase.getInstance();
         databaseReference = firebaseDatabase.getReference();
 
-//        Getting user profile
-//        databaseReference.child("UserProfile").child(mAuth.getUid()).addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                userProfile = snapshot.getValue(UserProfile.class);
-//                updatePage();
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError error) {
-//
-//            }
-//        });
-//
-////        Getting posts, unsure if needed
-//        databaseReference.child("Posts").addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                for (DataSnapshot rcpObj : snapshot.child("Recipes").getChildren()){
-//                    recipeCorners.add(rcpObj.getValue(RecipeCorner.class));
-//                }
-//                for (DataSnapshot hwkObj : snapshot.child("Hawkers").getChildren()) {
-//                    hawkerCornerStalls.add(hwkObj.getValue(HawkerCornerStalls.class));
-//                }
-//                //getUserPost();
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError error) {
-//
-//            }
-//        });
-
+//        Updating page
         updatePage();
 
 //        Getting image
@@ -148,6 +114,7 @@ public class Log_test extends Fragment {
             }
         });
 
+//        Changes about me text on clicked
         aboutme.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -227,20 +194,22 @@ public class Log_test extends Fragment {
         aboutme.setText(userProfile.getAboutMe());
         hwkObj.setText("" + (userProfile.getHawkList().size()-1) + "\n\nHawker Posts");
         rcpObj.setText("" + (userProfile.getRcpList().size()-1) + "\n\nRecipe Post");
+
+        getUserPost();
     }
 
 //    Removes all non-user posts
-//    private void getUserPost() {
-//        ArrayList<RecipeCorner> notUserRecipe = new ArrayList<>();
-//        ArrayList<HawkerCornerStalls> notUserHawker = new ArrayList<>();
-//
-//        for (HawkerCornerStalls hwkObj : hawkerCornerStalls) {
-//            if (hwkObj.getHcOwner()){
-//                notUserHawker.add(hwkObj);
-//            }
-//        }
-//        hawkerCornerStalls.removeAll(notUserHawker);
-//    }
+    private void getUserPost() {
+        ArrayList<RecipeCorner> notUserRecipe = new ArrayList<>();
+        ArrayList<HawkerCornerStalls> notUserHawker = new ArrayList<>();
+
+        for (HawkerCornerStalls hwkObj : hawkerCornerStalls) {
+            if (!hwkObj.getHcOwner().equals(userProfile.getUID())){
+                notUserHawker.add(hwkObj);
+            }
+        }
+        hawkerCornerStalls.removeAll(notUserHawker);
+    }
 
 //    Getting file extension
     private String getFileExt(Uri uri) {
