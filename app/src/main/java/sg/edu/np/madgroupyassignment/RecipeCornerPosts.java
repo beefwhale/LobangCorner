@@ -48,9 +48,10 @@ public class RecipeCornerPosts extends Fragment {
         Bundle b = this.getArguments();
         int rcNo = (int) b.getInt("recipeNo");
         RecipeCorner recipePost;
-        if (RecipeCornerMain.recipeModalArrayList.size() != 0){
+        RecipeCornerMain recipeCornerMain = new RecipeCornerMain();
+        if (recipeCornerMain.recipeModalArrayList.size() != 0){
             // Normal Recipe Corner List
-             recipePost = RecipeCornerMain.recipeModalArrayList.get(rcNo);
+             recipePost = recipeCornerMain.recipeModalArrayList.get(rcNo);
         }
         else{
             // profile Recipe Corner List

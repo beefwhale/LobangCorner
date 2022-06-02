@@ -1,4 +1,5 @@
 package sg.edu.np.madgroupyassignment;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -17,6 +18,12 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -32,16 +39,37 @@ public class RecipeCornerMain extends Fragment implements AdapterView.OnItemSele
     // variable for our adapter
     // class and array list
     public RecipeAdapter adapter;
-    public static ArrayList<RecipeCorner> recipeModalArrayList = new ArrayList<>();
+    public ArrayList<RecipeCorner> recipeModalArrayList = new ArrayList<>();
 
     public RecipeCornerMain(){
         this.c = c;
     }
 
+    private FirebaseDatabase firebaseDatabase;
+    private DatabaseReference databaseReference;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-
         View view = inflater.inflate(R.layout.activity_recipe_corner_main, container, false);
+
+        firebaseDatabase = FirebaseDatabase.getInstance();
+        databaseReference = firebaseDatabase.getReference().child("Posts").child("Recipes");
+
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot objectEntry : snapshot.child("Posts").child("Recipes").getChildren()) {
+                    RecipeCorner rcpObject = objectEntry.getValue(RecipeCorner.class);
+                    recipeModalArrayList.add(rcpObject);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
 
         //spinner for sorting/filtering
         Spinner sortSpinner = view.findViewById(R.id.spinner);
@@ -191,9 +219,5 @@ public class RecipeCornerMain extends Fragment implements AdapterView.OnItemSele
     @Override
     public void onNothingSelected(AdapterView<?> adapterView) {
 
-    }
-
-    public void getRecipeList(ArrayList<RecipeCorner> recipeList){
-        recipeModalArrayList = recipeList;
     }
 }
