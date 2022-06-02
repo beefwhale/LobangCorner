@@ -102,11 +102,11 @@ public class MainActivity extends AppCompatActivity{
                     hawkerCornerMain.hcadapter.notifyDataSetChanged();
                 }
 
-                //Updating user hawker posts
-                profileHawkerRV.getHawkerList(hwkList);
-                if (hawkerCornerMain.hcadapter != null){
-                    hawkerCornerMain.hcadapter.notifyDataSetChanged();
-                }
+//                //Updating user hawker posts
+//                profileHawkerRV.getHawkerList(hwkList);
+//                if (hawkerCornerMain.hcadapter != null){
+//                    hawkerCornerMain.hcadapter.notifyDataSetChanged();
+//                }
 
                 //Updating recipe corner
                 recipeCornerMain.getRecipeList(rcpList);
