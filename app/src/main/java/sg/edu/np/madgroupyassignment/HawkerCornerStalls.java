@@ -8,10 +8,11 @@ import android.widget.TextView;
 import org.parceler.Parcel;
 import org.w3c.dom.Text;
 
+@Parcel
 public class HawkerCornerStalls {
     //Data for the HawkerCornerStalls
 
-    public ImageView hccoverimg;    //cover image for display in main
+//    public ImageView hccoverimg;    //cover image for display in main
     public String hcstallname;      //stallname of hawker
     public String hcOwner;          //owner of post
     public String hcauthor;         //author who made hawker post
@@ -54,13 +55,13 @@ public class HawkerCornerStalls {
         this.hcOwner = hcOwner;
     }
 
-    public ImageView getHccoverimg() {
-        return hccoverimg;
-    }
-
-    public void setHccoverimg(ImageView hccoverimg) {
-        this.hccoverimg = hccoverimg;
-    }
+//    public ImageView getHccoverimg() {
+//        return hccoverimg;
+//    }
+//
+//    public void setHccoverimg(ImageView hccoverimg) {
+//        this.hccoverimg = hccoverimg;
+//    }
 
     public String getHcstallname() {
         return hcstallname;

@@ -39,37 +39,22 @@ public class RecipeCornerMain extends Fragment implements AdapterView.OnItemSele
     // variable for our adapter
     // class and array list
     public RecipeAdapter adapter;
-    public static ArrayList<RecipeCorner> recipeModalArrayList = new ArrayList<>();
+    PostsHolder postsHolder;
+    public ArrayList<RecipeCorner> recipeModalArrayList = new ArrayList<>();
 
     public RecipeCornerMain(){
         this.c = c;
     }
 
-//    private FirebaseDatabase firebaseDatabase;
-//    private DatabaseReference databaseReference;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_recipe_corner_main, container, false);
 
-//        firebaseDatabase = FirebaseDatabase.getInstance();
-//        databaseReference = firebaseDatabase.getReference().child("Posts").child("Recipes");
-//
-//        databaseReference.addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                for (DataSnapshot objectEntry : snapshot.child("Posts").child("Recipes").getChildren()) {
-//                    RecipeCorner rcpObject = objectEntry.getValue(RecipeCorner.class);
-//                    recipeModalArrayList.add(rcpObject);
-//                }
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError error) {
-//
-//            }
-//        });
-
+        recipeModalArrayList.removeAll(recipeModalArrayList);
+        for (RecipeCorner obj : postsHolder.getRecipePosts()) {
+            recipeModalArrayList.add(obj);
+        }
 
         //spinner for sorting/filtering
         Spinner sortSpinner = view.findViewById(R.id.spinner);
@@ -219,9 +204,5 @@ public class RecipeCornerMain extends Fragment implements AdapterView.OnItemSele
     @Override
     public void onNothingSelected(AdapterView<?> adapterView) {
 
-    }
-
-    public void getRecipeList(ArrayList<RecipeCorner> recipeModalArrayList) {
-        this.recipeModalArrayList = recipeModalArrayList;
     }
 }

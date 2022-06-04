@@ -15,6 +15,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
+import org.parceler.Parcels;
+
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -78,6 +80,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeViewHolder>{
                 Fragment rcpFragment = new RecipeCornerPosts();
                 Bundle bundle = new Bundle();
                 bundle.putInt("recipeNo", holder.getAdapterPosition());
+                bundle.putParcelable("list", Parcels.wrap(recipeArrayList));
                 rcpFragment.setArguments(bundle);
 
                 activity.getSupportFragmentManager().beginTransaction()

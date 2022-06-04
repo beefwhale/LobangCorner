@@ -12,10 +12,14 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import org.parceler.Parcels;
 import org.w3c.dom.Text;
+
+import java.util.ArrayList;
 
 public class HCChosenStall extends Fragment {
     //Class-xml for chosen stall from hawker corner. !!-Make appropriate changes
+    private ArrayList<HawkerCornerStalls> stallsList = new ArrayList<>();
 
     public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState){
         return inflater.inflate(R.layout.activity_hcchosen_stall, parent, false);
@@ -35,17 +39,10 @@ public class HCChosenStall extends Fragment {
         Bundle bundle = this.getArguments();
 
         int chosenstallno = (int) bundle.getInt("stallposition");
-        HawkerCornerStalls chosenstall;
-        HawkerCornerMain hawkerCornerMain = new HawkerCornerMain();
-        if (hawkerCornerMain.stallsList .size() != 0){
-            // list for normal HC
-             chosenstall = hawkerCornerMain.stallsList.get(chosenstallno);
-        }
-        else{
-            // list for Profile linked HC
-             chosenstall = ProfileHawkerRV.hawkerCornersList.get(chosenstallno);
-        }
+        stallsList = Parcels.unwrap(bundle.getParcelable("list"));
 
+        HawkerCornerStalls chosenstall;
+        chosenstall = stallsList.get(chosenstallno);
 
         chosenstallname.setText(chosenstall.hcstallname);
         hccusername.setText(chosenstall.hcauthor);

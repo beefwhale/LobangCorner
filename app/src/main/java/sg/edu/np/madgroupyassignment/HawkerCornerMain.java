@@ -31,13 +31,11 @@ import java.util.Comparator;
 //Class for hawker corner main page is a fragment
 public class HawkerCornerMain extends Fragment implements AdapterView.OnItemSelectedListener {
 
-//    private FirebaseDatabase firebaseDatabase;
-//    private DatabaseReference databaseReference;
-
     //Set list to static so accessible by all class & create list to get from Database.
     //hawker corner DBList will be used as a copy by filter to use no filter and get original order
     //stallsList will take up the database list in the codes
-    public static ArrayList<HawkerCornerStalls> stallsList = new ArrayList<>();
+    PostsHolder postsHolder;
+    public ArrayList<HawkerCornerStalls> stallsList = new ArrayList<>();
     ArrayList<HawkerCornerStalls> hcDBList = new ArrayList<>();
 
 
@@ -48,25 +46,10 @@ public class HawkerCornerMain extends Fragment implements AdapterView.OnItemSele
     public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState){
         View view = inflater.inflate(R.layout.activity_hawker_corner_main, parent, false);
 
-//        firebaseDatabase = FirebaseDatabase.getInstance();
-//        databaseReference = firebaseDatabase.getReference().child("Posts").child("Hawkers");
-//
-////        Getting hawker posts
-//        databaseReference.addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                for (DataSnapshot objectEntry : snapshot.getChildren()) {
-//                    HawkerCornerStalls hwkObject = objectEntry.getValue(HawkerCornerStalls.class);
-//                    stallsList.add(hwkObject);
-//                    hcadapter.notifyDataSetChanged();
-//                }
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError error) {
-//
-//            }
-//        });
+        stallsList.removeAll(stallsList);
+        for (HawkerCornerStalls obj : postsHolder.getHawkerPosts()){
+            stallsList.add(obj);
+        }
 
         //Populate hawker corner's stallList, temporary and will change to get data from firebase
         //Will create method to retrieve from db
@@ -80,14 +63,6 @@ public class HawkerCornerMain extends Fragment implements AdapterView.OnItemSele
                 newstall.hcauthor = "Author " + i;
                 stallsList.add(newstall);
             }
-        }
-        //If not empty, check if size is same, if not same, means new stalls, repopulate
-        else if (stallsList.size() != hcDBList.size()){
-
-        }
-        //Not empty and same size, no new stalls
-        else{
-
         }
 
         //Defining Recycler View info & Setting Layout and Adapter.
@@ -202,7 +177,4 @@ public class HawkerCornerMain extends Fragment implements AdapterView.OnItemSele
         return stallsList;
     }
 
-    public void getHawkerList(ArrayList<HawkerCornerStalls> stallsList) {
-        this.stallsList = stallsList;
-    }
 }

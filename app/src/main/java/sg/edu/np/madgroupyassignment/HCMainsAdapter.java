@@ -2,6 +2,7 @@ package sg.edu.np.madgroupyassignment;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,13 +15,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
+import org.parceler.Parcel;
+import org.parceler.Parcels;
+
 import java.util.ArrayList;
 
 public class HCMainsAdapter extends RecyclerView.Adapter<HCMainViewHolder> {
     //Adapter for Recycler View in Hawker Corner Main Page.
 
     ArrayList<HawkerCornerStalls> stallsList;
-
     //Constructor for Adapter.
     public HCMainsAdapter (ArrayList<HawkerCornerStalls> stallsList){
         this.stallsList = stallsList;
@@ -52,9 +55,10 @@ public class HCMainsAdapter extends RecyclerView.Adapter<HCMainViewHolder> {
                 //Bundle to pass info to fragment as intent cannot
                 Bundle bundle = new Bundle();
                 bundle.putInt("stallposition", holder.getAdapterPosition());
+                bundle.putParcelable("list", Parcels.wrap(stallsList));
                 chosenfragment.setArguments(bundle);
 
-                activity.getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, chosenfragment).addToBackStack(null).commit();
+                activity.getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, chosenfragment).commit();
             }
         });
     }
