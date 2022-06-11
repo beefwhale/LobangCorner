@@ -31,13 +31,9 @@ import java.util.Comparator;
 //Class for hawker corner main page is a fragment
 public class HawkerCornerMain extends Fragment implements AdapterView.OnItemSelectedListener {
 
-    //Set list to static so accessible by all class & create list to get from Database.
-    //hawker corner DBList will be used as a copy by filter to use no filter and get original order
-    //stallsList will take up the database list in the codes
+    //Variables or views needed
     PostsHolder postsHolder;
     public ArrayList<HawkerCornerStalls> stallsList = new ArrayList<>();
-    ArrayList<HawkerCornerStalls> hcDBList = new ArrayList<>();
-
 
     //Recyclerview & Adapter so different functions can access
     RecyclerView hcmainrv;
@@ -78,12 +74,15 @@ public class HawkerCornerMain extends Fragment implements AdapterView.OnItemSele
         hcmainsearch.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
+                if (filterList(query, view).isEmpty()){
+                    Toast.makeText(view.getContext(), "No Matching Stalls or Users", Toast.LENGTH_SHORT).show();
+                }
                 return true;
             }
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                filterList(newText,view);
+                filterList(newText, view);
                 return true;
             }
         });
@@ -102,7 +101,7 @@ public class HawkerCornerMain extends Fragment implements AdapterView.OnItemSele
     }
 
     //A method to filter the list of hawker stalls
-    public void filterList(String text, View view) {
+    public ArrayList<HawkerCornerStalls> filterList(String text, View view) {
         ArrayList<HawkerCornerStalls> filteredList = new ArrayList<>();
         //Checks if the user enters anything that matches stall name or user name, match will be added to filter
         for (HawkerCornerStalls hcs : stallsList){
@@ -111,16 +110,11 @@ public class HawkerCornerMain extends Fragment implements AdapterView.OnItemSele
             }
         }
 
-        //If the filtered list is empty, meaning no matches, show toast
-        if (filteredList.isEmpty()){
-            Toast.makeText(view.getContext(), "No Matching Stalls or Users", Toast.LENGTH_SHORT).show();
-        }
-        //Else, set the recyclerview's adapter to filteredlist
-        else{
-            hcmainrv = view.findViewById(R.id.hawkercornerrv);
-            hcadapter = new HCMainsAdapter(filteredList);
-            hcmainrv.setAdapter(hcadapter);
-        }
+        hcmainrv = view.findViewById(R.id.hawkercornerrv);
+        hcadapter = new HCMainsAdapter(filteredList);
+        hcmainrv.setAdapter(hcadapter);
+
+        return filteredList;
     }
 
     //Two methods to override from the superclass, methods for filtering in spinner

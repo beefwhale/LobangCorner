@@ -46,6 +46,6 @@ public class HCChosenStall extends Fragment {
 
         chosenstallname.setText(chosenstall.hcstallname);
         hccusername.setText(chosenstall.hcauthor);
-
+        hccparagraph.setText(chosenstall.hccparagraph);
     }
 }
