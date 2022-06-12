@@ -29,14 +29,13 @@ public class HawkerCornerStalls {
 
     };
 
-    public HawkerCornerStalls(/*ImageView hccoverimg,*/String hcOwner, String hcstallname, String hcauthor,
-                              Boolean hccliked, String hccparagraph, String hccaddress,
+    public HawkerCornerStalls(/*ImageView hccoverimg,*/String hcOwner, String hcstallname, String hcauthor/*,Boolean hccliked*/, String hccparagraph, String hccaddress,
                               String daysopen, String hoursopen, String hccuserpfp, String postTimeStamp){
         //this.hccoverimg = hccoverimg;
         this.hcOwner = hcOwner;
         this.hcstallname = hcstallname;
         this.hcauthor = hcauthor;
-        this.hccliked = hccliked;
+        /*this.hccliked = hccliked;*/
         this.hccparagraph = hccparagraph;
         this.hccaddress = hccaddress;
         this.daysopen = daysopen;
@@ -87,13 +86,13 @@ public class HawkerCornerStalls {
         this.hccuserpfp = hccuserpfp;
     }
 
-    public Boolean getHccliked() {
+    /*public Boolean getHccliked() {
         return hccliked;
     }
 
     public void setHccliked(Boolean hccliked) {
         this.hccliked = hccliked;
-    }
+    }*/
 
     public String getHccparagraph() {
         return hccparagraph;

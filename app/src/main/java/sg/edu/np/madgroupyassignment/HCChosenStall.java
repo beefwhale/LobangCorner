@@ -32,7 +32,7 @@ public class HCChosenStall extends Fragment {
         ImageView chosenstallimg = view.findViewById(R.id.chosenstallimg);
         ImageView hccuserpfp = view.findViewById(R.id.hccuserpfp);
         TextView hccusername = view.findViewById(R.id.hccusername);
-        Button hcclikebtn = view.findViewById(R.id.hcclikebtn);
+        /*Button hcclikebtn = view.findViewById(R.id.hcclikebtn);*/
         TextView hccaddress = view.findViewById(R.id.hccaddress);
         TextView hccparagraph = view.findViewById(R.id.hccparagraph);
         TextView descriptionheader = view.findViewById(R.id.descriptiontv);

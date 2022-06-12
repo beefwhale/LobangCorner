@@ -19,9 +19,11 @@
         <entry key="..\:/Users/OwO11/AndroidStudioProjects/LobangCorner/app/src/main/res/layout/activity_registration.xml" value="0.16167664670658682" />
         <entry key="..\:/Users/OwO11/AndroidStudioProjects/LobangCorner/app/src/main/res/layout/hawker_corner_stalls.xml" value="0.25" />
         <entry key="..\:/Users/OwO11/AndroidStudioProjects/LobangCorner/app/src/main/res/menu/menu_main.xml" value="1.7142857142857142" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/LobangCorner/app/src/main/res/drawable/hcimage_overlay.xml" value="0.1" />
         <entry key="..\:/Users/User/AndroidStudioProjects/LobangCorner/app/src/main/res/drawable/ic_hawkercorner_foreground.xml" value="0.1" />
         <entry key="..\:/Users/User/AndroidStudioProjects/LobangCorner/app/src/main/res/drawable/image_overlay.xml" value="0.1" />
         <entry key="..\:/Users/User/AndroidStudioProjects/LobangCorner/app/src/main/res/drawable/searchview_design.xml" value="0.1" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/LobangCorner/app/src/main/res/drawable/shapes.xml" value="0.1" />
         <entry key="..\:/Users/User/AndroidStudioProjects/LobangCorner/app/src/main/res/layout/activity_hawker_corner_main.xml" value="0.23958333333333334" />
         <entry key="..\:/Users/User/AndroidStudioProjects/LobangCorner/app/src/main/res/layout/activity_hcchosen_stall.xml" value="0.23641304347826086" />
         <entry key="..\:/Users/User/AndroidStudioProjects/LobangCorner/app/src/main/res/layout/activity_log_test.xml" value="0.12158054711246201" />
@@ -30,6 +32,7 @@
         <entry key="..\:/Users/User/AndroidStudioProjects/LobangCorner/app/src/main/res/layout/activity_profile_hawkerrv.xml" value="0.12158054711246201" />
         <entry key="..\:/Users/User/AndroidStudioProjects/LobangCorner/app/src/main/res/layout/activity_registration.xml" value="0.1" />
         <entry key="..\:/Users/User/AndroidStudioProjects/LobangCorner/app/src/main/res/layout/hawker_corner_stalls.xml" value="0.25" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/LobangCorner/app/src/main/res/layout/ingredient_list_row.xml" value="0.12001811594202899" />
         <entry key="..\:/Users/l1ght/AndroidStudioProjects/LobangCorner/app/src/main/res/layout/activity_hawker_corner_main.xml" value="0.22826086956521738" />
         <entry key="..\:/Users/l1ght/AndroidStudioProjects/LobangCorner/app/src/main/res/layout/activity_hcchosen_stall.xml" value="0.22826086956521738" />
         <entry key="..\:/Users/l1ght/AndroidStudioProjects/LobangCorner/app/src/main/res/layout/activity_home.xml" value="0.22826086956521738" />

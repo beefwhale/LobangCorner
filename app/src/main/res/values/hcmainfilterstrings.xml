@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="filters">
-        <item>No Filter</item>
+        <item>Sort By</item>
         <item>Stall Name Ascending</item>
         <item>Stall Name Descending</item>
         <item>Author Name Ascending</item>
