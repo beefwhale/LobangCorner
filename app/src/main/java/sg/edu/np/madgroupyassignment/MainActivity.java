@@ -15,6 +15,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationBarView;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.components.Lazy;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -25,6 +26,8 @@ import com.squareup.picasso.Picasso;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -65,6 +68,7 @@ public class MainActivity extends AppCompatActivity{
         //Floating action buttons
         FloatingActionButton mainFAB, rcFAB, hcFAB;
         TextView rcFABText, hcFABText;
+
 
 
         postsHolder = new PostsHolder();
@@ -136,8 +140,6 @@ public class MainActivity extends AppCompatActivity{
 
         //Calling classes to replace upon nav bar click
         Home homeFragment = new Home();
-        RecipeForm recipeFragment = new RecipeForm(); //temp
-        HawkerForm hawkerFragment = new HawkerForm(); //temp
         Log_test profile = new Log_test();
         HawkerCornerMain hcmain = new HawkerCornerMain();
         RecipeCornerMain rcmain = new RecipeCornerMain();
@@ -191,6 +193,9 @@ public class MainActivity extends AppCompatActivity{
         hcFABText.setVisibility(View.GONE);
         FABVisible = false;
 
+        //ANimations
+
+
         mainFAB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -217,6 +222,10 @@ public class MainActivity extends AppCompatActivity{
                 AppCompatActivity activity = (AppCompatActivity) v.getContext();
                 activity.getSupportFragmentManager().beginTransaction()
                         .replace(R.id.MainFragment, hawkerForm).addToBackStack(null).commit();
+                rcFAB.setVisibility(View.GONE);
+                hcFAB.setVisibility(View.GONE);
+                rcFABText.setVisibility(View.GONE);
+                hcFABText.setVisibility(View.GONE);
             }
         });
         //FAB RC Corner Button
@@ -226,6 +235,10 @@ public class MainActivity extends AppCompatActivity{
                 AppCompatActivity activity = (AppCompatActivity) v.getContext();
                 activity.getSupportFragmentManager().beginTransaction()
                         .replace(R.id.MainFragment, recipeForm).addToBackStack(null).commit();
+                rcFAB.setVisibility(View.GONE);
+                hcFAB.setVisibility(View.GONE);
+                rcFABText.setVisibility(View.GONE);
+                hcFABText.setVisibility(View.GONE);
             }
         });
 

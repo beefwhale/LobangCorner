@@ -5,6 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:animateLayoutChanges="true"
     tools:context=".MainActivity">
 
     <FrameLayout
@@ -25,7 +26,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:menu="@menu/menu_bottom_nav" />
+        app:menu="@menu/menu_bottom_nav"
+        app:itemIconSize="30dp"/>
 
     // MAIN Floating Action Button (FAB)
     <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -34,32 +36,42 @@
         android:layout_height="wrap_content"
         android:layout_marginRight="15dp"
         android:layout_marginBottom="15dp"
-        android:src="@drawable/add"
         app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
         app:layout_constraintRight_toRightOf="parent"
-        app:rippleColor="#000000" />
+        app:rippleColor="#000000"
+        android:animateLayoutChanges="true"
+        android:outlineAmbientShadowColor="@color/black"
+        android:src = "@drawable/add"
+        android:tint="@color/white"/>
+
     // SUB Floating Action Button (FAB) : Hawker Corner
+
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/floating_hc_nav_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="15dp"
-        android:src="@drawable/ic_hawkercorner_foreground"
+        android:src="@drawable/ic_hawker_fab"
+        android:tint="@color/white"
+        android:focusable="true"
         app:layout_constraintBottom_toTopOf="@+id/floating_main_nav_button"
         app:layout_constraintEnd_toEndOf="@+id/floating_main_nav_button"
-        app:layout_constraintStart_toStartOf="@+id/floating_main_nav_button"
-        app:rippleColor="#000000" />
+        app:layout_constraintStart_toStartOf="@+id/floating_main_nav_button" />
+
     // SUB Floating Action Button (FAB) : Recipe Corner
+
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/floating_rc_nav_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="15dp"
-        android:src="@drawable/ic_recipecorner_foreground"
+        android:focusable="true"
+        android:src="@drawable/ic_recipe_fab"
+        android:tint="@android:color/white"
         app:layout_constraintBottom_toTopOf="@+id/floating_hc_nav_button"
         app:layout_constraintEnd_toEndOf="@+id/floating_hc_nav_button"
-        app:layout_constraintStart_toStartOf="@+id/floating_hc_nav_button"
-        app:rippleColor="#000000" />
+        app:layout_constraintStart_toStartOf="@+id/floating_hc_nav_button" />
+
     // SUB Floating Action Button (FAB) : Recipe Corner Text
     <TextView
         android:id="@+id/floating_rc_nav_button_text"
@@ -69,7 +81,9 @@
         android:text="Create Recipe Post"
         app:layout_constraintBottom_toBottomOf="@+id/floating_rc_nav_button"
         app:layout_constraintEnd_toStartOf="@+id/floating_rc_nav_button"
-        app:layout_constraintTop_toTopOf="@+id/floating_rc_nav_button" />
+        app:layout_constraintTop_toTopOf="@+id/floating_rc_nav_button"
+        android:backgroundTint="@color/black"
+        />
     // SUB Floating Action Button (FAB) : Hawker Corner Text
     <TextView
         android:id="@+id/floating_hc_nav_button_text"
@@ -79,7 +93,8 @@
         android:text="Create Hawker Post"
         app:layout_constraintBottom_toBottomOf="@+id/floating_hc_nav_button"
         app:layout_constraintEnd_toStartOf="@+id/floating_hc_nav_button"
-        app:layout_constraintTop_toTopOf="@+id/floating_hc_nav_button" />
+        app:layout_constraintTop_toTopOf="@+id/floating_hc_nav_button"
+        android:backgroundTint="@color/black"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
