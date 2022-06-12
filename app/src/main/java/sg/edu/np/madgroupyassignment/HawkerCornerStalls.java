@@ -125,4 +125,12 @@ public class HawkerCornerStalls {
     public void setHoursopen(String hoursopen) {
         this.hoursopen = hoursopen;
     }
+
+    public long getPostTimeStamp() {
+        return postTimeStamp;
+    }
+
+    public void setPostTimeStamp(long postTimeStamp) {
+        this.postTimeStamp = postTimeStamp;
+    }
 }
