@@ -11,6 +11,7 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationBarView;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
@@ -23,6 +24,9 @@ import com.squareup.picasso.Picasso;
 
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -37,7 +41,15 @@ public class MainActivity extends AppCompatActivity{
     private FirebaseDatabase firebaseDatabase;
     private DatabaseReference databaseReference;
 
+    Context c;
+    Boolean FABVisible;
     BottomNavigationView bottomNavigationView;
+
+    public MainActivity(){
+        this.c =c;
+        this.FABVisible = FABVisible;
+    }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +61,12 @@ public class MainActivity extends AppCompatActivity{
         HawkerForm hawkerForm = new HawkerForm();
         HawkerCornerMain hawkerCornerMain = new HawkerCornerMain();
         RecipeCornerMain recipeCornerMain = new RecipeCornerMain();
+
+        //Floating action buttons
+        FloatingActionButton mainFAB, rcFAB, hcFAB;
+        TextView rcFABText, hcFABText;
+
+
         postsHolder = new PostsHolder();
         profileFirstUpdate = true;
 
@@ -151,16 +169,63 @@ public class MainActivity extends AppCompatActivity{
                         return true;
                 }
                 switch (item.getItemId()) {
-                    case R.id.recipeform:
-                        getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, hawkerFragment, null).commit(); //temp segment
-                        return true;
-                }
-                switch (item.getItemId()) {
                     case R.id.profile:
                         getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, profile, null).commit();
                         return true;
                 }
                 return false;
+            }
+        });
+
+        //Floating Action Buttons
+        mainFAB = findViewById(R.id.floating_main_nav_button);
+        rcFAB = findViewById(R.id.floating_rc_nav_button);
+        hcFAB = findViewById(R.id.floating_hc_nav_button);
+        rcFABText = findViewById(R.id.floating_rc_nav_button_text);
+        hcFABText = findViewById(R.id.floating_hc_nav_button_text);
+
+        //set all as invisible when loaded
+        rcFAB.setVisibility(View.GONE);
+        hcFAB.setVisibility(View.GONE);
+        rcFABText.setVisibility(View.GONE);
+        hcFABText.setVisibility(View.GONE);
+        FABVisible = false;
+
+        mainFAB.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(!FABVisible){ // if false
+                    rcFAB.show();
+                    hcFAB.show();
+                    rcFABText.setVisibility(View.VISIBLE);
+                    hcFABText.setVisibility(View.VISIBLE);
+                    FABVisible = true;
+                }
+                else{
+                    rcFAB.hide();
+                    hcFAB.hide();
+                    rcFABText.setVisibility(View.GONE);
+                    hcFABText.setVisibility(View.GONE);
+                    FABVisible = false;
+                }
+            }
+        });
+        //FAB Hawker Corner Button
+        hcFAB.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AppCompatActivity activity = (AppCompatActivity) v.getContext();
+                activity.getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.MainFragment, hawkerForm).addToBackStack(null).commit();
+            }
+        });
+        //FAB RC Corner Button
+        rcFAB.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AppCompatActivity activity = (AppCompatActivity) v.getContext();
+                activity.getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.MainFragment, recipeForm).addToBackStack(null).commit();
             }
         });
 
