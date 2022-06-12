@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.fragment.app.Fragment;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,7 +36,8 @@ import java.util.Comparator;
 //Class for hawker corner main page is a fragment
 public class ProfileHawkerRV extends Fragment {
 
-    static ArrayList<HawkerCornerStalls> hawkerCornersList = new ArrayList<>();
+    private PostsHolder postsHolder;
+    private ArrayList<HawkerCornerStalls> hawkerCornersList = new ArrayList<>();
 
     //Recyclerview & Adapter so different functions can access
     RecyclerView hcmainrv;
@@ -43,6 +45,12 @@ public class ProfileHawkerRV extends Fragment {
 
     public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState){
         View view = inflater.inflate(R.layout.activity_profile_hawkerrv, parent, false);
+
+        hawkerCornersList.removeAll(hawkerCornersList);
+        for (HawkerCornerStalls obj : postsHolder.getUserHawkerPosts()) {
+            hawkerCornersList.add(obj);
+        }
+
 
         //Populate user's stall List, temporary and will change to get data from firebase
         if (hawkerCornersList.isEmpty()){
@@ -54,7 +62,6 @@ public class ProfileHawkerRV extends Fragment {
             }
         }
 
-
         hcmainrv = view.findViewById(R.id.hawkercornerrv);
         hcadapter = new HCMainsAdapter(hawkerCornersList);
         LinearLayoutManager hclayout = new LinearLayoutManager(view.getContext());
@@ -62,13 +69,7 @@ public class ProfileHawkerRV extends Fragment {
         hcmainrv.setAdapter(hcadapter);
         hcmainrv.setLayoutManager(hclayout);
 
-
         return view;
-    }
-
-//    Getting user posts
-    public void getUserHawkerPosts(ArrayList<HawkerCornerStalls> userHawkerPosts) {
-        this.hawkerCornersList = userHawkerPosts;
     }
 
 }

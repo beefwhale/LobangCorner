@@ -12,10 +12,14 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import org.parceler.Parcels;
 import org.w3c.dom.Text;
+
+import java.util.ArrayList;
 
 public class HCChosenStall extends Fragment {
     //Class-xml for chosen stall from hawker corner. !!-Make appropriate changes
+    private ArrayList<HawkerCornerStalls> stallsList = new ArrayList<>();
 
     public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState){
         return inflater.inflate(R.layout.activity_hcchosen_stall, parent, false);
@@ -29,26 +33,27 @@ public class HCChosenStall extends Fragment {
         ImageView hccuserpfp = view.findViewById(R.id.hccuserpfp);
         TextView hccusername = view.findViewById(R.id.hccusername);
         Button hcclikebtn = view.findViewById(R.id.hcclikebtn);
+        TextView hccaddress = view.findViewById(R.id.hccaddress);
         TextView hccparagraph = view.findViewById(R.id.hccparagraph);
+        TextView descriptionheader = view.findViewById(R.id.descriptiontv);
+        TextView hccopendays = view.findViewById(R.id.hccopendays);
+        TextView hccopenhours = view.findViewById(R.id.hccopenhours);
 
         //Bundle to get info from Hawker Corner Main
         Bundle bundle = this.getArguments();
 
         int chosenstallno = (int) bundle.getInt("stallposition");
-        HawkerCornerStalls chosenstall;
-        HawkerCornerMain hawkerCornerMain = new HawkerCornerMain();
-        if (hawkerCornerMain.stallsList .size() != 0){
-            // list for normal HC
-             chosenstall = hawkerCornerMain.stallsList.get(chosenstallno);
-        }
-        else{
-            // list for Profile linked HC
-             chosenstall = ProfileHawkerRV.hawkerCornersList.get(chosenstallno);
-        }
+        stallsList = Parcels.unwrap(bundle.getParcelable("list"));
 
+        HawkerCornerStalls chosenstall;
+        chosenstall = stallsList.get(chosenstallno);
 
         chosenstallname.setText(chosenstall.hcstallname);
         hccusername.setText(chosenstall.hcauthor);
-
+        hccaddress.setText(chosenstall.hccaddress);
+        hccparagraph.setText(chosenstall.hccparagraph);
+        descriptionheader.setText("About " + chosenstall.hcstallname);
+        hccopendays.setText(chosenstall.daysopen);
+        hccopenhours.setText(chosenstall.hoursopen);
     }
 }

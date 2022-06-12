@@ -56,8 +56,6 @@ public class Log_test extends Fragment {
 
     private static UserProfile userProfile;
     private static String aboutMeInput;
-    private static ArrayList<RecipeCorner> recipeCorners;
-    private static ArrayList<HawkerCornerStalls> hawkerCornerStalls;
     private static TextView username, aboutme, hwkObj, rcpObj;
     private static ImageView profP;
     private Button logout, testbtn;
@@ -199,33 +197,12 @@ public class Log_test extends Fragment {
 
 //    Removes all non-user posts
     private void getUserPost() {
-        ArrayList<RecipeCorner> notUserRecipe = new ArrayList<>();
-        ArrayList<HawkerCornerStalls> notUserHawker = new ArrayList<>();
-
-        //Setting user hawker posts
-        for (HawkerCornerStalls hwkObj : hawkerCornerStalls) {
-            if (!hwkObj.getHcOwner().equals(userProfile.getUID())){
-                notUserHawker.add(hwkObj);
-            }
-        }
-        hawkerCornerStalls.removeAll(notUserHawker);
-
         ProfileHawkerRV profileHawkerRV = new ProfileHawkerRV();
-        profileHawkerRV.getUserHawkerPosts(hawkerCornerStalls);
         if (profileHawkerRV.hcadapter != null){
             profileHawkerRV.hcadapter.notifyDataSetChanged();
         }
 
-        //Setting user recipe posts
-        for (RecipeCorner rcpObj : recipeCorners) {
-            if (!rcpObj.getOwner().equals(userProfile.getUID())){
-                notUserRecipe.add(rcpObj);
-            }
-        }
-        recipeCorners.removeAll(notUserRecipe);
-
         ProfileRecipeRV profileRecipeRV = new ProfileRecipeRV();
-        profileRecipeRV.getUserRecipePosts(recipeCorners);
         if (profileRecipeRV.adapter != null){
             profileRecipeRV.adapter.notifyDataSetChanged();
         }
@@ -307,14 +284,6 @@ public class Log_test extends Fragment {
     //Update on database change
     public void setUserProfile(UserProfile userProfile) {
         this.userProfile = userProfile;
-    }
-
-    public void setRecipePosts(ArrayList<RecipeCorner> recipeCorner) {
-        this.recipeCorners = recipeCorner;
-    }
-
-    public void setHawkerPosts(ArrayList<HawkerCornerStalls> hawkerCornerStalls) {
-        this.hawkerCornerStalls = hawkerCornerStalls;
     }
 
 }

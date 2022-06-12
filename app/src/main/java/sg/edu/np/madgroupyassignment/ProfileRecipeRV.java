@@ -20,10 +20,13 @@ import java.util.HashMap;
 
 public class ProfileRecipeRV extends Fragment{
 
-    Context c;
-    public static ArrayList<RecipeCorner> recipeCornersList = new ArrayList<>();
-    private RecyclerView recipeRV;
+    private Context c;
+
+    private PostsHolder postsHolder;
+    private ArrayList<RecipeCorner> recipeCornersList = new ArrayList<>();
+    RecyclerView recipeRV;
     RecipeAdapter adapter;
+
     public ProfileRecipeRV(){
         this.c = c;
     }
@@ -31,8 +34,21 @@ public class ProfileRecipeRV extends Fragment{
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_profile_reciperv, container, false);
 
-        recipeRV = view.findViewById(R.id.idRVRecipe);
+        recipeCornersList.removeAll(recipeCornersList);
+        for (RecipeCorner obj : postsHolder.getUserRecipePosts()) {
+            recipeCornersList.add(obj);
+        }
+
         buildRecyclerView();
+
+        recipeRV = view.findViewById(R.id.idRVRecipe);
+        adapter = new RecipeAdapter(recipeCornersList, c);
+        LinearLayoutManager manager = new LinearLayoutManager(c);
+        recipeRV.setHasFixedSize(true);
+
+        recipeRV.setLayoutManager(manager);
+        recipeRV.setAdapter(adapter);
+
         return view;
     }
 
@@ -56,20 +72,6 @@ public class ProfileRecipeRV extends Fragment{
             recipeCornersList.add(new RecipeCorner("4v8zoBfuGGPNY62hCSMT9UpyBAK2", "Chiffon Cake", "Pandan Chiffon Cake",
                     4, 2,"Q", "30", "step 1: ", "chikan", ""));
         }
-
-
-        adapter = new RecipeAdapter(recipeCornersList, c);
-        LinearLayoutManager manager = new LinearLayoutManager(c);
-        recipeRV.setHasFixedSize(true);
-
-
-        recipeRV.setLayoutManager(manager);
-        recipeRV.setAdapter(adapter);
-    }
-
-//    Getting user posts
-    public void getUserRecipePosts(ArrayList<RecipeCorner> userRecipePosts) {
-        this.recipeCornersList = userRecipePosts;
     }
 
 }

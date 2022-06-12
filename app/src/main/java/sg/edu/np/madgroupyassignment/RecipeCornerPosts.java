@@ -19,6 +19,8 @@ import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import org.parceler.Parcels;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -27,6 +29,7 @@ public class RecipeCornerPosts extends Fragment {
     Context c;
 
     public RecipeCornerPosts(){this.c =c;};
+    private ArrayList<RecipeCorner> recipeList = new ArrayList<>();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -47,17 +50,9 @@ public class RecipeCornerPosts extends Fragment {
 
         Bundle b = this.getArguments();
         int rcNo = (int) b.getInt("recipeNo");
+        recipeList = Parcels.unwrap(b.getParcelable("list"));
         RecipeCorner recipePost;
-        RecipeCornerMain recipeCornerMain = new RecipeCornerMain();
-        if (recipeCornerMain.recipeModalArrayList.size() != 0){
-            // Normal Recipe Corner List
-             recipePost = recipeCornerMain.recipeModalArrayList.get(rcNo);
-        }
-        else{
-            // profile Recipe Corner List
-             recipePost = ProfileRecipeRV.recipeCornersList.get(rcNo);
-        }
-
+        recipePost = recipeList.get(rcNo);
 
 
         n.setText(recipePost.recipeName);
