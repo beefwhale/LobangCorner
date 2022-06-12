@@ -49,6 +49,8 @@ public class MainActivity extends AppCompatActivity{
         HawkerForm hawkerForm = new HawkerForm();
         HawkerCornerMain hawkerCornerMain = new HawkerCornerMain();
         RecipeCornerMain recipeCornerMain = new RecipeCornerMain();
+        Home home = new Home();
+        postsHolder = new PostsHolder();
         profileFirstUpdate = true;
 
         mAuth = FirebaseAuth.getInstance();

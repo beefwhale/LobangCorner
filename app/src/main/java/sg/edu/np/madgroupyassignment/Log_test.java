@@ -50,6 +50,7 @@ import org.parceler.Parcels;
 import org.w3c.dom.Text;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 
 public class Log_test extends Fragment {
@@ -61,6 +62,7 @@ public class Log_test extends Fragment {
     private Button logout, testbtn;
     private ProgressBar loadingPB;
     private EditText input;
+    PostsHolder postsHolder;
 
     private Uri ImageUri;
     private FirebaseAuth mAuth;
@@ -174,7 +176,15 @@ public class Log_test extends Fragment {
         testbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                updatePage();
+                Log.i("test1", Arrays.toString(postsHolder.getHawkerPosts().toArray()));
+                Log.i("test2", Arrays.toString(postsHolder.getRecipePosts().toArray()));
+                Log.i("test3", Arrays.toString(postsHolder.getUserHawkerPosts().toArray()));
+                Log.i("test4", Arrays.toString(postsHolder.getUserRecipePosts().toArray()));
+
+                for (HawkerCornerStalls i : postsHolder.getTest()){
+                    Log.i("home1", i.getHcstallname());
+                }
+
             }
         });
 

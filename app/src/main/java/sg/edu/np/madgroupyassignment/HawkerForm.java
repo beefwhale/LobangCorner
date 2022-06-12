@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.text.format.Time;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -86,7 +87,6 @@ public class HawkerForm extends Fragment {
         aInput = hf.findViewById(R.id.addrInput);
         opTInput = hf.findViewById(R.id.openingTime);
         clTInput = hf.findViewById(R.id.closingTime);
-
 
         //Assigning Stall Name to variable
         sNInput.addTextChangedListener(new TextWatcher() {

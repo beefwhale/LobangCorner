@@ -1,6 +1,7 @@
 package sg.edu.np.madgroupyassignment;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,18 +9,21 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class HomeChildAdapter extends RecyclerView.Adapter<HomeChildViewHolder> {
     PostsHolder postsHolder;
     ArrayList<HomeChildData> data = new ArrayList<>();
     Context c;
 
-
+    int[] postType = postsHolder.getLatestPostsType();
 
     public HomeChildAdapter(Context c, ArrayList<HomeChildData> data){
         this.c = c;
         this.data = data;
+        Log.i("test", Arrays.toString(postType));
     }
 
     @NonNull
@@ -44,4 +48,5 @@ public class HomeChildAdapter extends RecyclerView.Adapter<HomeChildViewHolder> 
     public int getItemCount() {
         return data.size(); //array list size ;
     }
+
 }

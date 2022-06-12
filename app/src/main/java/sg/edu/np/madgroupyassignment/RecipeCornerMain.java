@@ -100,7 +100,7 @@ public class RecipeCornerMain extends Fragment implements AdapterView.OnItemSele
                 newrecipe.duration = "0";
                 newrecipe.steps = "Steps " + i;
                 newrecipe.ingredients = "Ingredient " + i;
-                newrecipe.postTimeStamp = "";
+                newrecipe.postTimeStamp = 1655028155253L;
                 recipeModalArrayList.add(newrecipe);
             }
         }
