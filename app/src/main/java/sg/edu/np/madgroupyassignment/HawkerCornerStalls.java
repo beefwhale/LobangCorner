@@ -22,21 +22,20 @@ public class HawkerCornerStalls {
     public String hccaddress;     //Address of hawker stall
     public String daysopen;      //How to make it so that user can enter different days and appear in two records
     public String hoursopen;    //Same as ^
-    public String postTimeStamp;
+    public long postTimeStamp;
 
     //Constructors
     public HawkerCornerStalls (){
 
     };
 
-    public HawkerCornerStalls(/*ImageView hccoverimg,*/String hcOwner, String hcstallname, String hcauthor,
-                              Boolean hccliked, String hccparagraph, String hccaddress,
-                              String daysopen, String hoursopen, String hccuserpfp, String postTimeStamp){
+    public HawkerCornerStalls(/*ImageView hccoverimg,*/String hcOwner, String hcstallname, String hcauthor/*,Boolean hccliked*/, String hccparagraph, String hccaddress,
+                              String daysopen, String hoursopen, String hccuserpfp, Long postTimeStamp){
         //this.hccoverimg = hccoverimg;
         this.hcOwner = hcOwner;
         this.hcstallname = hcstallname;
         this.hcauthor = hcauthor;
-        this.hccliked = hccliked;
+        /*this.hccliked = hccliked;*/
         this.hccparagraph = hccparagraph;
         this.hccaddress = hccaddress;
         this.daysopen = daysopen;
@@ -87,13 +86,13 @@ public class HawkerCornerStalls {
         this.hccuserpfp = hccuserpfp;
     }
 
-    public Boolean getHccliked() {
+    /*public Boolean getHccliked() {
         return hccliked;
     }
 
     public void setHccliked(Boolean hccliked) {
         this.hccliked = hccliked;
-    }
+    }*/
 
     public String getHccparagraph() {
         return hccparagraph;
@@ -125,5 +124,13 @@ public class HawkerCornerStalls {
 
     public void setHoursopen(String hoursopen) {
         this.hoursopen = hoursopen;
+    }
+
+    public long getPostTimeStamp() {
+        return postTimeStamp;
+    }
+
+    public void setPostTimeStamp(long postTimeStamp) {
+        this.postTimeStamp = postTimeStamp;
     }
 }

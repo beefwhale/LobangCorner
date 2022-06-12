@@ -10,8 +10,10 @@
         android:layout_width="0dp"
         android:layout_height="250dp"
         android:layout_margin="12dp"
-        android:background="#EA5151"
-        android:alpha="0.85"
+        android:foreground="@drawable/hcimage_overlay"
+        android:background="@drawable/round_outline"
+        android:backgroundTint="@color/redversion1"
+        android:clipToOutline="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -20,8 +22,8 @@
 
     <TextView
         android:id="@+id/hcstallname"
-        android:layout_width="161dp"
-        android:layout_height="41dp"
+        android:layout_width="338dp"
+        android:layout_height="45dp"
         android:layout_marginStart="34dp"
         android:layout_marginBottom="34dp"
         android:text="TextView"

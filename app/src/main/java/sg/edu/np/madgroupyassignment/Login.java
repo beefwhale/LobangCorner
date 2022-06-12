@@ -125,6 +125,7 @@ public class Login extends AppCompatActivity {
 //
 //            }
 //        });
+
     @Override
     protected void onStart() {
         super.onStart();
@@ -135,9 +136,6 @@ public class Login extends AppCompatActivity {
             this.finish();
         }
     }
-
 }
-
-
 
 

@@ -27,5 +27,6 @@ public class RecipeViewHolder extends RecyclerView.ViewHolder {
         //ingreds = itemView.findViewById(R.id.idIngreds);
         //steps = itemView.findViewById(R.id.idSteps);
         //duration = itemView.findViewById(R.id.idDuration);
+
     }
 }

@@ -13,7 +13,7 @@ public class RecipeCorner {
     String duration;
     String steps;
     String ingredients;
-    String postTimeStamp;
+    Long postTimeStamp;
     String foodImage;
 
     //Empty constructor
@@ -24,7 +24,7 @@ public class RecipeCorner {
     // creating constructor for our variables.
     public RecipeCorner(String owner, String recipeName, String recipeDescription, int recipeRating,
                        int noOfRaters, String userName, String duration,
-                         String steps, String ingredients, String postTimeStamp/*, String foodImage*/) {
+                         String steps, String ingredients, Long postTimeStamp/*, String foodImage*/) {
         this.owner = owner;
         this.recipeName = recipeName;
         this.recipeDescription = recipeDescription;
@@ -93,19 +93,23 @@ public class RecipeCorner {
 
     public void setDuration(String duration){this.duration = duration; }
 
-    /*public HashMap<String, Object> getIngredients(){return ingredients; }
+    public String getIngredients() {
+        return ingredients;
+    }
 
-    public void setIngredients(HashMap<String, Object> ingredients){this.ingredients = ingredients; } */
+    public void setIngredients(String ingredients) {
+        this.ingredients = ingredients;
+    }
 
     public String getSteps(){return steps; }
 
     public void setSteps(String steps){this.steps = steps; }
 
-    public String getPostTimeStamp() {
+    public Long getPostTimeStamp() {
         return postTimeStamp;
     }
 
-    public void setPostTimeStamp(String postTimeStamp) {
+    public void setPostTimeStamp(Long postTimeStamp) {
         this.postTimeStamp = postTimeStamp;
     }
 

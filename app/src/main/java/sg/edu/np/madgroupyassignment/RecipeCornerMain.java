@@ -28,7 +28,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.HashMap;
 
 public class RecipeCornerMain extends Fragment implements AdapterView.OnItemSelectedListener{
     Context c;
@@ -88,7 +87,38 @@ public class RecipeCornerMain extends Fragment implements AdapterView.OnItemSele
 
         // calling method to
         // build recycler view.
-        buildRecyclerView();
+        //buildRecyclerView();
+        if (recipeModalArrayList.isEmpty()){
+            for (int i = 0; i < 10; i++) {
+                RecipeCorner newrecipe = new RecipeCorner();
+                newrecipe.owner = "";
+                newrecipe.recipeName = "Recipe " + i;
+                newrecipe.recipeDescription = "Description " + i;
+                newrecipe.recipeRating = 0;
+                newrecipe.noOfRaters = 0;
+                newrecipe.userName = "UserName " + i;
+                newrecipe.duration = "0";
+                newrecipe.steps = "Steps " + i;
+                newrecipe.ingredients = "Ingredient " + i;
+                newrecipe.postTimeStamp = 1655028155253L;
+                recipeModalArrayList.add(newrecipe);
+            }
+        }
+
+        // initializing our adapter class.
+        adapter = new RecipeAdapter(recipeModalArrayList, getActivity());
+
+        // adding layout manager to our recycler view.
+        LinearLayoutManager manager = new LinearLayoutManager(getActivity());
+        recipeRV.setHasFixedSize(true);
+
+        // setting layout manager
+        // to our recycler view.
+        recipeRV.setLayoutManager(manager);
+
+        // setting adapter to
+        // our recycler view.
+        recipeRV.setAdapter(adapter);
 
         return view;
     }
@@ -145,28 +175,28 @@ public class RecipeCornerMain extends Fragment implements AdapterView.OnItemSele
         }
     }
 
-    private void buildRecyclerView() {
+    /*private void buildRecyclerView() {
 
         // below line we are creating a new array list
         recipeModalArrayList = new ArrayList<>();
 
         // below line is to add data to our array list.
         recipeModalArrayList.add(new RecipeCorner("4v8zoBfuGGPNY62hCSMT9UpyBAK2","Cream Cheese Rangoons", "Crispy Cream-Cheese filled Rangoons that are easy to make at home",
-                3, 10, "Yongqing", "100", "step 1: ", "ingred 1:", ""));
+                3, 10, "Yongqing", "100", "step 1: ", "ingred 1:", 1655028155253L));
         recipeModalArrayList.add(new RecipeCorner("4v8zoBfuGGPNY62hCSMT9UpyBAK2", "Ondeh-Ondeh", "Traditional Gula-Melaka Filled Ondeh-Ondeh",
-                3, 6, "Celsius", "30", "step 1: ", "ingred 1:", ""));
+                3, 6, "Celsius", "30", "step 1: ", "ingred 1:", 1655028155253L));
         recipeModalArrayList.add(new RecipeCorner("4v8zoBfuGGPNY62hCSMT9UpyBAK2", "Dumpling", "Delicious and Juicy Pork and Chives Dumpling",
-                2, 4, "Yong Chuen", "70", "step 1: ", "ingred 1:", ""));
+                2, 4, "Yong Chuen", "70", "step 1: ", "ingred 1:", 1655028155253L));
         recipeModalArrayList.add(new RecipeCorner("4v8zoBfuGGPNY62hCSMT9UpyBAK2", "Pineapple Tarts", "Best-Ever Pineapple Tarts",
-                4, 26, "Zi Xian", "50", "step 1: ", "ingred 1:", ""));
+                4, 26, "Zi Xian", "50", "step 1: ", "ingred 1:", 1655028187483L));
         recipeModalArrayList.add(new RecipeCorner("4v8zoBfuGGPNY62hCSMT9UpyBAK2", "Fried Crab Sticks", "Crispy and Tasty Fried Crab Sticks",
-                5, 20, "Hasanah", "25",  "step 1: ", "ingred 1:", ""));
+                5, 20, "Hasanah", "25",  "step 1: ", "ingred 1:", 1655028187483L));
         recipeModalArrayList.add(new RecipeCorner("4v8zoBfuGGPNY62hCSMT9UpyBAK2", "Nine Layered Kueh", "Bright and Colourful Nine Layered Kueh",
-                3, 9, "Wesley", "45", "step 1: ", "ingred 1:", ""));
+                3, 9, "Wesley", "45", "step 1: ", "ingred 1:", 1655028187483L));
         recipeModalArrayList.add(new RecipeCorner("4v8zoBfuGGPNY62hCSMT9UpyBAK2", "Curry Path", "Chinese Curry Path",
-                0, 2,"Teo", "20", "step 1: ", "ingred 1:", ""));
+                0, 2,"Teo", "20", "step 1: ", "ingred 1:", 1655028213219L));
         recipeModalArrayList.add(new RecipeCorner("4v8zoBfuGGPNY62hCSMT9UpyBAK2", "Chiffon Cake", "Pandan Chiffon Cake",
-                4, 2,"Q", "30", "step 1: ", "ingred 1:", ""));
+                4, 2,"Q", "30", "step 1: ", "ingred 1:", 1655028213219L));
 
         // initializing our adapter class.
         adapter = new RecipeAdapter(recipeModalArrayList, getActivity());
@@ -182,7 +212,7 @@ public class RecipeCornerMain extends Fragment implements AdapterView.OnItemSele
         // setting adapter to
         // our recycler view.
         recipeRV.setAdapter(adapter);
-    }
+    } */
 
 
     @Override
