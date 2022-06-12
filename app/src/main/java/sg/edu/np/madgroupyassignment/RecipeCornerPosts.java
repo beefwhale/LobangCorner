@@ -19,6 +19,8 @@ import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
 import org.parceler.Parcels;
 
 import java.util.ArrayList;
@@ -27,7 +29,7 @@ import java.util.HashMap;
 
 public class RecipeCornerPosts extends Fragment {
     Context c;
-
+    private static RecipeCorner recipeCorner;
     public RecipeCornerPosts(){this.c =c;};
     private ArrayList<RecipeCorner> recipeList = new ArrayList<>();
 
@@ -64,6 +66,8 @@ public class RecipeCornerPosts extends Fragment {
         duration.setText("Duration: " + recipePost.duration + " mins");
         steps.setText(recipePost.steps);
         ingred.setText(recipePost.ingredients);
+
+        //Picasso.get().load(recipeCorner.getFoodImage()).into(i);
 
         return view;
     }

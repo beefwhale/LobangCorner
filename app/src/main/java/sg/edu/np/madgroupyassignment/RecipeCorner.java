@@ -93,9 +93,13 @@ public class RecipeCorner {
 
     public void setDuration(String duration){this.duration = duration; }
 
-    /*public HashMap<String, Object> getIngredients(){return ingredients; }
+    public String getIngredients() {
+        return ingredients;
+    }
 
-    public void setIngredients(HashMap<String, Object> ingredients){this.ingredients = ingredients; } */
+    public void setIngredients(String ingredients) {
+        this.ingredients = ingredients;
+    }
 
     public String getSteps(){return steps; }
 

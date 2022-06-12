@@ -28,7 +28,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.HashMap;
 
 public class RecipeCornerMain extends Fragment implements AdapterView.OnItemSelectedListener{
     Context c;
@@ -88,7 +87,38 @@ public class RecipeCornerMain extends Fragment implements AdapterView.OnItemSele
 
         // calling method to
         // build recycler view.
-        buildRecyclerView();
+        //buildRecyclerView();
+        if (recipeModalArrayList.isEmpty()){
+            for (int i = 0; i < 10; i++) {
+                RecipeCorner newrecipe = new RecipeCorner();
+                newrecipe.owner = "";
+                newrecipe.recipeName = "Recipe " + i;
+                newrecipe.recipeDescription = "Description " + i;
+                newrecipe.recipeRating = 0;
+                newrecipe.noOfRaters = 0;
+                newrecipe.userName = "UserName " + i;
+                newrecipe.duration = "0";
+                newrecipe.steps = "Steps " + i;
+                newrecipe.ingredients = "Ingredient " + i;
+                newrecipe.postTimeStamp = "";
+                recipeModalArrayList.add(newrecipe);
+            }
+        }
+
+        // initializing our adapter class.
+        adapter = new RecipeAdapter(recipeModalArrayList, getActivity());
+
+        // adding layout manager to our recycler view.
+        LinearLayoutManager manager = new LinearLayoutManager(getActivity());
+        recipeRV.setHasFixedSize(true);
+
+        // setting layout manager
+        // to our recycler view.
+        recipeRV.setLayoutManager(manager);
+
+        // setting adapter to
+        // our recycler view.
+        recipeRV.setAdapter(adapter);
 
         return view;
     }
@@ -145,7 +175,7 @@ public class RecipeCornerMain extends Fragment implements AdapterView.OnItemSele
         }
     }
 
-    private void buildRecyclerView() {
+    /*private void buildRecyclerView() {
 
         // below line we are creating a new array list
         recipeModalArrayList = new ArrayList<>();
@@ -182,7 +212,7 @@ public class RecipeCornerMain extends Fragment implements AdapterView.OnItemSele
         // setting adapter to
         // our recycler view.
         recipeRV.setAdapter(adapter);
-    }
+    } */
 
 
     @Override
