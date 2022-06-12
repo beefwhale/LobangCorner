@@ -1,13 +1,23 @@
 package sg.edu.np.madgroupyassignment;
 
 import android.content.Context;
+import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+
+import org.parceler.Parcels;
 
 import java.util.ArrayList;
 
@@ -50,6 +60,37 @@ public class HomeParentAdapter extends RecyclerView.Adapter<HomeParentViewHolder
                 d.tp_header = "Insert Title" + i;
                 data.add(d);
             }
+            //Rounding corners of ImageView buttons
+            ImageView exploreHC = item.findViewById(R.id.home_hc_btn);
+            ImageView exploreRC = item.findViewById(R.id.home_rc_btn);
+            exploreHC.setClipToOutline(true);
+            exploreRC.setClipToOutline(true);
+
+            //Making my Explore page image views clickable
+            exploreRC.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    /*View view = MainActivity.bottomNavigationView.findViewById(R.id.rc);
+                    view.performClick();*/
+                    AppCompatActivity activity = (AppCompatActivity) parent.getContext();
+                    RecipeCornerMain rcmain = new RecipeCornerMain();
+                    activity.getSupportFragmentManager().beginTransaction()
+                            .replace(R.id.MainFragment, rcmain).addToBackStack(null).commit();
+                    MainActivity.bottomNavigationView.getMenu().findItem(R.id.rc).setChecked(true);
+                    //MainActivity.bottomNavigationView.setSelectedItemId(R.id.rc);
+                }
+            });
+            exploreHC.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    AppCompatActivity activity = (AppCompatActivity) parent.getContext();
+                    HawkerCornerMain hcmain = new HawkerCornerMain();
+                    activity.getSupportFragmentManager().beginTransaction()
+                            .replace(R.id.MainFragment, hcmain).addToBackStack(null).commit();
+                    MainActivity.bottomNavigationView.getMenu().findItem(R.id.hc).setChecked(true);
+                }
+            });
+
             RecyclerView tp_rv = item.findViewById(R.id.tp_rv);
             LinearLayoutManager tp_layout = new LinearLayoutManager(c, LinearLayoutManager.HORIZONTAL, false);
             HomeChildAdapter tp_adapter = new HomeChildAdapter(c,data);

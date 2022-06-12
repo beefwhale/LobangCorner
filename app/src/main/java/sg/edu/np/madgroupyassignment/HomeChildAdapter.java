@@ -7,6 +7,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.lang.reflect.Array;
@@ -42,6 +44,7 @@ public class HomeChildAdapter extends RecyclerView.Adapter<HomeChildViewHolder> 
         HomeChildData d = data.get(position);
         // Pass actual data into each ViewHolder
         holder.tp_header.setText(d.tp_header);
+
     }
 
     @Override

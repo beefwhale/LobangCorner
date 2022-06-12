@@ -15,7 +15,7 @@ public class HomeParentViewHolder extends RecyclerView.ViewHolder {
     ImageView tp_img;
 
     //Latest posts elements
-    TextView lp_header;
+    TextView feed_header;
     RecyclerView parent_rv;
 
     View viewItem;
@@ -24,7 +24,7 @@ public class HomeParentViewHolder extends RecyclerView.ViewHolder {
         viewItem = item;
         parent_rv = item.findViewById(R.id.home_main_rv);
 
-        lp_header= item.findViewById(R.id.lp_header);
+        feed_header= item.findViewById(R.id.feed_header);
 
         // LP and TP elements use the same id
         tp_header= item.findViewById(R.id.toppost_header);

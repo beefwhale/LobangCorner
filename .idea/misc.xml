@@ -52,14 +52,16 @@
         <entry key="..\:/Users/lookf/AndroidStudioProjects/LobangCorner/app/src/main/res/drawable/ic_hawkercorner_foreground.xml" value="0.1405" />
         <entry key="..\:/Users/lookf/AndroidStudioProjects/LobangCorner/app/src/main/res/drawable/ic_recipe_fab.xml" value="0.1405" />
         <entry key="..\:/Users/lookf/AndroidStudioProjects/LobangCorner/app/src/main/res/drawable/ic_recipecorner_foreground.xml" value="0.1725" />
+        <entry key="..\:/Users/lookf/AndroidStudioProjects/LobangCorner/app/src/main/res/drawable/round_outline.xml" value="0.1405" />
         <entry key="..\:/Users/lookf/AndroidStudioProjects/LobangCorner/app/src/main/res/layout/activity_hawker_corner_main.xml" value="0.13541666666666666" />
         <entry key="..\:/Users/lookf/AndroidStudioProjects/LobangCorner/app/src/main/res/layout/activity_home.xml" value="0.16354166666666667" />
-        <entry key="..\:/Users/lookf/AndroidStudioProjects/LobangCorner/app/src/main/res/layout/activity_home_child.xml" value="0.22" />
+        <entry key="..\:/Users/lookf/AndroidStudioProjects/LobangCorner/app/src/main/res/layout/activity_home_child.xml" value="0.4466666666666667" />
         <entry key="..\:/Users/lookf/AndroidStudioProjects/LobangCorner/app/src/main/res/layout/activity_home_latestposts.xml" value="0.35104166666666664" />
+        <entry key="..\:/Users/lookf/AndroidStudioProjects/LobangCorner/app/src/main/res/layout/activity_home_parent.xml" value="0.16354166666666667" />
         <entry key="..\:/Users/lookf/AndroidStudioProjects/LobangCorner/app/src/main/res/layout/activity_home_topposts.xml" value="0.35104166666666664" />
         <entry key="..\:/Users/lookf/AndroidStudioProjects/LobangCorner/app/src/main/res/layout/activity_home_weekly.xml" value="0.16354166666666667" />
         <entry key="..\:/Users/lookf/AndroidStudioProjects/LobangCorner/app/src/main/res/layout/activity_log_test.xml" value="0.3333333333333333" />
-        <entry key="..\:/Users/lookf/AndroidStudioProjects/LobangCorner/app/src/main/res/layout/activity_main.xml" value="0.3333333333333333" />
+        <entry key="..\:/Users/lookf/AndroidStudioProjects/LobangCorner/app/src/main/res/layout/activity_main.xml" value="0.16666666666666666" />
         <entry key="..\:/Users/lookf/AndroidStudioProjects/LobangCorner/app/src/main/res/layout/activity_profile_hawkerrv.xml" value="0.16354166666666667" />
         <entry key="..\:/Users/lookf/AndroidStudioProjects/LobangCorner/app/src/main/res/layout/activity_profile_reciperv.xml" value="0.16354166666666667" />
         <entry key="..\:/Users/lookf/AndroidStudioProjects/LobangCorner/app/src/main/res/layout/activity_recipe_corner_main.xml" value="0.16354166666666667" />
@@ -67,6 +69,8 @@
         <entry key="..\:/Users/lookf/AndroidStudioProjects/LobangCorner/app/src/main/res/layout/recipe_corner_layout.xml" value="0.13541666666666666" />
         <entry key="..\:/Users/lookf/AndroidStudioProjects/LobangCorner/app/src/main/res/menu/menu_bottom_nav.xml" value="0.35104166666666664" />
         <entry key="..\:/Users/lookf/AndroidStudioProjects/LobangCorner/app/src/main/res/menu/menu_main.xml" value="0.35104166666666664" />
+        <entry key="..\:/Users/lookf/AndroidStudioProjects/LobangCorner/app/src/main/res/mipmap-anydpi-v26/hawkerculture.xml" value="0.1405" />
+        <entry key="..\:/Users/lookf/AndroidStudioProjects/LobangCorner/app/src/main/res/mipmap-anydpi-v26/hawkerculture_round.xml" value="0.1" />
       </map>
     </option>
   </component>

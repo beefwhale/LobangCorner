@@ -9,6 +9,8 @@ import androidx.recyclerview.widget.RecyclerView;
 public class HomeChildViewHolder extends RecyclerView.ViewHolder {
     TextView tp_header;
     ImageView tp_img;
+    ImageView hc_btn;
+    ImageView rc_btn;
 
     public HomeChildViewHolder(View item){
         super(item);
@@ -16,5 +18,8 @@ public class HomeChildViewHolder extends RecyclerView.ViewHolder {
         // Getting values of actual items in TOPPOST layout file
         tp_header= item.findViewById(R.id.toppost_header);
         tp_img = item.findViewById(R.id.toppost_img);
+
+        hc_btn = item.findViewById(R.id.home_hc_btn);
+        rc_btn = item.findViewById(R.id.home_rc_btn);
     }
 }

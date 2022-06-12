@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity{
 
     Context c;
     Boolean FABVisible;
-    BottomNavigationView bottomNavigationView;
+    public static BottomNavigationView bottomNavigationView;
 
     public MainActivity(){
         this.c =c;
@@ -151,6 +151,10 @@ public class MainActivity extends AppCompatActivity{
                     .commit();
         }
 
+        /*public void hcClicked(){
+            HawkerCornerMain hcmain2 = new HawkerCornerMain();
+            getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, hcmain2, null).commit();
+        }*/
         //Upon Bottom Nav Bar click
         bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override

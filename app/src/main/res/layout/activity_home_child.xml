@@ -3,15 +3,16 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:outlineProvider="paddedBounds">
 
     <TextView
-        android:id="@+id/lp_header"
+        android:id="@+id/feed_header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
-        android:text="Latest Posts"
+        android:text="Your Feed"
         android:textSize="24sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/view" />
@@ -58,35 +59,40 @@
         app:layout_constraintTop_toBottomOf="@+id/wklyfeat_header"
         app:srcCompat="@drawable/ashorthike" />
 
+
     <ImageView
-        android:id="@+id/wklyfeat_img2"
+        android:id="@+id/home_hc_btn"
         android:layout_width="180dp"
-        android:layout_height="160dp"
+        android:layout_height="120dp"
         android:layout_below="@id/wklyfeat_header"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:adjustViewBounds="true"
+        android:background="@drawable/round_outline"
+        android:clipToOutline="true"
         android:scaleType="centerCrop"
         android:src="@drawable/ashorthike"
-        app:layout_constraintEnd_toStartOf="@+id/wklyfeat_img3"
+        app:layout_constraintEnd_toStartOf="@+id/home_rc_btn"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tp_header"
         app:srcCompat="@drawable/ashorthike" />
 
     <ImageView
-        android:id="@+id/wklyfeat_img3"
+        android:id="@+id/home_rc_btn"
         android:layout_width="180dp"
-        android:layout_height="160dp"
+        android:layout_height="120dp"
         android:layout_below="@id/wklyfeat_header"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:adjustViewBounds="true"
+        android:background="@drawable/round_outline"
+        android:clipToOutline="true"
         android:scaleType="centerCrop"
         android:src="@drawable/ashorthike"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/wklyfeat_img2"
+        app:layout_constraintStart_toEndOf="@+id/home_hc_btn"
         app:layout_constraintTop_toBottomOf="@+id/tp_header"
         app:srcCompat="@drawable/ashorthike" />
 
@@ -99,9 +105,20 @@
         android:layout_marginTop="8dp"
         android:text="Explore"
         android:textSize="24sp"
-        app:layout_constraintBottom_toTopOf="@+id/idLLView"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/view2" />
+
+    <TextView
+        android:id="@+id/lp_header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/wklyfeat_img"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="16dp"
+        android:text="Latest Posts"
+        android:textSize="24sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
     <View
         android:id="@+id/view"
@@ -113,7 +130,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="24dp"
         android:background="#DCDCDC"
-        app:layout_constraintBottom_toTopOf="@+id/lp_header"
+        app:layout_constraintBottom_toTopOf="@+id/feed_header"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -130,30 +147,64 @@
         android:layout_marginEnd="8dp"
         android:nestedScrollingEnabled="false"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/wklyfeat_img2" />
+        app:layout_constraintTop_toBottomOf="@+id/lp_header" />
 
     <TextView
         android:id="@+id/textView"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginBottom="8dp"
+        android:background="@color/white"
+        android:padding="3dp"
         android:text="Hawker Corner"
         android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="@+id/wklyfeat_img2"
-        app:layout_constraintStart_toStartOf="@+id/wklyfeat_img2" />
+        app:layout_constraintBottom_toBottomOf="@+id/home_hc_btn"
+        app:layout_constraintEnd_toEndOf="@+id/home_hc_btn"
+        app:layout_constraintStart_toStartOf="@+id/home_hc_btn" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="2dp"
+        android:layout_marginEnd="2dp"
+        android:shadowColor="@color/black"
+        android:shadowDx="45"
+        android:shadowDy="45"
+        android:text="Read more about the stories behind our beloved hawker stores!"
+        android:textSize="13sp"
+        app:layout_constraintEnd_toEndOf="@+id/home_hc_btn"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/home_hc_btn"
+        app:layout_constraintTop_toBottomOf="@+id/home_hc_btn" />
+
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="2dp"
+        android:layout_marginEnd="2dp"
+        android:outlineProvider="paddedBounds"
+        android:shadowColor="@color/black"
+        android:text="Discover delicious recipes published by Singaporeans all around!"
+        android:textSize="13sp"
+        app:layout_constraintEnd_toEndOf="@+id/home_rc_btn"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/home_rc_btn"
+        app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
     <TextView
         android:id="@+id/textView2"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginBottom="8dp"
+        android:background="@color/white"
+        android:padding="3dp"
         android:text="Recipe Corner"
         android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="@+id/wklyfeat_img3"
-        app:layout_constraintStart_toStartOf="@+id/wklyfeat_img3" />
+        app:layout_constraintBottom_toBottomOf="@+id/home_rc_btn"
+        app:layout_constraintEnd_toEndOf="@+id/home_rc_btn"
+        app:layout_constraintStart_toStartOf="@+id/home_rc_btn" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

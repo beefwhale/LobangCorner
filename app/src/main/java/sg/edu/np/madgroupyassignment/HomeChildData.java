@@ -10,4 +10,7 @@ public class HomeChildData {
     public String tp_header;
     public ImageView tp_img;
 
+    public ImageView hc_btn;
+    public ImageView rc_btn;
+
 }
