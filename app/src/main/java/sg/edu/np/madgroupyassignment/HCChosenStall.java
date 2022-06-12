@@ -33,7 +33,11 @@ public class HCChosenStall extends Fragment {
         ImageView hccuserpfp = view.findViewById(R.id.hccuserpfp);
         TextView hccusername = view.findViewById(R.id.hccusername);
         Button hcclikebtn = view.findViewById(R.id.hcclikebtn);
+        TextView hccaddress = view.findViewById(R.id.hccaddress);
         TextView hccparagraph = view.findViewById(R.id.hccparagraph);
+        TextView descriptionheader = view.findViewById(R.id.descriptiontv);
+        TextView hccopendays = view.findViewById(R.id.hccopendays);
+        TextView hccopenhours = view.findViewById(R.id.hccopenhours);
 
         //Bundle to get info from Hawker Corner Main
         Bundle bundle = this.getArguments();
@@ -46,6 +50,10 @@ public class HCChosenStall extends Fragment {
 
         chosenstallname.setText(chosenstall.hcstallname);
         hccusername.setText(chosenstall.hcauthor);
+        hccaddress.setText(chosenstall.hccaddress);
         hccparagraph.setText(chosenstall.hccparagraph);
+        descriptionheader.setText("About " + chosenstall.hcstallname);
+        hccopendays.setText(chosenstall.daysopen);
+        hccopenhours.setText(chosenstall.hoursopen);
     }
 }
