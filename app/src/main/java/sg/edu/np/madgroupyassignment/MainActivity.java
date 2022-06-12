@@ -49,7 +49,6 @@ public class MainActivity extends AppCompatActivity{
         HawkerForm hawkerForm = new HawkerForm();
         HawkerCornerMain hawkerCornerMain = new HawkerCornerMain();
         RecipeCornerMain recipeCornerMain = new RecipeCornerMain();
-        postsHolder = new PostsHolder();
         profileFirstUpdate = true;
 
         mAuth = FirebaseAuth.getInstance();
@@ -75,6 +74,7 @@ public class MainActivity extends AppCompatActivity{
                     if (rcpObject.getOwner().equals(mAuth.getUid())){
                         postsHolder.setUserRecipePosts(rcpObject);
                     }
+                    postsHolder.updateRecentRecipePosts(rcpObject);
                 }
 
 //                Getting hawker posts
@@ -86,6 +86,7 @@ public class MainActivity extends AppCompatActivity{
                     if (hwkObject.getHcOwner().equals(mAuth.getUid())){
                         postsHolder.setUserHawkerPosts(hwkObject);
                     }
+                    postsHolder.updateRecentHawkerPosts(hwkObject);
                 }
 
 //                Updating profile page

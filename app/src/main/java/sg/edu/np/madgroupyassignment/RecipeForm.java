@@ -117,7 +117,7 @@ public class RecipeForm extends Fragment {
                 });
 
                 ownerUID = userProfile.getUID();
-                String timeStamp = String.valueOf(System.currentTimeMillis());
+                Long timeStamp = System.currentTimeMillis();
                 recipeCorner = new RecipeCorner(ownerUID, recipeName, recipeDesc, 0, 0, username, duration, steps,totalIngred, timeStamp);
                 userCurrentRcp = userProfile.getRcpList();
                 RcpUp(userCurrentRcp, recipeCorner);

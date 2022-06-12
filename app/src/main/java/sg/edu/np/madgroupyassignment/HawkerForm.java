@@ -293,7 +293,7 @@ public class HawkerForm extends Fragment {
                 username = userProfile.getUsername(); //USERNAME parameter
                 userPfpUrl = userProfile.getProfileImg();
                 ownerUID = userProfile.getUID();
-                String timeStamp = String.valueOf(System.currentTimeMillis());
+                long timeStamp = System.currentTimeMillis();
                 hCS = new HawkerCornerStalls(ownerUID, stallName,username/*,false*/,desc,address,daysOpen,finalTime,userPfpUrl, timeStamp);
 
                 userCurrentHwk = userProfile.getHawkList();

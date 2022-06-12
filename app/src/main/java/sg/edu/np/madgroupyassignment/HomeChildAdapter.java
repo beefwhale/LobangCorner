@@ -11,12 +11,17 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 
 public class HomeChildAdapter extends RecyclerView.Adapter<HomeChildViewHolder> {
+    PostsHolder postsHolder;
     ArrayList<HomeChildData> data = new ArrayList<>();
     Context c;
+
+
+
     public HomeChildAdapter(Context c, ArrayList<HomeChildData> data){
         this.c = c;
         this.data = data;
     }
+
     @NonNull
     @Override
     public HomeChildViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
