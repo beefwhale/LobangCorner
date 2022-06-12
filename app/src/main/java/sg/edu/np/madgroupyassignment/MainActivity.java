@@ -222,8 +222,8 @@ public class MainActivity extends AppCompatActivity{
                 AppCompatActivity activity = (AppCompatActivity) v.getContext();
                 activity.getSupportFragmentManager().beginTransaction()
                         .replace(R.id.MainFragment, hawkerForm).addToBackStack(null).commit();
-                rcFAB.setVisibility(View.GONE);
-                hcFAB.setVisibility(View.GONE);
+                rcFAB.hide();
+                hcFAB.hide();
                 rcFABText.setVisibility(View.GONE);
                 hcFABText.setVisibility(View.GONE);
             }
@@ -235,8 +235,8 @@ public class MainActivity extends AppCompatActivity{
                 AppCompatActivity activity = (AppCompatActivity) v.getContext();
                 activity.getSupportFragmentManager().beginTransaction()
                         .replace(R.id.MainFragment, recipeForm).addToBackStack(null).commit();
-                rcFAB.setVisibility(View.GONE);
-                hcFAB.setVisibility(View.GONE);
+                rcFAB.hide();
+                hcFAB.hide();
                 rcFABText.setVisibility(View.GONE);
                 hcFABText.setVisibility(View.GONE);
             }
