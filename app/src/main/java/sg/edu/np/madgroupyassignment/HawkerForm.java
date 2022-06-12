@@ -81,6 +81,11 @@ public class HawkerForm extends Fragment {
         openingTime = "00:00";
         closingTime = "00:00";
 
+        clHour = 00;
+        clMin = 00;
+        opHour = 00;
+        opMin = 00;
+
         //Assign variable
         sNInput = hf.findViewById(R.id.StallName);
         dInput = hf.findViewById(R.id.Desc);
@@ -165,11 +170,18 @@ public class HawkerForm extends Fragment {
                 TimePickerDialog.OnTimeSetListener onTimeSetListener= new TimePickerDialog.OnTimeSetListener() {
                     @Override
                     public void onTimeSet(TimePicker timePicker, int selectedHr, int selectedMin) {
-                        clHour = selectedHr;
-                        clMin = selectedMin;
-                        clTInput.setText(String.format(Locale.getDefault(), "%02d:%02d", clHour, clMin));
-                        closingTime = String.format(Locale.getDefault(), "%02d:%02d", clHour, clMin);
-                        finalTime = finalTime +" - "+closingTime;
+                        if (clTInput.getText() == "") {
+                            clHour = 00;
+                            clMin = 00;
+                        }
+                        else{
+                            clHour = selectedHr;
+                            clMin = selectedMin;
+                            clTInput.setText(String.format(Locale.getDefault(), "%02d:%02d", clHour, clMin));
+                            closingTime = String.format(Locale.getDefault(), "%02d:%02d", clHour, clMin);
+                            finalTime = finalTime +" - "+closingTime;
+                        }
+
                     }
                 };
 
@@ -246,7 +258,12 @@ public class HawkerForm extends Fragment {
                         openDayBtn.setText(stringBuilder.toString());
                         daysOpen = ""; //String with all the stuff
                         for (int j =0;j<dayList.size();j++){
-                            daysOpen = daysOpen + dayArray[dayList.get(j)] +", ";
+                            if (j == dayList.size()-1){
+                                daysOpen = daysOpen + dayArray[dayList.get(j)];
+                            }
+                            else{
+                                daysOpen = daysOpen + dayArray[dayList.get(j)] +", ";
+                            }
                         }
                     }
                 });
@@ -289,16 +306,48 @@ public class HawkerForm extends Fragment {
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if (stallName.isEmpty() || stallName.length() == 0 || stallName == "" ||
+                        desc.isEmpty() || desc.length() == 0 || desc == ""){
+                    Toast.makeText(getActivity(),"Please include Stall Name and Description", Toast.LENGTH_SHORT).show();
+                }
+                else{
+                    username = userProfile.getUsername(); //USERNAME parameter
+                    userPfpUrl = userProfile.getProfileImg();
+                    ownerUID = userProfile.getUID();
+                    long timeStamp = System.currentTimeMillis();
+                    hCS = new HawkerCornerStalls(ownerUID, stallName,username/*,false*/,desc,address,daysOpen,finalTime,userPfpUrl, timeStamp);
 
-                username = userProfile.getUsername(); //USERNAME parameter
-                userPfpUrl = userProfile.getProfileImg();
-                ownerUID = userProfile.getUID();
-                long timeStamp = System.currentTimeMillis();
-                hCS = new HawkerCornerStalls(ownerUID, stallName,username/*,false*/,desc,address,daysOpen,finalTime,userPfpUrl, timeStamp);
+                    userCurrentHwk = userProfile.getHawkList();
+                    //HwkUp(userCurrentHwk, hCS);
 
-                userCurrentHwk = userProfile.getHawkList();
-                HwkUp(userCurrentHwk, hCS);
+
+                    //***********For input to reset when button submit***********
+                    stallName = "";
+                    desc = "";
+                    address = "";
+                    daysOpen = "";
+                    openingTime = "00:00";
+                    closingTime ="00:00";
+                    finalTime = "";
+
+
+                    sNInput.setText("");
+                    dInput.setText("");
+                    aInput.setText("");
+                    opTInput.setText("");
+                    clTInput.setText("");
+                    for (int j=0; j<selectedDay.length; j++) {
+                        //Remove all selection
+                        selectedDay[j] = false;
+                    }
+                    //Clear day list
+                    dayList.clear();
+                    //Clear text view values
+                    openDayBtn.setText("");
+                    daysOpen = "";
+                }
                 //Toast.makeText(getActivity(),finalTime, Toast.LENGTH_SHORT).show();
+
             }
         });
 

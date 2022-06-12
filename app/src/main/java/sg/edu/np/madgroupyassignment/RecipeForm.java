@@ -35,8 +35,6 @@ public class RecipeForm extends Fragment {
     private DatabaseReference databaseReferencetest;
     private FirebaseAuth mAuth;
 
-
-
     String ownerUID;
     String username;
     String totalIngred;
@@ -54,8 +52,11 @@ public class RecipeForm extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View recipeform = inflater.inflate(R.layout.fragment_recipe_form, container, false);
         // Inflate the layout for this fragment
+        View recipeform = inflater.inflate(R.layout.fragment_recipe_form, container, false);
+
+        View recipemain = inflater.inflate(R.layout.fragment_recipe_post_main, container, false);
+
         //Connecting the 3 fragments through tabLayout
 
         tabLayout = recipeform.findViewById(R.id.tabLayout);
@@ -116,11 +117,20 @@ public class RecipeForm extends Fragment {
                     }
                 });
 
-                ownerUID = userProfile.getUID();
-                Long timeStamp = System.currentTimeMillis();
-                recipeCorner = new RecipeCorner(ownerUID, recipeName, recipeDesc, 0, 0, username, duration, steps,totalIngred, timeStamp);
-                userCurrentRcp = userProfile.getRcpList();
-                RcpUp(userCurrentRcp, recipeCorner);
+                if(recipeName == null || recipeName.length() == 0 || recipeName.isEmpty() ||
+                        recipeDesc == null || recipeDesc.length() == 0 || recipeDesc.isEmpty()){
+                    Toast.makeText(getActivity(), "Please input recipe title and description", Toast.LENGTH_SHORT).show();
+                }
+                else{
+                    ownerUID = userProfile.getUID();
+                    Long timeStamp = System.currentTimeMillis();
+                    recipeCorner = new RecipeCorner(ownerUID, recipeName, recipeDesc, 0, 0, username, duration, steps,totalIngred, timeStamp);
+                    userCurrentRcp = userProfile.getRcpList();
+                    //RcpUp(userCurrentRcp, recipeCorner);
+                    getActivity().recreate();
+                }
+
+
 
 
                 //Toast.makeText(getActivity(), totalIngred, Toast.LENGTH_SHORT).show();

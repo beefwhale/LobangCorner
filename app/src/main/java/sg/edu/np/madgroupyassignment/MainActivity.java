@@ -155,7 +155,7 @@ public class MainActivity extends AppCompatActivity{
                 }
                 switch (item.getItemId()) {
                     case R.id.recipeform:
-                        getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, hawkerFragment, null).commit(); //temp segment
+                        getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, recipeFragment, null).commit(); //temp segment
                         return true;
                 }
                 switch (item.getItemId()) {

@@ -43,7 +43,13 @@ public class FormsViewModel extends ViewModel {
         return selectedRecipeSteps;
     }
 
+    //RecipeIngred Transfer
     private final MutableLiveData<String> selectedRecipeIngred = new MutableLiveData<String>();
     public void selectRecipeIngred(String string){selectedRecipeIngred.setValue(string);}
     public LiveData<String> getSelectedRecipeIngred(){return selectedRecipeIngred;}
+
+
+    private final MutableLiveData<String> selectZero = new MutableLiveData<String>();
+    public void selectZero(String string){selectZero.setValue(string);}
+    public LiveData<String> getSelectZero(){return selectZero;}
 }

@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.text.Editable;
@@ -36,6 +37,8 @@ public class RecipePostMain extends Fragment {
 
     private FormsViewModel viewModel;
 
+    String test;
+
     public RecipePostMain() {
 
     }
@@ -47,6 +50,7 @@ public class RecipePostMain extends Fragment {
         durInput = f1.findViewById(R.id.minuteInput);
         titleInput = f1.findViewById(R.id.RecipeTitle);
         descInput = f1.findViewById(R.id.Desc);
+        viewModel = new ViewModelProvider(requireParentFragment()).get(FormsViewModel.class);
 
 
         //TitleInput Data Transfer
@@ -63,7 +67,6 @@ public class RecipePostMain extends Fragment {
 
             @Override
             public void afterTextChanged(Editable editable) {
-                viewModel = new ViewModelProvider(requireParentFragment()).get(FormsViewModel.class);
                 viewModel.selectRecipeName(title);
             }
         });
@@ -82,7 +85,6 @@ public class RecipePostMain extends Fragment {
 
             @Override
             public void afterTextChanged(Editable editable) {
-                viewModel = new ViewModelProvider(requireParentFragment()).get(FormsViewModel.class);
                 viewModel.selectRecipeDesc(desc);
             }
         });
@@ -101,12 +103,9 @@ public class RecipePostMain extends Fragment {
 
             @Override
             public void afterTextChanged(Editable editable) {
-                viewModel = new ViewModelProvider(requireParentFragment()).get(FormsViewModel.class);
                 viewModel.selectRecipeDuration(min);
             }
         });
-
-
 
 
 
