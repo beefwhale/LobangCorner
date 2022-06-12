@@ -15,6 +15,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.squareup.picasso.Picasso;
+
 import org.parceler.Parcels;
 
 import java.util.ArrayList;
@@ -27,7 +29,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeViewHolder>{
     private ArrayList<RecipeCorner> recipeArrayList;
     private Context context;
     private Integer count;
-
+    private static RecipeCorner recipeCorner;
     // creating a constructor for our variables.
     public RecipeAdapter(ArrayList<RecipeCorner> recipeArrayList, Context context) {
         this.recipeArrayList = recipeArrayList;
@@ -64,14 +66,13 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeViewHolder>{
     public void onBindViewHolder(@NonNull RecipeViewHolder holder, int position) {
         // setting data to our views of recycler view.
         RecipeCorner item = recipeArrayList.get(position);
-        //Log.d("list name", item.recipeName);
 
         holder.recipeName.setText(item.recipeName);
         holder.recipeDesc.setText(item.getRecipeDescription());
         holder.ratingNo.setText(item.getNoOfRaters().toString());
         holder.ratingBar.setRating(item.getRecipeRating());
         holder.userName.setText("By: " + item.getUserName());
-        //idk how to pass the image to the posts activity
+        //Picasso.get().load(recipeCorner.getFoodImage()).into(holder.foodImage);
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
