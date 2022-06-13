@@ -43,10 +43,10 @@
         android:textSize="12sp"
         android:textStyle="bold|italic"
         app:layout_constraintStart_toStartOf="@+id/hccoverimg"
-        app:layout_constraintTop_toBottomOf="@+id/rvshortdesc" />
+        app:layout_constraintTop_toBottomOf="@+id/hcshortdesc" />
 
     <TextView
-        android:id="@+id/rvshortdesc"
+        android:id="@+id/hcshortdesc"
         android:layout_width="357dp"
         android:layout_height="20dp"
         android:layout_marginStart="17dp"

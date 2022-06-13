@@ -42,7 +42,7 @@ public class HCMainsAdapter extends RecyclerView.Adapter<HCMainViewHolder> {
         HawkerCornerStalls newstall = stallsList.get(position);
         //holder.hccoverimg. how to set image?
         holder.hcstallname.setText(newstall.hcstallname);
-        /*holder.shortdesc.setText(newstall.shortdesc);*/
+        holder.hcshortdesc.setText(newstall.shortdesc);
         holder.hcauthor.setText("By: " + newstall.hcauthor);
 
         //When user click their chosen image, start fragment displaying chosen stall.

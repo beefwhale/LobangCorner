@@ -13,6 +13,7 @@ public class HCMainViewHolder extends RecyclerView.ViewHolder {
     ImageView hccoverimg;
     TextView hcstallname;
     TextView hcauthor;
+    TextView hcshortdesc;
 
     public HCMainViewHolder(View item){
         super(item);
@@ -20,6 +21,7 @@ public class HCMainViewHolder extends RecyclerView.ViewHolder {
         hccoverimg = item.findViewById(R.id.hccoverimg);
         hcstallname = (TextView) item.findViewById(R.id.hcstallname);
         hcauthor = (TextView) item.findViewById(R.id.hccoverauthor);
+        hcshortdesc = (TextView) item.findViewById(R.id.hcshortdesc);
 
     }
 
