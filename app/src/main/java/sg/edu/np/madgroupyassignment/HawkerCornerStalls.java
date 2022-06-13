@@ -22,6 +22,7 @@ public class HawkerCornerStalls {
     public String hccaddress;     //Address of hawker stall
     public String daysopen;      //How to make it so that user can enter different days and appear in two records
     public String hoursopen;    //Same as ^
+    /*public String shortdesc;*/
     public long postTimeStamp;
 
     //Constructors
@@ -30,7 +31,7 @@ public class HawkerCornerStalls {
     };
 
     public HawkerCornerStalls(/*ImageView hccoverimg,*/String hcOwner, String hcstallname, String hcauthor/*,Boolean hccliked*/, String hccparagraph, String hccaddress,
-                              String daysopen, String hoursopen, String hccuserpfp, Long postTimeStamp){
+                              String daysopen, String hoursopen, String hccuserpfp/*,String shortdesc*/, long postTimeStamp){
         //this.hccoverimg = hccoverimg;
         this.hcOwner = hcOwner;
         this.hcstallname = hcstallname;
@@ -41,6 +42,7 @@ public class HawkerCornerStalls {
         this.daysopen = daysopen;
         this.hoursopen = hoursopen;
         this.hccuserpfp = hccuserpfp;
+        /*this.shortdesc = shortdesc;*/
         this.postTimeStamp = postTimeStamp;
     }
 
@@ -125,6 +127,14 @@ public class HawkerCornerStalls {
     public void setHoursopen(String hoursopen) {
         this.hoursopen = hoursopen;
     }
+
+    /*public String getShortdesc() {
+        return shortdesc;
+    }
+
+    public void setShortdesc(String shortdesc) {
+        this.shortdesc = shortdesc;
+    }*/
 
     public long getPostTimeStamp() {
         return postTimeStamp;

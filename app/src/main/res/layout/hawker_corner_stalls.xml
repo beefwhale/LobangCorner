@@ -22,27 +22,38 @@
 
     <TextView
         android:id="@+id/hcstallname"
-        android:layout_width="338dp"
-        android:layout_height="45dp"
-        android:layout_marginStart="34dp"
-        android:layout_marginBottom="34dp"
+        android:layout_width="352dp"
+        android:layout_height="33dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="160dp"
         android:text="TextView"
         android:textAllCaps="false"
-        android:textSize="35sp"
+        android:textSize="25sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/hccoverimg"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="@+id/hccoverimg"
+        app:layout_constraintTop_toTopOf="@+id/hccoverimg" />
 
     <TextView
         android:id="@+id/hccoverauthor"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="36dp"
-        android:layout_marginTop="4dp"
+        android:layout_width="209dp"
+        android:layout_height="28dp"
+        android:layout_marginStart="17dp"
+        android:layout_marginTop="2dp"
         android:text="TextView"
-        android:textSize="14sp"
+        android:textSize="12sp"
         android:textStyle="bold|italic"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/hccoverimg"
+        app:layout_constraintTop_toBottomOf="@+id/rvshortdesc" />
+
+    <TextView
+        android:id="@+id/rvshortdesc"
+        android:layout_width="357dp"
+        android:layout_height="20dp"
+        android:layout_marginStart="17dp"
+        android:layout_marginTop="2dp"
+        android:text="Short description testing for hawker corner"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/hccoverimg"
         app:layout_constraintTop_toBottomOf="@+id/hcstallname" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
