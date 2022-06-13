@@ -31,7 +31,6 @@ public class RecipeCornerPosts extends Fragment {
     Context c;
     private static RecipeCorner recipeCorner;
     public RecipeCornerPosts(){this.c =c;};
-    private ArrayList<RecipeCorner> recipeList = new ArrayList<>();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -52,20 +51,42 @@ public class RecipeCornerPosts extends Fragment {
 
         Bundle b = this.getArguments();
         int rcNo = (int) b.getInt("recipeNo");
-        recipeList = Parcels.unwrap(b.getParcelable("list"));
-        RecipeCorner recipePost;
-        recipePost = recipeList.get(rcNo);
+        int HomeDataCheck = (int) b.getInt("HomeDataCheck");
+
+        if (HomeDataCheck == 1){// If its Clicked from Home and Not Main Recipe Page
+            ArrayList<HomeMixData> recipeList = new ArrayList<>();
+            recipeList = Parcels.unwrap(b.getParcelable("list"));
+            HomeMixData recipePost;
+            recipePost = recipeList.get(rcNo);
+
+            n.setText(recipePost.recipeName);
+            d.setText(recipePost.recipeDescription);
+            id.setText("By: " + recipePost.userName);
+            r.setText(recipePost.noOfRaters.toString());
+            rb.setRating(recipePost.recipeRating);
+            //i.setImage
+            duration.setText("Duration: " + recipePost.duration + " mins");
+            steps.setText(recipePost.steps);
+            ingred.setText(recipePost.ingredients);
+        }
+        else{ // Clicked from Main Recipe Page
+            ArrayList<RecipeCorner> recipeList = new ArrayList<>();
+            recipeList = Parcels.unwrap(b.getParcelable("list"));
+            RecipeCorner recipePost;
+            recipePost = recipeList.get(rcNo);
 
 
-        n.setText(recipePost.recipeName);
-        d.setText(recipePost.recipeDescription);
-        id.setText("By: " + recipePost.userName);
-        r.setText(recipePost.noOfRaters.toString());
-        rb.setRating(recipePost.recipeRating);
-        //i.setImage
-        duration.setText("Duration: " + recipePost.duration + " mins");
-        steps.setText(recipePost.steps);
-        ingred.setText(recipePost.ingredients);
+            n.setText(recipePost.recipeName);
+            d.setText(recipePost.recipeDescription);
+            id.setText("By: " + recipePost.userName);
+            r.setText(recipePost.noOfRaters.toString());
+            rb.setRating(recipePost.recipeRating);
+            //i.setImage
+            duration.setText("Duration: " + recipePost.duration + " mins");
+            steps.setText(recipePost.steps);
+            ingred.setText(recipePost.ingredients);
+        }
+
 
         //Picasso.get().load(recipeCorner.getFoodImage()).into(i);
 

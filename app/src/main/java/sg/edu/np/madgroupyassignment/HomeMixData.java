@@ -14,7 +14,7 @@ public class HomeMixData {
     public String hccaddress;     //Address of hawker stall
     public String daysopen;      //How to make it so that user can enter different days and appear in two records
     public String hoursopen;    //Same as ^
-    /*public String shortdesc;*/
+    public String shortdesc;
 
     // RC VALUES
     String owner;
@@ -137,13 +137,13 @@ public class HomeMixData {
     public void setHoursopen(String hoursopen) {
         this.hoursopen = hoursopen;
     }
-    /*public String getShortdesc() {
+    public String getShortdesc() {
         return shortdesc;
     }
 
     public void setShortdesc(String shortdesc) {
         this.shortdesc = shortdesc;
-    }*/
+    }
 
     // RC Getter Setters
     // creating getter and setter methods.

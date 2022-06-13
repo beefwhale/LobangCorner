@@ -22,13 +22,13 @@ public class HomeMix {
 
     public ArrayList<HomeMixData> filterDT(){
         HawkerCornerStalls[] recentHCArray = postHolder.getRecentHawkerPosts();
-        RecipeCorner[]recentRCArray = postHolder.getRecentRecipePosts();
+        RecipeCorner[] recentRCArray = postHolder.getRecentRecipePosts();
         // Making new Mixed List
         for (HawkerCornerStalls i : recentHCArray) {
             HomeMixData HomeMixData = new HomeMixData();
-            Log.e("mixdata2", ""+recentHCArray.length);
+            Log.e("hc length", ""+recentHCArray.length);
             if (i != null){
-                Log.e("hc", ""+mixData.size());
+                Log.e("hc", "not null "+i.hcstallname);
                 HomeMixData.hcstallname = i.hcstallname;
                 HomeMixData.hcOwner = i.hcOwner;
                 HomeMixData.hcauthor = i.hcauthor;
@@ -40,7 +40,7 @@ public class HomeMix {
                 HomeMixData.hoursopen = i.hoursopen;
                 HomeMixData.postTimeStamp = i.postTimeStamp;
                 HomeMixData.identifier = true; // Identify its a hc post
-//                HomeMixData.shortdesc = i.shortdesc;
+                HomeMixData.shortdesc = i.shortdesc;
                 mixData.add(HomeMixData);
             }
             else{
@@ -49,9 +49,9 @@ public class HomeMix {
         }
         for (RecipeCorner i : recentRCArray) {
             HomeMixData HomeMixData = new HomeMixData();
-            Log.e("mixdata3", ""+ recentRCArray.length);
+            Log.e("rc length", ""+ recentRCArray.length);
             if (i != null){
-                Log.e("rc", "not null "+mixData.size());
+                Log.e("rc", "not null "+i.owner);
                 HomeMixData.owner = i.owner;
                 HomeMixData.recipeName = i.recipeName;
                 HomeMixData.recipeDescription = i.recipeDescription;
@@ -72,21 +72,21 @@ public class HomeMix {
         }
         // Sorting the List according to Date Time
         if (mixData.size() > 0){
-            long timestamp = mixData.get(0).postTimeStamp;
             while (mixData.size() != 0){
+                long timestamp = mixData.get(0).postTimeStamp;
                 HomeMixData smallestData = mixData.get(0);
                 for(HomeMixData i : mixData){
                     // finding smaller date time
-                    if (i.postTimeStamp < timestamp){
+                    if (i.postTimeStamp >= timestamp){
                         timestamp = i.postTimeStamp;
                         smallestData = i;
-                        Log.e("sort test", ""+mixData.size());
                     }
                 }
                 // putting object into sorted list
                 sortedData.add(smallestData);
                 mixData.remove(smallestData);
             }
+            Log.e("sort test", ""+sortedData.size());
         }
         return sortedData;
 

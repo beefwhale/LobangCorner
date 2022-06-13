@@ -1,6 +1,7 @@
 package sg.edu.np.madgroupyassignment;
 
 import android.content.Context;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,8 +10,11 @@ import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import org.parceler.Parcels;
 
 import java.util.ArrayList;
 
@@ -49,14 +53,13 @@ public class HomeParentAdapter extends RecyclerView.Adapter<HomeParentViewHolder
             ArrayList<HomeChildData> data = new ArrayList<>();
             ArrayList<HomeMixData> sortedMixList = homeMix.filterDT();
 
-            for (int i = 0; i < 5; i++) {
-                //Adding the data for every ViewHolder
-                HomeChildData d = new HomeChildData();
-                if (sortedMixList.size() > 0){ // checking if list is not empty, app wont crash
-                    if (sortedMixList.get(i).identifier == true){ // if its Hawker Corner post
+            if (sortedMixList.size() > 0){ // checking if list is not empty, app wont crash
+                for (int i = 0; i < sortedMixList.size(); i++) {
+                    //Adding the data for every ViewHolder
+                    HomeChildData d = new HomeChildData();
+                    if (sortedMixList.get(i).identifier == true) { // if its Hawker Corner post
                         d.post_header = sortedMixList.get(i).hcstallname;
-                        d.post_desc = "LP Desc" + i;
-//                    d.post_desc = mixData.get(i).shortdesc;
+                        d.post_desc = sortedMixList.get(i).shortdesc;
                         d.post_author = sortedMixList.get(i).hcauthor;
                         data.add(d);
                     }
@@ -67,7 +70,10 @@ public class HomeParentAdapter extends RecyclerView.Adapter<HomeParentViewHolder
                         data.add(d);
                     }
                 }
-                else{
+            }
+            else{
+                for (int i = 0; i < 5; i++) {
+                    HomeChildData d = new HomeChildData();
                     d.post_header = "LP Title" + i;
                     d.post_desc = "LP Desc" + i;
 //                    d.post_desc = mixData.get(i).shortdesc;
@@ -76,6 +82,7 @@ public class HomeParentAdapter extends RecyclerView.Adapter<HomeParentViewHolder
                 }
 
             }
+
             //Rounding corners of ImageView buttons
             ImageView exploreHC = item.findViewById(R.id.home_hc_btn);
             ImageView exploreRC = item.findViewById(R.id.home_rc_btn);
@@ -140,6 +147,7 @@ public class HomeParentAdapter extends RecyclerView.Adapter<HomeParentViewHolder
             holder.post_header.setText(p.post_header);
             holder.post_desc.setText(p.post_desc);
             holder.post_author.setText(p.post_author);
+
         }
 
     }
