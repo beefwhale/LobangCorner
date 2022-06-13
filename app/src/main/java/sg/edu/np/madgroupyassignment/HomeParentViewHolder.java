@@ -27,8 +27,8 @@ public class HomeParentViewHolder extends RecyclerView.ViewHolder {
         feed_header= item.findViewById(R.id.feed_header);
 
         // LP and TP elements use the same id
-        tp_header= item.findViewById(R.id.toppost_header);
-        tp_img = item.findViewById(R.id.toppost_img);
+        tp_header= item.findViewById(R.id.feed_title);
+        tp_img = item.findViewById(R.id.feed_img);
 
     }
 }

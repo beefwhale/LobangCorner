@@ -7,11 +7,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -34,7 +31,7 @@ public class HomeChildAdapter extends RecyclerView.Adapter<HomeChildViewHolder> 
         View item;
         // Inflates child RV (Toppost) layout
         item = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.activity_home_topposts, null, false);
+                .inflate(R.layout.activity_home_latestposts, null, false);
         return new HomeChildViewHolder(item);
     }
 

@@ -1,23 +1,15 @@
 package sg.edu.np.madgroupyassignment;
 
 import android.content.Context;
-import android.os.Bundle;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import com.google.android.material.bottomnavigation.BottomNavigationView;
-
-import org.parceler.Parcels;
 
 import java.util.ArrayList;
 
@@ -102,7 +94,7 @@ public class HomeParentAdapter extends RecyclerView.Adapter<HomeParentViewHolder
         else{
             // If index != 0  means Parent RV layout file to be inflated
             item = LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.activity_home_latestposts, null, false);
+                    .inflate(R.layout.activity_home_feedposts, null, false);
         }
 
         return new HomeParentViewHolder(item);
