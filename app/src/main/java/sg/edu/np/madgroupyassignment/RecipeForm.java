@@ -42,6 +42,7 @@ public class RecipeForm extends Fragment {
     String recipeDesc;
     String duration;
     String steps;
+    Integer difficulty;
     RecipeCorner recipeCorner;
     HashMap<String, Object> userCurrentRcp;
 
@@ -62,6 +63,8 @@ public class RecipeForm extends Fragment {
         tabLayout = recipeform.findViewById(R.id.tabLayout);
         viewPager = recipeform.findViewById(R.id.viewPager);
         submitButton = recipeform.findViewById(R.id.submitbutton);
+
+        difficulty = 0;
 
 
         RecipePostVPAdapter vpAdapter = new RecipePostVPAdapter(getChildFragmentManager(), getLifecycle());
@@ -116,6 +119,12 @@ public class RecipeForm extends Fragment {
                         totalIngred = s;//INGREDIENT parameter
                     }
                 });
+                viewModel.getSelectedDifficulty().observe(getViewLifecycleOwner(), new Observer<Integer>() {
+                    @Override
+                    public void onChanged(Integer s) {
+                        difficulty = s;//difficulty parameter
+                    }
+                });
 
                 if(recipeName == null || recipeName.length() == 0 || recipeName.isEmpty() ||
                         recipeDesc == null || recipeDesc.length() == 0 || recipeDesc.isEmpty()){
@@ -124,9 +133,9 @@ public class RecipeForm extends Fragment {
                 else{
                     ownerUID = userProfile.getUID();
                     Long timeStamp = System.currentTimeMillis();
-                    recipeCorner = new RecipeCorner(ownerUID, recipeName, recipeDesc, 0, 0, username, duration, steps,totalIngred, timeStamp);
+                    recipeCorner = new RecipeCorner(ownerUID, recipeName, recipeDesc, difficulty, 0, username, duration, steps,totalIngred, timeStamp);
                     userCurrentRcp = userProfile.getRcpList();
-                    //RcpUp(userCurrentRcp, recipeCorner);
+                    RcpUp(userCurrentRcp, recipeCorner);
                     getActivity().recreate();
                 }
 
