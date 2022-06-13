@@ -53,6 +53,7 @@ public class HomeParentAdapter extends RecyclerView.Adapter<HomeParentViewHolder
             ArrayList<HomeChildData> data = new ArrayList<>();
             ArrayList<HomeMixData> sortedMixList = homeMix.filterDT();
 
+
             if (sortedMixList.size() > 0){ // checking if list is not empty, app wont crash
                 for (int i = 0; i < sortedMixList.size(); i++) {
                     //Adding the data for every ViewHolder
@@ -144,9 +145,40 @@ public class HomeParentAdapter extends RecyclerView.Adapter<HomeParentViewHolder
             // First view holder, where child layout is in
             // But now position is 1, our data has to start from 0 for parent RV data thus -1
             HomeParentData p = data.get(position-1);
+            HomeMix homeMix = new HomeMix();
+            ArrayList<HomeMixData> randomMixList = homeMix.RandomData(); // List with Random Mixed HC and RC info
+
             holder.post_header.setText(p.post_header);
             holder.post_desc.setText(p.post_desc);
             holder.post_author.setText(p.post_author);
+            holder.post_img.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    //Creating activity context to for the view, starting new fragment when view is clicked
+                    AppCompatActivity activity = (AppCompatActivity) v.getContext();
+                    //Bundle to pass info to fragment as intent cannot
+                    if (randomMixList.get((holder.getAdapterPosition())-1).identifier == true){ // If hawker post
+                        Fragment chosenfragment = new HCChosenStall();
+                        Bundle bundle = new Bundle();
+                        bundle.putInt("stallposition", holder.getAdapterPosition() -1 );
+                        bundle.putInt("HomeDataCheck", 1); // if from Home, number = 1
+                        bundle.putParcelable("list", Parcels.wrap(randomMixList));
+                        chosenfragment.setArguments(bundle);
+
+                        activity.getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, chosenfragment).commit();
+                    }
+                    else{ // If Recipe Post
+                        Fragment rcpFragment = new RecipeCornerPosts();
+                        Bundle bundle = new Bundle();
+                        bundle.putInt("recipeNo", holder.getAdapterPosition() - 1);
+                        bundle.putInt("HomeDataCheck", 1); // if from Home, number = 1
+                        bundle.putParcelable("list", Parcels.wrap(randomMixList));
+                        rcpFragment.setArguments(bundle);
+                        activity.getSupportFragmentManager().beginTransaction()
+                                .replace(R.id.MainFragment, rcpFragment).addToBackStack(null).commit();
+                    }
+                }
+            });
 
         }
 

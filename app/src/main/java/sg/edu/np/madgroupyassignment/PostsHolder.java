@@ -33,7 +33,6 @@ public class PostsHolder {
     public static void setHawkerPosts(HawkerCornerStalls hawkerPosts) {
         PostsHolder.hawkerPosts.add(hawkerPosts);
     }
-
     public static ArrayList<RecipeCorner> getRecipePosts() {
         return recipePosts;
     }
