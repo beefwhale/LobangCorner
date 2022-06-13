@@ -27,8 +27,8 @@
 
         <ImageView
             android:id="@+id/chosenstallimg"
-            android:layout_width="0dp"
-            android:layout_height="150dp"
+            android:layout_width="378dp"
+            android:layout_height="196dp"
             android:layout_marginLeft="20dp"
             android:layout_marginTop="8dp"
             android:layout_marginRight="20dp"
@@ -192,6 +192,7 @@
             android:textAlignment="center"
             android:textSize="35sp"
             android:textStyle="bold"
+            android:background="@drawable/chosenstallborder"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/hccaddress" />
