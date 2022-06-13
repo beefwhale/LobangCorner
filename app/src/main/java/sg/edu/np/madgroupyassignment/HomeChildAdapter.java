@@ -17,12 +17,9 @@ public class HomeChildAdapter extends RecyclerView.Adapter<HomeChildViewHolder> 
     ArrayList<HomeChildData> data = new ArrayList<>();
     Context c;
 
-    int[] postType = postsHolder.getLatestPostsType();
-
     public HomeChildAdapter(Context c, ArrayList<HomeChildData> data){
         this.c = c;
         this.data = data;
-        Log.i("test", Arrays.toString(postType));
     }
 
     @NonNull

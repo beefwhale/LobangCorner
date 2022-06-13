@@ -69,8 +69,6 @@ public class MainActivity extends AppCompatActivity{
         FloatingActionButton mainFAB, rcFAB, hcFAB;
         TextView rcFABText, hcFABText;
 
-
-
         postsHolder = new PostsHolder();
         profileFirstUpdate = true;
 
@@ -97,6 +95,7 @@ public class MainActivity extends AppCompatActivity{
                     if (rcpObject.getOwner().equals(mAuth.getUid())){
                         postsHolder.setUserRecipePosts(rcpObject);
                     }
+                    postsHolder.updateRecentRecipePosts(rcpObject);
                 }
 
 //                Getting hawker posts
@@ -108,6 +107,7 @@ public class MainActivity extends AppCompatActivity{
                     if (hwkObject.getHcOwner().equals(mAuth.getUid())){
                         postsHolder.setUserHawkerPosts(hwkObject);
                     }
+                    postsHolder.updateRecentHawkerPosts(hwkObject);
                 }
 
 //                Updating profile page

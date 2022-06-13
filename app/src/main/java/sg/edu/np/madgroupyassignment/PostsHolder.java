@@ -58,16 +58,16 @@ public class PostsHolder {
         PostsHolder.userRecipePosts.add(userRecipePosts);
     }
 
-    public static HawkerCornerStalls getRecentHawkerPosts(int i) {
-        return recentHawkerPosts[i];
+    public static HawkerCornerStalls[] getRecentHawkerPosts() {
+        return recentHawkerPosts;
     }
 
     public static void setRecentHawkerPosts(HawkerCornerStalls[] recentHawkerPosts) {
         PostsHolder.recentHawkerPosts = recentHawkerPosts;
     }
 
-    public static RecipeCorner getRecentRecipePosts(int i) {
-        return recentRecipePosts[i];
+    public static RecipeCorner[] getRecentRecipePosts() {
+        return recentRecipePosts;
     }
 
     public static void setRecentRecipePosts(RecipeCorner[] recentRecipePosts) {
@@ -102,7 +102,7 @@ public class PostsHolder {
                 break;
             }
         }
-        sortEntries();
+
     }
 
     public void updateRecentRecipePosts(RecipeCorner recipeCorner) {
@@ -137,6 +137,8 @@ public class PostsHolder {
         });
     }
 
+
+    //Not used
     public static int[] getLatestPostsType() {
         int[] typeList = new int[5];
 
