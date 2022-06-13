@@ -18,19 +18,18 @@
         app:layout_constraintTop_toBottomOf="@+id/view" />
 
     <View
-        android:id="@+id/view2"
+        android:id="@+id/view3"
         android:layout_width="match_parent"
         android:layout_height="2dp"
         android:layout_below="@id/tp_rv"
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="16dp"
         android:background="#DCDCDC"
-        app:layout_constraintBottom_toTopOf="@+id/tp_header"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/wklyfeat_img" />
+        app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
     <TextView
         android:id="@+id/wklyfeat_header"
@@ -47,18 +46,19 @@
     <ImageView
         android:id="@+id/wklyfeat_img"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="200dp"
         android:layout_below="@id/wklyfeat_header"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:adjustViewBounds="true"
+        android:scaleType="centerCrop"
         android:src="@drawable/ashorthike"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/wklyfeat_header"
         app:srcCompat="@drawable/ashorthike" />
-
 
     <ImageView
         android:id="@+id/home_hc_btn"
@@ -102,23 +102,23 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/wklyfeat_img"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="16dp"
         android:text="Explore"
         android:textSize="24sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/view2" />
+        app:layout_constraintTop_toBottomOf="@+id/wklyfeat_img" />
 
     <TextView
         android:id="@+id/lp_header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/wklyfeat_img"
-        android:layout_marginStart="12dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
         android:text="Latest Posts"
         android:textSize="24sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView4" />
+        app:layout_constraintTop_toBottomOf="@+id/view3" />
 
     <View
         android:id="@+id/view"
@@ -126,7 +126,7 @@
         android:layout_height="2dp"
         android:layout_below="@id/tp_rv"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="24dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="24dp"
         android:background="#DCDCDC"
@@ -143,7 +143,6 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/tp_header"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:nestedScrollingEnabled="false"
         app:layout_constraintEnd_toEndOf="parent"
@@ -172,7 +171,7 @@
         android:shadowColor="@color/black"
         android:shadowDx="45"
         android:shadowDy="45"
-        android:text="Read more about the stories behind our beloved hawker stores!"
+        android:text="Click here to Read more about the stories behind our beloved hawker stores!"
         android:textSize="13sp"
         app:layout_constraintEnd_toEndOf="@+id/home_hc_btn"
         app:layout_constraintHorizontal_bias="0.0"
@@ -187,7 +186,7 @@
         android:layout_marginEnd="2dp"
         android:outlineProvider="paddedBounds"
         android:shadowColor="@color/black"
-        android:text="Discover delicious recipes published by Singaporeans all around!"
+        android:text="Click here to Discover delicious recipes published by Singaporeans all around!"
         android:textSize="13sp"
         app:layout_constraintEnd_toEndOf="@+id/home_rc_btn"
         app:layout_constraintHorizontal_bias="1.0"
@@ -205,6 +204,26 @@
         app:layout_constraintBottom_toBottomOf="@+id/home_rc_btn"
         app:layout_constraintEnd_toEndOf="@+id/home_rc_btn"
         app:layout_constraintStart_toStartOf="@+id/home_rc_btn" />
+
+    <TextView
+        android:id="@+id/weekly_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:text="Weekly Feature Title"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/weekly_author"
+        app:layout_constraintStart_toStartOf="@+id/wklyfeat_img" />
+
+    <TextView
+        android:id="@+id/weekly_author"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginBottom="8dp"
+        android:text="Author Sample"
+        app:layout_constraintBottom_toBottomOf="@+id/wklyfeat_img"
+        app:layout_constraintStart_toStartOf="@+id/wklyfeat_img" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

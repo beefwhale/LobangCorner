@@ -16,8 +16,8 @@ public class HomeChildViewHolder extends RecyclerView.ViewHolder {
         super(item);
 
         // Getting values of actual items in TOPPOST layout file
-        tp_header= item.findViewById(R.id.toppost_header);
-        tp_img = item.findViewById(R.id.toppost_img);
+        tp_header= item.findViewById(R.id.feed_title);
+        tp_img = item.findViewById(R.id.feed_img);
 
         hc_btn = item.findViewById(R.id.home_hc_btn);
         rc_btn = item.findViewById(R.id.home_rc_btn);
