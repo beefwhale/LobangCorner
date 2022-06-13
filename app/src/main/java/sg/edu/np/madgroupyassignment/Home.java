@@ -35,7 +35,6 @@ public class Home extends Fragment {
 
             feed_data.add(d);
         }
-
         RecyclerView home_main_rv = view.findViewById(R.id.home_main_rv);
         LinearLayoutManager main_layout = new LinearLayoutManager(c, LinearLayoutManager.VERTICAL, false);
         HomeParentAdapter tp_adapter = new HomeParentAdapter(c,feed_data);

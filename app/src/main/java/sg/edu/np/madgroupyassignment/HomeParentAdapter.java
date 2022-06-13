@@ -1,6 +1,7 @@
 package sg.edu.np.madgroupyassignment;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,6 +39,7 @@ public class HomeParentAdapter extends RecyclerView.Adapter<HomeParentViewHolder
     public HomeParentViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         //Setting layout file and doing rv of nested layout within parent RV if posiiton of viewholder == 0
         View item;
+        HomeMix homeMix = new HomeMix();
         if (viewType == 0){
             //Inflating child layout within Parent RV
             item = LayoutInflater.from(parent.getContext())
@@ -45,14 +47,34 @@ public class HomeParentAdapter extends RecyclerView.Adapter<HomeParentViewHolder
 
             // Making Child RV for child layout within parent RV
             ArrayList<HomeChildData> data = new ArrayList<>();
-            for (int i = 1; i < 6; i++) {
+            ArrayList<HomeMixData> sortedMixList = homeMix.filterDT();
 
+            for (int i = 0; i < 5; i++) {
                 //Adding the data for every ViewHolder
                 HomeChildData d = new HomeChildData();
-                d.post_header = "LP Title" + i;
-                d.post_desc = "LP Desc" + i;
-                d.post_author = "by: LP Author" + i;
-                data.add(d);
+                if (sortedMixList.size() > 0){ // checking if list is not empty, app wont crash
+                    if (sortedMixList.get(i).identifier == true){ // if its Hawker Corner post
+                        d.post_header = sortedMixList.get(i).hcstallname;
+                        d.post_desc = "LP Desc" + i;
+//                    d.post_desc = mixData.get(i).shortdesc;
+                        d.post_author = sortedMixList.get(i).hcauthor;
+                        data.add(d);
+                    }
+                    else{// if its Recipe Corner post
+                        d.post_header = sortedMixList.get(i).recipeName;
+                        d.post_desc = sortedMixList.get(i).recipeDescription;
+                        d.post_author = sortedMixList.get(i).owner;
+                        data.add(d);
+                    }
+                }
+                else{
+                    d.post_header = "LP Title" + i;
+                    d.post_desc = "LP Desc" + i;
+//                    d.post_desc = mixData.get(i).shortdesc;
+                    d.post_author = "LP Author" + i;
+                    data.add(d);
+                }
+
             }
             //Rounding corners of ImageView buttons
             ImageView exploreHC = item.findViewById(R.id.home_hc_btn);
