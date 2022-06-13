@@ -102,7 +102,7 @@ public class PostsHolder {
                 break;
             }
         }
-
+        sortEntries();
     }
 
     public void updateRecentRecipePosts(RecipeCorner recipeCorner) {
@@ -114,7 +114,7 @@ public class PostsHolder {
                 break;
             }
         }
-
+        sortEntries();
     }
 
     private void sortEntries(){
