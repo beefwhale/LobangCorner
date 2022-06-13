@@ -43,12 +43,13 @@
             app:layout_constraintTop_toBottomOf="@+id/title" />
 
         <EditText
-            android:id="@+id/Desc"
+            android:id="@+id/shortDesc"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
             android:ems="10"
-            android:hint="Description"
+            android:maxLength="100"
+            android:hint="Short Description"
             android:inputType="textPersonName"
             android:minHeight="48dp"
             android:textColor="#FFFFFF"
@@ -57,6 +58,22 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/StallName" />
+
+        <EditText
+            android:id="@+id/Desc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:ems="10"
+            android:hint="Full Description"
+            android:inputType="textPersonName"
+            android:minHeight="48dp"
+            android:textColor="#FFFFFF"
+            android:textColorHint="#A4FFFFFF"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/shortDesc" />
 
         <EditText
             android:id="@+id/addrInput"

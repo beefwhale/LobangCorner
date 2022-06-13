@@ -45,11 +45,13 @@ public class HawkerForm extends Fragment {
     EditText sNInput;
     EditText dInput;
     EditText aInput;
+    EditText sdInput;
     Button opTInput;
     Button clTInput;
 
     String stallName;
     String desc;
+    String shortDesc;
     String address;
     String openingTime;
     String closingTime;
@@ -80,6 +82,11 @@ public class HawkerForm extends Fragment {
 
         openingTime = "00:00";
         closingTime = "00:00";
+        stallName = "";
+        desc = "";
+        shortDesc = "";
+        address = "";
+
 
         clHour = 00;
         clMin = 00;
@@ -89,6 +96,7 @@ public class HawkerForm extends Fragment {
         //Assign variable
         sNInput = hf.findViewById(R.id.StallName);
         dInput = hf.findViewById(R.id.Desc);
+        sdInput = hf.findViewById(R.id.shortDesc);
         aInput = hf.findViewById(R.id.addrInput);
         opTInput = hf.findViewById(R.id.openingTime);
         clTInput = hf.findViewById(R.id.closingTime);
@@ -116,6 +124,20 @@ public class HawkerForm extends Fragment {
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 desc = dInput.getText().toString();
+            }
+            @Override
+            public void afterTextChanged(Editable editable) {
+            }
+        });
+
+        //Assigning Short Description to variable
+        sdInput.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                shortDesc = sdInput.getText().toString();
             }
             @Override
             public void afterTextChanged(Editable editable) {
@@ -315,15 +337,16 @@ public class HawkerForm extends Fragment {
                     userPfpUrl = userProfile.getProfileImg();
                     ownerUID = userProfile.getUID();
                     long timeStamp = System.currentTimeMillis();
-                    hCS = new HawkerCornerStalls(ownerUID, stallName,username/*,false*/,desc,address,daysOpen,finalTime,userPfpUrl, timeStamp);
+                    hCS = new HawkerCornerStalls(ownerUID, stallName,username/*,false*/,desc,address,daysOpen,finalTime,userPfpUrl, shortDesc, timeStamp);
 
                     userCurrentHwk = userProfile.getHawkList();
-                    //HwkUp(userCurrentHwk, hCS);
+                    HwkUp(userCurrentHwk, hCS);
 
 
                     //***********For input to reset when button submit***********
                     stallName = "";
                     desc = "";
+                    shortDesc = "";
                     address = "";
                     daysOpen = "";
                     openingTime = "00:00";
@@ -333,6 +356,7 @@ public class HawkerForm extends Fragment {
 
                     sNInput.setText("");
                     dInput.setText("");
+                    sdInput.setText("");
                     aInput.setText("");
                     opTInput.setText("");
                     clTInput.setText("");

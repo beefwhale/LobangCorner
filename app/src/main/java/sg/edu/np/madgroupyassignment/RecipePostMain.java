@@ -35,9 +35,14 @@ public class RecipePostMain extends Fragment {
     EditText descInput;
     static String desc;
 
+    NumberPicker numberPicker;
+    int newVal;
+
+
     private FormsViewModel viewModel;
 
-    String test;
+
+
 
     public RecipePostMain() {
 
@@ -50,8 +55,21 @@ public class RecipePostMain extends Fragment {
         durInput = f1.findViewById(R.id.minuteInput);
         titleInput = f1.findViewById(R.id.RecipeTitle);
         descInput = f1.findViewById(R.id.Desc);
+        numberPicker = f1.findViewById(R.id.numPicker);
+        newVal = 0;
         viewModel = new ViewModelProvider(requireParentFragment()).get(FormsViewModel.class);
 
+
+
+        numberPicker.setMinValue(1);
+        numberPicker.setMaxValue(5);
+        numberPicker.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
+            @Override
+            public void onValueChange(NumberPicker numberPicker, int i, int i1) {
+                newVal = i1;
+                viewModel.selectDifficulty(newVal);
+            }
+        });
 
         //TitleInput Data Transfer
         titleInput.addTextChangedListener(new TextWatcher() {

@@ -49,7 +49,7 @@ public class FormsViewModel extends ViewModel {
     public LiveData<String> getSelectedRecipeIngred(){return selectedRecipeIngred;}
 
 
-    private final MutableLiveData<String> selectZero = new MutableLiveData<String>();
-    public void selectZero(String string){selectZero.setValue(string);}
-    public LiveData<String> getSelectZero(){return selectZero;}
+    private final MutableLiveData<Integer> selectedDifficulty = new MutableLiveData<Integer>();
+    public void selectDifficulty(Integer integer){selectedDifficulty.setValue(integer);}
+    public LiveData<Integer> getSelectedDifficulty(){return selectedDifficulty;}
 }
