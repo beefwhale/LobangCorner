@@ -26,16 +26,19 @@ public class Home extends Fragment {
         View view = inflater.inflate(R.layout.activity_home_parent, container, false);
 
         // Parent (Latest) Post RV
-        ArrayList<HomeParentData> lp_data = new ArrayList<>();
+        ArrayList<HomeParentData> feed_data = new ArrayList<>();
         for (int i = 1; i < 11; i++) {
             HomeParentData d = new HomeParentData();
-            d.tp_header = "egg" + i;
-            lp_data.add(d);
+            d.post_header = "Feed Title" + i;
+            d.post_desc = "Feed Desc" + i;
+            d.post_author = "by Feed Author" + i;
+
+            feed_data.add(d);
         }
 
         RecyclerView home_main_rv = view.findViewById(R.id.home_main_rv);
         LinearLayoutManager main_layout = new LinearLayoutManager(c, LinearLayoutManager.VERTICAL, false);
-        HomeParentAdapter tp_adapter = new HomeParentAdapter(c,lp_data);
+        HomeParentAdapter tp_adapter = new HomeParentAdapter(c,feed_data);
 
         // Giving RV adapter and layout
         home_main_rv.setAdapter(tp_adapter);

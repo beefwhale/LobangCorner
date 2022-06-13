@@ -6,7 +6,9 @@ public class HomeParentData {
     /**
      * Top post RV data for Home page
      */
-    public String tp_header;
-    public ImageView tp_img;
+    public ImageView post_img;
+    public String post_header;
+    public String post_desc;
+    public String post_author;
 
 }

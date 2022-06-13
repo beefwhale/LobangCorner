@@ -6,9 +6,11 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class HomeChildData {
-    // Data of TOPPOST layout file
-    public String tp_header;
-    public ImageView tp_img;
+    // Data of LP layout file
+    public ImageView post_img;
+    public String post_header;
+    public String post_desc;
+    public String post_author;
 
     public ImageView hc_btn;
     public ImageView rc_btn;

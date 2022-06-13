@@ -43,13 +43,15 @@ public class HomeParentAdapter extends RecyclerView.Adapter<HomeParentViewHolder
             item = LayoutInflater.from(parent.getContext())
                     .inflate(R.layout.activity_home_child, null, false);
 
-            // Making Child RV (TOPPOST) for child layout within parent RV
+            // Making Child RV for child layout within parent RV
             ArrayList<HomeChildData> data = new ArrayList<>();
             for (int i = 1; i < 6; i++) {
 
                 //Adding the data for every ViewHolder
                 HomeChildData d = new HomeChildData();
-                d.tp_header = "Insert Title" + i;
+                d.post_header = "LP Title" + i;
+                d.post_desc = "LP Desc" + i;
+                d.post_author = "by: LP Author" + i;
                 data.add(d);
             }
             //Rounding corners of ImageView buttons
@@ -64,12 +66,14 @@ public class HomeParentAdapter extends RecyclerView.Adapter<HomeParentViewHolder
                 public void onClick(View v) {
                     /*View view = MainActivity.bottomNavigationView.findViewById(R.id.rc);
                     view.performClick();*/
+                    //MainActivity.bottomNavigationView.setSelectedItemId(R.id.rc);
+
                     AppCompatActivity activity = (AppCompatActivity) parent.getContext();
                     RecipeCornerMain rcmain = new RecipeCornerMain();
                     activity.getSupportFragmentManager().beginTransaction()
                             .replace(R.id.MainFragment, rcmain).addToBackStack(null).commit();
+                    // making bottom nav bar appear checked
                     MainActivity.bottomNavigationView.getMenu().findItem(R.id.rc).setChecked(true);
-                    //MainActivity.bottomNavigationView.setSelectedItemId(R.id.rc);
                 }
             });
             exploreHC.setOnClickListener(new View.OnClickListener() {
@@ -79,16 +83,17 @@ public class HomeParentAdapter extends RecyclerView.Adapter<HomeParentViewHolder
                     HawkerCornerMain hcmain = new HawkerCornerMain();
                     activity.getSupportFragmentManager().beginTransaction()
                             .replace(R.id.MainFragment, hcmain).addToBackStack(null).commit();
+                    // making bottom nav bar appear checked
                     MainActivity.bottomNavigationView.getMenu().findItem(R.id.hc).setChecked(true);
                 }
             });
+            // Child RV
+            RecyclerView lp_rv = item.findViewById(R.id.lp_rv);
+            LinearLayoutManager lp_layout = new LinearLayoutManager(c, LinearLayoutManager.HORIZONTAL, false);
+            HomeChildAdapter lp_adapter = new HomeChildAdapter(c,data);
 
-            RecyclerView tp_rv = item.findViewById(R.id.tp_rv);
-            LinearLayoutManager tp_layout = new LinearLayoutManager(c, LinearLayoutManager.HORIZONTAL, false);
-            HomeChildAdapter tp_adapter = new HomeChildAdapter(c,data);
-
-            tp_rv.setAdapter(tp_adapter);
-            tp_rv.setLayoutManager(tp_layout);
+            lp_rv.setAdapter(lp_adapter);
+            lp_rv.setLayoutManager(lp_layout);
 
         }
         else{
@@ -110,7 +115,9 @@ public class HomeParentAdapter extends RecyclerView.Adapter<HomeParentViewHolder
             // First view holder, where child layout is in
             // But now position is 1, our data has to start from 0 for parent RV data thus -1
             HomeParentData p = data.get(position-1);
-            holder.tp_header.setText(p.tp_header);
+            holder.post_header.setText(p.post_header);
+            holder.post_desc.setText(p.post_desc);
+            holder.post_author.setText(p.post_author);
         }
 
     }

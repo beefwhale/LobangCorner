@@ -10,12 +10,13 @@ import androidx.recyclerview.widget.RecyclerView;
  * Top post RV ViewHolder for Home page
  */
 public class HomeParentViewHolder extends RecyclerView.ViewHolder {
-    // Top post and Latest post elements
-    TextView tp_header;
-    ImageView tp_img;
+    // Feed and Latest post elements
+    ImageView post_img;
+    TextView post_header;
+    TextView post_desc;
+    TextView post_author;
 
-    //Latest posts elements
-    TextView feed_header;
+    //Feed posts elements - Main RV
     RecyclerView parent_rv;
 
     View viewItem;
@@ -24,11 +25,11 @@ public class HomeParentViewHolder extends RecyclerView.ViewHolder {
         viewItem = item;
         parent_rv = item.findViewById(R.id.home_main_rv);
 
-        feed_header= item.findViewById(R.id.feed_header);
-
-        // LP and TP elements use the same id
-        tp_header= item.findViewById(R.id.feed_title);
-        tp_img = item.findViewById(R.id.feed_img);
+        // LP and Feed elements use the same id
+        post_img= item.findViewById(R.id.feed_img);
+        post_header= item.findViewById(R.id.feed_header);
+        post_desc = item.findViewById(R.id.feed_desc);
+        post_author = item.findViewById(R.id.feed_author);
 
     }
 }

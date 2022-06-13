@@ -29,7 +29,7 @@ public class HomeChildAdapter extends RecyclerView.Adapter<HomeChildViewHolder> 
     @Override
     public HomeChildViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View item;
-        // Inflates child RV (Toppost) layout
+        // Inflates child RV (LP) layout
         item = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.activity_home_latestposts, null, false);
         return new HomeChildViewHolder(item);
@@ -40,7 +40,9 @@ public class HomeChildAdapter extends RecyclerView.Adapter<HomeChildViewHolder> 
         // gets HomeData object with given position in the dataset
         HomeChildData d = data.get(position);
         // Pass actual data into each ViewHolder
-        holder.tp_header.setText(d.tp_header);
+        holder.post_header.setText(d.post_header);
+        holder.post_desc.setText(d.post_desc);
+        holder.post_author.setText(d.post_author);
 
     }
 
