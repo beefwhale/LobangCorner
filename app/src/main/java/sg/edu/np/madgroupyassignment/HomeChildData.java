@@ -12,6 +12,10 @@ public class HomeChildData {
     public String post_desc;
     public String post_author;
 
+    public String weekly_img;
+    public String weekly_title;
+    public String weekly_author;
+
     public ImageView hc_btn;
     public ImageView rc_btn;
 

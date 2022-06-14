@@ -6,7 +6,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -17,6 +19,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import org.parceler.Parcels;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 /**
  * Top post RV Adapter for Home page
@@ -24,6 +27,7 @@ import java.util.ArrayList;
 public class HomeParentAdapter extends RecyclerView.Adapter<HomeParentViewHolder> {
     ArrayList<HomeParentData> data;
     Context c;
+    Integer random;
     //View chosen_view;
 
     public HomeParentAdapter(Context c, ArrayList<HomeParentData> data){
@@ -52,9 +56,59 @@ public class HomeParentAdapter extends RecyclerView.Adapter<HomeParentViewHolder
             // Making Child RV for child layout within parent RV
             ArrayList<HomeChildData> data = new ArrayList<>();
             ArrayList<HomeMixData> sortedMixList = homeMix.filterDT();
+            ArrayList<HomeMixData> randomMixList = homeMix.RandomData();
 
+            ImageView weekly_img = item.findViewById(R.id.weekly_img);
+            TextView weekly_title = item.findViewById(R.id.weekly_title);
+            TextView weekly_author = item.findViewById(R.id.weekly_author);
+            if (randomMixList.size() > 0){
+                // post to retrieve for weekly feature determines randomly
+                final int random = new Random().nextInt(randomMixList.size());
+                ArrayList<HomeMixData> weekly_list = new ArrayList<>();
+
+                HomeMixData weekly_post = randomMixList.get(random);
+                weekly_list.add(weekly_post); // can be passed to bundle
+
+                //Setting items of things in Weekly post using sortedMixList
+                if (weekly_post.identifier == true) { // if its Hawker Corner post
+                    weekly_title.setText(weekly_post.hcstallname);
+                    weekly_author.setText(weekly_post.hcauthor);
+                }
+                else{// if its Recipe Corner post
+                    weekly_title.setText(weekly_post.recipeName);
+                    weekly_author.setText(weekly_post.owner);
+                }
+                weekly_img.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        AppCompatActivity activity = (AppCompatActivity) v.getContext();
+                        //Bundle to pass info to fragment as intent cannot
+                        if (weekly_post.identifier == true){ // If hawker post
+                            Fragment chosenfragment = new HCChosenStall();
+                            Bundle bundle = new Bundle();
+                            bundle.putInt("stallposition", 0);
+                            bundle.putInt("HomeDataCheck", 1); // if from Home, number = 1
+                            bundle.putParcelable("list", Parcels.wrap(weekly_list));
+                            chosenfragment.setArguments(bundle);
+
+                            activity.getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, chosenfragment).commit();
+                        }
+                        else{
+                            Fragment rcpFragment = new RecipeCornerPosts();
+                            Bundle bundle = new Bundle();
+                            bundle.putInt("recipeNo", 0);
+                            bundle.putInt("HomeDataCheck", 1); // if from Home, number = 1
+                            bundle.putParcelable("list", Parcels.wrap(weekly_list));
+                            rcpFragment.setArguments(bundle);
+                            activity.getSupportFragmentManager().beginTransaction()
+                                    .replace(R.id.MainFragment, rcpFragment).addToBackStack(null).commit();
+                        }
+                    }
+                });
+            }
 
             if (sortedMixList.size() > 0){ // checking if list is not empty, app wont crash
+                //Setting items of things in LP RV using sortedMixList
                 for (int i = 0; i < sortedMixList.size(); i++) {
                     //Adding the data for every ViewHolder
                     HomeChildData d = new HomeChildData();

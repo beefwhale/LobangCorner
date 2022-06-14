@@ -12,6 +12,10 @@ public class HomeChildViewHolder extends RecyclerView.ViewHolder {
     TextView post_desc;
     TextView post_author;
 
+    ImageView weekly_img;
+    TextView weekly_title;
+    TextView weekly_author;
+
     ImageView hc_btn;
     ImageView rc_btn;
 
@@ -24,7 +28,12 @@ public class HomeChildViewHolder extends RecyclerView.ViewHolder {
         post_desc= item.findViewById(R.id.feed_desc);
         post_author= item.findViewById(R.id.feed_author);
 
+        // For Weekly Feature items
+        weekly_img = item.findViewById(R.id.weekly_img);
+        weekly_title = item.findViewById(R.id.weekly_title);
+        weekly_author = item.findViewById(R.id.weekly_author);
 
+        // Buttons for HC and RC
         hc_btn = item.findViewById(R.id.home_hc_btn);
         rc_btn = item.findViewById(R.id.home_rc_btn);
     }

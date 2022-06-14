@@ -44,7 +44,7 @@
 
 
     <ImageView
-        android:id="@+id/wklyfeat_img"
+        android:id="@+id/weekly_img"
         android:layout_width="0dp"
         android:layout_height="200dp"
         android:layout_below="@id/wklyfeat_header"
@@ -100,19 +100,19 @@
         android:id="@+id/tp_header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/wklyfeat_img"
+        android:layout_below="@id/weekly_img"
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
         android:text="Explore"
         android:textSize="24sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/wklyfeat_img" />
+        app:layout_constraintTop_toBottomOf="@+id/weekly_img" />
 
     <TextView
         android:id="@+id/lp_header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/wklyfeat_img"
+        android:layout_below="@id/weekly_img"
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
         android:text="Latest Posts"
@@ -213,7 +213,7 @@
         android:text="Weekly Feature Title"
         android:textSize="20sp"
         app:layout_constraintBottom_toTopOf="@+id/weekly_author"
-        app:layout_constraintStart_toStartOf="@+id/wklyfeat_img" />
+        app:layout_constraintStart_toStartOf="@+id/weekly_img" />
 
     <TextView
         android:id="@+id/weekly_author"
@@ -222,8 +222,8 @@
         android:layout_marginStart="8dp"
         android:layout_marginBottom="8dp"
         android:text="Author Sample"
-        app:layout_constraintBottom_toBottomOf="@+id/wklyfeat_img"
-        app:layout_constraintStart_toStartOf="@+id/wklyfeat_img" />
+        app:layout_constraintBottom_toBottomOf="@+id/weekly_img"
+        app:layout_constraintStart_toStartOf="@+id/weekly_img" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
