@@ -14,6 +14,8 @@ import androidx.fragment.app.Fragment;
 import android.content.ContentResolver;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
@@ -57,11 +59,11 @@ public class Log_test extends Fragment {
 
     private static UserProfile userProfile;
     private static String aboutMeInput;
-    private static TextView username, aboutme, hwkObj, rcpObj;
+    private static TextView username,hwkObj, rcpObj;
     private static ImageView profP;
-    private Button logout, testbtn;
+    private Button logout, testbtn, aboutbtn;
     private ProgressBar loadingPB;
-    private EditText input;
+    private EditText  aboutme;
     PostsHolder postsHolder;
 
     private Uri ImageUri;
@@ -79,11 +81,13 @@ public class Log_test extends Fragment {
         profP = view.findViewById(R.id.idProfP);
         username = view.findViewById(R.id.TestTitle);
         aboutme = view.findViewById(R.id.idAbtme);
+        aboutbtn = view.findViewById(R.id.about_btn);
         hwkObj = view.findViewById(R.id.idHawkObj);
         rcpObj = view.findViewById(R.id.idRcpObj);
         logout = view.findViewById(R.id.idLogout);
         loadingPB = view.findViewById(R.id.PBloading);
         testbtn = view.findViewById(R.id.idBtnTest);
+//        input = view.findViewById(R.id.idAbtme);
 
         mAuth = FirebaseAuth.getInstance();
         storageReference = FirebaseStorage.getInstance().getReference();
@@ -114,31 +118,37 @@ public class Log_test extends Fragment {
         });
 
 //        Changes about me text on clicked
-        aboutme.setOnClickListener(new View.OnClickListener() {
+
+        // Changes line colour of edit Text
+        aboutme.getBackground().setColorFilter(Color.GREEN, PorterDuff.Mode.SRC_ATOP);
+        aboutbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-                builder.setTitle("Change profile description");
-                input = new EditText(getActivity());
-                builder.setView(input);
-
-                builder.setPositiveButton("Submit", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        aboutMeInput = input.getText().toString();
-                        updateAboutMe(aboutMeInput);
-                    }
-                });
-
-                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-
-                    }
-                });
-
-                AlertDialog alert = builder.create();
-                alert.show();
+                aboutMeInput = aboutme.getText().toString();
+                updateAboutMe(aboutMeInput);
+                Toast.makeText(getActivity(),"Changes Saved",Toast.LENGTH_SHORT).show();
+//                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+//                builder.setTitle("Change profile description");
+//                input = new EditText(getActivity());
+//                builder.setView(input);
+//
+//                builder.setPositiveButton("Submit", new DialogInterface.OnClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialogInterface, int i) {
+//                        aboutMeInput = input.getText().toString();
+//                        updateAboutMe(aboutMeInput);
+//                    }
+//                });
+//
+//                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialogInterface, int i) {
+//
+//                    }
+//                });
+//
+//                AlertDialog alert = builder.create();
+//                alert.show();
             }
         });
 
@@ -198,7 +208,9 @@ public class Log_test extends Fragment {
 
         Picasso.get().load(userProfile.getProfileImg()).into(profP);
         username.setText(userProfile.getUsername());
-        aboutme.setText(userProfile.getAboutMe());
+        if (aboutme != null){
+            aboutme.setText(userProfile.getAboutMe());
+        }
         hwkObj.setText("" + (userProfile.getHawkList().size()-1) + "\n\nHawker Posts");
         rcpObj.setText("" + (userProfile.getRcpList().size()-1) + "\n\nRecipe Post");
 
