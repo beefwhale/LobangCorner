@@ -44,6 +44,11 @@ public class HomeChildAdapter extends RecyclerView.Adapter<HomeChildViewHolder> 
         HomeMix homeMix = new HomeMix();
         ArrayList<HomeMixData> sortedMixList = homeMix.filterDT(); // List with LP info
 
+        //Pass data into Weekly Feature ViewHolder
+//        holder.weekly_title.setText(d.weekly_title);
+//        holder.weekly_author.setText(d.weekly_author);
+//        holder.weekly_img.setText(d.post_author);
+
         // Pass actual data into each ViewHolder
         holder.post_header.setText(d.post_header);
         holder.post_desc.setText(d.post_desc);
