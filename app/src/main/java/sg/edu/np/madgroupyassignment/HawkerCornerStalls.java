@@ -12,7 +12,7 @@ import org.w3c.dom.Text;
 public class HawkerCornerStalls {
     //Data for the HawkerCornerStalls
 
-//    public ImageView hccoverimg;    //cover image for display in main
+    public String hccoverimg;    //cover image for display in main
     public String hcstallname;      //stallname of hawker
     public String hcOwner;          //owner of post
     public String hcauthor;         //author who made hawker post
@@ -30,9 +30,9 @@ public class HawkerCornerStalls {
 
     };
 
-    public HawkerCornerStalls(/*ImageView hccoverimg,*/String hcOwner, String hcstallname, String hcauthor/*,Boolean hccliked*/, String hccparagraph, String hccaddress,
+    public HawkerCornerStalls(String hccoverimg,String hcOwner, String hcstallname, String hcauthor/*,Boolean hccliked*/, String hccparagraph, String hccaddress,
                               String daysopen, String hoursopen, String hccuserpfp,String shortdesc, long postTimeStamp){
-        //this.hccoverimg = hccoverimg;
+        this.hccoverimg = hccoverimg;
         this.hcOwner = hcOwner;
         this.hcstallname = hcstallname;
         this.hcauthor = hcauthor;

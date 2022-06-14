@@ -1,7 +1,13 @@
 package sg.edu.np.madgroupyassignment;
 
+import android.content.ContentResolver;
+import android.net.Uri;
 import android.os.Bundle;
 
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
@@ -12,11 +18,21 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.MimeTypeMap;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.NumberPicker;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
+import com.squareup.picasso.Picasso;
 
 import org.w3c.dom.Text;
 
@@ -38,6 +54,11 @@ public class RecipePostMain extends Fragment {
     NumberPicker numberPicker;
     int newVal;
 
+    ImageView displayPicButtonRecipe;
+    Uri ImageUri;
+    String downUrl;
+    private StorageReference storageReference;
+    ActivityResultLauncher<String> getPhoto;
 
     private FormsViewModel viewModel;
 
@@ -56,9 +77,31 @@ public class RecipePostMain extends Fragment {
         titleInput = f1.findViewById(R.id.RecipeTitle);
         descInput = f1.findViewById(R.id.Desc);
         numberPicker = f1.findViewById(R.id.numPicker);
+        displayPicButtonRecipe = f1.findViewById(R.id.displayPic2);
         newVal = 0;
         viewModel = new ViewModelProvider(requireParentFragment()).get(FormsViewModel.class);
+        downUrl = "https://firebasestorage.googleapis.com/v0/b/lobang-corner.appspot.com/o/DefaultProfilePic%2FPengi.png?alt=media&token=d8cbc81d-6bcd-456b-809d-e867b4506c17";
 
+        storageReference = FirebaseStorage.getInstance().getReference();
+
+        //Button to get photo
+        getPhoto = registerForActivityResult(
+                new ActivityResultContracts.GetContent(),
+                new ActivityResultCallback<Uri>() {
+                    @Override
+                    public void onActivityResult(Uri result) {
+                        ImageUri = result;
+                        upPost();
+                    }
+                }
+        );
+
+        displayPicButtonRecipe.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getPhoto.launch("image/*");
+            }
+        });
 
 
         numberPicker.setMinValue(1);
@@ -128,5 +171,39 @@ public class RecipePostMain extends Fragment {
 
 
         return f1;
+    }
+
+    //    Getting file extension
+    private String getFileExt(Uri uri) {
+        ContentResolver cR = getActivity().getContentResolver();
+        MimeTypeMap mime = MimeTypeMap.getSingleton();
+        return mime.getExtensionFromMimeType(cR.getType(uri));
+    }
+
+    private void upPost() {
+        if (ImageUri != null) {
+            StorageReference fileReference = storageReference.child("ImgUps").child(System.currentTimeMillis() + "." + getFileExt(ImageUri));
+
+//            Putting new profile image into storage
+            fileReference.putFile(ImageUri)
+                    .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                            Toast.makeText(getActivity(), "Upload Successful", Toast.LENGTH_SHORT).show();
+
+//                            Getting new image url
+                            fileReference.getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Uri> task) {
+                                    downUrl = task.getResult().toString();
+                                    Picasso.get().load(downUrl).into(displayPicButtonRecipe);
+                                    viewModel.selectImg(downUrl);
+                                }
+                            });
+                        }
+                    });
+        } else {
+            Toast.makeText(getActivity(), "No file selected", Toast.LENGTH_SHORT).show();
+        }
     }
 }
