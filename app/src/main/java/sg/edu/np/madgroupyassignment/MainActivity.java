@@ -23,6 +23,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
+import android.os.Handler;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -33,6 +34,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class MainActivity extends AppCompatActivity{
 
@@ -40,6 +42,7 @@ public class MainActivity extends AppCompatActivity{
     public static Boolean profileFirstUpdate;
     private UserProfile userProfile;
     private PostsHolder postsHolder;
+    private Handler handler;
     private FirebaseAuth mAuth;
     private FirebaseDatabase firebaseDatabase;
     private DatabaseReference databaseReference;
@@ -69,8 +72,9 @@ public class MainActivity extends AppCompatActivity{
         FloatingActionButton mainFAB, rcFAB, hcFAB;
         TextView rcFABText, hcFABText;
 
-        postsHolder = new PostsHolder();
         profileFirstUpdate = true;
+        postsHolder = new PostsHolder();
+        handler = new Handler();
 
         mAuth = FirebaseAuth.getInstance();
         firebaseDatabase = FirebaseDatabase.getInstance();
@@ -89,6 +93,7 @@ public class MainActivity extends AppCompatActivity{
 //                Getting recipe posts
                 postsHolder.removeRecipePosts();
                 postsHolder.removeUserRecipePosts();
+                postsHolder.removeRecentRecipePosts();
                 for (DataSnapshot objectEntry : snapshot.child("Posts").child("Recipes").getChildren()) {
                     RecipeCorner rcpObject = objectEntry.getValue(RecipeCorner.class);
                     postsHolder.setRecipePosts(rcpObject);
@@ -101,6 +106,7 @@ public class MainActivity extends AppCompatActivity{
 //                Getting hawker posts
                 postsHolder.removeHawkerPosts();
                 postsHolder.removeUserHawkerPosts();
+                postsHolder.removeRecentHawkerPosts();
                 for (DataSnapshot objectEntry : snapshot.child("Posts").child("Hawkers").getChildren()) {
                     HawkerCornerStalls hwkObject = objectEntry.getValue(HawkerCornerStalls.class);
                     postsHolder.setHawkerPosts(hwkObject);
@@ -130,6 +136,12 @@ public class MainActivity extends AppCompatActivity{
                 recipeForm.retrieveUserProfile(userProfile);
                 hawkerForm.retrieveUserProfile(userProfile);
 
+                for (HawkerCornerStalls i : postsHolder.getRecentHawkerPosts()){
+                    Log.d("duplic", i.getHcstallname());
+                }
+
+                Log.d("duplic", "" + postsHolder.getRecentHawkerPosts().length);
+
             }
 
             @Override
@@ -139,17 +151,31 @@ public class MainActivity extends AppCompatActivity{
         });
 
         //Calling classes to replace upon nav bar click
+        SplashPage splashPage = new SplashPage();
         Home homeFragment = new Home();
         Log_test profile = new Log_test();
         HawkerCornerMain hcmain = new HawkerCornerMain();
         RecipeCornerMain rcmain = new RecipeCornerMain();
 
         if (savedInstanceState == null) {
+            getSupportActionBar().hide();
+            bottomNavigationView.setVisibility(View.GONE);
+            findViewById(R.id.floating_main_nav_button).setVisibility(View.GONE);
             FragmentManager fm = getSupportFragmentManager();
             fm.beginTransaction()
-                    .replace(R.id.MainFragment, homeFragment)
+                    .replace(R.id.MainFragment, splashPage)
                     .commit();
         }
+
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, homeFragment, null).commit();
+                bottomNavigationView.setVisibility(View.VISIBLE);
+                findViewById(R.id.floating_main_nav_button).setVisibility(View.VISIBLE);
+            }
+        }, 3000);
+
 
         /*public void hcClicked(){
             HawkerCornerMain hcmain2 = new HawkerCornerMain();

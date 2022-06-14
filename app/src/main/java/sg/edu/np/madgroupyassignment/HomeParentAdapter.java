@@ -121,7 +121,7 @@ public class HomeParentAdapter extends RecyclerView.Adapter<HomeParentViewHolder
                     else{// if its Recipe Corner post
                         d.post_header = sortedMixList.get(i).recipeName;
                         d.post_desc = sortedMixList.get(i).recipeDescription;
-                        d.post_author = sortedMixList.get(i).owner;
+                        d.post_author = sortedMixList.get(i).userName;
                         data.add(d);
                     }
                 }

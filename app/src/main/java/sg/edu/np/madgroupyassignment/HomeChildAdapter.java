@@ -53,6 +53,7 @@ public class HomeChildAdapter extends RecyclerView.Adapter<HomeChildViewHolder> 
         holder.post_header.setText(d.post_header);
         holder.post_desc.setText(d.post_desc);
         holder.post_author.setText(d.post_author);
+
         holder.post_img.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
