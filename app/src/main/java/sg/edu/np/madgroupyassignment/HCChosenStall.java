@@ -18,7 +18,7 @@ import org.w3c.dom.Text;
 import java.util.ArrayList;
 
 public class HCChosenStall extends Fragment {
-    //Class-xml for chosen stall from hawker corner. !!-Make appropriate changes
+    //Class-xml for chosen stall from hawker corner.
 //    private ArrayList<HawkerCornerStalls> stallsList = new ArrayList<>();
 
 
@@ -29,9 +29,9 @@ public class HCChosenStall extends Fragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
 
-        TextView chosenstallname = view.findViewById(R.id.chosenstallname);
         ImageView chosenstallimg = view.findViewById(R.id.chosenstallimg);
         ImageView hccuserpfp = view.findViewById(R.id.hccuserpfp);
+        TextView chosenstallname = view.findViewById(R.id.chosenstallname);
         TextView hccusername = view.findViewById(R.id.hccusername);
         /*Button hcclikebtn = view.findViewById(R.id.hcclikebtn);*/
         TextView hccaddress = view.findViewById(R.id.hccaddress);

@@ -47,11 +47,7 @@ public class HawkerCornerMain extends Fragment implements AdapterView.OnItemSele
             stallsList.add(obj);
         }
 
-        //Populate hawker corner's stallList, temporary and will change to get data from firebase
-        //Will create method to retrieve from db
-        //If empty, means havent populate from firebase
-
-        //Commented out to test database grabbing.
+        //Commented out to test database grabbing. - to be removed?
         if (stallsList.isEmpty()){
             for (int i = 0; i < 10; i++) {
                 HawkerCornerStalls newstall = new HawkerCornerStalls();
@@ -121,8 +117,7 @@ public class HawkerCornerMain extends Fragment implements AdapterView.OnItemSele
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
         switch (i) {
-            case 0: //No filter
-                hcadapter.sortChange(stallsList);
+            case 0: //Default - Sort By, does nothing
                 break;
             case 1: //Filter based on stall name ascending
                 stallsList = sortListByStall();
