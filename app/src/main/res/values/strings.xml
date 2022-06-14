@@ -2,9 +2,12 @@
     <string name="app_name">MAD Group Y Assignment</string>
     <string-array name="sortby">
         <item>Sort by</item>
-        <item>Highest Rating</item>
-        <item>Most popular</item>
-        <item>Alphebatically</item>
+        <item>Level of difficulty (Hardest)</item>
+        <item>Level of difficulty (Easiest)</item>
+        <item>Alphebatically (A to Z)</item>
+        <item>Alphebatically (Z to A)</item>
+        <item>Newest post</item>
+        <item>Oldest post</item>
     </string-array>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 public class RecipeViewHolder extends RecyclerView.ViewHolder {
 
     // creating variables for our views.
-    TextView recipeName, recipeDesc, ratingNo, userName;
+    TextView recipeName, recipeDesc, userName;
     TextView ingreds, steps, duration;
     ImageView foodImage;
     RatingBar ratingBar;
@@ -20,7 +20,6 @@ public class RecipeViewHolder extends RecyclerView.ViewHolder {
         // initializing our views with their ids.
         recipeName = itemView.findViewById(R.id.idRecipeName);
         recipeDesc = itemView.findViewById(R.id.idRecipeDescription);
-        ratingNo = itemView.findViewById(R.id.rating);
         userName = itemView.findViewById(R.id.idUser);
         foodImage = itemView.findViewById(R.id.imageView);
         ratingBar = itemView.findViewById(R.id.ratingBar);

@@ -41,7 +41,6 @@ public class RecipeCornerPosts extends Fragment {
         TextView n = view.findViewById(R.id.idRecipeName);
         TextView d = view.findViewById(R.id.idRecipeDescription);
         TextView id = view.findViewById(R.id.idUser);
-        TextView r = view.findViewById(R.id.rating);
         RatingBar rb = view.findViewById(R.id.ratingBar);
         ImageView i = view.findViewById(R.id.imageView);
 
@@ -62,7 +61,6 @@ public class RecipeCornerPosts extends Fragment {
             n.setText(recipePost.recipeName);
             d.setText(recipePost.recipeDescription);
             id.setText("By: " + recipePost.userName);
-            r.setText(recipePost.noOfRaters.toString());
             rb.setRating(recipePost.recipeRating);
             //i.setImage
             duration.setText("Duration: " + recipePost.duration + " mins");
@@ -79,7 +77,6 @@ public class RecipeCornerPosts extends Fragment {
             n.setText(recipePost.recipeName);
             d.setText(recipePost.recipeDescription);
             id.setText("By: " + recipePost.userName);
-            r.setText(recipePost.noOfRaters.toString());
             rb.setRating(recipePost.recipeRating);
             //i.setImage
             duration.setText("Duration: " + recipePost.duration + " mins");

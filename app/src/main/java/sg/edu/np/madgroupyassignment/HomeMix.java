@@ -56,7 +56,6 @@ public class HomeMix {
                 HomeMixData.recipeName = i.recipeName;
                 HomeMixData.recipeDescription = i.recipeDescription;
                 HomeMixData.recipeRating = i.recipeRating;
-                HomeMixData.noOfRaters = i.noOfRaters;
                 HomeMixData.userName = i.userName;
                 HomeMixData.duration = i.duration;
                 HomeMixData.steps = i.steps;
@@ -134,7 +133,6 @@ public class HomeMix {
                 HomeMixData.recipeName = i.recipeName;
                 HomeMixData.recipeDescription = i.recipeDescription;
                 HomeMixData.recipeRating = i.recipeRating;
-                HomeMixData.noOfRaters = i.noOfRaters;
                 HomeMixData.userName = i.userName;
                 HomeMixData.duration = i.duration;
                 HomeMixData.steps = i.steps;

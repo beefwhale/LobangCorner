@@ -95,7 +95,6 @@ public class RecipeCornerMain extends Fragment implements AdapterView.OnItemSele
                 newrecipe.recipeName = "Recipe " + i;
                 newrecipe.recipeDescription = "Description " + i;
                 newrecipe.recipeRating = 0;
-                newrecipe.noOfRaters = 0;
                 newrecipe.userName = "UserName " + i;
                 newrecipe.duration = "0";
                 newrecipe.steps = "Steps " + i;
@@ -106,6 +105,7 @@ public class RecipeCornerMain extends Fragment implements AdapterView.OnItemSele
         }
 
         // initializing our adapter class.
+        Collections.reverse(recipeModalArrayList); //default displays newest post first
         adapter = new RecipeAdapter(recipeModalArrayList, getActivity());
 
         // adding layout manager to our recycler view.
@@ -123,32 +123,49 @@ public class RecipeCornerMain extends Fragment implements AdapterView.OnItemSele
         return view;
     }
 
-    private void sortrating(int i){
+    private void sortrating(boolean b1){
         ArrayList<RecipeCorner> sortlist = new ArrayList<>();
-        Collections.sort(recipeModalArrayList, new Comparator<RecipeCorner>() {
+        for (RecipeCorner item : recipeModalArrayList) {
+            sortlist.add(item);
+        }
+        Collections.sort(sortlist, new Comparator<RecipeCorner>() {
             @Override
             public int compare(RecipeCorner rc1, RecipeCorner rc2) {
-                if (i==1)
-                    return rc1.recipeRating.compareTo(rc2.recipeRating);
-                else
-                    return rc1.noOfRaters.compareTo(rc2.noOfRaters);
+                return rc1.recipeRating.compareTo(rc2.recipeRating);
             }
         });
-        Collections.reverse(recipeModalArrayList);
-        sortlist = recipeModalArrayList;
+        if (b1)
+            Collections.reverse(sortlist);
+        //sortlist = recipeModalArrayList;
         adapter.sort(sortlist);
     }
 
-    private void sortAlphabet(){
+    private void sortAlphabet(boolean b2){
         ArrayList<RecipeCorner> sortlist2 = new ArrayList<>();
-        Collections.sort(recipeModalArrayList, new Comparator<RecipeCorner>() {
+        for (RecipeCorner item : recipeModalArrayList) {
+            sortlist2.add(item);
+        }
+        Collections.sort(sortlist2, new Comparator<RecipeCorner>() {
             @Override
             public int compare(RecipeCorner rc1, RecipeCorner rc2) {
                 return rc1.recipeName.compareToIgnoreCase(rc2.recipeName);
             }
         });
-        sortlist2 = recipeModalArrayList;
+        if (b2)
+            Collections.reverse(sortlist2);
+        //sortlist2 = recipeModalArrayList;
         adapter.sort(sortlist2);
+    }
+
+    private void sortdate(boolean b3){
+        ArrayList<RecipeCorner> sortlist3 = new ArrayList<>();
+        for (RecipeCorner item : recipeModalArrayList) {
+            sortlist3.add(item);
+        }
+        if (b3)
+            Collections.reverse(sortlist3);
+        //sortlist = recipeModalArrayList;
+        adapter.sort(sortlist3);
     }
 
     private void filter(String text) {
@@ -218,16 +235,26 @@ public class RecipeCornerMain extends Fragment implements AdapterView.OnItemSele
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
         switch(i){
+            case 0:
+                adapter.unsort(recipeModalArrayList);
+                break;
             case 1:
-                sortrating(1);
+                sortrating(true);
                 break;
             case 2:
-                //Toast.makeText(this, "hello2", Toast.LENGTH_SHORT).show();
-                sortrating(2);
+                sortrating(false);
                 break;
             case 3:
-                sortAlphabet();
+                sortAlphabet(false);
                 break;
+            case 4:
+                sortAlphabet(true);
+                break;
+            case 5:
+                sortdate(false);
+                break;
+            case 6:
+                sortdate(true);
         }
     }
 

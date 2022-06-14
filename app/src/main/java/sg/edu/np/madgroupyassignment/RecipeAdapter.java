@@ -52,6 +52,11 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeViewHolder>{
         notifyDataSetChanged();
     }
 
+    public void unsort(ArrayList<RecipeCorner> recipeList){
+        recipeArrayList = recipeList;
+        notifyDataSetChanged();
+    }
+
     @NonNull
     @Override
     public RecipeViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -69,7 +74,6 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeViewHolder>{
 
         holder.recipeName.setText(item.recipeName);
         holder.recipeDesc.setText(item.getRecipeDescription());
-        holder.ratingNo.setText(item.getNoOfRaters().toString());
         holder.ratingBar.setRating(item.getRecipeRating());
         holder.userName.setText("By: " + item.getUserName());
         //Picasso.get().load(recipeCorner.getFoodImage()).into(holder.foodImage);

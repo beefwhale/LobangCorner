@@ -8,7 +8,6 @@ public class RecipeCorner {
     String recipeName;
     String recipeDescription;
     Integer recipeRating;
-    Integer noOfRaters;
     String userName;
     String duration;
     String steps;
@@ -23,13 +22,12 @@ public class RecipeCorner {
 
     // creating constructor for our variables.
     public RecipeCorner(String owner, String recipeName, String recipeDescription, int recipeRating,
-                       int noOfRaters, String userName, String duration,
+                        String userName, String duration,
                          String steps, String ingredients, Long postTimeStamp/*, String foodImage*/) {
         this.owner = owner;
         this.recipeName = recipeName;
         this.recipeDescription = recipeDescription;
         this.recipeRating = recipeRating;
-        this.noOfRaters = noOfRaters;
         this.userName = userName;
         this.duration = duration;
         this.steps = steps;
@@ -71,14 +69,6 @@ public class RecipeCorner {
 
     public void setRecipeRating(int recipeRating){
         this.recipeRating = recipeRating;
-    }
-
-    public Integer getNoOfRaters(){
-        return this.noOfRaters;
-    }
-
-    public void setNoOfRaters(int noOfRaters){
-        this.noOfRaters = noOfRaters;
     }
 
     public String getUserName(){
