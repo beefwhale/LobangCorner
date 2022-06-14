@@ -186,15 +186,10 @@ public class Log_test extends Fragment {
         testbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.i("test1", Arrays.toString(postsHolder.getHawkerPosts().toArray()));
-                Log.i("test2", Arrays.toString(postsHolder.getRecipePosts().toArray()));
-                Log.i("test3", Arrays.toString(postsHolder.getUserHawkerPosts().toArray()));
-                Log.i("test4", Arrays.toString(postsHolder.getUserRecipePosts().toArray()));
-
-                for (HawkerCornerStalls i : postsHolder.getTest()){
-                    Log.i("home1", i.getHcstallname());
+                for (HawkerCornerStalls i : postsHolder.getRecentHawkerPosts()){
+                    Log.d("duplicate2", i.getHcstallname());
                 }
-
+                Log.d("duplicate2", "" + postsHolder.getRecentHawkerPosts().length);
             }
         });
 

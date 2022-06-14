@@ -43,7 +43,7 @@
             android:label="Hawker Corner" />
         <activity
             android:name=".MainActivity"
-            android:exported="true" /> <!--android:screenOrientation="portrait"-->
+            android:exported="true" />
     </application>
 
 </manifest>

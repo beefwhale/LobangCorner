@@ -73,9 +73,6 @@ public class PostsHolder {
         PostsHolder.recentRecipePosts = recentRecipePosts;
     }
 
-    public static HawkerCornerStalls[] getTest(){
-        return recentHawkerPosts;}
-
     public void removeHawkerPosts(){
         this.hawkerPosts.removeAll(hawkerPosts);
     }
@@ -91,6 +88,11 @@ public class PostsHolder {
     public void removeUserRecipePosts(){
         this.userRecipePosts.removeAll(userRecipePosts);
     }
+
+    public void removeRecentHawkerPosts() { Arrays.fill(this.recentHawkerPosts, null); }
+
+    public void removeRecentRecipePosts() { Arrays.fill(this.recentRecipePosts, null); }
+
 
     public void updateRecentHawkerPosts(HawkerCornerStalls hawkerCornerStalls) {
         sortEntries();
