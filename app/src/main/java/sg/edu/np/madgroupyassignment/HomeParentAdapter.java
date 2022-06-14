@@ -76,7 +76,7 @@ public class HomeParentAdapter extends RecyclerView.Adapter<HomeParentViewHolder
                 }
                 else{// if its Recipe Corner post
                     weekly_title.setText(weekly_post.recipeName);
-                    weekly_author.setText(weekly_post.owner);
+                    weekly_author.setText(weekly_post.userName);
                 }
                 weekly_img.setOnClickListener(new View.OnClickListener() {
                     @Override
