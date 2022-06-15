@@ -80,7 +80,6 @@ public class RecipePostMain extends Fragment {
         displayPicButtonRecipe = f1.findViewById(R.id.displayPic2);
         newVal = 0;
         viewModel = new ViewModelProvider(requireParentFragment()).get(FormsViewModel.class);
-        downUrl = "https://firebasestorage.googleapis.com/v0/b/lobang-corner.appspot.com/o/DefaultProfilePic%2FPengi.png?alt=media&token=d8cbc81d-6bcd-456b-809d-e867b4506c17";
 
         storageReference = FirebaseStorage.getInstance().getReference();
 
@@ -181,6 +180,7 @@ public class RecipePostMain extends Fragment {
     }
 
     private void upPost() {
+
         if (ImageUri != null) {
             StorageReference fileReference = storageReference.child("ImgUps").child(System.currentTimeMillis() + "." + getFileExt(ImageUri));
 
