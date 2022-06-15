@@ -23,7 +23,7 @@ public class RecipeCorner {
     // creating constructor for our variables.
     public RecipeCorner(String owner, String recipeName, String recipeDescription, int recipeRating,
                         String userName, String duration,
-                         String steps, String ingredients, Long postTimeStamp/*, String foodImage*/) {
+                         String steps, String ingredients, Long postTimeStamp, String foodImage) {
         this.owner = owner;
         this.recipeName = recipeName;
         this.recipeDescription = recipeDescription;
