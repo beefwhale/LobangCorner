@@ -44,7 +44,7 @@ public class HomeMixData {
         this.daysopen = daysopen;
         this.hoursopen = hoursopen;
         this.hccuserpfp = hccuserpfp;
-        /*this.shortdesc = shortdesc;*/
+        this.shortdesc = shortdesc;
         this.postTimeStamp = postTimeStamp;
 
 //        RC SIDE

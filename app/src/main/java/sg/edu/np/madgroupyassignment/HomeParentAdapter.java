@@ -16,6 +16,8 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.squareup.picasso.Picasso;
+
 import org.parceler.Parcels;
 
 import java.util.ArrayList;
@@ -73,10 +75,12 @@ public class HomeParentAdapter extends RecyclerView.Adapter<HomeParentViewHolder
                 if (weekly_post.identifier == true) { // if its Hawker Corner post
                     weekly_title.setText(weekly_post.hcstallname);
                     weekly_author.setText(weekly_post.hcauthor);
+                    Picasso.get().load(weekly_post.hccoverimg).into(weekly_img);
                 }
                 else{// if its Recipe Corner post
                     weekly_title.setText(weekly_post.recipeName);
                     weekly_author.setText(weekly_post.userName);
+                    Picasso.get().load(weekly_post.foodImage).into(weekly_img);
                 }
                 weekly_img.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -137,6 +141,13 @@ public class HomeParentAdapter extends RecyclerView.Adapter<HomeParentViewHolder
                 }
 
             }
+            // Child RV
+            RecyclerView lp_rv = item.findViewById(R.id.lp_rv);
+            LinearLayoutManager lp_layout = new LinearLayoutManager(c, LinearLayoutManager.HORIZONTAL, false);
+            HomeChildAdapter lp_adapter = new HomeChildAdapter(c,data);
+
+            lp_rv.setAdapter(lp_adapter);
+            lp_rv.setLayoutManager(lp_layout);
 
             //Rounding corners of ImageView buttons
             ImageView exploreHC = item.findViewById(R.id.home_hc_btn);
@@ -171,13 +182,7 @@ public class HomeParentAdapter extends RecyclerView.Adapter<HomeParentViewHolder
                     MainActivity.bottomNavigationView.getMenu().findItem(R.id.hc).setChecked(true);
                 }
             });
-            // Child RV
-            RecyclerView lp_rv = item.findViewById(R.id.lp_rv);
-            LinearLayoutManager lp_layout = new LinearLayoutManager(c, LinearLayoutManager.HORIZONTAL, false);
-            HomeChildAdapter lp_adapter = new HomeChildAdapter(c,data);
 
-            lp_rv.setAdapter(lp_adapter);
-            lp_rv.setLayoutManager(lp_layout);
 
         }
         else{
@@ -201,10 +206,17 @@ public class HomeParentAdapter extends RecyclerView.Adapter<HomeParentViewHolder
             HomeParentData p = data.get(position-1);
             HomeMix homeMix = new HomeMix();
             ArrayList<HomeMixData> randomMixList = homeMix.RandomData(); // List with Random Mixed HC and RC info
+            HomeMixData randomMixListItem = randomMixList.get(holder.getAdapterPosition()-1);
 
+            if (randomMixList.get(holder.getAdapterPosition()-1).identifier == true) {// If hawker post
+                Picasso.get().load(randomMixListItem.hccoverimg).into(holder.post_img);
+            }
+            else{ //If recipe post
+                Picasso.get().load(randomMixListItem.foodImage).into(holder.post_img);
+            }
             holder.post_header.setText(p.post_header);
             holder.post_desc.setText(p.post_desc);
-            holder.post_author.setText(p.post_author);
+            holder.post_author.setText("By: "+p.post_author);
             holder.post_img.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
