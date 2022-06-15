@@ -6,11 +6,14 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.squareup.picasso.Picasso;
 
 import org.parceler.Parcels;
 
@@ -43,17 +46,18 @@ public class HomeChildAdapter extends RecyclerView.Adapter<HomeChildViewHolder> 
         HomeChildData d = data.get(position);
         HomeMix homeMix = new HomeMix();
         ArrayList<HomeMixData> sortedMixList = homeMix.filterDT(); // List with LP info
-
-        //Pass data into Weekly Feature ViewHolder
-//        holder.weekly_title.setText(d.weekly_title);
-//        holder.weekly_author.setText(d.weekly_author);
-//        holder.weekly_img.setText(d.post_author);
+        HomeMixData sortedMixListItem = sortedMixList.get(holder.getAdapterPosition());
 
         // Pass actual data into each ViewHolder
+        if (sortedMixList.get(holder.getAdapterPosition()).identifier == true) {// If hawker post
+            Picasso.get().load(sortedMixListItem.hccoverimg).into(holder.post_img);
+        }
+        else{ //If recipe post
+            Picasso.get().load(sortedMixListItem.foodImage).into(holder.post_img);
+        }
         holder.post_header.setText(d.post_header);
         holder.post_desc.setText(d.post_desc);
-        holder.post_author.setText(d.post_author);
-
+        holder.post_author.setText("By: "+d.post_author);
         holder.post_img.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -88,12 +88,13 @@
             android:textColor="@color/white"
             android:textSize="20sp" />
 
-        <TextView
+        <EditText
             android:id="@+id/idAbtme"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/idAbtHead"
             android:layout_marginTop="8dp"
+            android:backgroundTint="@color/greywhite"
             android:gravity="left"
             android:minHeight="130dp"
             android:paddingHorizontal="17dp"
@@ -102,15 +103,29 @@
             android:textColor="@color/white"
             android:textSize="15sp" />
 
+
+        <Button
+            android:id="@+id/about_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/idAbtme"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:background="@drawable/custom_button_back"
+            android:text="Submit" />
+
         <Button
             android:id="@+id/idLogout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/idAbtme"
-            android:layout_marginStart="100dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginEnd="100dp"
-            android:layout_marginBottom="20dp"
+            android:layout_below="@+id/about_btn"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="8dp"
             android:background="@drawable/custom_button_back"
             android:text="Logout"
             android:textAllCaps="false"
@@ -122,7 +137,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/idLogout"
             android:layout_marginStart="20dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="8dp"
             android:layout_marginEnd="20dp"
             android:background="@drawable/custom_button_back"
             android:text="TestUp"

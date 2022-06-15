@@ -42,6 +42,7 @@ public class RecipeForm extends Fragment {
     String recipeDesc;
     String duration;
     String steps;
+    String selectedImg;
     Integer difficulty;
     RecipeCorner recipeCorner;
     HashMap<String, Object> userCurrentRcp;
@@ -53,6 +54,7 @@ public class RecipeForm extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        selectedImg = "https://firebasestorage.googleapis.com/v0/b/lobang-corner.appspot.com/o/DefaultProfilePic%2FPengi.png?alt=media&token=d8cbc81d-6bcd-456b-809d-e867b4506c17";
         // Inflate the layout for this fragment
         View recipeform = inflater.inflate(R.layout.fragment_recipe_form, container, false);
 
@@ -125,6 +127,12 @@ public class RecipeForm extends Fragment {
                         difficulty = s;//difficulty parameter
                     }
                 });
+                viewModel.getSelectedImg().observe(getViewLifecycleOwner(), new Observer<String>() {
+                    @Override
+                    public void onChanged(String s) {
+                        selectedImg = s;//Image parameter
+                    }
+                });
 
                 if(recipeName == null || recipeName.length() == 0 || recipeName.isEmpty() ||
                         recipeDesc == null || recipeDesc.length() == 0 || recipeDesc.isEmpty()){
@@ -133,7 +141,7 @@ public class RecipeForm extends Fragment {
                 else{
                     ownerUID = userProfile.getUID();
                     Long timeStamp = System.currentTimeMillis();
-                    recipeCorner = new RecipeCorner(ownerUID, recipeName, recipeDesc, difficulty, username, duration, steps,totalIngred, timeStamp);
+                    recipeCorner = new RecipeCorner(ownerUID, recipeName, recipeDesc, difficulty, username, duration, steps,totalIngred, timeStamp, selectedImg);
                     userCurrentRcp = userProfile.getRcpList();
                     RcpUp(userCurrentRcp, recipeCorner);
                     getActivity().recreate();

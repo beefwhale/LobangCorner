@@ -12,6 +12,8 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
 import org.parceler.Parcels;
 import org.w3c.dom.Text;
 
@@ -29,11 +31,11 @@ public class HCChosenStall extends Fragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
 
+        //Variables or views needed to define whats in Chosen stall
         ImageView chosenstallimg = view.findViewById(R.id.chosenstallimg);
         ImageView hccuserpfp = view.findViewById(R.id.hccuserpfp);
         TextView chosenstallname = view.findViewById(R.id.chosenstallname);
         TextView hccusername = view.findViewById(R.id.hccusername);
-        /*Button hcclikebtn = view.findViewById(R.id.hcclikebtn);*/
         TextView hccaddress = view.findViewById(R.id.hccaddress);
         TextView hccparagraph = view.findViewById(R.id.hccparagraph);
         TextView descriptionheader = view.findViewById(R.id.descriptiontv);
@@ -50,8 +52,10 @@ public class HCChosenStall extends Fragment {
             HomeMixData chosenstall;
             ArrayList<HomeMixData> stallsList = new ArrayList<>();
             stallsList = Parcels.unwrap(bundle.getParcelable("list"));
-
             chosenstall = stallsList.get(chosenstallno);
+
+            Picasso.get().load(chosenstall.getHccoverimg()).into(chosenstallimg);
+            Picasso.get().load(chosenstall.getHccuserpfp()).into(hccuserpfp);
             chosenstallname.setText(chosenstall.hcstallname);
             hccusername.setText(chosenstall.hcauthor);
             hccaddress.setText(chosenstall.hccaddress);
@@ -66,7 +70,8 @@ public class HCChosenStall extends Fragment {
             stallsList = Parcels.unwrap(bundle.getParcelable("list"));
             chosenstall = stallsList.get(chosenstallno);
 
-
+            Picasso.get().load(chosenstall.getHccoverimg()).into(chosenstallimg);
+            Picasso.get().load(chosenstall.getHccuserpfp()).into(hccuserpfp);
             chosenstallname.setText(chosenstall.hcstallname);
             hccusername.setText(chosenstall.hcauthor);
             hccaddress.setText(chosenstall.hccaddress);

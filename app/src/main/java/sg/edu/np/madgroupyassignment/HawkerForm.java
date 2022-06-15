@@ -1,30 +1,41 @@
 package sg.edu.np.madgroupyassignment;
 
 import android.app.TimePickerDialog;
+import android.content.ContentResolver;
 import android.content.DialogInterface;
+import android.net.Uri;
 import android.os.Bundle;
 
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.text.format.Time;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.MimeTypeMap;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-
-import org.parceler.Parcels;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -40,7 +51,6 @@ public class HawkerForm extends Fragment {
     String[] dayArray = {"Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"};
     int opHour, opMin, clHour, clMin;
 
-    Button test;
     Button submit;
     EditText sNInput;
     EditText dInput;
@@ -65,7 +75,11 @@ public class HawkerForm extends Fragment {
     String username;
     HashMap<String, Object> userCurrentHwk;
 
-
+    ImageView displayPicButtonHawker;
+    Uri ImageUri;
+    String downUrl;
+    private StorageReference storageReference;
+    ActivityResultLauncher<String> getPhoto;
     HawkerCornerStalls hCS;
 
     public HawkerForm() {
@@ -77,7 +91,6 @@ public class HawkerForm extends Fragment {
                              Bundle savedInstanceState) {
         View hf = inflater.inflate(R.layout.fragment_hawker_form, container, false);
 
-        test = hf.findViewById(R.id.hbutton2);//Cover image button
         submit = hf.findViewById(R.id.submitBtn);
 
         openingTime = "00:00";
@@ -86,6 +99,7 @@ public class HawkerForm extends Fragment {
         desc = "";
         shortDesc = "";
         address = "";
+        downUrl = "https://firebasestorage.googleapis.com/v0/b/lobang-corner.appspot.com/o/DefaultProfilePic%2FPengi.png?alt=media&token=d8cbc81d-6bcd-456b-809d-e867b4506c17";
 
 
         clHour = 00;
@@ -94,12 +108,34 @@ public class HawkerForm extends Fragment {
         opMin = 00;
 
         //Assign variable
+        displayPicButtonHawker = hf.findViewById(R.id.displayPic);
         sNInput = hf.findViewById(R.id.StallName);
         dInput = hf.findViewById(R.id.Desc);
         sdInput = hf.findViewById(R.id.shortDesc);
         aInput = hf.findViewById(R.id.addrInput);
         opTInput = hf.findViewById(R.id.openingTime);
         clTInput = hf.findViewById(R.id.closingTime);
+
+        storageReference = FirebaseStorage.getInstance().getReference();
+
+        //Button to get photo
+        getPhoto = registerForActivityResult(
+                new ActivityResultContracts.GetContent(),
+                new ActivityResultCallback<Uri>() {
+                    @Override
+                    public void onActivityResult(Uri result) {
+                        ImageUri = result;
+                        upPost();
+                    }
+                }
+        );
+
+        displayPicButtonHawker.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getPhoto.launch("image/*");
+            }
+        });
 
         //Assigning Stall Name to variable
         sNInput.addTextChangedListener(new TextWatcher() {
@@ -319,11 +355,6 @@ public class HawkerForm extends Fragment {
             }
         });
 
-        test.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-            }
-        });
 
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -337,7 +368,7 @@ public class HawkerForm extends Fragment {
                     userPfpUrl = userProfile.getProfileImg();
                     ownerUID = userProfile.getUID();
                     long timeStamp = System.currentTimeMillis();
-                    hCS = new HawkerCornerStalls(ownerUID, stallName,username/*,false*/,desc,address,daysOpen,finalTime,userPfpUrl, shortDesc, timeStamp);
+                    hCS = new HawkerCornerStalls(downUrl,ownerUID, stallName,username,desc,address,daysOpen,finalTime,userPfpUrl, shortDesc, timeStamp);
 
                     userCurrentHwk = userProfile.getHawkList();
                     HwkUp(userCurrentHwk, hCS);
@@ -394,5 +425,38 @@ public class HawkerForm extends Fragment {
 
     public void retrieveUserProfile(UserProfile userProfile){
         this.userProfile = userProfile;
+    }
+
+    //    Getting file extension
+    private String getFileExt(Uri uri) {
+        ContentResolver cR = getActivity().getContentResolver();
+        MimeTypeMap mime = MimeTypeMap.getSingleton();
+        return mime.getExtensionFromMimeType(cR.getType(uri));
+    }
+
+    private void upPost() {
+        if (ImageUri != null) {
+            StorageReference fileReference = storageReference.child("ImgUps").child(System.currentTimeMillis() + "." + getFileExt(ImageUri));
+
+//            Putting new profile image into storage
+            fileReference.putFile(ImageUri)
+                    .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                            Toast.makeText(getActivity(), "Upload Successful", Toast.LENGTH_SHORT).show();
+
+//                            Getting new image url
+                            fileReference.getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Uri> task) {
+                                    downUrl = task.getResult().toString();
+                                    Picasso.get().load(downUrl).into(displayPicButtonHawker);
+                                }
+                            });
+                        }
+                    });
+        } else {
+            Toast.makeText(getActivity(), "No file selected", Toast.LENGTH_SHORT).show();
+        }
     }
 }

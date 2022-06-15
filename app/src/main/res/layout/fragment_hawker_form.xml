@@ -104,12 +104,13 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/addrInput" />
 
-        <Button
-            android:id="@+id/hbutton2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+        <ImageView
+            android:id="@+id/displayPic"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:layout_marginTop="20dp"
             android:text="Button"
+            app:srcCompat="@android:drawable/sym_def_app_icon"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView3" />
@@ -131,18 +132,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.497"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/hbutton2" />
+            app:layout_constraintTop_toBottomOf="@+id/displayPic" />
 
-        <!--        <TextView-->
-        <!--            android:id="@+id/openDaysBtn"-->
-        <!--            android:layout_width="wrap_content"-->
-        <!--            android:layout_height="wrap_content"-->
-        <!--            android:layout_marginTop="10dp"-->
-        <!--            android:textColor="#FFFFFF"-->
-        <!--            android:text="Button"-->
-        <!--            app:layout_constraintEnd_toEndOf="parent"-->
-        <!--            app:layout_constraintStart_toStartOf="parent"-->
-        <!--            app:layout_constraintTop_toBottomOf="@+id/openDaysText" />-->
 
         <TextView
             android:id="@+id/openingTimeText"
@@ -218,6 +209,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/openingTime" />
+
 
 
 

@@ -26,14 +26,11 @@ public class HomeMix {
         // Making new Mixed List
         for (HawkerCornerStalls i : recentHCArray) {
             HomeMixData HomeMixData = new HomeMixData();
-            Log.e("hc length", ""+recentHCArray.length);
             if (i != null){
-                Log.e("hc", "not null "+i.hcstallname);
                 HomeMixData.hcstallname = i.hcstallname;
                 HomeMixData.hcOwner = i.hcOwner;
                 HomeMixData.hcauthor = i.hcauthor;
                 HomeMixData.hccuserpfp = i.hccuserpfp;
-                HomeMixData.hccliked = i.hccliked;
                 HomeMixData.hccparagraph = i.hccparagraph;
                 HomeMixData.hccaddress = i.hccaddress;
                 HomeMixData.daysopen = i.daysopen;
@@ -41,10 +38,8 @@ public class HomeMix {
                 HomeMixData.postTimeStamp = i.postTimeStamp;
                 HomeMixData.identifier = true; // Identify its a hc post
                 HomeMixData.shortdesc = i.shortdesc;
+                HomeMixData.hccoverimg= i.hccoverimg;
                 mixData.add(HomeMixData);
-            }
-            else{
-                Log.e("hc null checker", "null");
             }
         }
         for (RecipeCorner i : recentRCArray) {
@@ -64,9 +59,6 @@ public class HomeMix {
                 HomeMixData.postTimeStamp = i.postTimeStamp;
                 HomeMixData.identifier = false; // Identify its a rc post
                 mixData.add(HomeMixData);
-            }
-            else{
-                Log.e("rc null checker", "null");
             }
         }
 
@@ -94,7 +86,6 @@ public class HomeMix {
                 sortedData.add(smallestData);
                 mixData.remove(smallestData);
             }
-            Log.e("sort test", ""+sortedData.size());
         }
         return sortedData;
 
@@ -111,7 +102,6 @@ public class HomeMix {
                 HomeMixData.hcOwner = i.hcOwner;
                 HomeMixData.hcauthor = i.hcauthor;
                 HomeMixData.hccuserpfp = i.hccuserpfp;
-                HomeMixData.hccliked = i.hccliked;
                 HomeMixData.hccparagraph = i.hccparagraph;
                 HomeMixData.hccaddress = i.hccaddress;
                 HomeMixData.daysopen = i.daysopen;
@@ -119,10 +109,8 @@ public class HomeMix {
                 HomeMixData.postTimeStamp = i.postTimeStamp;
                 HomeMixData.identifier = true; // Identify its a hc post
                 HomeMixData.shortdesc = i.shortdesc;
+                HomeMixData.hccoverimg = i.hccoverimg;
                 mixData.add(HomeMixData);
-            }
-            else{
-                Log.e("hc null checker", "null");
             }
         }
         for (RecipeCorner i : recentRCArray) {
@@ -141,9 +129,6 @@ public class HomeMix {
                 HomeMixData.postTimeStamp = i.postTimeStamp;
                 HomeMixData.identifier = false; // Identify its a rc post
                 mixData.add(HomeMixData);
-            }
-            else{
-                Log.e("rc null checker", "null");
             }
         }
 

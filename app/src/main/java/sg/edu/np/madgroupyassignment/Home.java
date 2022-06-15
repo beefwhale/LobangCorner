@@ -52,7 +52,7 @@ public class Home extends Fragment {
                 else{// if its Recipe Corner post
                     d.post_header = randomMixList.get(i).recipeName;
                     d.post_desc = randomMixList.get(i).recipeDescription;
-                    d.post_author = randomMixList.get(i).owner;
+                    d.post_author = randomMixList.get(i).userName;
                     feed_data.add(d);
                 }
             }

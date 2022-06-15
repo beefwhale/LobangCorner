@@ -56,21 +56,21 @@ public class ProfileRecipeRV extends Fragment{
         //Populate user's recipe list, temporary and will change to get data from firebase
         if (recipeCornersList.isEmpty()){
             recipeCornersList.add(new RecipeCorner("4v8zoBfuGGPNY62hCSMT9UpyBAK2", "Cream Cheese Rangoons", "Crispy Cream-Cheese filled Rangoons that are easy to make at home",
-                    3, "Yongqing", "100", "step 1: ", "chikan", 1655028155253L));
+                    3, "Yongqing", "100", "step 1: ", "chikan", 1655028155253L,""));
             recipeCornersList.add(new RecipeCorner("4v8zoBfuGGPNY62hCSMT9UpyBAK2", "Ondeh-Ondeh", "Traditional Gula-Melaka Filled Ondeh-Ondeh",
-                    3, "Celsius", "30", "step 1: ", "chikan", 1655028155253L));
+                    3, "Celsius", "30", "step 1: ", "chikan", 1655028155253L,""));
             recipeCornersList.add(new RecipeCorner("4v8zoBfuGGPNY62hCSMT9UpyBAK2", "Dumpling", "Delicious and Juicy Pork and Chives Dumpling",
-                    2, "Yong Chuen", "70", "step 1: ", "chikan", 1655028155253L));
+                    2, "Yong Chuen", "70", "step 1: ", "chikan", 1655028155253L,""));
             recipeCornersList.add(new RecipeCorner("4v8zoBfuGGPNY62hCSMT9UpyBAK2", "Pineapple Tarts", "Best-Ever Pineapple Tarts",
-                    4, "Zi Xian", "50", "step 1: ", "chikan", 1655028155253L));
+                    4, "Zi Xian", "50", "step 1: ", "chikan", 1655028155253L,""));
             recipeCornersList.add(new RecipeCorner("4v8zoBfuGGPNY62hCSMT9UpyBAK2", "Fried Crab Sticks", "Crispy and Tasty Fried Crab Sticks",
-                    5, "Hasanah", "25",  "step 1: ", "chikan", 1655028187483L));
+                    5, "Hasanah", "25",  "step 1: ", "chikan", 1655028187483L,""));
             recipeCornersList.add(new RecipeCorner("4v8zoBfuGGPNY62hCSMT9UpyBAK2", "Nine Layered Kueh", "Bright and Colourful Nine Layered Kueh",
-                    3, "Wesley", "45", "step 1: ", "chikan", 1655028187483L));
+                    3, "Wesley", "45", "step 1: ", "chikan", 1655028187483L,""));
             recipeCornersList.add(new RecipeCorner("4v8zoBfuGGPNY62hCSMT9UpyBAK2", "Curry Path", "Chinese Curry Path",
-                    0,"Teo", "20", "step 1: ", "chikan", 1655028187483L));
+                    0,"Teo", "20", "step 1: ", "chikan", 1655028187483L,""));
             recipeCornersList.add(new RecipeCorner("4v8zoBfuGGPNY62hCSMT9UpyBAK2", "Chiffon Cake", "Pandan Chiffon Cake",
-                    4,"Q", "30", "step 1: ", "chikan", 1655028213219L));
+                    4,"Q", "30", "step 1: ", "chikan", 1655028213219L,""));
         }
     }
 

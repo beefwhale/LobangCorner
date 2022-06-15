@@ -48,8 +48,13 @@ public class FormsViewModel extends ViewModel {
     public void selectRecipeIngred(String string){selectedRecipeIngred.setValue(string);}
     public LiveData<String> getSelectedRecipeIngred(){return selectedRecipeIngred;}
 
-
+    //RecipeDifficulty Transfer
     private final MutableLiveData<Integer> selectedDifficulty = new MutableLiveData<Integer>();
     public void selectDifficulty(Integer integer){selectedDifficulty.setValue(integer);}
     public LiveData<Integer> getSelectedDifficulty(){return selectedDifficulty;}
+
+    //RecipeImg Transfer
+    private final MutableLiveData<String> selectedImg = new MutableLiveData<String>();
+    public void selectImg(String string){selectedImg.setValue(string);}
+    public LiveData<String> getSelectedImg(){return selectedImg;}
 }
