@@ -54,6 +54,7 @@ public class RecipeForm extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        selectedImg = "https://firebasestorage.googleapis.com/v0/b/lobang-corner.appspot.com/o/DefaultProfilePic%2FPengi.png?alt=media&token=d8cbc81d-6bcd-456b-809d-e867b4506c17";
         // Inflate the layout for this fragment
         View recipeform = inflater.inflate(R.layout.fragment_recipe_form, container, false);
 
