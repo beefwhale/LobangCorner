@@ -76,7 +76,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeViewHolder>{
         holder.recipeDesc.setText(item.getRecipeDescription());
         holder.ratingBar.setRating(item.getRecipeRating());
         holder.userName.setText("By: " + item.getUserName());
-        //Picasso.get().load(recipeCorner.getFoodImage()).into(holder.foodImage);
+        Picasso.get().load(item.getFoodImage()).into(holder.foodImage);
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

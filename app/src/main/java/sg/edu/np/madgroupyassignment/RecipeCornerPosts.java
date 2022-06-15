@@ -1,5 +1,4 @@
 package sg.edu.np.madgroupyassignment;
-//unsure of how to put the data(duration,ingreds, steps) in from recipecorner
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
@@ -30,6 +29,7 @@ import java.util.HashMap;
 public class RecipeCornerPosts extends Fragment {
     Context c;
     private static RecipeCorner recipeCorner;
+
     public RecipeCornerPosts(){this.c =c;};
 
     @Override
@@ -62,10 +62,10 @@ public class RecipeCornerPosts extends Fragment {
             d.setText(recipePost.recipeDescription);
             id.setText("By: " + recipePost.userName);
             rb.setRating(recipePost.recipeRating);
-            //i.setImage
             duration.setText("Duration: " + recipePost.duration + " mins");
             steps.setText(recipePost.steps);
             ingred.setText(recipePost.ingredients);
+            Picasso.get().load(recipePost.getFoodImage()).into(i);
         }
         else{ // Clicked from Main Recipe Page
             ArrayList<RecipeCorner> recipeList = new ArrayList<>();
@@ -73,19 +73,18 @@ public class RecipeCornerPosts extends Fragment {
             RecipeCorner recipePost;
             recipePost = recipeList.get(rcNo);
 
-
             n.setText(recipePost.recipeName);
             d.setText(recipePost.recipeDescription);
             id.setText("By: " + recipePost.userName);
             rb.setRating(recipePost.recipeRating);
-            //i.setImage
             duration.setText("Duration: " + recipePost.duration + " mins");
             steps.setText(recipePost.steps);
             ingred.setText(recipePost.ingredients);
+            Picasso.get().load(recipePost.getFoodImage()).into(i);
         }
 
 
-        //Picasso.get().load(recipeCorner.getFoodImage()).into(i);
+
 
         return view;
     }
