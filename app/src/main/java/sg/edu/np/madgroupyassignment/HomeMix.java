@@ -33,7 +33,6 @@ public class HomeMix {
                 HomeMixData.hcOwner = i.hcOwner;
                 HomeMixData.hcauthor = i.hcauthor;
                 HomeMixData.hccuserpfp = i.hccuserpfp;
-                HomeMixData.hccliked = i.hccliked;
                 HomeMixData.hccparagraph = i.hccparagraph;
                 HomeMixData.hccaddress = i.hccaddress;
                 HomeMixData.daysopen = i.daysopen;
@@ -111,7 +110,6 @@ public class HomeMix {
                 HomeMixData.hcOwner = i.hcOwner;
                 HomeMixData.hcauthor = i.hcauthor;
                 HomeMixData.hccuserpfp = i.hccuserpfp;
-                HomeMixData.hccliked = i.hccliked;
                 HomeMixData.hccparagraph = i.hccparagraph;
                 HomeMixData.hccaddress = i.hccaddress;
                 HomeMixData.daysopen = i.daysopen;

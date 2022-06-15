@@ -15,6 +15,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.squareup.picasso.Picasso;
+
 import org.parceler.Parcel;
 import org.parceler.Parcels;
 
@@ -24,6 +26,7 @@ public class HCMainsAdapter extends RecyclerView.Adapter<HCMainViewHolder> {
     //Adapter for Recycler View in Hawker Corner Main Page.
 
     ArrayList<HawkerCornerStalls> stallsList;
+
     //Constructor for Adapter.
     public HCMainsAdapter (ArrayList<HawkerCornerStalls> stallsList){
         this.stallsList = stallsList;
@@ -40,7 +43,8 @@ public class HCMainsAdapter extends RecyclerView.Adapter<HCMainViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull HCMainViewHolder holder, int position) {
         HawkerCornerStalls newstall = stallsList.get(position);
-        //holder.hccoverimg. how to set image?
+
+        Picasso.get().load(newstall.getHccoverimg()).into(holder.hccoverimg);
         holder.hcstallname.setText(newstall.hcstallname);
         holder.hcshortdesc.setText(newstall.shortdesc);
         holder.hcauthor.setText("By: " + newstall.hcauthor);

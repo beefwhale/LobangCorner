@@ -5,16 +5,16 @@ public class HomeMixData {
     public Boolean identifier; // Identifier for HC (true) and RC (false) and
 
     //HC values
-    public String hcstallname;      //stallname of hawker
-    public String hcOwner;          //owner of post
-    public String hcauthor;         //author who made hawker post
-    public String hccuserpfp;        //user profile pic who made the post
-    public Boolean hccliked;          //liked on the post
-    public String hccparagraph;    //description of stall
-    public String hccaddress;     //Address of hawker stall
-    public String daysopen;      //How to make it so that user can enter different days and appear in two records
-    public String hoursopen;    //Same as ^
-    public String shortdesc;
+    public String hccoverimg;          //Cover image for display in hawker main, this and hccuserpfp are string as images passed as url
+    public String hcstallname;         //Hawker stall name
+    public String hcOwner;             //Owner of post
+    public String hcauthor;            //Author who made hawker post, used in View Holder for recycler view in HCMains Adapter
+    public String hccuserpfp;          //User profile pic who made the post, used in HCChosenStall
+    public String hccparagraph;        //Full description of stall
+    public String shortdesc;           //Short description of the stall
+    public String hccaddress;          //Address of hawker stall
+    public String daysopen;            //Days open
+    public String hoursopen;           //Hours open
 
     // RC VALUES
     String owner;
@@ -34,7 +34,7 @@ public class HomeMixData {
     public HomeMixData(){
         this.identifier = identifier;
 //        HC SIDE
-        //this.hccoverimg = hccoverimg;
+        this.hccoverimg = hccoverimg;
         this.hcOwner = hcOwner;
         this.hcstallname = hcstallname;
         this.hcauthor = hcauthor;
@@ -78,65 +78,75 @@ public class HomeMixData {
     public String getHcOwner() {
         return hcOwner;
     }
+
     public void setHcOwner(String hcOwner) {
         this.hcOwner = hcOwner;
     }
-//    public ImageView getHccoverimg() {
-//        return hccoverimg;
-//    }
-//
-//    public void setHccoverimg(ImageView hccoverimg) {
-//        this.hccoverimg = hccoverimg;
-//    }
+
+    public String getHccoverimg() {
+        return hccoverimg;
+    }
+
+    public void setHccoverimg(String hccoverimg) {
+        this.hccoverimg = hccoverimg;
+    }
+
     public String getHcstallname() {
         return hcstallname;
     }
+
     public void setHcstallname(String hcstallname) {
         this.hcstallname = hcstallname;
     }
+
     public String getHcauthor() {
         return hcauthor;
     }
+
     public void setHcauthor(String hcauthor) {
         this.hcauthor = hcauthor;
     }
+
     public String getHccuserpfp() {
         return hccuserpfp;
     }
+
     public void setHccuserpfp(String hccuserpfp) {
         this.hccuserpfp = hccuserpfp;
     }
-    /*public Boolean getHccliked() {
-        return hccliked;
-    }
 
-    public void setHccliked(Boolean hccliked) {
-        this.hccliked = hccliked;
-    }*/
     public String getHccparagraph() {
         return hccparagraph;
     }
+
     public void setHccparagraph(String hccparagraph) {
         this.hccparagraph = hccparagraph;
     }
+
     public String getHccaddress() {
         return hccaddress;
     }
+
     public void setHccaddress(String hccaddress) {
         this.hccaddress = hccaddress;
     }
+
     public String getDaysopen() {
         return daysopen;
     }
+
     public void setDaysopen(String daysopen) {
         this.daysopen = daysopen;
     }
+
     public String getHoursopen() {
         return hoursopen;
     }
+
     public void setHoursopen(String hoursopen) {
         this.hoursopen = hoursopen;
     }
+
     public String getShortdesc() {
         return shortdesc;
     }
