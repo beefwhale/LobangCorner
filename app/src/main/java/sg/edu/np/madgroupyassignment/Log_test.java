@@ -19,6 +19,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -58,11 +59,12 @@ public class Log_test extends Fragment {
     private static UserProfile userProfile;
     private static String aboutMeInput;
     private static TextView username, aboutme, hwkObj, rcpObj;
-    private static ImageView profP;
+    private static ImageView profP, fishView;
     private Button logout, testbtn;
     private ProgressBar loadingPB;
     private EditText input;
-    PostsHolder postsHolder;
+    private LayoutInflater layoutInflater;
+    private View fish;
 
     private Uri ImageUri;
     private FirebaseAuth mAuth;
@@ -84,6 +86,9 @@ public class Log_test extends Fragment {
         logout = view.findViewById(R.id.idLogout);
         loadingPB = view.findViewById(R.id.PBloading);
         testbtn = view.findViewById(R.id.idBtnTest);
+        layoutInflater = getLayoutInflater();
+        fish = inflater.inflate(R.layout.fish, (ViewGroup)view.findViewById(R.id.fish));
+        fishView = fish.findViewById(R.id.fishView);
 
         mAuth = FirebaseAuth.getInstance();
         storageReference = FirebaseStorage.getInstance().getReference();
@@ -172,14 +177,22 @@ public class Log_test extends Fragment {
             }
         });
 
+        logout.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                Picasso.get().load("https://firebasestorage.googleapis.com/v0/b/lobang-corner.appspot.com/o/DefaultProfilePic%2FFish.png?alt=media&token=095f452e-f158-4de3-a533-a5db64eb5e38").into(fishView);
+                Toast toast = new Toast(getContext());
+                toast.setGravity(Gravity.CENTER, 0, 0);
+                toast.setView(fish);
+                toast.show();
+                return true;
+            }
+        });
+
 //        Test button
         testbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                for (HawkerCornerStalls i : postsHolder.getRecentHawkerPosts()){
-                    Log.d("duplicate2", i.getHcstallname());
-                }
-                Log.d("duplicate2", "" + postsHolder.getRecentHawkerPosts().length);
             }
         });
 
