@@ -30,11 +30,11 @@
             android:id="@+id/chosenstallimg"
             android:layout_width="378dp"
             android:layout_height="196dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginRight="20dp"
-            android:scaleType="centerCrop"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
             android:background="#E91E63"
+            android:scaleType="centerCrop"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/chosenstallname"
@@ -42,10 +42,12 @@
 
         <ImageView
             android:id="@+id/hccuserpfp"
-            android:layout_width="71dp"
-            android:layout_height="70dp"
+            android:layout_width="66dp"
+            android:layout_height="60dp"
             android:layout_marginTop="20dp"
             android:layout_marginEnd="25dp"
+            android:scaleType="centerCrop"
+            android:background="@color/white"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/chosenstallimg"
             app:srcCompat="@android:drawable/sym_def_app_icon" />
@@ -75,16 +77,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/descriptiontv" />
 
-        <!--<Button
-            android:id="@+id/hcclikebtn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="20dp"
-            android:text="Like"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/chosenstallimg" />-->
-
         <TextView
             android:id="@+id/openinghourtv"
             android:layout_width="wrap_content"
@@ -102,8 +94,8 @@
         <!--Added Table-->
         <TableLayout
             android:id="@+id/tableLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_width="368dp"
+            android:layout_height="80dp"
             android:layout_marginStart="20dp"
             android:layout_marginTop="12dp"
             android:layout_marginEnd="20dp"
@@ -187,14 +179,14 @@
 
         <TextView
             android:id="@+id/descriptiontv"
-            android:layout_width="312dp"
-            android:layout_height="50dp"
+            android:layout_width="364dp"
+            android:layout_height="48dp"
             android:layout_marginTop="15dp"
+            android:background="@drawable/chosenstallborder"
             android:text="TextView"
             android:textAlignment="center"
-            android:textSize="35sp"
+            android:textSize="24sp"
             android:textStyle="bold"
-            android:background="@drawable/chosenstallborder"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/hccaddress" />
