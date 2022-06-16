@@ -27,7 +27,15 @@
         <entry key="..\:/Users/User/AndroidStudioProjects/LobangCorner/app/src/main/res/layout/activity_login.xml" value="0.12158054711246201" />
         <entry key="..\:/Users/User/AndroidStudioProjects/LobangCorner/app/src/main/res/layout/activity_main.xml" value="0.12158054711246201" />
         <entry key="..\:/Users/User/AndroidStudioProjects/LobangCorner/app/src/main/res/layout/activity_registration.xml" value="0.1" />
-        <entry key="..\:/Users/User/AndroidStudioProjects/LobangCorner/app/src/main/res/layout/hawker_corner_stalls.xml" value="0.10790273556231003" />
+        <entry key="..\:/Users/hasanah/AndroidStudioProjects/LobangCorner/app/src/main/res/drawable/chosenstallborder.xml" value="0.1" />
+        <entry key="..\:/Users/hasanah/AndroidStudioProjects/LobangCorner/app/src/main/res/drawable/light_shadow.xml" value="0.142" />
+        <entry key="..\:/Users/hasanah/AndroidStudioProjects/LobangCorner/app/src/main/res/drawable/round_outline.xml" value="0.1" />
+        <entry key="..\:/Users/hasanah/AndroidStudioProjects/LobangCorner/app/src/main/res/drawable/searchview_design.xml" value="0.1" />
+        <entry key="..\:/Users/hasanah/AndroidStudioProjects/LobangCorner/app/src/main/res/layout/activity_hcchosen_stall.xml" value="0.13903985507246377" />
+        <entry key="..\:/Users/hasanah/AndroidStudioProjects/LobangCorner/app/src/main/res/layout/activity_recipe_corner_main.xml" value="0.16666666666666666" />
+        <entry key="..\:/Users/hasanah/AndroidStudioProjects/LobangCorner/app/src/main/res/layout/activity_recipe_corner_posts.xml" value="0.14666666666666667" />
+        <entry key="..\:/Users/hasanah/AndroidStudioProjects/LobangCorner/app/src/main/res/layout/hawker_corner_stalls.xml" value="0.13903985507246377" />
+        <entry key="..\:/Users/hasanah/AndroidStudioProjects/LobangCorner/app/src/main/res/layout/recipe_corner_layout.xml" value="0.16666666666666666" />
         <entry key="..\:/Users/l1ght/AndroidStudioProjects/LobangCorner/app/src/main/res/layout/activity_hawker_corner_main.xml" value="0.22826086956521738" />
         <entry key="..\:/Users/l1ght/AndroidStudioProjects/LobangCorner/app/src/main/res/layout/activity_hcchosen_stall.xml" value="0.22826086956521738" />
         <entry key="..\:/Users/l1ght/AndroidStudioProjects/LobangCorner/app/src/main/res/layout/activity_home.xml" value="0.22826086956521738" />
@@ -72,10 +80,8 @@
         <entry key="..\:/Users/lookf/AndroidStudioProjects/LobangCorner/app/src/main/res/layout/activity_profile_reciperv.xml" value="0.16354166666666667" />
         <entry key="..\:/Users/lookf/AndroidStudioProjects/LobangCorner/app/src/main/res/layout/activity_recipe_corner_main.xml" value="0.16354166666666667" />
         <entry key="..\:/Users/lookf/AndroidStudioProjects/LobangCorner/app/src/main/res/layout/activity_recipe_corner_posts.xml" value="0.13541666666666666" />
-        <entry key="..\:/Users/lookf/AndroidStudioProjects/LobangCorner/app/src/main/res/layout/fish.xml" value="0.16354166666666667" />
         <entry key="..\:/Users/lookf/AndroidStudioProjects/LobangCorner/app/src/main/res/layout/fragment_hawker_form.xml" value="0.16354166666666667" />
         <entry key="..\:/Users/lookf/AndroidStudioProjects/LobangCorner/app/src/main/res/layout/fragment_recipe_form.xml" value="0.16354166666666667" />
-        <entry key="..\:/Users/lookf/AndroidStudioProjects/LobangCorner/app/src/main/res/layout/hawker_corner_stalls.xml" value="0.35104166666666664" />
         <entry key="..\:/Users/lookf/AndroidStudioProjects/LobangCorner/app/src/main/res/layout/recipe_corner_layout.xml" value="0.13541666666666666" />
         <entry key="..\:/Users/lookf/AndroidStudioProjects/LobangCorner/app/src/main/res/menu/menu_bottom_nav.xml" value="0.35104166666666664" />
         <entry key="..\:/Users/lookf/AndroidStudioProjects/LobangCorner/app/src/main/res/menu/menu_main.xml" value="0.35104166666666664" />
@@ -89,5 +95,12 @@
   </component>
   <component name="ProjectType">
     <option name="id" value="Android" />
+  </component>
+  <component name="VisualizationToolProject">
+    <option name="state">
+      <ProjectState>
+        <option name="scale" value="0.10666666666666667" />
+      </ProjectState>
+    </option>
   </component>
 </project>
