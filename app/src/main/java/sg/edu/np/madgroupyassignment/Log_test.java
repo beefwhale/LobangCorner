@@ -63,6 +63,8 @@ public class Log_test extends Fragment {
     private Button logout, testbtn;
     private ProgressBar loadingPB;
     private EditText input;
+
+    //fish
     private LayoutInflater layoutInflater;
     private View fish;
 
