@@ -91,6 +91,7 @@ public class RecipeCornerMain extends Fragment implements AdapterView.OnItemSele
         if (recipeModalArrayList.isEmpty()){
             for (int i = 0; i < 10; i++) {
                 RecipeCorner newrecipe = new RecipeCorner();
+                newrecipe.postID = "";
                 newrecipe.owner = "";
                 newrecipe.recipeName = "Recipe " + i;
                 newrecipe.recipeDescription = "Description " + i;
@@ -100,6 +101,7 @@ public class RecipeCornerMain extends Fragment implements AdapterView.OnItemSele
                 newrecipe.steps = "Steps " + i;
                 newrecipe.ingredients = "Ingredient " + i;
                 newrecipe.postTimeStamp = 1655028155253L;
+                newrecipe.foodImage = "";
                 recipeModalArrayList.add(newrecipe);
             }
         }
