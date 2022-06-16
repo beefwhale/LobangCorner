@@ -7,4 +7,9 @@
         <item name="colorPrimaryDark">#FAF9F6</item>
         <item name="colorAccent">#FFC100</item>
     </style>
+
+    <style name="LG_Button" parent="ThemeOverlay.AppCompat">
+        <item name="colorPrimary">@color/Main_Primary</item>
+        <item name="colorAccent">@color/Main_Primary</item>
+    </style>
 </resources>

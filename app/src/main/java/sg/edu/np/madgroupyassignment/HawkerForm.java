@@ -370,7 +370,7 @@ public class HawkerForm extends Fragment {
                     ownerUID = userProfile.getUID();
                     long timeStamp = System.currentTimeMillis();
                     String PostID = databaseReferencetest.push().getKey();
-                    hCS = new HawkerCornerStalls(/*PostID, */downUrl,ownerUID, stallName,username,desc,address,daysOpen,finalTime,userPfpUrl, shortDesc, timeStamp);
+                    hCS = new HawkerCornerStalls(PostID, downUrl,ownerUID, stallName,username,desc,address,daysOpen,finalTime,userPfpUrl, shortDesc, timeStamp);
 
                     userCurrentHwk = userProfile.getHawkList();
                     HwkUp(userCurrentHwk, hCS, PostID);
