@@ -48,7 +48,7 @@ public class HomeParentAdapter extends RecyclerView.Adapter<HomeParentViewHolder
     DatabaseReference databaseReference;
     FirebaseDatabase firebaseDatabase;
     String weeklyPost;
-    Long weeklyDate;
+    Long weeklyDate = new Long(1);
 
     public HomeParentAdapter(Context c, ArrayList<HomeParentData> data){
         this.data = data;
