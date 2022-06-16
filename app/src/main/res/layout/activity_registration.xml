@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/blue_shade_1"
+    android:background="@color/Background_Cream"
     tools:context=".Registration">
 
     <TextView
@@ -16,7 +16,7 @@
         android:text="Create an account!"
         android:textAlignment="center"
         android:textAllCaps="false"
-        android:textColor="@color/white"
+        android:textColor="@color/Text_Grey"
         android:textSize="28sp" />
 
     <com.google.android.material.textfield.TextInputLayout
@@ -30,8 +30,8 @@
         android:layout_marginEnd="20dp"
         android:hint="Enter Username"
         android:padding="5dp"
-        android:textColorHint="@color/white"
-        app:hintTextColor="@color/white">
+        android:textColorHint="@color/Text_Grey"
+        app:hintTextColor="@color/Text_Grey">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/idUserName"
@@ -39,8 +39,8 @@
             android:layout_height="wrap_content"
             android:importantForAutofill="no"
             android:inputType="text"
-            android:textColor="@color/white"
-            android:textColorHint="@color/white"
+            android:textColor="@color/Text_Grey"
+            android:textColorHint="@color/Text_Grey"
             android:textSize="14sp" />
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -55,8 +55,8 @@
         android:layout_marginEnd="20dp"
         android:hint="Enter Email address"
         android:padding="5dp"
-        android:textColorHint="@color/white"
-        app:hintTextColor="@color/white">
+        android:textColorHint="@color/Text_Grey"
+        app:hintTextColor="@color/Text_Grey">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/idEmail"
@@ -64,8 +64,8 @@
             android:layout_height="wrap_content"
             android:importantForAutofill="no"
             android:inputType="textEmailAddress"
-            android:textColor="@color/white"
-            android:textColorHint="@color/white"
+            android:textColor="@color/Text_Grey"
+            android:textColorHint="@color/Text_Grey"
             android:textSize="14sp" />
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -80,8 +80,8 @@
         android:layout_marginEnd="20dp"
         android:hint="Enter Password"
         android:padding="5dp"
-        android:textColorHint="@color/white"
-        app:hintTextColor="@color/white">
+        android:textColorHint="@color/Text_Grey"
+        app:hintTextColor="@color/Text_Grey">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/idPassword"
@@ -89,8 +89,8 @@
             android:layout_height="wrap_content"
             android:importantForAutofill="no"
             android:inputType="textPassword"
-            android:textColor="@color/white"
-            android:textColorHint="@color/white"
+            android:textColor="@color/Text_Grey"
+            android:textColorHint="@color/Text_Grey"
             android:textSize="14sp" />
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -105,8 +105,8 @@
         android:layout_marginEnd="20dp"
         android:hint="Re-enter password"
         android:padding="5dp"
-        android:textColorHint="@color/white"
-        app:hintTextColor="@color/white">
+        android:textColorHint="@color/Text_Grey"
+        app:hintTextColor="@color/Text_Grey">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/idCnfPwd"
@@ -114,10 +114,11 @@
             android:layout_height="wrap_content"
             android:importantForAutofill="no"
             android:inputType="textPassword"
-            android:textColor="@color/white"
-            android:textColorHint="@color/white"
+            android:textColor="@color/Text_Grey"
+            android:textColorHint="@color/Text_Grey"
             android:textSize="14sp" />
     </com.google.android.material.textfield.TextInputLayout>
+
 
     <Button
         android:id="@+id/idBtnReg"
@@ -127,10 +128,11 @@
         android:layout_marginStart="20dp"
         android:layout_marginTop="40dp"
         android:layout_marginEnd="20dp"
+        android:theme="@style/LG_Button"
         android:background="@drawable/custom_button_back"
         android:text="Register"
         android:textAllCaps="false"
-        android:textColor="@color/white" />
+        android:textColor="@color/offwhite" />
 
     <TextView
         android:id="@+id/idEUlog"
@@ -142,7 +144,7 @@
         android:text="Already a user? Login here"
         android:textAlignment="center"
         android:textAllCaps="false"
-        android:textColor="@color/white"
+        android:textColor="@color/Text_Grey"
         android:textSize="18sp" />
 
     <ProgressBar
