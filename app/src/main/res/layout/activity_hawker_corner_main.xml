@@ -6,7 +6,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/offwhite">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -17,18 +18,19 @@
             android:id="@+id/hawkercornerrv"
             android:layout_width="0dp"
             android:layout_height="660dp"
-            android:layout_marginTop="8dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/hcmainspinner"/>
+            app:layout_constraintTop_toBottomOf="@+id/hcmainspinner" />
 
         <androidx.appcompat.widget.SearchView
             android:id="@+id/hawkercornersearch"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:background="@drawable/searchview_design"
+            android:layout_margin="16dp"
+            android:background="@drawable/hcstallshadow"
+            app:defaultQueryHint="Search Stalls/Authors"
+            app:queryBackground="@null"
             app:iconifiedByDefault="false"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -36,16 +38,14 @@
 
         <Spinner
             android:id="@+id/hcmainspinner"
-            android:layout_width="0dp"
-            android:layout_height="50dp"
-            android:layout_margin="10dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginBottom="8dp"
-            android:background="@drawable/searchview_design"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_margin="16dp"
             android:contentDescription="@string/sort_by"
-            android:spinnerMode="dropdown"
+            android:background="@drawable/hcstallshadow"
             app:layout_constraintBottom_toTopOf="@+id/hawkercornerrv"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.326"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/hawkercornersearch" />
     </androidx.constraintlayout.widget.ConstraintLayout>

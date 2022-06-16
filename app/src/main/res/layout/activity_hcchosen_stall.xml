@@ -28,86 +28,78 @@
 
         <ImageView
             android:id="@+id/chosenstallimg"
-            android:layout_width="378dp"
-            android:layout_height="196dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginRight="20dp"
+            android:layout_width="0dp"
+            android:layout_height="200dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
             android:scaleType="centerCrop"
-            android:background="#E91E63"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/chosenstallname"
             app:srcCompat="@android:drawable/sym_def_app_icon" />
 
-        <ImageView
+        <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/hccuserpfp"
-            android:layout_width="71dp"
-            android:layout_height="70dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginEnd="25dp"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_width="65dp"
+            android:layout_height="65dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:scaleType="centerCrop"
+            app:civ_border_color="@color/black"
+            app:civ_border_width="1dp"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/chosenstallimg"
             app:srcCompat="@android:drawable/sym_def_app_icon" />
 
         <TextView
             android:id="@+id/hccusername"
-            android:layout_width="106dp"
-            android:layout_height="69dp"
-            android:layout_marginTop="2dp"
-            android:layout_marginEnd="12dp"
+            android:layout_width="185dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
             android:text="TextView"
-            android:textAlignment="textEnd"
+            android:textAlignment="viewStart"
             android:textSize="20sp"
-            app:layout_constraintEnd_toStartOf="@+id/hccuserpfp"
+            app:layout_constraintStart_toEndOf="@+id/hccuserpfp"
             app:layout_constraintTop_toTopOf="@+id/hccuserpfp" />
 
         <TextView
             android:id="@+id/hccparagraph"
-            android:layout_width="363dp"
+            android:layout_width="0dp"
             android:layout_height="111dp"
-            android:layout_marginTop="15dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginRight="16dp"
             android:paddingStart="20dp"
             android:paddingRight="20dp"
-            android:text="שורה של עברית אחד של עברית אחד של עברית אחד של עברית v v אחד של עברית v אחד שלImage at bottom is placeholder עברית של עברית אחד של עברית אחד של עברית אחד של עברית אחד של עברית אחד של עברית v אחד של עברית"
+            android:text="Full description placeholder"
             android:textAlignment="center"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/descriptiontv" />
 
-        <!--<Button
-            android:id="@+id/hcclikebtn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="20dp"
-            android:text="Like"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/chosenstallimg" />-->
+        <!--Added Table-->
 
         <TextView
             android:id="@+id/openinghourtv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="4dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
             android:text="Opening Hours"
             android:textSize="26sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/hccparagraph" />
+            app:layout_constraintTop_toBottomOf="@+id/hccaddress" />
 
-        <!--Added Table-->
         <TableLayout
             android:id="@+id/tableLayout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="12dp"
-            android:layout_marginEnd="20dp"
-            android:layout_marginBottom="50dp"
+            android:layout_height="80dp"
+            android:layout_margin="16dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
@@ -165,39 +157,41 @@
             android:id="@+id/addresstv"
             android:layout_width="75dp"
             android:layout_height="22dp"
-            android:layout_marginStart="25dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="16dp"
             android:text="Address"
             android:textSize="20sp"
             android:textStyle="bold|italic"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/chosenstallimg" />
+            app:layout_constraintTop_toBottomOf="@+id/hccparagraph" />
 
         <TextView
             android:id="@+id/hccaddress"
-            android:layout_width="172dp"
-            android:layout_height="38dp"
-            android:layout_marginStart="25dp"
-            android:layout_marginTop="6dp"
+            android:layout_width="205dp"
+            android:layout_height="61dp"
+            android:layout_marginTop="16dp"
             android:text="TextView"
-            android:textAlignment="viewStart"
-            android:textSize="15sp"
+            android:textAlignment="center"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/addresstv" />
 
         <TextView
             android:id="@+id/descriptiontv"
-            android:layout_width="312dp"
-            android:layout_height="50dp"
-            android:layout_marginTop="15dp"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:background="@drawable/chosenstallborder"
             android:text="TextView"
             android:textAlignment="center"
-            android:textSize="35sp"
+            android:textSize="34sp"
             android:textStyle="bold"
-            android:background="@drawable/chosenstallborder"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/hccaddress" />
+            app:layout_constraintTop_toBottomOf="@+id/hccuserpfp" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

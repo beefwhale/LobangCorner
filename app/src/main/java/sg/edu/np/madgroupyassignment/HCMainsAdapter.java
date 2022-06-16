@@ -50,7 +50,7 @@ public class HCMainsAdapter extends RecyclerView.Adapter<HCMainViewHolder> {
         holder.hcauthor.setText("By: " + newstall.hcauthor);
 
         //When user click their chosen image, start fragment displaying chosen stall.
-        holder.hccoverimg.setOnClickListener(new View.OnClickListener() {
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 //Creating activity context to for the view, starting new fragment when view is clicked
