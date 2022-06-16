@@ -10,6 +10,7 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -34,16 +35,10 @@ import java.util.Calendar;
 public class Login extends AppCompatActivity {
 
     private TextInputEditText email, password;
-    private String UID;
     private Button loginBtn;
     private ProgressBar loadingPB;
     private TextView registerTV;
     private FirebaseAuth mAuth;
-    private UserProfile userProfile;
-    private FirebaseDatabase firebaseDatabase;
-    private DatabaseReference databaseReference;
-    private ValueEventListener Listener;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,15 +51,6 @@ public class Login extends AppCompatActivity {
         loadingPB = findViewById(R.id.PBloading);
         registerTV = findViewById(R.id.idNUreg);
         mAuth = FirebaseAuth.getInstance();
-        firebaseDatabase = FirebaseDatabase.getInstance("https://lobang-corner-default-rtdb.asia-southeast1.firebasedatabase.app");
-
-        registerTV.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(Login.this, Registration.class);
-                startActivity(i);
-            }
-        });
 
         loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -98,34 +84,15 @@ public class Login extends AppCompatActivity {
             }
         });
 
+        registerTV.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(Login.this, Registration.class);
+                startActivity(i);
+            }
+        });
 
     }
-//
-//    private void GetProfile(String UID) {
-//        databaseReference = firebaseDatabase.getReference("UserProfile").child(UID);
-//        Listener = databaseReference.addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                userProfile = snapshot.getValue(UserProfile.class);
-//
-//                loadingPB.setVisibility(View.GONE);
-//                Toast.makeText(Login.this, "Login Successful...", Toast.LENGTH_SHORT).show();
-//
-//                Intent i = new Intent(Login.this, MainActivity.class);
-//                Bundle bundle = new Bundle();
-//                bundle.putParcelable("UserProfile", Parcels.wrap(userProfile));
-//                i.putExtras(bundle);
-//
-//                databaseReference.removeEventListener(Listener);
-//                startActivity(i);
-//                finish();
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError error) {
-//
-//            }
-//        });
 
     @Override
     protected void onStart() {
