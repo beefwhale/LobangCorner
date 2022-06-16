@@ -117,6 +117,7 @@ public class HawkerForm extends Fragment {
         clTInput = hf.findViewById(R.id.closingTime);
 
         storageReference = FirebaseStorage.getInstance().getReference();
+        databaseReferencetest = FirebaseDatabase.getInstance().getReference();
 
         //Button to get photo
         getPhoto = registerForActivityResult(
@@ -368,13 +369,15 @@ public class HawkerForm extends Fragment {
                     userPfpUrl = userProfile.getProfileImg();
                     ownerUID = userProfile.getUID();
                     long timeStamp = System.currentTimeMillis();
-                    hCS = new HawkerCornerStalls(downUrl,ownerUID, stallName,username,desc,address,daysOpen,finalTime,userPfpUrl, shortDesc, timeStamp);
+                    String PostID = databaseReferencetest.push().getKey();
+                    hCS = new HawkerCornerStalls(/*PostID, */downUrl,ownerUID, stallName,username,desc,address,daysOpen,finalTime,userPfpUrl, shortDesc, timeStamp);
 
                     userCurrentHwk = userProfile.getHawkList();
-                    HwkUp(userCurrentHwk, hCS);
+                    HwkUp(userCurrentHwk, hCS, PostID);
 
 
                     //***********For input to reset when button submit***********
+                    getActivity().recreate();
                     stallName = "";
                     desc = "";
                     shortDesc = "";
@@ -411,11 +414,11 @@ public class HawkerForm extends Fragment {
         return hf;
     }
 
-    private void HwkUp(HashMap<String, Object> userHwkList, HawkerCornerStalls HwkObj) {
-        databaseReferencetest = FirebaseDatabase.getInstance().getReference();
+    private void HwkUp(HashMap<String, Object> userHwkList, HawkerCornerStalls HwkObj, String PostID) {
+//        databaseReferencetest = FirebaseDatabase.getInstance().getReference();
         mAuth = FirebaseAuth.getInstance();
 
-        String PostID = databaseReferencetest.push().getKey();
+        //String PostID = databaseReferencetest.push().getKey();
         databaseReferencetest.child("Posts").child("Hawkers").child(PostID).setValue(HwkObj);
 
         userHwkList.put(PostID, PostID);
