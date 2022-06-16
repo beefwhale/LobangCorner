@@ -7,17 +7,12 @@
     android:background="@color/Background_Cream"
     tools:context=".Login">
 
-    <TextView
+    <ImageView
         android:id="@+id/idRegTitle"
+        android:layout_marginTop="150dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="120dp"
-        android:gravity="center"
-        android:text="Lobang\nCorner"
-        android:textAlignment="center"
-        android:textAllCaps="false"
-        android:textColor="@color/Text_Grey"
-        android:textSize="58sp" />
+        android:layout_height="100dp"
+        android:src="@drawable/fush" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/idTILUsername"
@@ -26,7 +21,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/idRegTitle"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="30dp"
         android:layout_marginEnd="20dp"
         android:hint="Enter Email"
         android:padding="5dp"

@@ -60,7 +60,7 @@ public class Log_test extends Fragment {
     private static String aboutMeInput;
     private static TextView username, aboutme, hwkObj, rcpObj;
     private static ImageView profP, fishView;
-    private Button logout, testbtn;
+    private Button logout;
     private ProgressBar loadingPB;
     private EditText input;
 
@@ -87,7 +87,6 @@ public class Log_test extends Fragment {
         rcpObj = view.findViewById(R.id.idRcpObj);
         logout = view.findViewById(R.id.idLogout);
         loadingPB = view.findViewById(R.id.PBloading);
-        testbtn = view.findViewById(R.id.idBtnTest);
         layoutInflater = getLayoutInflater();
         fish = inflater.inflate(R.layout.fish, (ViewGroup)view.findViewById(R.id.fish));
         fishView = fish.findViewById(R.id.fishView);
@@ -196,14 +195,6 @@ public class Log_test extends Fragment {
                 return true;
             }
         });
-
-//        Test button
-        testbtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-            }
-        });
-
         return view;
     }
 
@@ -214,7 +205,7 @@ public class Log_test extends Fragment {
 
         Picasso.get().load(userProfile.getProfileImg()).into(profP);
         username.setText(userProfile.getUsername());
-        aboutme.setText(userProfile.getAboutMe());
+        aboutme.setText("\n" + userProfile.getAboutMe());
         hwkObj.setText("" + (userProfile.getHawkList().size()-1) + "\n\nHawker Posts");
         rcpObj.setText("" + (userProfile.getRcpList().size()-1) + "\n\nRecipe Post");
 

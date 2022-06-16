@@ -12,4 +12,9 @@
         <item name="colorPrimary">@color/Main_Primary</item>
         <item name="colorAccent">@color/Main_Primary</item>
     </style>
+
+    <style name="LG_Button_2" parent="ThemeOverlay.AppCompat">
+        <item name="colorPrimary">@color/white</item>
+        <item name="colorAccent">@color/white</item>
+    </style>
 </resources>
