@@ -136,12 +136,6 @@ public class MainActivity extends AppCompatActivity{
                 recipeForm.retrieveUserProfile(userProfile);
                 hawkerForm.retrieveUserProfile(userProfile);
 
-                for (HawkerCornerStalls i : postsHolder.getRecentHawkerPosts()){
-                    Log.d("duplic", i.getHcstallname());
-                }
-
-                Log.d("duplic", "" + postsHolder.getRecentHawkerPosts().length);
-
             }
 
             @Override
