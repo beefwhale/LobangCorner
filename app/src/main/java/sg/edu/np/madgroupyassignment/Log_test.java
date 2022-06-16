@@ -14,13 +14,12 @@ import androidx.fragment.app.Fragment;
 import android.content.ContentResolver;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.PorterDuff;
 import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -59,12 +58,15 @@ public class Log_test extends Fragment {
 
     private static UserProfile userProfile;
     private static String aboutMeInput;
-    private static TextView username,hwkObj, rcpObj;
-    private static ImageView profP;
-    private Button logout, testbtn, aboutbtn;
+    private static TextView username, aboutme, hwkObj, rcpObj;
+    private static ImageView profP, fishView;
+    private Button logout, testbtn;
     private ProgressBar loadingPB;
-    private EditText  aboutme;
-    PostsHolder postsHolder;
+    private EditText input;
+
+    //fish
+    private LayoutInflater layoutInflater;
+    private View fish;
 
     private Uri ImageUri;
     private FirebaseAuth mAuth;
@@ -81,13 +83,14 @@ public class Log_test extends Fragment {
         profP = view.findViewById(R.id.idProfP);
         username = view.findViewById(R.id.TestTitle);
         aboutme = view.findViewById(R.id.idAbtme);
-        aboutbtn = view.findViewById(R.id.about_btn);
         hwkObj = view.findViewById(R.id.idHawkObj);
         rcpObj = view.findViewById(R.id.idRcpObj);
         logout = view.findViewById(R.id.idLogout);
         loadingPB = view.findViewById(R.id.PBloading);
         testbtn = view.findViewById(R.id.idBtnTest);
-//        input = view.findViewById(R.id.idAbtme);
+        layoutInflater = getLayoutInflater();
+        fish = inflater.inflate(R.layout.fish, (ViewGroup)view.findViewById(R.id.fish));
+        fishView = fish.findViewById(R.id.fishView);
 
         mAuth = FirebaseAuth.getInstance();
         storageReference = FirebaseStorage.getInstance().getReference();
@@ -118,37 +121,31 @@ public class Log_test extends Fragment {
         });
 
 //        Changes about me text on clicked
-
-        // Changes line colour of edit Text
-        aboutme.getBackground().setColorFilter(Color.GREEN, PorterDuff.Mode.SRC_ATOP);
-        aboutbtn.setOnClickListener(new View.OnClickListener() {
+        aboutme.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                aboutMeInput = aboutme.getText().toString();
-                updateAboutMe(aboutMeInput);
-                Toast.makeText(getActivity(),"Changes Saved",Toast.LENGTH_SHORT).show();
-//                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-//                builder.setTitle("Change profile description");
-//                input = new EditText(getActivity());
-//                builder.setView(input);
-//
-//                builder.setPositiveButton("Submit", new DialogInterface.OnClickListener() {
-//                    @Override
-//                    public void onClick(DialogInterface dialogInterface, int i) {
-//                        aboutMeInput = input.getText().toString();
-//                        updateAboutMe(aboutMeInput);
-//                    }
-//                });
-//
-//                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-//                    @Override
-//                    public void onClick(DialogInterface dialogInterface, int i) {
-//
-//                    }
-//                });
-//
-//                AlertDialog alert = builder.create();
-//                alert.show();
+                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                builder.setTitle("Change profile description");
+                input = new EditText(getActivity());
+                builder.setView(input);
+
+                builder.setPositiveButton("Submit", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        aboutMeInput = input.getText().toString();
+                        updateAboutMe(aboutMeInput);
+                    }
+                });
+
+                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+
+                    }
+                });
+
+                AlertDialog alert = builder.create();
+                alert.show();
             }
         });
 
@@ -182,14 +179,22 @@ public class Log_test extends Fragment {
             }
         });
 
+        logout.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                Picasso.get().load("https://firebasestorage.googleapis.com/v0/b/lobang-corner.appspot.com/o/DefaultProfilePic%2FFish.png?alt=media&token=095f452e-f158-4de3-a533-a5db64eb5e38").into(fishView);
+                Toast toast = new Toast(getContext());
+                toast.setGravity(Gravity.CENTER, 0, 0);
+                toast.setView(fish);
+                toast.show();
+                return true;
+            }
+        });
+
 //        Test button
         testbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                for (HawkerCornerStalls i : postsHolder.getRecentHawkerPosts()){
-                    Log.d("duplicate2", i.getHcstallname());
-                }
-                Log.d("duplicate2", "" + postsHolder.getRecentHawkerPosts().length);
             }
         });
 
@@ -203,9 +208,7 @@ public class Log_test extends Fragment {
 
         Picasso.get().load(userProfile.getProfileImg()).into(profP);
         username.setText(userProfile.getUsername());
-        if (aboutme != null){
-            aboutme.setText(userProfile.getAboutMe());
-        }
+        aboutme.setText(userProfile.getAboutMe());
         hwkObj.setText("" + (userProfile.getHawkList().size()-1) + "\n\nHawker Posts");
         rcpObj.setText("" + (userProfile.getRcpList().size()-1) + "\n\nRecipe Post");
 
