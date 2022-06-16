@@ -57,6 +57,9 @@ public class HawkerCornerMain extends Fragment implements AdapterView.OnItemSele
             }
         }
 
+        //Reverse list to display newest
+        Collections.reverse(stallsList);
+
         //Defining Recycler View info & Setting Layout and Adapter.
         hcmainrv = view.findViewById(R.id.hawkercornerrv);
         hcadapter = new HCMainsAdapter(stallsList);
