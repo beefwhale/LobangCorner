@@ -1,6 +1,7 @@
 package sg.edu.np.madgroupyassignment;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -12,6 +13,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -74,7 +76,7 @@ public class HomeParentAdapter extends RecyclerView.Adapter<HomeParentViewHolder
                 //Setting items of things in Weekly post using sortedMixList
                 if (weekly_post.identifier == true) { // if its Hawker Corner post
                     weekly_title.setText(weekly_post.hcstallname);
-                    weekly_author.setText(weekly_post.hcauthor);
+                    weekly_author.setText("By: "+weekly_post.hcauthor);
                     Picasso.get().load(weekly_post.hccoverimg).into(weekly_img);
                 }
                 else{// if its Recipe Corner post
@@ -152,6 +154,9 @@ public class HomeParentAdapter extends RecyclerView.Adapter<HomeParentViewHolder
             //Rounding corners of ImageView buttons
             ImageView exploreHC = item.findViewById(R.id.home_hc_btn);
             ImageView exploreRC = item.findViewById(R.id.home_rc_btn);
+            // BLACK Tint to Images
+            exploreHC.setColorFilter(Color.argb(130, 0, 0, 0));
+            exploreRC.setColorFilter(Color.argb(130, 0, 0, 0));
             exploreHC.setClipToOutline(true);
             exploreRC.setClipToOutline(true);
 
@@ -206,14 +211,17 @@ public class HomeParentAdapter extends RecyclerView.Adapter<HomeParentViewHolder
             HomeParentData p = data.get(position-1);
             HomeMix homeMix = new HomeMix();
             ArrayList<HomeMixData> randomMixList = homeMix.RandomData(); // List with Random Mixed HC and RC info
-            HomeMixData randomMixListItem = randomMixList.get(holder.getAdapterPosition()-1);
 
-            if (randomMixList.get(holder.getAdapterPosition()-1).identifier == true) {// If hawker post
-                Picasso.get().load(randomMixListItem.hccoverimg).into(holder.post_img);
+            if (randomMixList.size() > 0){
+                HomeMixData randomMixListItem = randomMixList.get(holder.getAdapterPosition()-1);
+                if (randomMixList.get(holder.getAdapterPosition()-1).identifier == true) {// If hawker post
+                    Picasso.get().load(randomMixListItem.hccoverimg).into(holder.post_img);
+                }
+                else{ //If recipe post
+                    Picasso.get().load(randomMixListItem.foodImage).into(holder.post_img);
+                }
             }
-            else{ //If recipe post
-                Picasso.get().load(randomMixListItem.foodImage).into(holder.post_img);
-            }
+
             holder.post_header.setText(p.post_header);
             holder.post_desc.setText(p.post_desc);
             holder.post_author.setText("By: "+p.post_author);
