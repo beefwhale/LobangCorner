@@ -54,7 +54,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 
-public class Log_test extends Fragment {
+public class Profile extends Fragment {
 
     private static UserProfile userProfile;
     private static String aboutMeInput;
@@ -63,6 +63,7 @@ public class Log_test extends Fragment {
     private Button logout;
     private ProgressBar loadingPB;
     private EditText input;
+    private PostsHolder postsHolder;
 
     //fish
     private LayoutInflater layoutInflater;
@@ -152,10 +153,15 @@ public class Log_test extends Fragment {
         hwkObj.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                AppCompatActivity activity = (AppCompatActivity) view.getContext();
-                Fragment profileHcFragment = new ProfileHawkerRV();
-                activity.getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.MainFragment, profileHcFragment).addToBackStack(null).commit();
+                if (postsHolder.getUserHawkerPosts().size() > 0){
+                    AppCompatActivity activity = (AppCompatActivity) view.getContext();
+                    Fragment profileHcFragment = new ProfileHawkerRV();
+                    activity.getSupportFragmentManager().beginTransaction()
+                            .replace(R.id.MainFragment, profileHcFragment).addToBackStack(null).commit();
+                }
+                else{
+                    Toast.makeText(getActivity(), "No Hawker Corner Posts made", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
@@ -163,14 +169,14 @@ public class Log_test extends Fragment {
         rcpObj.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (userProfile.getRcpList().size() > 0){
+                if (postsHolder.getUserRecipePosts().size() > 0){
                     AppCompatActivity activity = (AppCompatActivity) view.getContext();
                     Fragment profileRcpFragment = new ProfileRecipeRV();
                     activity.getSupportFragmentManager().beginTransaction()
                             .replace(R.id.MainFragment, profileRcpFragment).addToBackStack(null).commit();
                 }
                 else{
-                    Toast.makeText(getActivity(), "No Recipe Posts made", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "No Recipe Corner Posts ade", Toast.LENGTH_SHORT).show();
                 }
 
             }

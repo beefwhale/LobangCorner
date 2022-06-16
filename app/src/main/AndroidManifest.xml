@@ -19,7 +19,7 @@
             android:name=".RecipeCornerMain"
             android:exported="false" />
         <activity
-            android:name=".Log_test"
+            android:name=".Profile"
             android:exported="false" />
         <activity
             android:name=".Registration"

@@ -1,6 +1,7 @@
 package sg.edu.np.madgroupyassignment;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -56,6 +57,11 @@ public class HomeChildAdapter extends RecyclerView.Adapter<HomeChildViewHolder> 
                 Picasso.get().load(sortedMixListItem.foodImage).into(holder.post_img);
             }
         }
+
+        // Dark Tint behind Text
+        holder.post_header.setBackgroundColor(Color.argb(130, 0, 0, 0));
+        holder.post_desc.setBackgroundColor(Color.argb(130, 0, 0, 0));
+        holder.post_author.setBackgroundColor(Color.argb(130, 0, 0, 0));
 
         holder.post_header.setText(d.post_header);
         holder.post_desc.setText(d.post_desc);
