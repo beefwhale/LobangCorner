@@ -12,5 +12,9 @@
     <color name="redversion1">#E61919</color>
     <color name="blue_shade_1">#0e2433</color>
     <color name="blue_shade_2">#1C4966</color>
+    <color name="MainRed">#F6412D</color>
+    <color name="BgCream">#FAF9EE</color>
+    <color name="offwhite">#FAF9F6</color>
+    <color name="accentyellow">#FFC100</color>
     <color name="mtrl_textinput_default_box_stroke_color" tools:overrise='true'>#296D98</color>
 </resources>
