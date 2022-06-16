@@ -10,7 +10,7 @@
         android:layout_height="wrap_content"
         android:layout_alignBaseline="@+id/name"
         android:layout_marginBottom="2sp"
-        android:textColor="#A9E0F4"
+        android:textColor="@color/Main_Primary"
         android:textStyle="bold" />
 
     <TextView
@@ -19,7 +19,7 @@
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:ems="10"
-        android:textColor="#000"
+        android:textColor="@color/Text_Grey"
         android:textSize="20sp" />
 
     <ImageView

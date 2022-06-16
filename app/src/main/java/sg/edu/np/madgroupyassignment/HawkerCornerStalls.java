@@ -14,9 +14,10 @@ import org.w3c.dom.Text;
 public class HawkerCornerStalls {
     //Data for the HawkerCornerStalls
 
+    public String postid;              //Post id for the database to use
     public String hccoverimg;          //Cover image for display in hawker main, this and hccuserpfp are string as images passed as url
     public String hcstallname;         //Hawker stall name
-    public String hcOwner;             //Owner of post
+    public String hcOwner;             //Owner of post, used in hawker form and profile
     public String hcauthor;            //Author who made hawker post, used in View Holder for recycler view in HCMains Adapter
     public String hccuserpfp;          //User profile pic who made the post, used in HCChosenStall
     public String hccparagraph;        //Full description of stall
@@ -31,8 +32,9 @@ public class HawkerCornerStalls {
 
     };
 
-    public HawkerCornerStalls(String hccoverimg,String hcOwner, String hcstallname, String hcauthor, String hccparagraph, String hccaddress,
+    public HawkerCornerStalls(String postid, String hccoverimg,String hcOwner, String hcstallname, String hcauthor, String hccparagraph, String hccaddress,
                               String daysopen, String hoursopen, String hccuserpfp,String shortdesc, long postTimeStamp){
+        this.postid = postid;
         this.hccoverimg = hccoverimg;
         this.hcOwner = hcOwner;
         this.hcstallname = hcstallname;
@@ -48,13 +50,9 @@ public class HawkerCornerStalls {
 
     //Getters and setters
 
-    public String getHcOwner() {
-        return hcOwner;
-    }
+    public String getPostid() { return postid; }
 
-    public void setHcOwner(String hcOwner) {
-        this.hcOwner = hcOwner;
-    }
+    public void setPostid(String postid) { this.postid = postid; }
 
     public String getHccoverimg() { return hccoverimg; }
 
@@ -66,6 +64,14 @@ public class HawkerCornerStalls {
 
     public void setHcstallname(String hcstallname) {
         this.hcstallname = hcstallname;
+    }
+
+    public String getHcOwner() {
+        return hcOwner;
+    }
+
+    public void setHcOwner(String hcOwner) {
+        this.hcOwner = hcOwner;
     }
 
     public String getHcauthor() {

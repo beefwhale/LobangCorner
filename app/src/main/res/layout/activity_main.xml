@@ -27,7 +27,8 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:menu="@menu/menu_bottom_nav"
-        app:itemIconSize="30dp"/>
+        app:itemIconSize="30dp"
+        android:tint="@color/Main_Primary"/>
 
     // MAIN Floating Action Button (FAB)
     <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -42,7 +43,7 @@
         android:animateLayoutChanges="true"
         android:outlineAmbientShadowColor="@color/black"
         android:src = "@drawable/add"
-        android:tint="@color/white"/>
+        android:tint="@color/Main_Primary"/>
 
     // SUB Floating Action Button (FAB) : Hawker Corner
 

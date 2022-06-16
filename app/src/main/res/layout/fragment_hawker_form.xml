@@ -9,7 +9,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/blue_shade_1"
+        android:background="@color/offwhite"
         android:padding="15dp"
         tools:context=".HawkerForm">
 
@@ -17,10 +17,10 @@
             android:id="@+id/title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="50dp"
+            android:layout_marginTop="15dp"
             android:padding="20dp"
-            android:text="Hawker Post Creation"
-            android:textColor="@color/white"
+            android:text="Create Hawker Post"
+            android:textColor="@color/Text_Grey"
             android:textSize="30sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -28,32 +28,39 @@
 
         <EditText
             android:id="@+id/StallName"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="28dp"
+            android:background="@drawable/rounded_corners_edittext"
             android:ems="10"
             android:hint="Stall Name"
+            android:textColorHint="@color/cameragrey"
             android:inputType="textPersonName"
             android:minHeight="48dp"
-            android:textColor="#FFFFFF"
-            android:textColorHint="#A4FFFFFF"
+            android:paddingLeft="10dp"
+            android:textColor="@color/Text_Grey"
             android:textSize="20sp"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/title" />
+            app:layout_constraintTop_toBottomOf="@+id/displayPic" />
 
         <EditText
             android:id="@+id/shortDesc"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
+            android:layout_marginHorizontal="16dp"
             android:ems="10"
             android:maxLength="100"
             android:hint="Short Description"
+            android:textColorHint="@color/cameragrey"
+            android:paddingLeft="10dp"
+            android:background="@drawable/rounded_corners_edittext"
             android:inputType="textPersonName"
             android:minHeight="48dp"
-            android:textColor="#FFFFFF"
-            android:textColorHint="#A4FFFFFF"
+            android:textColor="@color/Text_Grey"
             android:textSize="20sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -61,31 +68,40 @@
 
         <EditText
             android:id="@+id/Desc"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_marginHorizontal="16dp"
             android:layout_marginTop="15dp"
+            android:background="@drawable/rounded_corners_edittext"
             android:ems="10"
+            android:gravity="top"
             android:hint="Full Description"
             android:inputType="textPersonName"
             android:minHeight="48dp"
-            android:textColor="#FFFFFF"
-            android:textColorHint="#A4FFFFFF"
+            android:paddingLeft="10dp"
+            android:paddingTop="5dp"
+            android:textColor="@color/Text_Grey"
+            android:textColorHint="@color/cameragrey"
             android:textSize="20sp"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.491"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/shortDesc" />
 
         <EditText
             android:id="@+id/addrInput"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
+            android:layout_marginHorizontal="16dp"
             android:ems="10"
             android:hint="Enter Address"
+            android:textColorHint="@color/cameragrey"
+            android:paddingLeft="10dp"
+            android:background="@drawable/rounded_corners_edittext"
             android:inputType="textPersonName"
             android:minHeight="48dp"
-            android:textColor="#FFFFFF"
-            android:textColorHint="#A4FFFFFF"
+            android:textColor="@color/Text_Grey"
             android:textSize="20sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -95,25 +111,29 @@
             android:id="@+id/textView3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="20dp"
             android:text="Select Cover Image:"
-            android:textColor="#FFFFFF"
-            android:textColorHint="#A4FFFFFF"
+            android:textColor="@color/Text_Grey"
             android:textSize="20dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/addrInput" />
+            app:layout_constraintTop_toBottomOf="@+id/title" />
 
         <ImageView
             android:id="@+id/displayPic"
+            android:background="@drawable/rounded_corners_edittext"
             android:layout_width="match_parent"
-            android:layout_height="150dp"
+            android:layout_height="170dp"
+            android:paddingTop="15dp"
+            android:paddingBottom="15dp"
             android:layout_marginTop="20dp"
+            android:layout_marginHorizontal="16dp"
             android:text="Button"
-            app:srcCompat="@android:drawable/sym_def_app_icon"
+            android:src="@drawable/addphoto"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView3" />
+
 
 
         <TextView
@@ -122,17 +142,19 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:hint="Select Open Days"
+            android:textColorHint="@color/cameragrey"
             android:textSize="20dp"
             android:padding="12dp"
-            android:layout_margin="30dp"
+            android:layout_marginHorizontal="16dp"
             android:gravity="center_horizontal"
             android:drawablePadding="16dp"
             android:drawableEnd="@android:drawable/arrow_down_float"
-            android:background="@android:drawable/editbox_background"
+            android:textColor="@color/Text_Grey"
+            android:background="@drawable/rounded_corners_edittext"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.497"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/displayPic" />
+            app:layout_constraintTop_toBottomOf="@+id/openingTime" />
 
 
         <TextView
@@ -141,12 +163,12 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
             android:text="Opening Time"
-            android:textColor="#FFFFFF"
+            android:textColor="@color/Text_Grey"
             android:textSize="20dp"
             app:layout_constraintEnd_toStartOf="@+id/closingTimeText"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/openDaysBtn" />
+            app:layout_constraintTop_toBottomOf="@+id/addrInput" />
 
         <Button
             android:id="@+id/openingTime"
@@ -161,6 +183,7 @@
             android:textColorHint="#A4FFFFFF"
             android:textSize="20sp"
             android:gravity="center_horizontal"
+            android:backgroundTint="@color/accent"
             app:layout_constraintEnd_toStartOf="@+id/closingTime"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
@@ -172,12 +195,12 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
             android:text="Closing Time"
-            android:textColor="#FFFFFF"
+            android:textColor="@color/Text_Grey"
             android:textSize="20dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/openingTimeText"
-            app:layout_constraintTop_toBottomOf="@+id/openDaysBtn" />
+            app:layout_constraintTop_toBottomOf="@+id/addrInput" />
 
         <Button
             android:id="@+id/closingTime"
@@ -192,6 +215,7 @@
             android:textColorHint="#A4FFFFFF"
             android:textSize="20sp"
             android:gravity="center_horizontal"
+            android:backgroundTint="@color/accent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/openingTime"
@@ -199,16 +223,19 @@
 
         <Button
             android:id="@+id/submitBtn"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
             android:layout_marginBottom="20dp"
             android:ems="7"
             android:text="Submit"
+            android:backgroundTint="@color/Main_Primary"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/openingTime" />
+            app:layout_constraintTop_toBottomOf="@+id/openDaysBtn" />
 
 
 
