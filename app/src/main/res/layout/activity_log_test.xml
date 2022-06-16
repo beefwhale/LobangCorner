@@ -6,7 +6,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/blue_shade_1"
+    android:background="@color/offwhite"
     android:fillViewport="true">
 
     <RelativeLayout
@@ -14,13 +14,12 @@
         android:layout_height="match_parent"
         tools:context=".Log_test">
 
-        <ImageView
+        <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/idProfP"
             android:layout_width="match_parent"
             android:layout_height="176dp"
             android:layout_marginTop="80dp"
-            app:srcCompat="@android:drawable/sym_def_app_icon" />
-
+            android:scaleType="centerCrop" />
         <TextView
             android:id="@+id/TestTitle"
             android:layout_width="match_parent"
@@ -31,7 +30,7 @@
             android:text="Username"
             android:textAlignment="center"
             android:textAllCaps="false"
-            android:textColor="@color/white"
+            android:textColor="@color/Text_Grey"
             android:textSize="25sp"
             android:textStyle="bold" />
 
@@ -51,12 +50,12 @@
                 android:layout_marginStart="35dp"
                 android:layout_marginEnd="15dp"
                 android:layout_weight="1"
-                android:background="@drawable/custom_textview_back"
+                android:background="@drawable/text_shadow"
                 android:paddingVertical="35dp"
                 android:text="HawkList"
                 android:textAlignment="center"
                 android:textAllCaps="false"
-                android:textColor="@color/white" />
+                android:textColor="@color/Text_Grey" />
 
             <TextView
                 android:id="@+id/idRcpObj"
@@ -64,14 +63,13 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="15dp"
                 android:layout_marginEnd="35dp"
-
                 android:layout_weight="1"
-                android:background="@drawable/custom_textview_back"
+                android:background="@drawable/text_shadow"
                 android:paddingVertical="35dp"
                 android:text="RecList"
                 android:textAlignment="center"
                 android:textAllCaps="false"
-                android:textColor="@color/white" />
+                android:textColor="@color/Text_Grey" />
 
         </LinearLayout>
 
@@ -85,7 +83,7 @@
             android:text="About me:"
             android:textAlignment="viewStart"
             android:textAllCaps="false"
-            android:textColor="@color/white"
+            android:textColor="@color/Text_Grey"
             android:textSize="20sp" />
 
         <EditText
@@ -93,16 +91,18 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/idAbtHead"
+            android:layout_marginHorizontal="20dp"
             android:layout_marginTop="8dp"
-            android:backgroundTint="@color/greywhite"
+            android:background="@color/white"
+            android:backgroundTint="@color/white"
             android:gravity="left"
             android:minHeight="130dp"
             android:paddingHorizontal="17dp"
-            android:text="About me"
-            android:textAllCaps="false"
-            android:textColor="@color/white"
-            android:textSize="15sp" />
 
+            android:text="\nClick to add description..."
+            android:textAllCaps="false"
+            android:textColor="@color/Text_Grey"
+            android:textSize="15sp" />
 
         <Button
             android:id="@+id/about_btn"
@@ -111,9 +111,11 @@
             android:layout_below="@+id/idAbtme"
             android:layout_alignParentEnd="true"
             android:layout_marginTop="8dp"
-            android:layout_marginEnd="16dp"
+            android:layout_marginEnd="20dp"
             android:background="@drawable/custom_button_back"
-            android:text="Submit" />
+            android:text="Submit"
+            android:textColor="@color/Text_Grey"
+            android:theme="@style/LG_Button_2" />
 
         <Button
             android:id="@+id/idLogout"
@@ -123,26 +125,14 @@
             android:layout_alignParentStart="true"
             android:layout_alignParentEnd="true"
             android:layout_marginStart="20dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="16dp"
             android:layout_marginEnd="20dp"
             android:layout_marginBottom="8dp"
             android:background="@drawable/custom_button_back"
             android:text="Logout"
             android:textAllCaps="false"
-            android:textColor="@color/white" />
-
-        <Button
-            android:id="@+id/idBtnTest"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/idLogout"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="20dp"
-            android:background="@drawable/custom_button_back"
-            android:text="TestUp"
-            android:textAllCaps="false"
-            android:textColor="@color/white" />
+            android:textColor="@color/white"
+            android:theme="@style/LG_Button" />
 
         <ProgressBar
             android:id="@+id/PBloading"

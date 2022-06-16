@@ -13,7 +13,7 @@
         android:id="@+id/f3header"
         android:layout_width="match_parent"
         android:layout_height="100dp"
-        android:background="#F1FEF2">
+        android:background="@color/offwhite">
 
         <EditText
             android:id="@+id/IngredInput"
@@ -22,20 +22,25 @@
             android:layout_centerVertical="true"
             android:layout_marginLeft="50sp"
             android:layout_toLeftOf="@+id/QtyInput"
+            android:background="@drawable/rounded_corners_edittext"
             android:ems="7"
             android:hint="Ingredient"
-            android:minHeight="48dp" />
+            android:minHeight="48dp"
+            android:paddingLeft="10dp"
+            android:textColorHint="@color/cameragrey" />
 
         <EditText
             android:id="@+id/QtyInput"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_centerHorizontal="true"
+            android:layout_centerInParent="true"
+            android:background="@drawable/rounded_corners_edittext"
             android:ems="3"
             android:hint="Qty"
             android:inputType="number"
-            android:minHeight="48dp" />
+            android:minHeight="48dp"
+            android:paddingLeft="10dp"
+            android:textColorHint="@color/cameragrey" />
 
         <EditText
             android:id="@+id/UntInput"
@@ -43,9 +48,12 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_toRightOf="@+id/QtyInput"
+            android:background="@drawable/rounded_corners_edittext"
             android:ems="3"
             android:hint="Unit"
-            android:minHeight="48dp" />
+            android:minHeight="48dp"
+            android:paddingLeft="10dp"
+            android:textColorHint="@color/cameragrey" />
 
         <ImageView
             android:id="@+id/f3add"
