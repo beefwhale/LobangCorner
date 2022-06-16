@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:outlineProvider="paddedBounds">
+    android:outlineProvider="paddedBounds"
+    android:backgroundTint="@color/offwhite">
 
     <TextView
         android:id="@+id/feed_header"
@@ -36,11 +37,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
         android:text="This Week's Feature!"
         android:textSize="24sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/imageView2" />
 
 
     <ImageView
@@ -207,7 +207,8 @@
         android:id="@+id/weekly_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
+        android:background="@color/white"
+        android:paddingLeft="8dp"
         android:text="Weekly Feature Title"
         android:textSize="20sp"
         app:layout_constraintBottom_toTopOf="@+id/weekly_author"
@@ -222,6 +223,15 @@
         android:text="Author Sample"
         app:layout_constraintBottom_toBottomOf="@+id/weekly_img"
         app:layout_constraintStart_toStartOf="@+id/weekly_img" />
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@mipmap/logo_cream_foreground" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
