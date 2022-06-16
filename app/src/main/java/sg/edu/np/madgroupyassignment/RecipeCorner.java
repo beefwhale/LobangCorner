@@ -14,16 +14,17 @@ public class RecipeCorner {
     String ingredients;
     Long postTimeStamp;
     String foodImage;
-
+    String postID;
     //Empty constructor
     public RecipeCorner(){
 
     }
 
     // creating constructor for our variables.
-    public RecipeCorner(String owner, String recipeName, String recipeDescription, int recipeRating,
+    public RecipeCorner(String postID, String owner, String recipeName, String recipeDescription, int recipeRating,
                         String userName, String duration,
                          String steps, String ingredients, Long postTimeStamp, String foodImage) {
+        this.postID = postID;
         this.owner = owner;
         this.recipeName = recipeName;
         this.recipeDescription = recipeDescription;
@@ -36,9 +37,15 @@ public class RecipeCorner {
         this.foodImage = foodImage;
     }
 
-
-
     // creating getter and setter methods.
+    public String getPostID() {
+        return postID;
+    }
+
+    public void setPostID(String postID) {
+        this.postID = postID;
+    }
+
     public String getOwner() {
         return owner;
     }
