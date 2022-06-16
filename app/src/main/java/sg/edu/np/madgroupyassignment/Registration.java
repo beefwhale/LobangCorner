@@ -107,6 +107,9 @@ public class Registration extends AppCompatActivity {
 
 //                                Sending user to login page after registration
                                 Toast.makeText(Registration.this, "User Registered...", Toast.LENGTH_SHORT).show();
+                                Intent i = new Intent(Registration.this, Login.class);
+                                startActivity(i);
+                                finish();
 
                             } else {
                                 loadingPB.setVisibility(View.GONE);
