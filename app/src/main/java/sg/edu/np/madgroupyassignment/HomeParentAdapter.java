@@ -1,6 +1,7 @@
 package sg.edu.np.madgroupyassignment;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -12,6 +13,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -152,6 +154,9 @@ public class HomeParentAdapter extends RecyclerView.Adapter<HomeParentViewHolder
             //Rounding corners of ImageView buttons
             ImageView exploreHC = item.findViewById(R.id.home_hc_btn);
             ImageView exploreRC = item.findViewById(R.id.home_rc_btn);
+            // BLACK Tint to Images
+            exploreHC.setColorFilter(Color.argb(130, 0, 0, 0));
+            exploreRC.setColorFilter(Color.argb(130, 0, 0, 0));
             exploreHC.setClipToOutline(true);
             exploreRC.setClipToOutline(true);
 

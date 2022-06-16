@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:outlineProvider="paddedBounds"
-    android:backgroundTint="@color/offwhite">
+    android:background="@color/offwhite">
 
     <TextView
         android:id="@+id/feed_header"
@@ -34,12 +34,17 @@
 
     <TextView
         android:id="@+id/wklyfeat_header"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:text="This Week's Feature!"
+        android:background="@color/white"
+        android:paddingLeft="8dp"
+        android:paddingTop="16dp"
+        android:paddingBottom="4dp"
         android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="@+id/weekly_img"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView2" />
 
@@ -53,10 +58,12 @@
         android:layout_marginEnd="16dp"
         android:adjustViewBounds="true"
         android:background="@color/white"
+        android:backgroundTint="@color/white"
+        android:padding="8dp"
         android:scaleType="centerCrop"
         android:src="@drawable/ashorthike"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/wklyfeat_header"
         app:srcCompat="@drawable/ashorthike" />
@@ -73,11 +80,11 @@
         android:background="@drawable/round_outline"
         android:clipToOutline="true"
         android:scaleType="centerCrop"
-        android:src="@drawable/ashorthike"
         app:layout_constraintEnd_toStartOf="@+id/home_rc_btn"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tp_header"
-        app:srcCompat="@drawable/ashorthike" />
+        android:src ="@drawable/hawker_home_btn"
+        android:outlineAmbientShadowColor="@color/black"/>
 
     <ImageView
         android:id="@+id/home_rc_btn"
@@ -91,18 +98,17 @@
         android:background="@drawable/round_outline"
         android:clipToOutline="true"
         android:scaleType="centerCrop"
-        android:src="@drawable/ashorthike"
+        android:src="@drawable/recipe_home_btn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/home_hc_btn"
-        app:layout_constraintTop_toBottomOf="@+id/tp_header"
-        app:srcCompat="@drawable/ashorthike" />
+        app:layout_constraintTop_toBottomOf="@+id/tp_header" />
 
     <TextView
         android:id="@+id/tp_header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/weekly_img"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="24dp"
         android:layout_marginTop="16dp"
         android:text="Explore"
         android:textSize="24sp"
@@ -158,10 +164,11 @@
         android:padding="3dp"
         android:text="Hawker Corner"
         android:textSize="20sp"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toTopOf="@+id/textView4"
         app:layout_constraintEnd_toEndOf="@+id/home_hc_btn"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/home_hc_btn"
-        tools:layout_editor_absoluteY="520dp" />
+        app:layout_constraintStart_toStartOf="@+id/home_hc_btn" />
 
     <TextView
         android:id="@+id/textView4"
@@ -175,11 +182,11 @@
         android:shadowDy="45"
         android:text="Click here to Read more about the stories behind our beloved hawker stores!"
         android:textSize="13sp"
+        android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="@+id/home_hc_btn"
         app:layout_constraintEnd_toEndOf="@+id/home_hc_btn"
         app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="@+id/home_hc_btn"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        app:layout_constraintStart_toStartOf="@+id/home_hc_btn" />
 
     <TextView
         android:id="@+id/textView5"
@@ -192,6 +199,7 @@
         android:shadowColor="@color/black"
         android:text="Click here to Discover delicious recipes published by Singaporeans all around!"
         android:textSize="13sp"
+        android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="@+id/home_rc_btn"
         app:layout_constraintEnd_toEndOf="@+id/home_rc_btn"
         app:layout_constraintHorizontal_bias="1.0"
@@ -205,6 +213,7 @@
         android:padding="3dp"
         android:text="Recipe Corner"
         android:textSize="20sp"
+        android:textColor="@color/white"
         app:layout_constraintBottom_toTopOf="@+id/textView5"
         app:layout_constraintEnd_toEndOf="@+id/home_rc_btn"
         app:layout_constraintHorizontal_bias="1.0"
@@ -215,6 +224,9 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="Weekly Feature Title"
+        android:background="@color/white"
+        android:paddingLeft="16dp"
+        android:paddingTop="4dp"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="@+id/weekly_img"
         app:layout_constraintHorizontal_bias="1.0"
@@ -227,6 +239,8 @@
         android:layout_height="wrap_content"
         android:background="@color/white"
         android:text="Author Sample"
+        android:paddingLeft="16dp"
+        android:paddingBottom="16dp"
         app:layout_constraintEnd_toEndOf="@+id/weekly_img"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="@+id/weekly_img"
@@ -237,7 +251,7 @@
         android:layout_width="wrap_content"
         android:layout_height="50dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="32dp"
         android:scaleType="centerCrop"
         app:layout_constraintBottom_toTopOf="@+id/wklyfeat_header"
         app:layout_constraintStart_toStartOf="parent"

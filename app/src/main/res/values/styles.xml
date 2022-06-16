@@ -6,6 +6,9 @@
         <item name="colorPrimary">#F6412D</item>
         <item name="colorPrimaryDark">#FAF9F6</item>
         <item name="colorAccent">#FFC100</item>
+        <item name="android:windowFullscreen">false</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:fitsSystemWindows">false</item>
     </style>
 
     <style name="LG_Button" parent="ThemeOverlay.AppCompat">
