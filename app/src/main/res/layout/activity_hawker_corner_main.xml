@@ -26,11 +26,12 @@
 
         <androidx.appcompat.widget.SearchView
             android:id="@+id/hawkercornersearch"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
+            android:layout_margin="16dp"
             android:background="@drawable/searchview_design"
             app:defaultQueryHint="Search Stalls/Authors"
+            app:queryBackground="@null"
             app:iconifiedByDefault="false"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -38,9 +39,9 @@
 
         <Spinner
             android:id="@+id/hcmainspinner"
-            android:layout_width="344dp"
+            android:layout_width="match_parent"
             android:layout_height="48dp"
-            android:layout_marginTop="12dp"
+            android:layout_margin="16dp"
             android:contentDescription="@string/sort_by"
             app:layout_constraintBottom_toTopOf="@+id/hawkercornerrv"
             app:layout_constraintEnd_toEndOf="parent"
