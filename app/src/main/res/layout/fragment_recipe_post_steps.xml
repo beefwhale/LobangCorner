@@ -13,16 +13,19 @@
         android:id="@+id/header"
         android:layout_width="match_parent"
         android:layout_height="100dp"
-        android:background="#F1FEF2">
+        android:background="@color/offwhite">
 
         <EditText
             android:id="@+id/input"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
+            android:background="@drawable/rounded_corners_edittext"
             android:ems="10"
             android:hint="Enter steps here"
-            android:minHeight="48dp" />
+            android:minHeight="48dp"
+            android:paddingLeft="10dp"
+            android:textColorHint="@color/cameragrey" />
 
         <ImageView
             android:id="@+id/f2add"

@@ -361,8 +361,10 @@ public class HawkerForm extends Fragment {
             @Override
             public void onClick(View view) {
                 if (stallName.isEmpty() || stallName.length() == 0 || stallName == "" ||
-                        desc.isEmpty() || desc.length() == 0 || desc == ""){
-                    Toast.makeText(getActivity(),"Please include Stall Name and Description", Toast.LENGTH_SHORT).show();
+                        desc.isEmpty() || desc.length() == 0 || desc == "" ||
+                            shortDesc.isEmpty() || shortDesc.length() == 0 || shortDesc == "" ||
+                                address.isEmpty() || address.length() == 0 || address == ""){
+                    Toast.makeText(getActivity(),"Please input Stall Name, Descriptions and Address", Toast.LENGTH_SHORT).show();
                 }
                 else{
                     username = userProfile.getUsername(); //USERNAME parameter

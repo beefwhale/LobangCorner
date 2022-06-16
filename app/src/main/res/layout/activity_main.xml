@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -22,13 +21,14 @@
         android:id="@+id/bottomNavigationView"
         android:layout_width="match_parent"
         android:layout_height="55dp"
+        app:backgroundTint="@color/Main_Primary"
+        android:tint="@color/Main_Primary"
+        app:itemIconSize="30dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:menu="@menu/menu_bottom_nav"
-        app:itemIconSize="30dp"
-        android:tint="@color/Main_Primary"/>
+        app:menu="@menu/menu_bottom_nav" />
 
     // MAIN Floating Action Button (FAB)
     <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -37,13 +37,14 @@
         android:layout_height="wrap_content"
         android:layout_marginRight="15dp"
         android:layout_marginBottom="15dp"
+        android:animateLayoutChanges="true"
+        android:backgroundTint="@color/Main_Primary"
+        android:outlineAmbientShadowColor="@color/black"
+        android:src="@drawable/add"
+        android:tint="@color/Main_Primary"
         app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
         app:layout_constraintRight_toRightOf="parent"
-        app:rippleColor="#000000"
-        android:animateLayoutChanges="true"
-        android:outlineAmbientShadowColor="@color/black"
-        android:src = "@drawable/add"
-        android:tint="@color/Main_Primary"/>
+        app:rippleColor="#000000" />
 
     // SUB Floating Action Button (FAB) : Hawker Corner
 
@@ -52,9 +53,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="15dp"
+        android:backgroundTint="@color/accent"
+        android:focusable="true"
         android:src="@drawable/ic_hawker_fab"
         android:tint="@color/white"
-        android:focusable="true"
         app:layout_constraintBottom_toTopOf="@+id/floating_main_nav_button"
         app:layout_constraintEnd_toEndOf="@+id/floating_main_nav_button"
         app:layout_constraintStart_toStartOf="@+id/floating_main_nav_button" />
@@ -66,6 +68,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="15dp"
+        android:backgroundTint="@color/accent"
         android:focusable="true"
         android:src="@drawable/ic_recipe_fab"
         android:tint="@android:color/white"
@@ -74,28 +77,29 @@
         app:layout_constraintStart_toStartOf="@+id/floating_hc_nav_button" />
 
     // SUB Floating Action Button (FAB) : Recipe Corner Text
+
     <TextView
         android:id="@+id/floating_rc_nav_button_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
+        android:backgroundTint="@color/black"
         android:text="Create Recipe Post"
         app:layout_constraintBottom_toBottomOf="@+id/floating_rc_nav_button"
         app:layout_constraintEnd_toStartOf="@+id/floating_rc_nav_button"
-        app:layout_constraintTop_toTopOf="@+id/floating_rc_nav_button"
-        android:backgroundTint="@color/black"
-        />
+        app:layout_constraintTop_toTopOf="@+id/floating_rc_nav_button" />
     // SUB Floating Action Button (FAB) : Hawker Corner Text
+
     <TextView
         android:id="@+id/floating_hc_nav_button_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
+        android:backgroundTint="@color/black"
         android:text="Create Hawker Post"
         app:layout_constraintBottom_toBottomOf="@+id/floating_hc_nav_button"
         app:layout_constraintEnd_toStartOf="@+id/floating_hc_nav_button"
-        app:layout_constraintTop_toTopOf="@+id/floating_hc_nav_button"
-        android:backgroundTint="@color/black"/>
+        app:layout_constraintTop_toTopOf="@+id/floating_hc_nav_button" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

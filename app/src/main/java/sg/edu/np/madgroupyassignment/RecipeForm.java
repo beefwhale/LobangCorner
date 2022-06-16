@@ -135,8 +135,10 @@ public class RecipeForm extends Fragment {
                 });
 
                 if(recipeName == null || recipeName.length() == 0 || recipeName.isEmpty() ||
-                        recipeDesc == null || recipeDesc.length() == 0 || recipeDesc.isEmpty()){
-                    Toast.makeText(getActivity(), "Please input recipe title and description", Toast.LENGTH_SHORT).show();
+                        recipeDesc == null || recipeDesc.length() == 0 || recipeDesc.isEmpty() ||
+                            totalIngred == null || totalIngred.length() == 0 || totalIngred.isEmpty() ||
+                                steps == null || steps.length() == 0 || steps.isEmpty()){
+                    Toast.makeText(getActivity(), "Please input recipe title, description, ingredients and steps", Toast.LENGTH_SHORT).show();
                 }
                 else{
                     ownerUID = userProfile.getUID();

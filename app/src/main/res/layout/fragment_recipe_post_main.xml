@@ -10,7 +10,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingBottom="40dp"
-        tools:context=".RecipePostMain">
+        tools:context=".RecipePostMain"
+        android:background="@color/offwhite">
 
         <!-- TODO: Update blank fragment layout -->
         <TextView
@@ -20,33 +21,42 @@
             android:padding="20dp"
             android:text="Recipe Post Creation"
             android:textSize="30sp"
+            android:textColor="@color/Text_Grey"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <EditText
             android:id="@+id/RecipeTitle"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
+            android:layout_marginHorizontal="16dp"
             android:ems="10"
             android:hint="Recipe Title"
+            android:textColorHint="@color/cameragrey"
             android:inputType="textPersonName"
+            android:paddingLeft="10dp"
+            android:background="@drawable/rounded_corners_edittext"
             android:minHeight="48dp"
             android:textSize="20sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/title" />
+            app:layout_constraintTop_toBottomOf="@+id/displayPic2" />
 
         <EditText
             android:id="@+id/Desc"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
+            android:layout_marginHorizontal="16dp"
             android:ems="10"
             android:hint="Description"
+            android:textColorHint="@color/cameragrey"
             android:inputType="textPersonName"
             android:minHeight="48dp"
+            android:background="@drawable/rounded_corners_edittext"
+            android:paddingLeft="10dp"
             android:textSize="20sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -59,17 +69,23 @@
             android:layout_marginTop="30dp"
             android:text="Select Cover Image:"
             android:textSize="20dp"
+            android:textColor="@color/Text_Grey"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/Desc" />
+            app:layout_constraintTop_toBottomOf="@+id/title" />
 
         <ImageView
             android:id="@+id/displayPic2"
+            android:background="@drawable/rounded_corners_edittext"
             android:layout_width="match_parent"
-            android:layout_height="150dp"
+            android:layout_height="170dp"
+            android:paddingTop="15dp"
+            android:paddingBottom="15dp"
             android:layout_marginTop="20dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
             android:text="Button"
-            app:srcCompat="@android:drawable/sym_def_app_icon"
+            android:src="@drawable/addphoto"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/rText" />
@@ -81,21 +97,26 @@
             android:layout_marginTop="20dp"
             android:text="Enter Duration:"
             android:textSize="20dp"
+            android:textColor="@color/Text_Grey"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/displayPic2" />
+            app:layout_constraintTop_toBottomOf="@+id/Desc" />
 
         <EditText
             android:id="@+id/minuteInput"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="25dp"
+            android:layout_marginTop="24dp"
+            android:background="@drawable/rounded_corners_edittext"
             android:ems="5"
-            android:hint="Duration"
+            android:hint="Minutes"
+            android:textColorHint="@color/cameragrey"
             android:inputType="number"
             android:minHeight="48dp"
+            android:paddingLeft="10dp"
             android:textSize="20sp"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/rText2" />
 
@@ -106,6 +127,7 @@
             android:layout_marginTop="20dp"
             android:text="Select Difficulty:"
             android:textSize="20dp"
+            android:textColor="@color/Text_Grey"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/minuteInput" />
@@ -117,7 +139,8 @@
             android:layout_marginTop="20dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/rText3" />
+            app:layout_constraintTop_toBottomOf="@+id/rText3"
+            android:textColor="@color/Text_Grey"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

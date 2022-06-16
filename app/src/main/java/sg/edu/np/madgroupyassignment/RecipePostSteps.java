@@ -70,7 +70,7 @@ public class RecipePostSteps extends Fragment {
                         }
                         else if (i!=(items.size()-1)){
                             finalSteps = finalSteps + "Step " + (i+1) + ": " +
-                                    items.get(i) + "\n";
+                                    items.get(i) + "\n" + "\n";
                         }
                     }
 
