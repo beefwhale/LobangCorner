@@ -164,10 +164,16 @@ public class Log_test extends Fragment {
         rcpObj.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                AppCompatActivity activity = (AppCompatActivity) view.getContext();
-                Fragment profileRcpFragment = new ProfileRecipeRV();
-                activity.getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.MainFragment, profileRcpFragment).addToBackStack(null).commit();
+                if (userProfile.getRcpList().size() > 0){
+                    AppCompatActivity activity = (AppCompatActivity) view.getContext();
+                    Fragment profileRcpFragment = new ProfileRecipeRV();
+                    activity.getSupportFragmentManager().beginTransaction()
+                            .replace(R.id.MainFragment, profileRcpFragment).addToBackStack(null).commit();
+                }
+                else{
+                    Toast.makeText(getActivity(), "No Recipe Posts made", Toast.LENGTH_SHORT).show();
+                }
+
             }
         });
 

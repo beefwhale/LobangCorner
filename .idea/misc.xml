@@ -27,7 +27,6 @@
         <entry key="..\:/Users/User/AndroidStudioProjects/LobangCorner/app/src/main/res/layout/activity_login.xml" value="0.12158054711246201" />
         <entry key="..\:/Users/User/AndroidStudioProjects/LobangCorner/app/src/main/res/layout/activity_main.xml" value="0.12158054711246201" />
         <entry key="..\:/Users/User/AndroidStudioProjects/LobangCorner/app/src/main/res/layout/activity_registration.xml" value="0.1" />
-        <entry key="..\:/Users/User/AndroidStudioProjects/LobangCorner/app/src/main/res/layout/hawker_corner_stalls.xml" value="0.10790273556231003" />
         <entry key="..\:/Users/l1ght/AndroidStudioProjects/LobangCorner/app/src/main/res/layout/activity_hawker_corner_main.xml" value="0.22826086956521738" />
         <entry key="..\:/Users/l1ght/AndroidStudioProjects/LobangCorner/app/src/main/res/layout/activity_hcchosen_stall.xml" value="0.22826086956521738" />
         <entry key="..\:/Users/l1ght/AndroidStudioProjects/LobangCorner/app/src/main/res/layout/activity_home.xml" value="0.22826086956521738" />
@@ -55,8 +54,11 @@
         <entry key="..\:/Users/lookf/AndroidStudioProjects/LobangCorner/app/src/main/res/drawable/ic_explore_foreground.xml" value="0.1405" />
         <entry key="..\:/Users/lookf/AndroidStudioProjects/LobangCorner/app/src/main/res/drawable/ic_hawkercorner_background.xml" value="0.1405" />
         <entry key="..\:/Users/lookf/AndroidStudioProjects/LobangCorner/app/src/main/res/drawable/ic_hawkercorner_foreground.xml" value="0.1405" />
+        <entry key="..\:/Users/lookf/AndroidStudioProjects/LobangCorner/app/src/main/res/drawable/ic_home_foreground.xml" value="0.1" />
         <entry key="..\:/Users/lookf/AndroidStudioProjects/LobangCorner/app/src/main/res/drawable/ic_recipe_fab.xml" value="0.1405" />
         <entry key="..\:/Users/lookf/AndroidStudioProjects/LobangCorner/app/src/main/res/drawable/ic_recipecorner_foreground.xml" value="0.1725" />
+        <entry key="..\:/Users/lookf/AndroidStudioProjects/LobangCorner/app/src/main/res/drawable/logo_text.xml" value="0.1725" />
+        <entry key="..\:/Users/lookf/AndroidStudioProjects/LobangCorner/app/src/main/res/drawable/logo_text_background.xml" value="0.1725" />
         <entry key="..\:/Users/lookf/AndroidStudioProjects/LobangCorner/app/src/main/res/drawable/round_outline.xml" value="0.1405" />
         <entry key="..\:/Users/lookf/AndroidStudioProjects/LobangCorner/app/src/main/res/layout/activity_hawker_corner_main.xml" value="0.13541666666666666" />
         <entry key="..\:/Users/lookf/AndroidStudioProjects/LobangCorner/app/src/main/res/layout/activity_home.xml" value="0.16354166666666667" />
