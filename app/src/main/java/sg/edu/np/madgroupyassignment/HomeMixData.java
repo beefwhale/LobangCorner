@@ -3,18 +3,23 @@ package sg.edu.np.madgroupyassignment;
 public class HomeMixData {
     public long postTimeStamp;
     public Boolean identifier; // Identifier for HC (true) and RC (false) and
+    String postID;
+
+    // Weekly values
+    public String weeklyPostUID;
+    public Long weeklyDate;
 
     //HC values
-    public String hccoverimg;          //Cover image for display in hawker main, this and hccuserpfp are string as images passed as url
-    public String hcstallname;         //Hawker stall name
-    public String hcOwner;             //Owner of post
-    public String hcauthor;            //Author who made hawker post, used in View Holder for recycler view in HCMains Adapter
-    public String hccuserpfp;          //User profile pic who made the post, used in HCChosenStall
-    public String hccparagraph;        //Full description of stall
-    public String shortdesc;           //Short description of the stall
-    public String hccaddress;          //Address of hawker stall
-    public String daysopen;            //Days open
-    public String hoursopen;           //Hours open
+    String hccoverimg;          //Cover image for display in hawker main, this and hccuserpfp are string as images passed as url
+    String hcstallname;         //Hawker stall name
+    String hcOwner;             //Owner of post
+    String hcauthor;            //Author who made hawker post, used in View Holder for recycler view in HCMains Adapter
+    String hccuserpfp;          //User profile pic who made the post, used in HCChosenStall
+    String hccparagraph;        //Full description of stall
+    String shortdesc;           //Short description of the stall
+    String hccaddress;          //Address of hawker stall
+    String daysopen;            //Days open
+    String hoursopen;           //Hours open
 
     // RC VALUES
     String owner;
@@ -33,6 +38,12 @@ public class HomeMixData {
 //    }
     public HomeMixData(){
         this.identifier = identifier;
+        this.postID = postID;
+
+//        WEEKLY SIDE
+        this.weeklyPostUID = weeklyPostUID;
+        this.weeklyDate = weeklyDate;
+
 //        HC SIDE
         this.hccoverimg = hccoverimg;
         this.hcOwner = hcOwner;
@@ -48,6 +59,7 @@ public class HomeMixData {
         this.postTimeStamp = postTimeStamp;
 
 //        RC SIDE
+        this.postID = postID;
         this.owner = owner;
         this.recipeName = recipeName;
         this.recipeDescription = recipeDescription;

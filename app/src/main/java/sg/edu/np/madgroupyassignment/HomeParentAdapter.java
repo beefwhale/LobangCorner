@@ -18,11 +18,21 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
 import org.parceler.Parcels;
 
+import java.time.LocalDate;
+import java.time.temporal.WeekFields;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
 import java.util.Random;
 
 /**
@@ -32,7 +42,13 @@ public class HomeParentAdapter extends RecyclerView.Adapter<HomeParentViewHolder
     ArrayList<HomeParentData> data;
     Context c;
     Integer random;
-    //View chosen_view;
+
+    HomeMixData weekly_post = new HomeMixData();
+
+    DatabaseReference databaseReference;
+    FirebaseDatabase firebaseDatabase;
+    String weeklyPost;
+    Long weeklyDate;
 
     public HomeParentAdapter(Context c, ArrayList<HomeParentData> data){
         this.data = data;
@@ -65,14 +81,61 @@ public class HomeParentAdapter extends RecyclerView.Adapter<HomeParentViewHolder
             ImageView weekly_img = item.findViewById(R.id.weekly_img);
             TextView weekly_title = item.findViewById(R.id.weekly_title);
             TextView weekly_author = item.findViewById(R.id.weekly_author);
+
+
+            // Getting WEEKLY date & post ID Values From Database
+            firebaseDatabase = FirebaseDatabase.getInstance();
+            databaseReference = firebaseDatabase.getReference();
+            databaseReference.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                    Getting Weekly Items from database
+                    weeklyDate = snapshot.child("WeeklyDate").getValue(Long.class);
+                    weeklyPost = snapshot.child("WeeklyPost").getValue(String.class);
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
+
             if (randomMixList.size() > 0){
                 // post to retrieve for weekly feature determines randomly
                 final int random = new Random().nextInt(randomMixList.size());
                 ArrayList<HomeMixData> weekly_list = new ArrayList<>();
+                weekly_post = randomMixList.get(random);
 
-                HomeMixData weekly_post = randomMixList.get(random);
+                //Getting Current Date Week
+                Date currentDate = new Date(System.currentTimeMillis());
+                Calendar calendar = Calendar.getInstance();
+                calendar.setFirstDayOfWeek(Calendar.MONDAY);
+                calendar.setMinimalDaysInFirstWeek(4);
+                calendar.setTime(currentDate);
+                int currentWeek = calendar.get(Calendar.WEEK_OF_YEAR);
+                Log.e("Week", "Current"+currentWeek);
+
+                //Getting Stored Date Week
+                Date storedDate = new Date(weeklyDate);
+                calendar = Calendar.getInstance();
+                calendar.setTime(storedDate);
+                int storedWeek = calendar.get(Calendar.WEEK_OF_YEAR);
+                Log.e("Week", "Stored"+storedWeek);
+
+                if (currentWeek != storedWeek){ // setting post and date if post has not been updated this week
+                    homeMix.setWeekly(weekly_post);
+                    Log.e("beef", "false");
+                }
+                else{ // getting post from databse, if this week has been updated
+                    for(HomeMixData i : randomMixList){
+                        if (i.postID == weeklyPost){ // getting the object that matches the ID
+                            weekly_post = i;
+                            Log.e("beef", "true");
+                        }
+                    }
+                }
+
                 weekly_list.add(weekly_post); // can be passed to bundle
-
                 //Setting items of things in Weekly post using sortedMixList
                 if (weekly_post.identifier == true) { // if its Hawker Corner post
                     weekly_title.setText(weekly_post.hcstallname);

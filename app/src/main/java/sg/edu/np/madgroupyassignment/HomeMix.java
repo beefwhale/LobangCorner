@@ -3,15 +3,22 @@ package sg.edu.np.madgroupyassignment;
 import android.content.Context;
 import android.util.Log;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Date;
+import java.util.GregorianCalendar;
 
 public class HomeMix {
     PostsHolder postHolder;
     Context c;
     Integer shuffle;
+    private DatabaseReference databaseReferencetest;
     public void HomeMixData(Context c){
         this.c=c;
     }
@@ -39,6 +46,7 @@ public class HomeMix {
                 HomeMixData.identifier = true; // Identify its a hc post
                 HomeMixData.shortdesc = i.shortdesc;
                 HomeMixData.hccoverimg= i.hccoverimg;
+                HomeMixData.postID = i.postid;
                 mixData.add(HomeMixData);
             }
         }
@@ -58,6 +66,7 @@ public class HomeMix {
                 HomeMixData.foodImage = i.foodImage;
                 HomeMixData.postTimeStamp = i.postTimeStamp;
                 HomeMixData.identifier = false; // Identify its a rc post
+                HomeMixData.postID = i.postID;
                 mixData.add(HomeMixData);
             }
         }
@@ -110,6 +119,7 @@ public class HomeMix {
                 HomeMixData.identifier = true; // Identify its a hc post
                 HomeMixData.shortdesc = i.shortdesc;
                 HomeMixData.hccoverimg = i.hccoverimg;
+                HomeMixData.postID = i.postid;
                 mixData.add(HomeMixData);
             }
         }
@@ -128,6 +138,7 @@ public class HomeMix {
                 HomeMixData.foodImage = i.foodImage;
                 HomeMixData.postTimeStamp = i.postTimeStamp;
                 HomeMixData.identifier = false; // Identify its a rc post
+                HomeMixData.postID = i.postID;
                 mixData.add(HomeMixData);
             }
         }
@@ -152,4 +163,18 @@ public class HomeMix {
 //        Log.e("Shuffle", mixData.size()+"");
         return mixData;
     }
+
+    // Used to set Permanent Date in Firebase as 13 June 2022 (Monday)
+    public void setWeekly(HomeMixData HomeMixData) {
+        HomeMixData data = new HomeMixData();
+        Long weeklyDate = System.currentTimeMillis();
+        String weeklyPostUID=  new String();
+        weeklyPostUID = HomeMixData.postID;
+
+        // Put object into Firebase
+        databaseReferencetest = FirebaseDatabase.getInstance().getReference();
+        databaseReferencetest.child("WeeklyDate").setValue(weeklyDate);
+        databaseReferencetest.child("WeeklyPost").setValue(weeklyPostUID);
+    }
+
 }
