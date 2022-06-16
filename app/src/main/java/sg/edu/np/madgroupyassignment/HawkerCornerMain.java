@@ -47,16 +47,6 @@ public class HawkerCornerMain extends Fragment implements AdapterView.OnItemSele
             stallsList.add(obj);
         }
 
-        //Commented out to test database grabbing. - to be removed?
-        if (stallsList.isEmpty()){
-            for (int i = 0; i < 10; i++) {
-                HawkerCornerStalls newstall = new HawkerCornerStalls();
-                newstall.hcstallname = "Stall " + i;
-                newstall.hcauthor = "Author " + i;
-                stallsList.add(newstall);
-            }
-        }
-
         //Reverse list to display newest
         Collections.reverse(stallsList);
 
