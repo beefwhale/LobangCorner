@@ -46,15 +46,17 @@ public class HomeChildAdapter extends RecyclerView.Adapter<HomeChildViewHolder> 
         HomeChildData d = data.get(position);
         HomeMix homeMix = new HomeMix();
         ArrayList<HomeMixData> sortedMixList = homeMix.filterDT(); // List with LP info
-        HomeMixData sortedMixListItem = sortedMixList.get(holder.getAdapterPosition());
-
         // Pass actual data into each ViewHolder
-        if (sortedMixList.get(holder.getAdapterPosition()).identifier == true) {// If hawker post
-            Picasso.get().load(sortedMixListItem.hccoverimg).into(holder.post_img);
+        if (sortedMixList.size() > 0){
+            HomeMixData sortedMixListItem = sortedMixList.get(holder.getAdapterPosition());
+            if (sortedMixList.get(holder.getAdapterPosition()).identifier == true) {// If hawker post
+                Picasso.get().load(sortedMixListItem.hccoverimg).into(holder.post_img);
+            }
+            else{ //If recipe post
+                Picasso.get().load(sortedMixListItem.foodImage).into(holder.post_img);
+            }
         }
-        else{ //If recipe post
-            Picasso.get().load(sortedMixListItem.foodImage).into(holder.post_img);
-        }
+
         holder.post_header.setText(d.post_header);
         holder.post_desc.setText(d.post_desc);
         holder.post_author.setText("By: "+d.post_author);

@@ -74,7 +74,7 @@ public class HomeParentAdapter extends RecyclerView.Adapter<HomeParentViewHolder
                 //Setting items of things in Weekly post using sortedMixList
                 if (weekly_post.identifier == true) { // if its Hawker Corner post
                     weekly_title.setText(weekly_post.hcstallname);
-                    weekly_author.setText(weekly_post.hcauthor);
+                    weekly_author.setText("By: "+weekly_post.hcauthor);
                     Picasso.get().load(weekly_post.hccoverimg).into(weekly_img);
                 }
                 else{// if its Recipe Corner post
@@ -206,14 +206,17 @@ public class HomeParentAdapter extends RecyclerView.Adapter<HomeParentViewHolder
             HomeParentData p = data.get(position-1);
             HomeMix homeMix = new HomeMix();
             ArrayList<HomeMixData> randomMixList = homeMix.RandomData(); // List with Random Mixed HC and RC info
-            HomeMixData randomMixListItem = randomMixList.get(holder.getAdapterPosition()-1);
 
-            if (randomMixList.get(holder.getAdapterPosition()-1).identifier == true) {// If hawker post
-                Picasso.get().load(randomMixListItem.hccoverimg).into(holder.post_img);
+            if (randomMixList.size() > 0){
+                HomeMixData randomMixListItem = randomMixList.get(holder.getAdapterPosition()-1);
+                if (randomMixList.get(holder.getAdapterPosition()-1).identifier == true) {// If hawker post
+                    Picasso.get().load(randomMixListItem.hccoverimg).into(holder.post_img);
+                }
+                else{ //If recipe post
+                    Picasso.get().load(randomMixListItem.foodImage).into(holder.post_img);
+                }
             }
-            else{ //If recipe post
-                Picasso.get().load(randomMixListItem.foodImage).into(holder.post_img);
-            }
+
             holder.post_header.setText(p.post_header);
             holder.post_desc.setText(p.post_desc);
             holder.post_author.setText("By: "+p.post_author);
