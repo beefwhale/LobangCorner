@@ -1,60 +1,72 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:backgroundTint="@color/offwhite">
 
-    <ImageView
-        android:id="@+id/hccoverimg"
-        android:layout_width="0dp"
-        android:layout_height="250dp"
-        android:layout_margin="12dp"
-        android:foreground="@drawable/hcimage_overlay"
-        android:background="@drawable/round_outline"
-        android:backgroundTint="@color/redversion1"
-        android:scaleType="centerCrop"
-        android:clipToOutline="true"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/hcstallshadow"
+        android:backgroundTint="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@android:drawable/btn_star_big_on" />
+        app:layout_constraintTop_toBottomOf="@id/hccoverimg">
 
-    <TextView
-        android:id="@+id/hcstallname"
-        android:layout_width="352dp"
-        android:layout_height="33dp"
-        android:layout_marginStart="15dp"
-        android:layout_marginTop="160dp"
-        android:text="TextView"
-        android:textAllCaps="false"
-        android:textSize="25sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="@+id/hccoverimg"
-        app:layout_constraintTop_toTopOf="@+id/hccoverimg" />
+        <ImageView
+            android:id="@+id/hccoverimg"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/round_outline"
+            android:scaleType="centerCrop"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@android:drawable/btn_star_big_on" />
 
-    <TextView
-        android:id="@+id/hccoverauthor"
-        android:layout_width="209dp"
-        android:layout_height="28dp"
-        android:layout_marginStart="17dp"
-        android:layout_marginTop="2dp"
-        android:text="TextView"
-        android:textSize="12sp"
-        android:textStyle="bold|italic"
-        app:layout_constraintStart_toStartOf="@+id/hccoverimg"
-        app:layout_constraintTop_toBottomOf="@+id/hcshortdesc" />
+        <TextView
+            android:id="@+id/hcstallname"
+            android:layout_width="317dp"
+            android:layout_height="39dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="4dp"
+            android:text="TextView"
+            android:textSize="32sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/hccoverimg" />
 
-    <TextView
-        android:id="@+id/hcshortdesc"
-        android:layout_width="357dp"
-        android:layout_height="20dp"
-        android:layout_marginStart="17dp"
-        android:layout_marginTop="2dp"
-        android:text="Short description testing for hawker corner"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="@+id/hccoverimg"
-        app:layout_constraintTop_toBottomOf="@+id/hcstallname" />
+        <TextView
+            android:id="@+id/hcshortdesc"
+            android:layout_width="339dp"
+            android:layout_height="57dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="4dp"
+            android:text="TextView"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/hcstallname" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <TextView
+            android:id="@+id/hccoverauthor"
+            android:layout_width="189dp"
+            android:layout_height="34dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="4dp"
+            android:text="TextView"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/hcshortdesc" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.cardview.widget.CardView>
