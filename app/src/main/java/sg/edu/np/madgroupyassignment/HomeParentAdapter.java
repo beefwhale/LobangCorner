@@ -222,6 +222,7 @@ public class HomeParentAdapter extends RecyclerView.Adapter<HomeParentViewHolder
                 }
             }
 
+
             holder.post_header.setText(p.post_header);
             holder.post_desc.setText(p.post_desc);
             holder.post_author.setText("By: "+p.post_author);

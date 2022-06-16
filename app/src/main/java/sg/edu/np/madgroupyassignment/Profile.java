@@ -54,15 +54,16 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 
-public class Log_test extends Fragment {
+public class Profile extends Fragment {
 
     private static UserProfile userProfile;
     private static String aboutMeInput;
-    private static TextView username, aboutme, hwkObj, rcpObj;
+    private static TextView username, hwkObj, rcpObj;
     private static ImageView profP, fishView;
-    private Button logout;
+    private Button logout, aboutbtn;
     private ProgressBar loadingPB;
-    private EditText input;
+    private EditText aboutme;
+    private PostsHolder postsHolder;
 
     //fish
     private LayoutInflater layoutInflater;
@@ -90,6 +91,7 @@ public class Log_test extends Fragment {
         layoutInflater = getLayoutInflater();
         fish = inflater.inflate(R.layout.fish, (ViewGroup)view.findViewById(R.id.fish));
         fishView = fish.findViewById(R.id.fishView);
+        aboutbtn = view.findViewById(R.id.about_btn);
 
         mAuth = FirebaseAuth.getInstance();
         storageReference = FirebaseStorage.getInstance().getReference();
@@ -120,31 +122,34 @@ public class Log_test extends Fragment {
         });
 
 //        Changes about me text on clicked
-        aboutme.setOnClickListener(new View.OnClickListener() {
+        aboutbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-                builder.setTitle("Change profile description");
-                input = new EditText(getActivity());
-                builder.setView(input);
-
-                builder.setPositiveButton("Submit", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        aboutMeInput = input.getText().toString();
-                        updateAboutMe(aboutMeInput);
-                    }
-                });
-
-                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-
-                    }
-                });
-
-                AlertDialog alert = builder.create();
-                alert.show();
+                aboutMeInput = aboutme.getText().toString();
+                updateAboutMe(aboutMeInput);
+                Toast.makeText(getActivity(),"Changes Saved",Toast.LENGTH_SHORT).show();
+//                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+//                builder.setTitle("Change profile description");
+//                input = new EditText(getActivity());
+//                builder.setView(input);
+//
+//                builder.setPositiveButton("Submit", new DialogInterface.OnClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialogInterface, int i) {
+//                        aboutMeInput = input.getText().toString();
+//                        updateAboutMe(aboutMeInput);
+//                    }
+//                });
+//
+//                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialogInterface, int i) {
+//
+//                    }
+//                });
+//
+//                AlertDialog alert = builder.create();
+//                alert.show();
             }
         });
 
@@ -152,10 +157,15 @@ public class Log_test extends Fragment {
         hwkObj.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                AppCompatActivity activity = (AppCompatActivity) view.getContext();
-                Fragment profileHcFragment = new ProfileHawkerRV();
-                activity.getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.MainFragment, profileHcFragment).addToBackStack(null).commit();
+                if (postsHolder.getUserHawkerPosts().size() > 0){
+                    AppCompatActivity activity = (AppCompatActivity) view.getContext();
+                    Fragment profileHcFragment = new ProfileHawkerRV();
+                    activity.getSupportFragmentManager().beginTransaction()
+                            .replace(R.id.MainFragment, profileHcFragment).addToBackStack(null).commit();
+                }
+                else{
+                    Toast.makeText(getActivity(), "No Hawker Corner Posts made", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
@@ -163,14 +173,14 @@ public class Log_test extends Fragment {
         rcpObj.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (userProfile.getRcpList().size() > 0){
+                if (postsHolder.getUserRecipePosts().size() > 0){
                     AppCompatActivity activity = (AppCompatActivity) view.getContext();
                     Fragment profileRcpFragment = new ProfileRecipeRV();
                     activity.getSupportFragmentManager().beginTransaction()
                             .replace(R.id.MainFragment, profileRcpFragment).addToBackStack(null).commit();
                 }
                 else{
-                    Toast.makeText(getActivity(), "No Recipe Posts made", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "No Recipe Corner Posts ade", Toast.LENGTH_SHORT).show();
                 }
 
             }
@@ -205,7 +215,9 @@ public class Log_test extends Fragment {
 
         Picasso.get().load(userProfile.getProfileImg()).into(profP);
         username.setText(userProfile.getUsername());
-        aboutme.setText("\n" + userProfile.getAboutMe());
+        if (aboutme != null){
+            aboutme.setText(userProfile.getAboutMe());
+        }
         hwkObj.setText("" + (userProfile.getHawkList().size()-1) + "\n\nHawker Posts");
         rcpObj.setText("" + (userProfile.getRcpList().size()-1) + "\n\nRecipe Post");
 
