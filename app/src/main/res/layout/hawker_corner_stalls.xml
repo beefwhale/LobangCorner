@@ -13,6 +13,7 @@
         android:foreground="@drawable/hcimage_overlay"
         android:background="@drawable/round_outline"
         android:backgroundTint="@color/redversion1"
+        android:scaleType="centerCrop"
         android:clipToOutline="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

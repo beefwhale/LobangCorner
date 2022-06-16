@@ -56,9 +56,9 @@ public class RecipeForm extends Fragment {
                              Bundle savedInstanceState) {
         selectedImg = "https://firebasestorage.googleapis.com/v0/b/lobang-corner.appspot.com/o/DefaultProfilePic%2FPengi.png?alt=media&token=d8cbc81d-6bcd-456b-809d-e867b4506c17";
         // Inflate the layout for this fragment
+        databaseReferencetest = FirebaseDatabase.getInstance().getReference();
         View recipeform = inflater.inflate(R.layout.fragment_recipe_form, container, false);
 
-        View recipemain = inflater.inflate(R.layout.fragment_recipe_post_main, container, false);
 
         //Connecting the 3 fragments through tabLayout
 
@@ -141,9 +141,10 @@ public class RecipeForm extends Fragment {
                 else{
                     ownerUID = userProfile.getUID();
                     Long timeStamp = System.currentTimeMillis();
-                    recipeCorner = new RecipeCorner(ownerUID, recipeName, recipeDesc, difficulty, username, duration, steps,totalIngred, timeStamp, selectedImg);
+                    String PostID = databaseReferencetest.push().getKey();
+                    recipeCorner = new RecipeCorner(PostID, ownerUID, recipeName, recipeDesc, difficulty, username, duration, steps,totalIngred, timeStamp, selectedImg);
                     userCurrentRcp = userProfile.getRcpList();
-                    RcpUp(userCurrentRcp, recipeCorner);
+                    RcpUp(userCurrentRcp, recipeCorner, PostID);
                     getActivity().recreate();
                 }
 
@@ -159,11 +160,11 @@ public class RecipeForm extends Fragment {
         return recipeform;
     }
 
-    private void RcpUp(HashMap<String, Object> userRcpList, RecipeCorner RcpObj) {
-        databaseReferencetest = FirebaseDatabase.getInstance().getReference();
+    private void RcpUp(HashMap<String, Object> userRcpList, RecipeCorner RcpObj, String PostID) {
+        //databaseReferencetest = FirebaseDatabase.getInstance().getReference();
         mAuth = FirebaseAuth.getInstance();
 
-        String PostID = databaseReferencetest.push().getKey();
+        //String PostID = databaseReferencetest.push().getKey();
         databaseReferencetest.child("Posts").child("Recipes").child(PostID).setValue(RcpObj);
 
         userRcpList.put(PostID, PostID);
