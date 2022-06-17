@@ -180,7 +180,7 @@ public class Profile extends Fragment {
                             .replace(R.id.MainFragment, profileRcpFragment).addToBackStack(null).commit();
                 }
                 else{
-                    Toast.makeText(getActivity(), "No Recipe Corner Posts ade", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "No Recipe Corner Posts made", Toast.LENGTH_SHORT).show();
                 }
 
             }
