@@ -4,6 +4,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 /**
@@ -15,6 +16,8 @@ public class HomeParentViewHolder extends RecyclerView.ViewHolder {
     TextView post_header;
     TextView post_desc;
     TextView post_author;
+    View post_line;
+    CardView post_card;
 
     //Feed posts elements - Main RV
     RecyclerView parent_rv;
@@ -30,6 +33,8 @@ public class HomeParentViewHolder extends RecyclerView.ViewHolder {
         post_header= item.findViewById(R.id.feed_header);
         post_desc = item.findViewById(R.id.feed_desc);
         post_author = item.findViewById(R.id.feed_author);
+        post_line = item.findViewById(R.id.feed_line);
+        post_card = item.findViewById(R.id.feed_card);
 
     }
 }

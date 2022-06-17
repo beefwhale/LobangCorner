@@ -2,6 +2,7 @@ package sg.edu.np.madgroupyassignment;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -45,7 +46,7 @@ public class HomeParentAdapter extends RecyclerView.Adapter<HomeParentViewHolder
 
     DatabaseReference databaseReference;
     FirebaseDatabase firebaseDatabase;
-    HomeMixData weeklyPost;
+    HomeMixData weeklyPost = new HomeMixData();
 
     public HomeParentAdapter(Context c, ArrayList<HomeParentData> data){
         this.data = data;
@@ -116,19 +117,18 @@ public class HomeParentAdapter extends RecyclerView.Adapter<HomeParentViewHolder
                 ArrayList<HomeMixData> weekly_list = new ArrayList<>();
                 weekly_list.add(weeklyPost); // can be passed to bundle
                 //Setting items of things in Weekly post using sortedMixList
-                if (weeklyPost.identifier == true) { // if its Hawker Corner post
-                    weekly_title.setText(weeklyPost.hcstallname);
-                    weekly_author.setText("By: "+weeklyPost.hcauthor);
-                    Picasso.get().load(weeklyPost.hccoverimg).into(weekly_img);
+                if (weeklyPost.identifier != null) {
+                    if (weeklyPost.identifier == true) { // if its Hawker Corner post
+                        weekly_title.setText(weeklyPost.hcstallname);
+                        weekly_author.setText("By: "+weeklyPost.hcauthor);
+                        Picasso.get().load(weeklyPost.hccoverimg).into(weekly_img);
+                    }
+                    else{// if its Recipe Corner post
+                        weekly_title.setText(weeklyPost.recipeName);
+                        weekly_author.setText(weeklyPost.userName);
+                        Picasso.get().load(weeklyPost.foodImage).into(weekly_img);
+                    }
                 }
-                else{// if its Recipe Corner post
-                    weekly_title.setText(weeklyPost.recipeName);
-                    weekly_author.setText(weeklyPost.userName);
-                    Picasso.get().load(weeklyPost.foodImage).into(weekly_img);
-                }
-
-
-
                 weekly_img.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -261,17 +261,22 @@ public class HomeParentAdapter extends RecyclerView.Adapter<HomeParentViewHolder
                 HomeMixData randomMixListItem = randomMixList.get(holder.getAdapterPosition()-1);
                 if (randomMixList.get(holder.getAdapterPosition()-1).identifier == true) {// If hawker post
                     Picasso.get().load(randomMixListItem.hccoverimg).into(holder.post_img);
+                    // Use Line colour to shows diff between RC and HC
+                    holder.post_line.setBackground(new ColorDrawable(Color.parseColor("#F6412D"))); // MAIN RED
                 }
                 else{ //If recipe post
                     Picasso.get().load(randomMixListItem.foodImage).into(holder.post_img);
+                    // Use Line colour to shows diff between RC and HC
+                    holder.post_line.setBackground(new ColorDrawable(Color.parseColor("#FFC100"))); // ACCENT YELLOW
                 }
             }
+
 
 
             holder.post_header.setText(p.post_header);
             holder.post_desc.setText(p.post_desc);
             holder.post_author.setText("By: "+p.post_author);
-            holder.post_img.setOnClickListener(new View.OnClickListener() {
+            holder.post_card.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     //Creating activity context to for the view, starting new fragment when view is clicked
