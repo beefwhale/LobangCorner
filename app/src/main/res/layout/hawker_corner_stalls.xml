@@ -45,10 +45,10 @@
             android:layout_height="wrap_content"
             android:text="TextView"
             android:textSize="20sp"
-            android:textStyle="bold"
             android:layout_marginTop="16dp"
             android:paddingLeft="16dp"
             android:paddingRight="16dp"
+            android:fontFamily="@font/montserrat_semibold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/hccoverimg" />
@@ -61,6 +61,7 @@
             android:textSize="14sp"
             android:paddingLeft="16dp"
             android:paddingRight="16dp"
+            android:fontFamily="@font/montserrat_regular"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/hcstallname" />
@@ -75,6 +76,7 @@
             android:paddingLeft="16dp"
             android:paddingRight="16dp"
             android:paddingBottom="16dp"
+            android:fontFamily="@font/montserrat_italic"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
