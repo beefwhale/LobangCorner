@@ -44,8 +44,8 @@
 
             <TextView
                 android:id="@+id/idRecipeDescription"
-                android:layout_width="374dp"
-                android:layout_height="58dp"
+                android:layout_width="350dp"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="16dp"
@@ -83,8 +83,8 @@
 
             <TextView
                 android:id="@+id/ingredHeader"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="158dp"
+                android:layout_height="39dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="13dp"
                 android:gravity="left"
@@ -173,9 +173,10 @@
                 android:textSize="16sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.517"
+                app:layout_constraintHorizontal_bias="0.034"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/ingredHeader" />
+                app:layout_constraintTop_toBottomOf="@+id/ingredHeader"
+                app:layout_constraintVertical_bias="0.0" />
 
             <TextView
                 android:id="@+id/difficulty"
