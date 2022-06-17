@@ -42,6 +42,8 @@ public class MainActivity extends AppCompatActivity{
     private FirebaseDatabase firebaseDatabase;
     private DatabaseReference databaseReference;
 
+    public static Date storedDate;
+    public static String storedUID;
 
 
 
@@ -112,7 +114,9 @@ public class MainActivity extends AppCompatActivity{
 //                Getting user profile
                 userProfile = snapshot.child("UserProfile").child(UID).getValue(UserProfile.class);
 
-
+//                Getting Weekly Post
+                storedDate = new Date(snapshot.child("WeeklyDate").getValue(Long.class));
+                storedUID = snapshot.child("WeeklyPost").getValue(String.class);
 
 //                Getting recipe posts
                 postsHolder.removeRecipePosts();

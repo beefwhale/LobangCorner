@@ -3,8 +3,13 @@ package sg.edu.np.madgroupyassignment;
 import android.content.Context;
 import android.util.Log;
 
+import androidx.annotation.NonNull;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -18,6 +23,10 @@ public class HomeMix {
     PostsHolder postHolder;
     Context c;
     Integer shuffle;
+    DatabaseReference databaseReference;
+    FirebaseDatabase firebaseDatabase;
+    String storedUID;
+    Date storedDate;
     private DatabaseReference databaseReferencetest;
     public void HomeMixData(Context c){
         this.c=c;
@@ -165,11 +174,9 @@ public class HomeMix {
     }
 
     // Used to set Permanent Date in Firebase as 13 June 2022 (Monday)
-    public void setWeekly(HomeMixData HomeMixData) {
-        HomeMixData data = new HomeMixData();
+    public void setWeekly(HomeMixData data) {
         Long weeklyDate = System.currentTimeMillis();
-        String weeklyPostUID=  new String();
-        weeklyPostUID = HomeMixData.postID;
+        String weeklyPostUID = data.postID;
 
         // Put object into Firebase
         databaseReferencetest = FirebaseDatabase.getInstance().getReference();

@@ -43,12 +43,9 @@ public class HomeParentAdapter extends RecyclerView.Adapter<HomeParentViewHolder
     Context c;
     Integer random;
 
-    HomeMixData weekly_post = new HomeMixData();
-
     DatabaseReference databaseReference;
     FirebaseDatabase firebaseDatabase;
-    String weeklyPost;
-    Long weeklyDate = new Long(1);
+    HomeMixData weeklyPost;
 
     public HomeParentAdapter(Context c, ArrayList<HomeParentData> data){
         this.data = data;
@@ -83,29 +80,11 @@ public class HomeParentAdapter extends RecyclerView.Adapter<HomeParentViewHolder
             TextView weekly_author = item.findViewById(R.id.weekly_author);
 
 
-            // Getting WEEKLY date & post ID Values From Database
-            firebaseDatabase = FirebaseDatabase.getInstance();
-            databaseReference = firebaseDatabase.getReference();
-            databaseReference.addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                    Getting Weekly Items from database
-                    weeklyDate = snapshot.child("WeeklyDate").getValue(Long.class);
-                    weeklyPost = snapshot.child("WeeklyPost").getValue(String.class);
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError error) {
-
-                }
-            });
-
+            // Getting Weekly Date and UId Stored in Firebase
+            MainActivity mainActivity = new MainActivity();
+            Date storedDate = mainActivity.storedDate;
+            String storedUID = mainActivity.storedUID;
             if (randomMixList.size() > 0){
-                // post to retrieve for weekly feature determines randomly
-                final int random = new Random().nextInt(randomMixList.size());
-                ArrayList<HomeMixData> weekly_list = new ArrayList<>();
-                weekly_post = randomMixList.get(random);
-
                 //Getting Current Date Week
                 Date currentDate = new Date(System.currentTimeMillis());
                 Calendar calendar = Calendar.getInstance();
@@ -113,46 +92,49 @@ public class HomeParentAdapter extends RecyclerView.Adapter<HomeParentViewHolder
                 calendar.setMinimalDaysInFirstWeek(4);
                 calendar.setTime(currentDate);
                 int currentWeek = calendar.get(Calendar.WEEK_OF_YEAR);
-                Log.e("Week", "Current"+currentWeek);
 
                 //Getting Stored Date Week
-                Date storedDate = new Date(weeklyDate);
                 calendar = Calendar.getInstance();
+                calendar.setMinimalDaysInFirstWeek(4);
                 calendar.setTime(storedDate);
                 int storedWeek = calendar.get(Calendar.WEEK_OF_YEAR);
-                Log.e("Week", "Stored"+storedWeek);
 
                 if (currentWeek != storedWeek){ // setting post and date if post has not been updated this week
-                    homeMix.setWeekly(weekly_post);
-                    Log.e("beef", "false");
+                    // post to retrieve for weekly feature determines randomly
+                    final int random = new Random().nextInt(randomMixList.size());
+                    weeklyPost = randomMixList.get(random);
+                    homeMix.setWeekly(weeklyPost);
                 }
                 else{ // getting post from databse, if this week has been updated
                     for(HomeMixData i : randomMixList){
-                        if (i.postID == weeklyPost){ // getting the object that matches the ID
-                            weekly_post = i;
-                            Log.e("beef", "true");
+                        if (i.postID.equals(storedUID)){ // getting the object that matches the ID
+                            weeklyPost = i;
                         }
                     }
                 }
 
-                weekly_list.add(weekly_post); // can be passed to bundle
+                ArrayList<HomeMixData> weekly_list = new ArrayList<>();
+                weekly_list.add(weeklyPost); // can be passed to bundle
                 //Setting items of things in Weekly post using sortedMixList
-                if (weekly_post.identifier == true) { // if its Hawker Corner post
-                    weekly_title.setText(weekly_post.hcstallname);
-                    weekly_author.setText("By: "+weekly_post.hcauthor);
-                    Picasso.get().load(weekly_post.hccoverimg).into(weekly_img);
+                if (weeklyPost.identifier == true) { // if its Hawker Corner post
+                    weekly_title.setText(weeklyPost.hcstallname);
+                    weekly_author.setText("By: "+weeklyPost.hcauthor);
+                    Picasso.get().load(weeklyPost.hccoverimg).into(weekly_img);
                 }
                 else{// if its Recipe Corner post
-                    weekly_title.setText(weekly_post.recipeName);
-                    weekly_author.setText(weekly_post.userName);
-                    Picasso.get().load(weekly_post.foodImage).into(weekly_img);
+                    weekly_title.setText(weeklyPost.recipeName);
+                    weekly_author.setText(weeklyPost.userName);
+                    Picasso.get().load(weeklyPost.foodImage).into(weekly_img);
                 }
+
+
+
                 weekly_img.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         AppCompatActivity activity = (AppCompatActivity) v.getContext();
                         //Bundle to pass info to fragment as intent cannot
-                        if (weekly_post.identifier == true){ // If hawker post
+                        if (weeklyPost.identifier == true){ // If hawker post
                             Fragment chosenfragment = new HCChosenStall();
                             Bundle bundle = new Bundle();
                             bundle.putInt("stallposition", 0);
