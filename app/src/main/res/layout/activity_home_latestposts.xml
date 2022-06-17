@@ -41,31 +41,30 @@
         android:id="@+id/feed_desc"
         android:layout_width="130dp"
         android:layout_height="0dp"
+        android:elevation="2dp"
+        android:fontFamily="@font/montserrat_regular"
         android:paddingLeft="8dp"
         android:paddingBottom="8dp"
         android:text="description sample"
-        android:textSize="14sp"
         android:textColor="@color/white"
-        android:elevation="2dp"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toTopOf="@+id/feed_author"
         app:layout_constraintEnd_toEndOf="@+id/feed_img"
-        app:layout_constraintTop_toBottomOf="@+id/feed_header"
-        android:fontFamily="@font/montserrat_regular"/>
+        app:layout_constraintTop_toBottomOf="@+id/feed_header" />
 
     <TextView
         android:id="@+id/feed_author"
         android:layout_width="130dp"
         android:layout_height="0dp"
+        android:elevation="2dp"
+        android:fontFamily="@font/montserrat_italic"
         android:paddingLeft="8dp"
         android:paddingBottom="8dp"
         android:text="author "
-        android:textSize="12sp"
         android:textColor="@color/white"
-        android:elevation="2dp"
+        android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="@+id/feed_img"
-        app:layout_constraintEnd_toEndOf="@+id/feed_img"
-        app:layout_constraintTop_toBottomOf="@+id/feed_desc"
-        app:layout_constraintVertical_bias="0.0"
-        android:fontFamily="@font/montserrat_italic"/>
+        app:layout_constraintEnd_toEndOf="@+id/feed_img" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
