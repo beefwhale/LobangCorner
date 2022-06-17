@@ -29,6 +29,8 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.TextView;
 
+import java.util.Date;
+
 public class MainActivity extends AppCompatActivity{
 
     private String UID;
@@ -39,6 +41,9 @@ public class MainActivity extends AppCompatActivity{
     private FirebaseAuth mAuth;
     private FirebaseDatabase firebaseDatabase;
     private DatabaseReference databaseReference;
+
+
+
 
     Context c;
     Boolean FABVisible;
@@ -106,6 +111,8 @@ public class MainActivity extends AppCompatActivity{
             public void onDataChange(@NonNull DataSnapshot snapshot) {
 //                Getting user profile
                 userProfile = snapshot.child("UserProfile").child(UID).getValue(UserProfile.class);
+
+
 
 //                Getting recipe posts
                 postsHolder.removeRecipePosts();
