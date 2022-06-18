@@ -61,9 +61,7 @@ public class HomeMix {
         }
         for (RecipeCorner i : recentRCArray) {
             HomeMixData HomeMixData = new HomeMixData();
-            Log.e("rc length", ""+ recentRCArray.length);
             if (i != null){
-                Log.e("rc", "not null "+i.owner);
                 HomeMixData.owner = i.owner;
                 HomeMixData.recipeName = i.recipeName;
                 HomeMixData.recipeDescription = i.recipeDescription;
@@ -115,7 +113,6 @@ public class HomeMix {
         for (HawkerCornerStalls i : recentHCArray) {
             HomeMixData HomeMixData = new HomeMixData();
             if (i != null){
-                Log.e("hc", "not null "+i.hcstallname);
                 HomeMixData.hcstallname = i.hcstallname;
                 HomeMixData.hcOwner = i.hcOwner;
                 HomeMixData.hcauthor = i.hcauthor;
@@ -135,7 +132,6 @@ public class HomeMix {
         for (RecipeCorner i : recentRCArray) {
             HomeMixData HomeMixData = new HomeMixData();
             if (i != null){
-                Log.e("rc", "not null "+i.owner);
                 HomeMixData.owner = i.owner;
                 HomeMixData.recipeName = i.recipeName;
                 HomeMixData.recipeDescription = i.recipeDescription;

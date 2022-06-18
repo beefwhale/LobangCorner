@@ -85,7 +85,17 @@ public class HomeParentAdapter extends RecyclerView.Adapter<HomeParentViewHolder
             MainActivity mainActivity = new MainActivity();
             Date storedDate = mainActivity.storedDate;
             String storedUID = mainActivity.storedUID;
+            // IF stored post disappears
             if (randomMixList.size() > 0){
+                // If data gets deleted from firebase
+                if (storedUID== null || storedDate == null){
+                    final int random = new Random().nextInt(randomMixList.size());
+                    weeklyPost = randomMixList.get(random);
+                    homeMix.setWeekly(weeklyPost);
+                    // Immediately setting a post as a weekly feature
+                    storedDate = new Date(System.currentTimeMillis());
+                    storedUID = weeklyPost.postID;
+                }
                 //Getting Current Date Week
                 Date currentDate = new Date(System.currentTimeMillis());
                 Calendar calendar = Calendar.getInstance();
@@ -110,6 +120,14 @@ public class HomeParentAdapter extends RecyclerView.Adapter<HomeParentViewHolder
                     for(HomeMixData i : randomMixList){
                         if (i.postID.equals(storedUID)){ // getting the object that matches the ID
                             weeklyPost = i;
+                            break;
+                        }
+                        else{
+                            if (i == randomMixList.get(randomMixList.size()-1)){ // If its already the last item and doesnt match
+                                final int random = new Random().nextInt(randomMixList.size());
+                                weeklyPost = randomMixList.get(random);
+                                homeMix.setWeekly(weeklyPost);
+                            }
                         }
                     }
                 }

@@ -40,7 +40,13 @@ public class Home extends Fragment {
 //        }
         //Log.e("Shuffle", mixData.size()+"");
         if (randomMixList.size() > 0){ // checking if list is not empty, app wont crash
-            for (int i = 0; i < randomMixList.size(); i++)  {
+            Integer limit = randomMixList.size();
+            // Setting a Limit to no. of posts in discover more section
+            if (randomMixList.size()>7){
+                limit = 8;
+            }
+
+            for (int i = 0; i < limit; i++)  {
                 //Adding the data for every ViewHolder
                 HomeParentData d = new HomeParentData();
                 if (randomMixList.get(i).identifier == true) { // if its Hawker Corner post
