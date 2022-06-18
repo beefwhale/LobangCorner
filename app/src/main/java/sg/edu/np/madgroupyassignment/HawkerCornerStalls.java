@@ -28,9 +28,7 @@ public class HawkerCornerStalls {
     public long postTimeStamp;         //Time stamp for home page
 
     //Constructors
-    public HawkerCornerStalls (){
-
-    };
+    public HawkerCornerStalls (){ }
 
     public HawkerCornerStalls(String postid, String hccoverimg,String hcOwner, String hcstallname, String hcauthor, String hccparagraph, String hccaddress,
                               String daysopen, String hoursopen, String hccuserpfp,String shortdesc, long postTimeStamp){

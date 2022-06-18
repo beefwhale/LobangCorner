@@ -19,9 +19,9 @@ public class HCMainViewHolder extends RecyclerView.ViewHolder {
         super(item);
 
         hccoverimg = item.findViewById(R.id.hccoverimg);
-        hcstallname = (TextView) item.findViewById(R.id.hcstallname);
-        hcauthor = (TextView) item.findViewById(R.id.hccoverauthor);
-        hcshortdesc = (TextView) item.findViewById(R.id.hcshortdesc);
+        hcstallname = item.findViewById(R.id.hcstallname);
+        hcauthor = item.findViewById(R.id.hccoverauthor);
+        hcshortdesc = item.findViewById(R.id.hcshortdesc);
 
     }
 
