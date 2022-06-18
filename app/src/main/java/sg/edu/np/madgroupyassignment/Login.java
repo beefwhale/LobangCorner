@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -15,6 +16,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
@@ -34,23 +36,53 @@ import java.util.Calendar;
 
 public class Login extends AppCompatActivity {
 
+    private ImageView fishInput, fishGif;
     private TextInputEditText email, password;
     private Button loginBtn;
     private ProgressBar loadingPB;
     private TextView registerTV;
+    private PostsHolder postsHolder;
     private FirebaseAuth mAuth;
+    private Handler fishHandler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getSupportActionBar().hide();
         setContentView(R.layout.activity_login);
+
+        fishInput = findViewById(R.id.idRegTitle);
+        fishGif = findViewById(R.id.fishGif);
+        fishHandler = new Handler();
         email = findViewById(R.id.idUserName);
         password = findViewById(R.id.idPassword);
         loginBtn = findViewById(R.id.idBtnLog);
         loadingPB = findViewById(R.id.PBloading);
         registerTV = findViewById(R.id.idNUreg);
         mAuth = FirebaseAuth.getInstance();
+
+        fishInput.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                String fishInput = email.getText().toString();
+                String fishInputSecondary = password.getText().toString();
+                String fishCheck = String.valueOf(postsHolder.getFishRandom());
+
+                if (fishInput.equals(fishCheck) || fishInputSecondary.equals(fishCheck)){
+                    fishGif.setVisibility(View.VISIBLE);
+                    Glide.with(getApplicationContext()).load("https://c.tenor.com/x8v1oNUOmg4AAAAd/rickroll-roll.gif").into(fishGif);
+                }
+
+                fishHandler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        fishGif.setVisibility(View.GONE);
+                    }
+                }, 10000);
+
+                return true;
+            }
+        });
 
         loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
