@@ -16,19 +16,18 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/offwhite">
+            android:background="@color/Background_Cream">
 
             <TextView
                 android:id="@+id/idRecipeName"
                 android:layout_width="300dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
-                android:fontFamily="sans-serif-light"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="40dp"
+                android:fontFamily="@font/montserrat_bold"
                 android:text="TextView"
                 android:textColor="@color/Main_Primary"
                 android:textSize="30sp"
-                android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -46,12 +45,13 @@
                 android:id="@+id/idRecipeDescription"
                 android:layout_width="350dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
+                android:layout_marginStart="20dp"
                 android:layout_marginTop="8dp"
-                android:layout_marginEnd="16dp"
+                android:layout_marginEnd="20dp"
                 android:text="TextView"
                 android:textColor="#000000"
                 android:textSize="18sp"
+                android:fontFamily="@font/montserrat_regular"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/idDuration" />
@@ -60,9 +60,9 @@
                 android:id="@+id/imageView"
                 android:layout_width="350dp"
                 android:layout_height="350dp"
-                android:layout_marginStart="16dp"
+                android:layout_marginStart="20dp"
                 android:layout_marginTop="8dp"
-                android:layout_marginEnd="16dp"
+                android:layout_marginEnd="20dp"
                 android:scaleType="centerCrop"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.466"
@@ -83,31 +83,29 @@
 
             <TextView
                 android:id="@+id/ingredHeader"
-                android:layout_width="158dp"
-                android:layout_height="39dp"
-                android:layout_marginStart="16dp"
+                android:layout_width="183dp"
+                android:layout_height="37dp"
+                android:layout_marginStart="20dp"
                 android:layout_marginTop="13dp"
+                android:fontFamily="@font/montserrat_semibold"
                 android:gravity="left"
                 android:text="Ingredients"
                 android:textColor="@color/Text_Grey"
                 android:textSize="30sp"
-                android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.004"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/divider" />
 
             <TextView
                 android:id="@+id/stepsHeader"
-                android:layout_width="wrap_content"
-                android:layout_height="42dp"
-                android:layout_marginStart="16dp"
+                android:layout_width="98dp"
+                android:layout_height="36dp"
+                android:layout_marginStart="20dp"
                 android:layout_marginTop="13dp"
+                android:fontFamily="@font/montserrat_semibold"
                 android:gravity="left"
                 android:text="Steps"
                 android:textColor="@color/Text_Grey"
                 android:textSize="30sp"
-                android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/divider2" />
 
@@ -126,28 +124,29 @@
                 android:id="@+id/idSteps"
                 android:layout_width="350dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginEnd="16dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="30dp"
                 android:layout_marginBottom="30dp"
                 android:text="TextView"
                 android:textSize="16sp"
+                android:fontFamily="@font/montserrat_regular"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.517"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/stepsHeader"
                 app:layout_constraintVertical_bias="0.0" />
 
             <TextView
                 android:id="@+id/idUser"
-                android:layout_width="wrap_content"
+                android:layout_width="120dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="28dp"
                 android:layout_marginTop="12dp"
+                android:fontFamily="@font/montserrat_italic"
                 android:text="TextView"
-                android:textSize="12sp"
-                android:textStyle="italic"
+                android:textSize="13sp"
                 app:layout_constraintStart_toEndOf="@+id/ratingBar"
                 app:layout_constraintTop_toBottomOf="@+id/idRecipeName" />
 
@@ -155,9 +154,10 @@
                 android:id="@+id/idDuration"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
+                android:layout_marginStart="20dp"
                 android:layout_marginTop="8dp"
                 android:text="TextView"
+                android:fontFamily="@font/montserrat_regular"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/difficulty" />
 
@@ -165,27 +165,27 @@
                 android:id="@+id/idIngreds"
                 android:layout_width="350dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginEnd="16dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="30dp"
                 android:gravity="left"
                 android:text="TextView"
                 android:textSize="16sp"
-                app:layout_constraintBottom_toBottomOf="parent"
+                android:fontFamily="@font/montserrat_regular"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.034"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/ingredHeader"
-                app:layout_constraintVertical_bias="0.0" />
+                app:layout_constraintTop_toBottomOf="@+id/ingredHeader" />
 
             <TextView
                 android:id="@+id/difficulty"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
+                android:layout_marginStart="20dp"
                 android:layout_marginTop="12dp"
+                android:fontFamily="@font/montserrat_regular"
                 android:text="Level of difficulty : "
-                android:textSize="12sp"
+                android:textSize="14sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/idRecipeName" />
 
