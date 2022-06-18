@@ -137,8 +137,9 @@ public class RecipeForm extends Fragment {
                 if(recipeName == null || recipeName.length() == 0 || recipeName.isEmpty() ||
                         recipeDesc == null || recipeDesc.length() == 0 || recipeDesc.isEmpty() ||
                             totalIngred == null || totalIngred.length() == 0 || totalIngred.isEmpty() ||
-                                steps == null || steps.length() == 0 || steps.isEmpty()){
-                    Toast.makeText(getActivity(), "Please input recipe title, description, ingredients and steps", Toast.LENGTH_SHORT).show();
+                                steps == null || steps.length() == 0 || steps.isEmpty() ||
+                                    selectedImg.isEmpty() || selectedImg.length() == 0 || selectedImg == ""){
+                    Toast.makeText(getActivity(), "Please input recipe title, description, image, ingredients and steps", Toast.LENGTH_SHORT).show();
                 }
                 else{
                     ownerUID = userProfile.getUID();
@@ -163,10 +164,8 @@ public class RecipeForm extends Fragment {
     }
 
     private void RcpUp(HashMap<String, Object> userRcpList, RecipeCorner RcpObj, String PostID) {
-        //databaseReferencetest = FirebaseDatabase.getInstance().getReference();
         mAuth = FirebaseAuth.getInstance();
 
-        //String PostID = databaseReferencetest.push().getKey();
         databaseReferencetest.child("Posts").child("Recipes").child(PostID).setValue(RcpObj);
 
         userRcpList.put(PostID, PostID);

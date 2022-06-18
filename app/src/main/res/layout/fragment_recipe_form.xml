@@ -4,19 +4,21 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".RecipeForm">
+    tools:context=".RecipeForm"
+    android:background="@color/Background_Cream">
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tabLayout"
         android:layout_width="409dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:tabSelectedTextColor="@color/Main_Primary"
+        app:tabBackground="@color/Background_Cream"
         app:tabIndicatorColor="@color/accent"
         app:tabIndicatorHeight="3dp"
-        app:tabBackground="@color/offwhite"
+        app:tabSelectedTextColor="@color/Main_Primary"
         app:tabTextColor="@color/Main_Primary">
 
         <com.google.android.material.tabs.TabItem
@@ -39,7 +41,7 @@
         android:id="@+id/viewPager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="48dp"
+        android:layout_marginTop="88dp"
         app:layout_constraintBottom_toTopOf="@+id/submitbutton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"

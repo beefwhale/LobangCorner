@@ -28,8 +28,10 @@ public class RecipePostIngredients extends Fragment {
     EditText unit;
     ImageView add;
     String totalIngred;
+    String ingredString;
     ArrayList<String> totalIngredList;
     FormsViewModel viewModel;
+    String unt;
 
     public RecipePostIngredients() {
 
@@ -59,11 +61,15 @@ public class RecipePostIngredients extends Fragment {
                 String ingred = ingredientName.getText().toString();
 
                 String qtyString = qty.getText().toString();
-
-                String unt = unit.getText().toString();
+                if (unit == null || unit.length() == 0 || unit.getText().toString() == ""){
+                    unt = "";
+                }
+                else{
+                    unt = unit.getText().toString();
+                }
 
                 if(ingred == null || ingred.length() == 0 || qtyString == null
-                        || qtyString.length() == 0 || unt == null || unt.length() == 0){
+                        || qtyString.length() == 0){
                     //if input is empty, show a toast
                     Toast.makeText(getActivity(), "There is no input.", Toast.LENGTH_SHORT).show();
                 }
@@ -79,7 +85,12 @@ public class RecipePostIngredients extends Fragment {
                     totalIngred = "";
 
                     for (int i=0; i<ingredList.size(); i++){
-                        String ingredString = ingredList.get(i).qty + " " + ingredList.get(i).unit + " " + ingredList.get(i).name;
+                        if (ingredList.get(i).unit == "" || ingredList.get(i).unit == null || ingredList.get(i).unit.length() == 0){
+                            ingredString = ingredList.get(i).qty + " " + ingredList.get(i).name;
+                        }
+                        else{
+                            ingredString = ingredList.get(i).qty + " " + ingredList.get(i).unit + " " + ingredList.get(i).name;
+                        }
                         totalIngredList.add(ingredString);
 
                     }
