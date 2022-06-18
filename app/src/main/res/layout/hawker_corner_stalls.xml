@@ -5,9 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginTop="16dp"
-    android:layout_marginBottom="16dp"
     android:layout_marginLeft="20dp"
     android:layout_marginRight="20dp"
+    android:layout_marginBottom="16dp"
     app:cardCornerRadius="16dp"
     app:cardElevation="4dp">
 
@@ -16,72 +16,71 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="0dp"
         android:layout_marginTop="0dp"
-        android:layout_marginEnd="0dp"
         android:layout_marginBottom="0dp"
+        android:layout_marginEnd="0dp"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintEnd_toEndOf="parent">
 
         <ImageView
             android:id="@+id/hccoverimg"
             android:layout_width="0dp"
             android:layout_height="200dp"
             android:scaleType="centerCrop"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:srcCompat="@android:drawable/btn_star_big_on"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@android:drawable/btn_star_big_on" />
+            app:layout_constraintEnd_toEndOf="parent" />
 
         <View
             android:id="@+id/feed_line"
             android:layout_width="match_parent"
             android:layout_height="4dp"
-            app:layout_constraintTop_toBottomOf="@+id/hccoverimg"
-            android:background="@color/Main_Primary"/>
+            android:background="@color/Main_Primary"
+            app:layout_constraintTop_toBottomOf="@+id/hccoverimg" />
 
         <TextView
             android:id="@+id/hcstallname"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="TextView"
-            android:textSize="20sp"
             android:layout_marginTop="16dp"
             android:paddingLeft="16dp"
             android:paddingRight="16dp"
+            android:text="TextView"
+            android:textSize="20sp"
             android:fontFamily="@font/montserrat_semibold"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/hccoverimg" />
+            app:layout_constraintTop_toBottomOf="@+id/hccoverimg"
+            app:layout_constraintEnd_toEndOf="parent" />
 
         <TextView
             android:id="@+id/hcshortdesc"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="TextView"
-            android:textSize="14sp"
             android:paddingLeft="16dp"
             android:paddingRight="16dp"
+            android:text="TextView"
+            android:textSize="14sp"
             android:fontFamily="@font/montserrat_regular"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/hcstallname" />
+            app:layout_constraintTop_toBottomOf="@+id/hcstallname"
+            app:layout_constraintEnd_toEndOf="parent" />
 
         <TextView
             android:id="@+id/hccoverauthor"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:text="TextView"
-            android:textSize="14sp"
             android:paddingLeft="16dp"
             android:paddingRight="16dp"
             android:paddingBottom="16dp"
+            android:text="TextView"
+            android:textSize="14sp"
             android:fontFamily="@font/montserrat_italic"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/hcshortdesc" />
-
+            app:layout_constraintTop_toBottomOf="@+id/hcshortdesc"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.cardview.widget.CardView>

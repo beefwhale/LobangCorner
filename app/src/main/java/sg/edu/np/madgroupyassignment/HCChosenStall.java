@@ -20,9 +20,6 @@ import org.w3c.dom.Text;
 import java.util.ArrayList;
 
 public class HCChosenStall extends Fragment {
-    //Class-xml for chosen stall from hawker corner.
-//    private ArrayList<HawkerCornerStalls> stallsList = new ArrayList<>();
-
 
     public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState){
         return inflater.inflate(R.layout.activity_hcchosen_stall, parent, false);
@@ -50,8 +47,7 @@ public class HCChosenStall extends Fragment {
 
         if (HomeDataCheck == 1){
             HomeMixData chosenstall;
-            ArrayList<HomeMixData> stallsList = new ArrayList<>();
-            stallsList = Parcels.unwrap(bundle.getParcelable("list"));
+            ArrayList<HomeMixData> stallsList = Parcels.unwrap(bundle.getParcelable("list"));
             chosenstall = stallsList.get(chosenstallno);
 
             Picasso.get().load(chosenstall.getHccoverimg()).into(chosenstallimg);
@@ -66,8 +62,7 @@ public class HCChosenStall extends Fragment {
         }
         else{
             HawkerCornerStalls chosenstall;
-            ArrayList<HawkerCornerStalls> stallsList = new ArrayList<>();
-            stallsList = Parcels.unwrap(bundle.getParcelable("list"));
+            ArrayList<HawkerCornerStalls> stallsList = Parcels.unwrap(bundle.getParcelable("list"));
             chosenstall = stallsList.get(chosenstallno);
 
             Picasso.get().load(chosenstall.getHccoverimg()).into(chosenstallimg);

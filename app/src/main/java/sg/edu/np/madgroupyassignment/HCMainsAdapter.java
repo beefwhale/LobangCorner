@@ -49,7 +49,7 @@ public class HCMainsAdapter extends RecyclerView.Adapter<HCMainViewHolder> {
         holder.hcshortdesc.setText(newstall.shortdesc);
         holder.hcauthor.setText("By: " + newstall.hcauthor);
 
-        //When user click their chosen image, start fragment displaying chosen stall.
+        //When user click the stall, start fragment displaying chosen stall.
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
