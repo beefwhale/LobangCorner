@@ -58,32 +58,30 @@
             android:id="@+id/hcshortdesc"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/montserrat_regular"
             android:paddingLeft="16dp"
             android:paddingRight="16dp"
             android:text="TextView"
-            android:textColor="@color/black"
             android:textSize="14sp"
-            android:fontFamily="@font/montserrat_regular"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/hcstallname"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/hcstallname" />
 
         <TextView
             android:id="@+id/hccoverauthor"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
+            android:fontFamily="@font/montserrat_italic"
             android:paddingLeft="16dp"
             android:paddingRight="16dp"
             android:paddingBottom="16dp"
             android:text="TextView"
-            android:textColor="@color/black"
             android:textSize="14sp"
-            android:fontFamily="@font/montserrat_italic"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/hcshortdesc"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/hcshortdesc" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.cardview.widget.CardView>
