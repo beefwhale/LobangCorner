@@ -72,8 +72,6 @@ public class Login extends AppCompatActivity {
 
                                 startActivity(i);
                                 finish();
-//                                UID = task.getResult().getUser().getUid();
-//                                GetProfile(UID);
                             } else {
                                 loadingPB.setVisibility(View.GONE);
                                 Toast.makeText(Login.this, "Failed to login", Toast.LENGTH_SHORT).show();
@@ -98,7 +96,7 @@ public class Login extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         FirebaseUser user = mAuth.getCurrentUser();
-        if(user!=null){
+        if (user != null) {
             Intent i = new Intent(Login.this, MainActivity.class);
             startActivity(i);
             this.finish();

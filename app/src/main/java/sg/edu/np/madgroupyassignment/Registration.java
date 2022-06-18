@@ -104,7 +104,7 @@ public class Registration extends AppCompatActivity {
                                 RcpSeed.put("Seed", "RcpSeed");
 
 //                                Creating new user profile
-                                CreateProfile(UID, Username, Email, profP,aboutMe, HawkSeed, RcpSeed);
+                                CreateProfile(UID, Username, Email, profP, aboutMe, HawkSeed, RcpSeed);
 
 //                                Sending user to login page after registration
                                 Toast.makeText(Registration.this, "User Registered...", Toast.LENGTH_SHORT).show();

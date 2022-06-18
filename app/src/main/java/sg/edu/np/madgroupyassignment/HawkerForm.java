@@ -363,8 +363,9 @@ public class HawkerForm extends Fragment {
                 if (stallName.isEmpty() || stallName.length() == 0 || stallName == "" ||
                         desc.isEmpty() || desc.length() == 0 || desc == "" ||
                             shortDesc.isEmpty() || shortDesc.length() == 0 || shortDesc == "" ||
-                                address.isEmpty() || address.length() == 0 || address == ""){
-                    Toast.makeText(getActivity(),"Please input Stall Name, Descriptions and Address", Toast.LENGTH_SHORT).show();
+                                address.isEmpty() || address.length() == 0 || address == "" ||
+                                    downUrl.isEmpty() || downUrl.length() == 0 || downUrl == ""){
+                    Toast.makeText(getActivity(),"Please input Stall Name, Descriptions, Image and Address", Toast.LENGTH_SHORT).show();
                 }
                 else{
                     username = userProfile.getUsername(); //USERNAME parameter

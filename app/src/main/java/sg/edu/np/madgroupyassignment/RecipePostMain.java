@@ -78,7 +78,7 @@ public class RecipePostMain extends Fragment {
         descInput = f1.findViewById(R.id.Desc);
         numberPicker = f1.findViewById(R.id.numPicker);
         displayPicButtonRecipe = f1.findViewById(R.id.displayPic2);
-        newVal = 0;
+        newVal = 1;
         viewModel = new ViewModelProvider(requireParentFragment()).get(FormsViewModel.class);
 
         storageReference = FirebaseStorage.getInstance().getReference();

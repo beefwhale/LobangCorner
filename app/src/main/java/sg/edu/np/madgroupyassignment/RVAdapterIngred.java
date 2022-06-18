@@ -25,6 +25,7 @@ public class RVAdapterIngred extends RecyclerView.Adapter<RVAdapterIngred.ViewHo
     ViewModelStoreOwner VMSO;
     String totalIngred;
     FormsViewModel viewModel;
+    String ingredString;
     ArrayList<String> totalIngredList;
 
     public RVAdapterIngred(Context context, ArrayList<Ingredient> ingreds, ViewModelStoreOwner vmso){
@@ -62,7 +63,12 @@ public class RVAdapterIngred extends RecyclerView.Adapter<RVAdapterIngred.ViewHo
                 totalIngred = "";
                 RecipePostIngredients.removeItem(holder.getAdapterPosition());//allow remove of ingredient using imageview
                 for (int i=0; i<list.size(); i++){
-                    String ingredString = list.get(i).name + " " + list.get(i).qty + " " + list.get(i).unit;
+                    if (list.get(i).unit == "" || list.get(i).unit == null || list.get(i).unit.length() == 0){
+                        ingredString = list.get(i).qty + " " + list.get(i).name;
+                    }
+                    else{
+                        ingredString = list.get(i).qty + " " + list.get(i).unit + " " + list.get(i).name;
+                    }
                     totalIngredList.add(ingredString);
 
                 }
