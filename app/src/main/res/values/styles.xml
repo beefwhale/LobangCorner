@@ -17,7 +17,7 @@
     </style>
 
     <style name="LG_Button_2" parent="ThemeOverlay.AppCompat">
-        <item name="colorPrimary">@color/white</item>
-        <item name="colorAccent">@color/white</item>
+        <item name="colorPrimary">@color/offwhite</item>
+        <item name="colorAccent">@color/offwhite</item>
     </style>
 </resources>

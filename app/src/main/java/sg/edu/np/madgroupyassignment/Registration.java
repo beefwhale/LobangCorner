@@ -97,7 +97,7 @@ public class Registration extends AppCompatActivity {
 
 //                                Setting default data
                                 profP = "https://firebasestorage.googleapis.com/v0/b/lobang-corner.appspot.com/o/DefaultProfilePic%2FBlobus.PNG?alt=media&token=2f89a9bb-8292-4578-8d0e-b2fa7e37676d";
-                                aboutMe = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. ";
+                                aboutMe = "Add something about yourself here... ";
                                 HawkSeed = new HashMap<String, Object>();
                                 HawkSeed.put("Seed", "HawkSeed");
                                 RcpSeed = new HashMap<String, Object>();

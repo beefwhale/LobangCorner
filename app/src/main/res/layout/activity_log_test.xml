@@ -6,7 +6,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/offwhite"
+    android:background="@color/Background_Cream"
     android:fillViewport="true">
 
     <RelativeLayout
@@ -19,13 +19,17 @@
             android:layout_width="match_parent"
             android:layout_height="176dp"
             android:layout_marginTop="80dp"
-            android:scaleType="centerCrop" />
+            android:scaleType="centerCrop"
+            app:civ_border_width="1dp"
+            app:civ_border_color="@color/Text_Grey"/>
+
         <TextView
             android:id="@+id/TestTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/idProfP"
             android:layout_marginTop="30dp"
+            android:fontFamily="@font/montserrat_regular"
             android:gravity="center"
             android:text="Username"
             android:textAlignment="center"
@@ -51,6 +55,7 @@
                 android:layout_marginEnd="15dp"
                 android:layout_weight="1"
                 android:background="@drawable/text_shadow"
+                android:fontFamily="@font/montserrat_regular"
                 android:paddingVertical="35dp"
                 android:text="HawkList"
                 android:textAlignment="center"
@@ -65,6 +70,7 @@
                 android:layout_marginEnd="35dp"
                 android:layout_weight="1"
                 android:background="@drawable/text_shadow"
+                android:fontFamily="@font/montserrat_regular"
                 android:paddingVertical="35dp"
                 android:text="RecList"
                 android:textAlignment="center"
@@ -93,12 +99,12 @@
             android:layout_below="@+id/idAbtHead"
             android:layout_marginHorizontal="20dp"
             android:layout_marginTop="8dp"
-            android:background="@color/white"
-            android:backgroundTint="@color/white"
+            android:background="@color/offwhite"
+            android:backgroundTint="@color/offwhite"
+            android:fontFamily="@font/montserrat_italic"
             android:gravity="left"
             android:minHeight="130dp"
             android:paddingHorizontal="17dp"
-
             android:text="\nClick to add description..."
             android:textAllCaps="false"
             android:textColor="@color/Text_Grey"
@@ -113,6 +119,7 @@
             android:layout_marginTop="8dp"
             android:layout_marginEnd="20dp"
             android:background="@drawable/custom_button_back"
+            android:fontFamily="@font/montserrat_regular"
             android:text="Submit"
             android:textColor="@color/Text_Grey"
             android:theme="@style/LG_Button_2" />
@@ -129,6 +136,7 @@
             android:layout_marginEnd="20dp"
             android:layout_marginBottom="8dp"
             android:background="@drawable/custom_button_back"
+            android:fontFamily="@font/montserrat_regular"
             android:text="Logout"
             android:textAllCaps="false"
             android:textColor="@color/white"
