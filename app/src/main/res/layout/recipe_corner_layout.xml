@@ -12,11 +12,10 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        android:fontFamily="sans-serif-light"
+        android:fontFamily="@font/montserrat_semibold"
         android:text="TextView"
         android:textColor="#000000"
         android:textSize="18sp"
-        android:textStyle="bold"
         app:layout_constraintStart_toEndOf="@+id/imageView"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -43,6 +42,7 @@
         android:layout_marginBottom="16dp"
         android:text="TextView"
         android:textColor="#000000"
+        android:fontFamily="@font/montserrat_regular"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.157"
@@ -64,16 +64,14 @@
 
     <TextView
         android:id="@+id/idUser"
-        android:layout_width="wrap_content"
+        android:layout_width="117dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="12dp"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="25dp"
-        android:layout_marginBottom="16dp"
+        android:fontFamily="@font/montserrat_italic"
         android:text="TextView"
         android:textColor="#000000"
         android:textSize="12sp"
-        android:textStyle="italic"
         app:layout_constraintStart_toEndOf="@+id/ratingBar"
         app:layout_constraintTop_toBottomOf="@+id/idRecipeName" /><![CDATA[
 
