@@ -57,6 +57,7 @@
                 android:paddingRight="16dp"
                 android:text="TextView"
                 android:textSize="20sp"
+                android:textColor="@color/black"
                 android:fontFamily="@font/montserrat_semibold"
                 app:layout_constraintEnd_toEndOf="@+id/feed_img"
                 app:layout_constraintStart_toStartOf="parent"

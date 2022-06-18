@@ -36,8 +36,8 @@
         android:layout_centerVertical="true"
         android:layout_marginRight="30sp"
         android:layout_toLeftOf="@+id/remove2"
+        android:ems="3"
         android:fontFamily="@font/montserrat_regular"
-        android:ems="2"
         android:textSize="17sp"
         android:textStyle="bold" />
 
