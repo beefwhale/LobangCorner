@@ -106,5 +106,11 @@
         android:indeterminateDrawable="@drawable/prog_back"
         android:visibility="gone" />
 
+    <ImageView
+        android:id="@+id/fishGif"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:translationZ="100dp"/>
 
 </RelativeLayout>

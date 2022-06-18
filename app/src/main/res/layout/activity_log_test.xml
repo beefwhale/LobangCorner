@@ -20,8 +20,7 @@
             android:layout_height="176dp"
             android:layout_marginTop="80dp"
             android:scaleType="centerCrop"
-            app:civ_border_width="1dp"
-            app:civ_border_color="@color/Text_Grey"/>
+            app:civ_circle_background_color="@color/offwhite" />
 
         <TextView
             android:id="@+id/TestTitle"

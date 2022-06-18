@@ -216,7 +216,6 @@
                     android:gravity="center_horizontal|center_vertical"
                     android:padding="10sp"
                     android:text="None found"
-                    android:textColor="@color/black"
                     android:textSize="14sp" />
 
                 <TextView
@@ -230,7 +229,6 @@
                     android:gravity="center_horizontal|center_vertical"
                     android:padding="10sp"
                     android:text="None found"
-                    android:textColor="@color/black"
                     android:textSize="14sp" />
             </TableRow>
         </TableLayout>

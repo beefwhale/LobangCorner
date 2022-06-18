@@ -11,6 +11,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
+import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -23,6 +24,8 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.webkit.MimeTypeMap;
 import android.widget.Button;
 import android.widget.EditText;
@@ -54,11 +57,13 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 public class Profile extends Fragment {
 
     private static UserProfile userProfile;
     private static String aboutMeInput;
-    private static TextView username, hwkObj, rcpObj;
+    private static TextView username, hwkObj, rcpObj, fishRandom;
     private static ImageView profP, fishView;
     private Button logout, aboutbtn;
     private ProgressBar loadingPB;
@@ -88,6 +93,7 @@ public class Profile extends Fragment {
         loadingPB = view.findViewById(R.id.PBloading);
         layoutInflater = getLayoutInflater();
         fish = inflater.inflate(R.layout.fish, (ViewGroup) view.findViewById(R.id.fish));
+        fishRandom = fish.findViewById(R.id.fishText);
         fishView = fish.findViewById(R.id.fishView);
         aboutbtn = view.findViewById(R.id.about_btn);
 
@@ -172,6 +178,7 @@ public class Profile extends Fragment {
             @Override
             public boolean onLongClick(View view) {
                 Picasso.get().load("https://firebasestorage.googleapis.com/v0/b/lobang-corner.appspot.com/o/DefaultProfilePic%2FFish.png?alt=media&token=095f452e-f158-4de3-a533-a5db64eb5e38").into(fishView);
+                fishRandom.setText("" + postsHolder.getFishRandom());
                 Toast toast = new Toast(getContext());
                 toast.setGravity(Gravity.CENTER, 0, 0);
                 toast.setView(fish);
@@ -179,6 +186,7 @@ public class Profile extends Fragment {
                 return true;
             }
         });
+
         return view;
     }
 

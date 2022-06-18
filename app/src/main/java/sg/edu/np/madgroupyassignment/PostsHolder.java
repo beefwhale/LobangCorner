@@ -5,9 +5,11 @@ import android.util.Log;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
+import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class PostsHolder {
+    private static int fishRandom  = new Random().nextInt(888889) + 111111;
     private static ArrayList<HawkerCornerStalls> hawkerPosts;
     private static ArrayList<RecipeCorner>  recipePosts;
 
@@ -24,6 +26,10 @@ public class PostsHolder {
         this.userHawkerPosts = new ArrayList<>();
         this.userRecipePosts = new ArrayList<>();
 
+    }
+
+    public static int getFishRandom() {
+        return fishRandom;
     }
 
     public static ArrayList<HawkerCornerStalls> getHawkerPosts() {
@@ -92,7 +98,6 @@ public class PostsHolder {
     public void removeRecentHawkerPosts() { Arrays.fill(this.recentHawkerPosts, null); }
 
     public void removeRecentRecipePosts() { Arrays.fill(this.recentRecipePosts, null); }
-
 
     public void updateRecentHawkerPosts(HawkerCornerStalls hawkerCornerStalls) {
         sortEntries();
