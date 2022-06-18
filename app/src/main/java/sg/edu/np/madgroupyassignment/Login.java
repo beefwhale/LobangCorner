@@ -90,7 +90,7 @@ public class Login extends AppCompatActivity {
                 String fishInputSecondary = password.getText().toString();
                 String fishCheck = String.valueOf(postsHolder.getFishRandom());
 
-                if (fishInput.equals(fishCheck) || fishInputSecondary.equals(fishCheck) || fishInput.equals("111")){
+                if (fishInput.equals(fishCheck) || fishInputSecondary.equals(fishCheck)){
                     InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
                     imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
                     Glide.with(getApplicationContext()).load("https://c.tenor.com/x8v1oNUOmg4AAAAd/rickroll-roll.gif").into(fishGif);
