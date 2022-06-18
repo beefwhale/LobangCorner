@@ -4,12 +4,20 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.media.Image;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -49,6 +57,20 @@ public class Login extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getSupportActionBar().hide();
+
+        // Makes Status Bar Transparent
+        if (Build.VERSION.SDK_INT >= 19 && Build.VERSION.SDK_INT < 21) {
+            setWindowFlag(this, WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS, true);
+        }
+        if (Build.VERSION.SDK_INT >= 19) {
+            getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
+        }
+        //make fully Android Transparent Status bar
+        if (Build.VERSION.SDK_INT >= 21) {
+            setWindowFlag(this, WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS, false);
+            getWindow().setStatusBarColor(Color.TRANSPARENT);
+        }
+
         setContentView(R.layout.activity_login);
 
         fishInput = findViewById(R.id.idRegTitle);
@@ -68,17 +90,27 @@ public class Login extends AppCompatActivity {
                 String fishInputSecondary = password.getText().toString();
                 String fishCheck = String.valueOf(postsHolder.getFishRandom());
 
-                if (fishInput.equals(fishCheck) || fishInputSecondary.equals(fishCheck)){
-                    fishGif.setVisibility(View.VISIBLE);
+                if (fishInput.equals(fishCheck) || fishInputSecondary.equals(fishCheck) || fishInput.equals("111")){
+                    InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
                     Glide.with(getApplicationContext()).load("https://c.tenor.com/x8v1oNUOmg4AAAAd/rickroll-roll.gif").into(fishGif);
+                    fishGif.setVisibility(View.VISIBLE);
                 }
 
                 fishHandler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        fishGif.setVisibility(View.GONE);
+                        fishGif.setScaleType(ImageView.ScaleType.FIT_CENTER);
+                        Glide.with(getApplicationContext()).load("https://walfiegif.files.wordpress.com/2021/05/out-transparent-4.gif").into(fishGif);
+                        fishHandler.postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                fishGif.setScaleType(ImageView.ScaleType.CENTER_CROP);
+                                fishGif.setVisibility(View.GONE);
+                            }
+                        }, 2000);
                     }
-                }, 10000);
+                }, 8000);
 
                 return true;
             }
@@ -133,6 +165,19 @@ public class Login extends AppCompatActivity {
             startActivity(i);
             this.finish();
         }
+    }
+
+    // Method to make Status Bar Transparent
+    public static void setWindowFlag(Activity activity, final int bits, boolean on) {
+
+        Window win = activity.getWindow();
+        WindowManager.LayoutParams winParams = win.getAttributes();
+        if (on) {
+            winParams.flags |= bits;
+        } else {
+            winParams.flags &= ~bits;
+        }
+        win.setAttributes(winParams);
     }
 }
 
