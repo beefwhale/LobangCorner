@@ -90,7 +90,7 @@ public class Login extends AppCompatActivity {
                 loadingPB.setVisibility(View.VISIBLE);
                 String Email = email.getText().toString();
                 String Password = password.getText().toString();
-                if (TextUtils.isEmpty(Email) && TextUtils.isEmpty(Password)) {
+                if (TextUtils.isEmpty(Email) || TextUtils.isEmpty(Password)) {
                     loadingPB.setVisibility(View.GONE);
                     Toast.makeText(Login.this, "Please enter your login credentials", Toast.LENGTH_SHORT).show();
                 } else {

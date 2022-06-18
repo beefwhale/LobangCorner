@@ -89,7 +89,6 @@ public class Profile extends Fragment {
         logout = view.findViewById(R.id.idLogout);
         loadingPB = view.findViewById(R.id.PBloading);
         layoutInflater = getLayoutInflater();
-        postsHolder = new PostsHolder();
         fish = inflater.inflate(R.layout.fish, (ViewGroup) view.findViewById(R.id.fish));
         fishRandom = fish.findViewById(R.id.fishText);
         fishView = fish.findViewById(R.id.fishView);
