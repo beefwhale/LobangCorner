@@ -68,6 +68,7 @@ public class MainActivity extends AppCompatActivity{
         }
         win.setAttributes(winParams);
     }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

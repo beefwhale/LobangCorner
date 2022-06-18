@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/Cream"
+    android:background="@color/Background_Cream"
     tools:context=".Login">
 
     <ImageView
@@ -23,6 +23,7 @@
         android:layout_marginStart="20dp"
         android:layout_marginTop="30dp"
         android:layout_marginEnd="20dp"
+        android:fontFamily="@font/montserrat_italic"
         android:hint="Enter Email"
         android:padding="5dp"
         android:textColorHint="@color/Text_Grey"
@@ -32,6 +33,7 @@
             android:id="@+id/idUserName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/montserrat_italic"
             android:importantForAutofill="no"
             android:inputType="textEmailAddress"
             android:textColor="@color/Text_Grey"
@@ -48,6 +50,7 @@
         android:layout_marginStart="20dp"
         android:layout_marginTop="20dp"
         android:layout_marginEnd="20dp"
+        android:fontFamily="@font/montserrat_italic"
         android:hint="Enter Password"
         android:padding="5dp"
         android:textColorHint="@color/Text_Grey"
@@ -57,6 +60,7 @@
             android:id="@+id/idPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/montserrat_italic"
             android:importantForAutofill="no"
             android:inputType="textPassword"
             android:textColor="@color/Text_Grey"
@@ -72,11 +76,12 @@
         android:layout_marginStart="20dp"
         android:layout_marginTop="60dp"
         android:layout_marginEnd="20dp"
-        android:theme="@style/LG_Button"
         android:background="@drawable/custom_button_back"
+        android:fontFamily="@font/montserrat_regular"
         android:text="Login"
         android:textAllCaps="false"
-        android:textColor="@color/white" />
+        android:textColor="@color/white"
+        android:theme="@style/LG_Button" />
 
     <TextView
         android:id="@+id/idNUreg"
@@ -84,6 +89,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/idBtnLog"
         android:layout_marginTop="30dp"
+        android:fontFamily="@font/montserrat_regular"
         android:gravity="center"
         android:text="New user? Register here"
         android:textAlignment="center"

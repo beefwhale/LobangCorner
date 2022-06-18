@@ -64,8 +64,6 @@ public class Profile extends Fragment {
     private ProgressBar loadingPB;
     private EditText aboutme;
     private PostsHolder postsHolder;
-
-    //fish
     private LayoutInflater layoutInflater;
     private View fish;
 
@@ -89,7 +87,7 @@ public class Profile extends Fragment {
         logout = view.findViewById(R.id.idLogout);
         loadingPB = view.findViewById(R.id.PBloading);
         layoutInflater = getLayoutInflater();
-        fish = inflater.inflate(R.layout.fish, (ViewGroup)view.findViewById(R.id.fish));
+        fish = inflater.inflate(R.layout.fish, (ViewGroup) view.findViewById(R.id.fish));
         fishView = fish.findViewById(R.id.fishView);
         aboutbtn = view.findViewById(R.id.about_btn);
 
@@ -127,29 +125,7 @@ public class Profile extends Fragment {
             public void onClick(View view) {
                 aboutMeInput = aboutme.getText().toString();
                 updateAboutMe(aboutMeInput);
-                Toast.makeText(getActivity(),"Changes Saved",Toast.LENGTH_SHORT).show();
-//                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-//                builder.setTitle("Change profile description");
-//                input = new EditText(getActivity());
-//                builder.setView(input);
-//
-//                builder.setPositiveButton("Submit", new DialogInterface.OnClickListener() {
-//                    @Override
-//                    public void onClick(DialogInterface dialogInterface, int i) {
-//                        aboutMeInput = input.getText().toString();
-//                        updateAboutMe(aboutMeInput);
-//                    }
-//                });
-//
-//                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-//                    @Override
-//                    public void onClick(DialogInterface dialogInterface, int i) {
-//
-//                    }
-//                });
-//
-//                AlertDialog alert = builder.create();
-//                alert.show();
+                Toast.makeText(getActivity(), "Changes Saved", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -157,13 +133,12 @@ public class Profile extends Fragment {
         hwkObj.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (postsHolder.getUserHawkerPosts().size() > 0){
+                if (postsHolder.getUserHawkerPosts().size() > 0) {
                     AppCompatActivity activity = (AppCompatActivity) view.getContext();
                     Fragment profileHcFragment = new ProfileHawkerRV();
                     activity.getSupportFragmentManager().beginTransaction()
                             .replace(R.id.MainFragment, profileHcFragment).addToBackStack(null).commit();
-                }
-                else{
+                } else {
                     Toast.makeText(getActivity(), "No Hawker Corner Posts made", Toast.LENGTH_SHORT).show();
                 }
             }
@@ -173,13 +148,12 @@ public class Profile extends Fragment {
         rcpObj.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (postsHolder.getUserRecipePosts().size() > 0){
+                if (postsHolder.getUserRecipePosts().size() > 0) {
                     AppCompatActivity activity = (AppCompatActivity) view.getContext();
                     Fragment profileRcpFragment = new ProfileRecipeRV();
                     activity.getSupportFragmentManager().beginTransaction()
                             .replace(R.id.MainFragment, profileRcpFragment).addToBackStack(null).commit();
-                }
-                else{
+                } else {
                     Toast.makeText(getActivity(), "No Recipe Corner Posts made", Toast.LENGTH_SHORT).show();
                 }
 
@@ -208,51 +182,51 @@ public class Profile extends Fragment {
         return view;
     }
 
-//    Updating profile page
+    //    Updating profile page
     public void updatePage() {
         MainActivity mainActivity = new MainActivity();
         mainActivity.profileFirstUpdate = false;
 
         Picasso.get().load(userProfile.getProfileImg()).into(profP);
         username.setText(userProfile.getUsername());
-        if (aboutme != null){
-            aboutme.setText(userProfile.getAboutMe());
+        if (aboutme != null) {
+            aboutme.setText("\n" + userProfile.getAboutMe());
         }
-        hwkObj.setText("" + (userProfile.getHawkList().size()-1) + "\n\nHawker Posts");
-        rcpObj.setText("" + (userProfile.getRcpList().size()-1) + "\n\nRecipe Post");
+        hwkObj.setText("" + (userProfile.getHawkList().size() - 1) + "\n\nHawker Posts");
+        rcpObj.setText("" + (userProfile.getRcpList().size() - 1) + "\n\nRecipe Post");
 
         getUserPost();
     }
 
-//    Removes all non-user posts
+    //    Removes all non-user posts
     private void getUserPost() {
         ProfileHawkerRV profileHawkerRV = new ProfileHawkerRV();
-        if (profileHawkerRV.hcadapter != null){
+        if (profileHawkerRV.hcadapter != null) {
             profileHawkerRV.hcadapter.notifyDataSetChanged();
         }
 
         ProfileRecipeRV profileRecipeRV = new ProfileRecipeRV();
-        if (profileRecipeRV.adapter != null){
+        if (profileRecipeRV.adapter != null) {
             profileRecipeRV.adapter.notifyDataSetChanged();
         }
     }
 
-//    Getting file extension
+    //    Getting file extension
     private String getFileExt(Uri uri) {
         ContentResolver cR = getActivity().getContentResolver();
         MimeTypeMap mime = MimeTypeMap.getSingleton();
         return mime.getExtensionFromMimeType(cR.getType(uri));
     }
 
-//    Setting new about me
-    private void updateAboutMe(String newAboutMe){
+    //    Setting new about me
+    private void updateAboutMe(String newAboutMe) {
         HashMap<String, Object> data = new HashMap<>();
 
         data.put("aboutMe", newAboutMe);
         databaseReference.child("UserProfile").child(userProfile.getUID()).updateChildren(data);
     }
 
-//    Upload chosen image to firebase and changes profile picture in user profile
+    //    Upload chosen image to firebase and changes profile picture in user profile
     private void upPost() {
         if (ImageUri != null) {
             StorageReference fileReference = storageReference.child("ImgUps").child(System.currentTimeMillis() + "." + getFileExt(ImageUri));
@@ -278,7 +252,7 @@ public class Profile extends Fragment {
                                     hawkerPostProfileImgUpdate.put("hccuserpfp", downUrl);
 
 //                                    Change hawker post profile picture
-                                    for (String hawkerPostUpdate : userProfile.getHawkList().keySet()){
+                                    for (String hawkerPostUpdate : userProfile.getHawkList().keySet()) {
                                         if (!hawkerPostUpdate.equals("Seed")) {
                                             databaseReference.child("Posts").child("Hawkers").child(hawkerPostUpdate).updateChildren(hawkerPostProfileImgUpdate);
                                         }
@@ -288,7 +262,7 @@ public class Profile extends Fragment {
 
 //                            Deleting old image from storage if not default
                             StorageReference storageLocationCheck = FirebaseStorage.getInstance().getReferenceFromUrl(userProfile.getProfileImg());
-                            if (storageLocationCheck.getParent().getName().equals("ImgUps")){
+                            if (storageLocationCheck.getParent().getName().equals("ImgUps")) {
                                 storageLocationCheck.delete();
                             }
 
