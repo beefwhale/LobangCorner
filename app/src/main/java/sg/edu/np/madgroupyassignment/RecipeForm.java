@@ -54,21 +54,17 @@ public class RecipeForm extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        selectedImg = "https://firebasestorage.googleapis.com/v0/b/lobang-corner.appspot.com/o/DefaultProfilePic%2FPengi.png?alt=media&token=d8cbc81d-6bcd-456b-809d-e867b4506c17";
+        selectedImg = "";
+        difficulty = 1;
         // Inflate the layout for this fragment
         databaseReferencetest = FirebaseDatabase.getInstance().getReference();
         View recipeform = inflater.inflate(R.layout.fragment_recipe_form, container, false);
 
 
         //Connecting the 3 fragments through tabLayout
-
         tabLayout = recipeform.findViewById(R.id.tabLayout);
         viewPager = recipeform.findViewById(R.id.viewPager);
         submitButton = recipeform.findViewById(R.id.submitbutton);
-
-        difficulty = 0;
-
-
         RecipePostVPAdapter vpAdapter = new RecipePostVPAdapter(getChildFragmentManager(), getLifecycle());
         vpAdapter.addFragment(new RecipePostMain(), "Recipe Post");
         vpAdapter.addFragment(new RecipePostSteps(), "Recipe Steps");
@@ -76,19 +72,21 @@ public class RecipeForm extends Fragment {
         viewPager.setAdapter(vpAdapter);
         viewPager.setSaveEnabled(false);
 
+
+
         new TabLayoutMediator(tabLayout, viewPager, new TabLayoutMediator.TabConfigurationStrategy() {
             @Override
             public void onConfigureTab(@NonNull TabLayout.Tab tab, int position) {
                 tab.setText(vpAdapter.getPageTitle(position));
             }
         }).attach();
+
         viewModel = new ViewModelProvider(this).get(FormsViewModel.class);
 
 
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                userProfile = Parcels.unwrap(getActivity().getIntent().getParcelableExtra("UserProfile"));
                 username = userProfile.getUsername(); //USERNAME parameter
 
                 viewModel.getSelectedRecipeName().observe(getViewLifecycleOwner(), new Observer<String>() {
@@ -137,8 +135,8 @@ public class RecipeForm extends Fragment {
                 if(recipeName == null || recipeName.length() == 0 || recipeName.isEmpty() ||
                         recipeDesc == null || recipeDesc.length() == 0 || recipeDesc.isEmpty() ||
                             totalIngred == null || totalIngred.length() == 0 || totalIngred.isEmpty() ||
-                                steps == null || steps.length() == 0 || steps.isEmpty() ||
-                                    selectedImg.isEmpty() || selectedImg.length() == 0 || selectedImg == ""){
+                                steps == null || steps.length() == 0 || steps.isEmpty() /*||
+                                    selectedImg.isEmpty() || selectedImg.length() == 0 || selectedImg == ""*/){
                     Toast.makeText(getActivity(), "Please input recipe title, description, image, ingredients and steps", Toast.LENGTH_SHORT).show();
                 }
                 else{
