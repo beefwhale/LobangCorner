@@ -178,7 +178,6 @@ public class HomeMix {
         databaseReferencetest = FirebaseDatabase.getInstance().getReference();
         databaseReferencetest.child("WeeklyDate").setValue(weeklyDate);
         databaseReferencetest.child("WeeklyPost").setValue(weeklyPostUID);
-        Log.e("weekly", "database");
     }
 
 }

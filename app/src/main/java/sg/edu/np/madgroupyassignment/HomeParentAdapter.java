@@ -95,7 +95,6 @@ public class HomeParentAdapter extends RecyclerView.Adapter<HomeParentViewHolder
                     // Immediately setting a post as a weekly feature
                     storedDate = new Date(System.currentTimeMillis());
                     storedUID = weeklyPost.postID;
-                    Log.e("weekly", "test");
                 }
                 //Getting Current Date Week
                 Date currentDate = new Date(System.currentTimeMillis());
