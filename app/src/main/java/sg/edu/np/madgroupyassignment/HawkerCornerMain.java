@@ -138,7 +138,7 @@ public class HawkerCornerMain extends Fragment implements AdapterView.OnItemSele
 
     }
 
-    //Method to be used in spinner switch-case
+    //Methods to be used in spinner switch-case, can be reused if adding more filters
     public ArrayList<HawkerCornerStalls> sortListByStall(){
         Collections.sort(stallsList, new Comparator<HawkerCornerStalls>() {
             @Override

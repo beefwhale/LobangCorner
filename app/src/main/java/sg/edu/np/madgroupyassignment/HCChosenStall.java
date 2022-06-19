@@ -42,6 +42,7 @@ public class HCChosenStall extends Fragment {
         //Bundle to get info from Hawker Corner Main
         Bundle bundle = this.getArguments();
 
+        //Make sure bundle
         assert bundle != null;
         int chosenstallno = (int) bundle.getInt("stallposition");
         int HomeDataCheck = (int) bundle.getInt("HomeDataCheck"); // check if coming from home. 1 if yes
