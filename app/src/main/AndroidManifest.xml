@@ -7,9 +7,9 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/logo_cream"
+        android:icon="@mipmap/logo_v1"
         android:label="Lobang Corner"
-        android:roundIcon="@mipmap/logo_cream_round"
+        android:roundIcon="@mipmap/logo_v1_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MADGroupYAssignment">
         <activity

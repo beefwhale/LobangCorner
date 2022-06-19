@@ -95,6 +95,7 @@ public class HomeParentAdapter extends RecyclerView.Adapter<HomeParentViewHolder
                     // Immediately setting a post as a weekly feature
                     storedDate = new Date(System.currentTimeMillis());
                     storedUID = weeklyPost.postID;
+                    Log.e("weekly", "test");
                 }
                 //Getting Current Date Week
                 Date currentDate = new Date(System.currentTimeMillis());
@@ -106,6 +107,7 @@ public class HomeParentAdapter extends RecyclerView.Adapter<HomeParentViewHolder
 
                 //Getting Stored Date Week
                 calendar = Calendar.getInstance();
+                calendar.setFirstDayOfWeek(Calendar.MONDAY);
                 calendar.setMinimalDaysInFirstWeek(4);
                 calendar.setTime(storedDate);
                 int storedWeek = calendar.get(Calendar.WEEK_OF_YEAR);
@@ -115,11 +117,13 @@ public class HomeParentAdapter extends RecyclerView.Adapter<HomeParentViewHolder
                     final int random = new Random().nextInt(randomMixList.size());
                     weeklyPost = randomMixList.get(random);
                     homeMix.setWeekly(weeklyPost);
+                    Log.e("weekly", "test1");
                 }
                 else{ // getting post from databse, if this week has been updated
                     for(HomeMixData i : randomMixList){
                         if (i.postID.equals(storedUID)){ // getting the object that matches the ID
                             weeklyPost = i;
+                            Log.e("weekly", "test2");
                             break;
                         }
                         else{
@@ -127,6 +131,7 @@ public class HomeParentAdapter extends RecyclerView.Adapter<HomeParentViewHolder
                                 final int random = new Random().nextInt(randomMixList.size());
                                 weeklyPost = randomMixList.get(random);
                                 homeMix.setWeekly(weeklyPost);
+                                Log.e("weekly", "test3");
                             }
                         }
                     }
