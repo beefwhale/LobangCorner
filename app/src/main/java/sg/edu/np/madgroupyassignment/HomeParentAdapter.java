@@ -104,27 +104,24 @@ public class HomeParentAdapter extends RecyclerView.Adapter<HomeParentViewHolder
                 calendar.setMinimalDaysInFirstWeek(1);
                 calendar.setTime(currentDate);
                 int currentWeek = calendar.get(Calendar.WEEK_OF_YEAR);
-                Log.e("weekly",currentWeek+"");
+
                 //Getting Stored Date Week
                 calendar = Calendar.getInstance();
                 calendar.setFirstDayOfWeek(Calendar.MONDAY);
                 calendar.setMinimalDaysInFirstWeek(1);
                 calendar.setTime(storedDate);
                 int storedWeek = calendar.get(Calendar.WEEK_OF_YEAR);
-                Log.e("weekly",storedWeek+"");
 
                 if (currentWeek != storedWeek){ // setting post and date if post has not been updated this week
                     // post to retrieve for weekly feature determines randomly
                     final int random = new Random().nextInt(randomMixList.size());
                     weeklyPost = randomMixList.get(random);
                     homeMix.setWeekly(weeklyPost);
-                    Log.e("weekly", "test1");
                 }
                 else{ // getting post from databse, if this week has been updated
                     for(HomeMixData i : randomMixList){
                         if (i.postID.equals(storedUID)){ // getting the object that matches the ID
                             weeklyPost = i;
-                            Log.e("weekly", "test2");
                             break;
                         }
                         else{
@@ -132,7 +129,6 @@ public class HomeParentAdapter extends RecyclerView.Adapter<HomeParentViewHolder
                                 final int random = new Random().nextInt(randomMixList.size());
                                 weeklyPost = randomMixList.get(random);
                                 homeMix.setWeekly(weeklyPost);
-                                Log.e("weekly", "test3");
                             }
                         }
                     }
