@@ -1,9 +1,7 @@
 package sg.edu.np.madgroupyassignment;
 
-import java.util.HashMap;
-
 public class RecipeCorner {
-    // variables for recipe corner class
+    //variables for recipe corner class
     String owner;
     String recipeName;
     String recipeDescription;
@@ -15,6 +13,7 @@ public class RecipeCorner {
     Long postTimeStamp;
     String foodImage;
     String postID;
+
     //Empty constructor
     public RecipeCorner(){
 
@@ -24,17 +23,17 @@ public class RecipeCorner {
     public RecipeCorner(String postID, String owner, String recipeName, String recipeDescription, int recipeRating,
                         String userName, String duration,
                          String steps, String ingredients, Long postTimeStamp, String foodImage) {
-        this.postID = postID;
-        this.owner = owner;
-        this.recipeName = recipeName;
-        this.recipeDescription = recipeDescription;
-        this.recipeRating = recipeRating;
-        this.userName = userName;
-        this.duration = duration;
-        this.steps = steps;
-        this.ingredients = ingredients;
-        this.postTimeStamp = postTimeStamp;
-        this.foodImage = foodImage;
+        this.postID = postID;                       //postID for database use
+        this.owner = owner;                         //post owner for rc form and profile
+        this.recipeName = recipeName;               //recipe name
+        this.recipeDescription = recipeDescription; //recipe description
+        this.recipeRating = recipeRating;           //recipe difficulty level displayed in the form of ratings
+        this.userName = userName;                   //user's username
+        this.duration = duration;                   //duration to make the recipe
+        this.steps = steps;                         //steps of the recipe
+        this.ingredients = ingredients;             //ingredients of the recipe
+        this.postTimeStamp = postTimeStamp;         //time stamp for home page
+        this.foodImage = foodImage;                 //image of the recipe displayed
     }
 
     // creating getter and setter methods.
@@ -66,9 +65,7 @@ public class RecipeCorner {
         return recipeDescription;
     }
 
-    public void setRecipeDescription(String recipeDescription) {
-        this.recipeDescription = recipeDescription;
-    }
+    public void setRecipeDescription(String recipeDescription) { this.recipeDescription = recipeDescription; }
 
     public Integer getRecipeRating(){
         return recipeRating;

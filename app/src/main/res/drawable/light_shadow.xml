@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Used for creating shadow -->
     <item android:top="8px">
         <layer-list>
             <item>
@@ -79,8 +80,6 @@
                         android:top="1px" />
                 </shape>
             </item>
-
-
         </layer-list>
     </item>
     <item>

@@ -27,17 +27,16 @@ import java.util.HashMap;
 
 
 public class RecipeCornerPosts extends Fragment {
+    //variable for context
     Context c;
-    private static RecipeCorner recipeCorner;
-
+    //constructor
     public RecipeCornerPosts(){this.c =c;};
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         View view = inflater.inflate(R.layout.activity_recipe_corner_posts, container, false);
-
-
+        //find textview, ratingbar and imageview from view
         TextView n = view.findViewById(R.id.idRecipeName);
         TextView d = view.findViewById(R.id.idRecipeDescription);
         TextView id = view.findViewById(R.id.idUser);
@@ -48,6 +47,7 @@ public class RecipeCornerPosts extends Fragment {
         TextView steps = view.findViewById(R.id.idSteps);
         TextView ingred = view.findViewById(R.id.idIngreds);
 
+        //use of bundle to get data from each item in recyclerview
         Bundle b = this.getArguments();
         int rcNo = (int) b.getInt("recipeNo");
         int HomeDataCheck = (int) b.getInt("HomeDataCheck");
@@ -58,6 +58,7 @@ public class RecipeCornerPosts extends Fragment {
             HomeMixData recipePost;
             recipePost = recipeList.get(rcNo);
 
+            //set the textview, ratingbar and image view accordingly
             n.setText(recipePost.recipeName);
             d.setText(recipePost.recipeDescription);
             id.setText("By: " + recipePost.userName);
@@ -73,6 +74,7 @@ public class RecipeCornerPosts extends Fragment {
             RecipeCorner recipePost;
             recipePost = recipeList.get(rcNo);
 
+            //set the textview, ratingbar and image view accordingly
             n.setText(recipePost.recipeName);
             d.setText(recipePost.recipeDescription);
             id.setText("By: " + recipePost.userName);
@@ -82,12 +84,6 @@ public class RecipeCornerPosts extends Fragment {
             ingred.setText(recipePost.ingredients);
             Picasso.get().load(recipePost.getFoodImage()).into(i);
         }
-
-
-
-
         return view;
     }
-
-
 }

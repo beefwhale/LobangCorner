@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--recycler view to display our data-->
 <ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -8,12 +7,12 @@
     android:layout_height="match_parent"
     android:background="@color/Background_Cream"
     android:fillViewport="true">
-
+    <!-- recipe corner main page -->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".RecipeCornerMain">
-
+        <!-- search bar -->
         <SearchView
             android:id="@+id/SearchID"
             android:layout_width="374dp"
@@ -30,7 +29,7 @@
             app:layout_constraintHorizontal_bias="0.476"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
-
+        <!-- recyclerview -->
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/idRVRecipe"
             android:layout_width="0dp"
@@ -43,7 +42,7 @@
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/spinner" />
-
+        <!-- spinner -->
         <Spinner
             android:id="@+id/spinner"
             android:layout_width="370dp"
