@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@drawable/light_shadow">
-
+    <!-- layout for each item in recyclerview -->
+    <!-- recipe name -->
     <TextView
         android:id="@+id/idRecipeName"
         android:layout_width="200dp"
@@ -18,7 +19,7 @@
         android:textSize="18sp"
         app:layout_constraintStart_toEndOf="@+id/imageView"
         app:layout_constraintTop_toTopOf="parent" />
-
+    <!-- recipe image -->
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="120dp"
@@ -31,25 +32,25 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@mipmap/tiramisu_foreground" />
-
+    <!-- recipe description -->
     <TextView
         android:id="@+id/idRecipeDescription"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="25dp"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="25dp"
+        android:layout_marginEnd="48dp"
         android:layout_marginBottom="16dp"
+        android:fontFamily="@font/montserrat_regular"
         android:text="TextView"
         android:textColor="#000000"
-        android:fontFamily="@font/montserrat_regular"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.157"
         app:layout_constraintStart_toEndOf="@+id/imageView"
         app:layout_constraintTop_toBottomOf="@+id/ratingBar"
         app:layout_constraintVertical_bias="0.196" />
-
+    <!-- recipe ratings(level of difficulty) -->
     <RatingBar
         android:id="@+id/ratingBar"
         style="@style/Widget.AppCompat.RatingBar.Small"
@@ -61,7 +62,7 @@
         android:progressTint="#FFC100"
         app:layout_constraintStart_toEndOf="@+id/imageView"
         app:layout_constraintTop_toBottomOf="@+id/idRecipeName" />
-
+    <!-- username -->
     <TextView
         android:id="@+id/idUser"
         android:layout_width="117dp"

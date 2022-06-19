@@ -103,7 +103,7 @@ public class RecipePostMain extends Fragment {
         });
 
 
-        numberPicker.setMinValue(1);
+        numberPicker.setMinValue(1); //number picker for difficulty
         numberPicker.setMaxValue(5);
         numberPicker.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
             @Override

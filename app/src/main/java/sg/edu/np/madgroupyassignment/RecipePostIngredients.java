@@ -86,10 +86,10 @@ public class RecipePostIngredients extends Fragment {
 
                     for (int i=0; i<ingredList.size(); i++){
                         if (ingredList.get(i).unit == "" || ingredList.get(i).unit == null || ingredList.get(i).unit.length() == 0){
-                            ingredString = ingredList.get(i).qty + " " + ingredList.get(i).name;
+                            ingredString = ingredList.get(i).qty + " " + ingredList.get(i).name; //String formatting for ingredients
                         }
                         else{
-                            ingredString = ingredList.get(i).qty + " " + ingredList.get(i).unit + " " + ingredList.get(i).name;
+                            ingredString = ingredList.get(i).qty + " " + ingredList.get(i).unit + " " + ingredList.get(i).name; //String formatting for ingredients
                         }
                         totalIngredList.add(ingredString);
 

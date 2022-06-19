@@ -95,18 +95,20 @@ public class HomeParentAdapter extends RecyclerView.Adapter<HomeParentViewHolder
                     // Immediately setting a post as a weekly feature
                     storedDate = new Date(System.currentTimeMillis());
                     storedUID = weeklyPost.postID;
+                    Log.e("weekly", "test");
                 }
                 //Getting Current Date Week
                 Date currentDate = new Date(System.currentTimeMillis());
                 Calendar calendar = Calendar.getInstance();
                 calendar.setFirstDayOfWeek(Calendar.MONDAY);
-                calendar.setMinimalDaysInFirstWeek(4);
+                calendar.setMinimalDaysInFirstWeek(1);
                 calendar.setTime(currentDate);
                 int currentWeek = calendar.get(Calendar.WEEK_OF_YEAR);
 
                 //Getting Stored Date Week
                 calendar = Calendar.getInstance();
-                calendar.setMinimalDaysInFirstWeek(4);
+                calendar.setFirstDayOfWeek(Calendar.MONDAY);
+                calendar.setMinimalDaysInFirstWeek(1);
                 calendar.setTime(storedDate);
                 int storedWeek = calendar.get(Calendar.WEEK_OF_YEAR);
 

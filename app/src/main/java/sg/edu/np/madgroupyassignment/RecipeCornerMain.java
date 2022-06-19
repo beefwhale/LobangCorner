@@ -30,32 +30,30 @@ import java.util.Collections;
 import java.util.Comparator;
 
 public class RecipeCornerMain extends Fragment implements AdapterView.OnItemSelectedListener{
-    Context c;
-    // creating variables for
-    // our ui components.
-    private RecyclerView recipeRV;
 
-    // variable for our adapter
-    // class and array list
+    //creating variables for context, recyclerview, adapter, postsholder and arraylist
+    Context c;
+    private RecyclerView recipeRV;
     public RecipeAdapter adapter;
     PostsHolder postsHolder;
     public ArrayList<RecipeCorner> recipeModalArrayList = new ArrayList<>();
 
+    //create constructor
     public RecipeCornerMain(){
         this.c = c;
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_recipe_corner_main, container, false);
 
+        //getting the RC object from firebase and adding to arraylist
         recipeModalArrayList.removeAll(recipeModalArrayList);
         for (RecipeCorner obj : postsHolder.getRecipePosts()) {
             recipeModalArrayList.add(obj);
         }
 
-        //spinner for sorting/filtering
+        //spinner for sorting the items of the arraylist
         Spinner sortSpinner = view.findViewById(R.id.spinner);
         ArrayAdapter sortAdapter = new ArrayAdapter<String>(getActivity(),
                 android.R.layout.simple_list_item_1, getResources().getStringArray(R.array.sortby));
@@ -63,13 +61,13 @@ public class RecipeCornerMain extends Fragment implements AdapterView.OnItemSele
         sortSpinner.setAdapter(sortAdapter);
         sortSpinner.setOnItemSelectedListener(this);
 
-        // initializing our variables.
+        // getting the RC recyclerview
         recipeRV = view.findViewById(R.id.idRVRecipe);
 
         // getting search view of our item.
         SearchView searchView = view.findViewById(R.id.SearchID);
 
-        // below line is to call set on query text listener method.
+        // below line is to call set on query text listener method for search bar
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -84,10 +82,6 @@ public class RecipeCornerMain extends Fragment implements AdapterView.OnItemSele
                 return false;
             }
         });
-
-        // calling method to
-        // build recycler view.
-        //buildRecyclerView();
 
 
         // initializing our adapter class.
@@ -109,6 +103,7 @@ public class RecipeCornerMain extends Fragment implements AdapterView.OnItemSele
         return view;
     }
 
+    //method to sort by the ratings(level of difficulty)
     private void sortrating(boolean b1){
         ArrayList<RecipeCorner> sortlist = new ArrayList<>();
         for (RecipeCorner item : recipeModalArrayList) {
@@ -120,11 +115,12 @@ public class RecipeCornerMain extends Fragment implements AdapterView.OnItemSele
                 return rc1.recipeRating.compareTo(rc2.recipeRating);
             }
         });
-        if (b1)
+        if (b1) //if true, reverse list to display hardest first
             Collections.reverse(sortlist);
         adapter.sort(sortlist);
     }
 
+    //method to sort by stall name alphabetically
     private void sortAlphabet(boolean b2){
         ArrayList<RecipeCorner> sortlist2 = new ArrayList<>();
         for (RecipeCorner item : recipeModalArrayList) {
@@ -136,21 +132,23 @@ public class RecipeCornerMain extends Fragment implements AdapterView.OnItemSele
                 return rc1.recipeName.compareToIgnoreCase(rc2.recipeName);
             }
         });
-        if (b2)
+        if (b2) //if true, reverse list to display from Z to A
             Collections.reverse(sortlist2);
         adapter.sort(sortlist2);
     }
 
+    //method to sort by oldest or most recent posts
     private void sortdate(boolean b3){
         ArrayList<RecipeCorner> sortlist3 = new ArrayList<>();
         for (RecipeCorner item : recipeModalArrayList) {
             sortlist3.add(item);
         }
-        if (b3)
+        if (b3) //if true, reverse list to display oldest post first
             Collections.reverse(sortlist3);
         adapter.sort(sortlist3);
     }
 
+    //method to filter data when using the search bar
     private void filter(String text) {
         // creating a new array list to filter our data.
         ArrayList<RecipeCorner> filteredlist = new ArrayList<>();
@@ -175,29 +173,30 @@ public class RecipeCornerMain extends Fragment implements AdapterView.OnItemSele
         }
     }
 
+    //method to select each item in the spinner
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
         switch(i){
             case 0:
-                adapter.unsort(recipeModalArrayList);
+                adapter.unsort(recipeModalArrayList); //when clicked, goes back to default order of list
                 break;
             case 1:
-                sortrating(true);
+                sortrating(true); //when clicked, sort according to hardest recipe first
                 break;
             case 2:
-                sortrating(false);
+                sortrating(false); //when clicked, sort according to easiest recipe first
                 break;
             case 3:
-                sortAlphabet(false);
+                sortAlphabet(false); //when clicked, sort according to A to Z
                 break;
             case 4:
-                sortAlphabet(true);
+                sortAlphabet(true); //when clicked, sort according to Z to A
                 break;
             case 5:
-                sortdate(false);
+                sortdate(false); //when clicked, sort according to newest post first (default)
                 break;
             case 6:
-                sortdate(true);
+                sortdate(true); //when clicked, sort according to oldest post first
         }
     }
 

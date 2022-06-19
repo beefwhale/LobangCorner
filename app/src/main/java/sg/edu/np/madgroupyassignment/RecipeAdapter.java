@@ -28,15 +28,14 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeViewHolder>{
     // creating a variable for array list and context.
     private ArrayList<RecipeCorner> recipeArrayList;
     private Context context;
-    private Integer count;
-    private static RecipeCorner recipeCorner;
+
     // creating a constructor for our variables.
     public RecipeAdapter(ArrayList<RecipeCorner> recipeArrayList, Context context) {
         this.recipeArrayList = recipeArrayList;
         this.context = context;
-        this.count = count;
     }
 
+    // method called from recipeCornerMain to sort list and update the data
     public void sort(ArrayList<RecipeCorner> sortllist){
         recipeArrayList = sortllist;
         notifyDataSetChanged();
@@ -52,11 +51,13 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeViewHolder>{
         notifyDataSetChanged();
     }
 
+    //method called from recipeCornerMain to 'unsort' list when "sort by" is clicked
     public void unsort(ArrayList<RecipeCorner> recipeList){
         recipeArrayList = recipeList;
         notifyDataSetChanged();
     }
 
+    //oncreateviewholder method
     @NonNull
     @Override
     public RecipeViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -67,20 +68,21 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeViewHolder>{
         return new RecipeViewHolder(view);
     }
 
+    //onbindviewholder method
     @Override
     public void onBindViewHolder(@NonNull RecipeViewHolder holder, int position) {
         // setting data to our views of recycler view.
         RecipeCorner item = recipeArrayList.get(position);
 
-        holder.recipeName.setText(item.recipeName);
-        holder.recipeDesc.setText(item.getRecipeDescription());
-        holder.ratingBar.setRating(item.getRecipeRating());
-        holder.userName.setText("By: " + item.getUserName());
-        Picasso.get().load(item.getFoodImage()).into(holder.foodImage);
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
+        holder.recipeName.setText(item.recipeName);         //set textview to recipename
+        holder.recipeDesc.setText(item.getRecipeDescription()); //set textview to recipedescription
+        holder.ratingBar.setRating(item.getRecipeRating()); //set ratingbar to recipe difficulty level
+        holder.userName.setText("By: " + item.getUserName());   //set textview to username
+        Picasso.get().load(item.getFoodImage()).into(holder.foodImage); //load image from database to imageview
+        holder.itemView.setOnClickListener(new View.OnClickListener() { //when item is clicked, lead user to recipeposts
             @Override
             public void onClick(View view) {
-
+                //use bundle to send data from the item to the recipepost
                 AppCompatActivity activity = (AppCompatActivity) view.getContext();
                 Fragment rcpFragment = new RecipeCornerPosts();
                 Bundle bundle = new Bundle();
@@ -94,6 +96,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeViewHolder>{
         });
     }
 
+    //display all the items of the array list in recyclerview
     @Override
     public int getItemCount() {
         // returning the size of array list.

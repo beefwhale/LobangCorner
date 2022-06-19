@@ -1,194 +1,190 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".RecipeCornerPosts">
-
-    <ScrollView
+    android:fillViewport="true"
+    tools:layout_editor_absoluteX="-44dp"
+    tools:layout_editor_absoluteY="0dp">
+    <!-- recipe corner posts page -->
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:fillViewport="true"
-        tools:layout_editor_absoluteX="-44dp"
-        tools:layout_editor_absoluteY="0dp">
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/Background_Cream"
+        tools:context=".RecipeCornerPosts">
+        <!-- recipe name -->
+        <TextView
+            android:id="@+id/idRecipeName"
+            android:layout_width="300dp"
             android:layout_height="wrap_content"
-            android:background="@color/Background_Cream">
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="40dp"
+            android:fontFamily="@font/montserrat_bold"
+            android:text="TextView"
+            android:textColor="@color/Main_Primary"
+            android:textSize="30sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+        <!-- rating bar (level of difficulty) -->
+        <RatingBar
+            android:id="@+id/ratingBar"
+            style="@android:style/Widget.DeviceDefault.Light.RatingBar.Small"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:progressTint="#FFC100"
+            app:layout_constraintStart_toEndOf="@+id/difficulty"
+            app:layout_constraintTop_toBottomOf="@+id/idRecipeName" />
+        <!-- recipe description -->
+        <TextView
+            android:id="@+id/idRecipeDescription"
+            android:layout_width="350dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="20dp"
+            android:text="TextView"
+            android:textColor="#000000"
+            android:textSize="18sp"
+            android:fontFamily="@font/montserrat_regular"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/idDuration" />
+        <!-- image of recipe -->
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="350dp"
+            android:layout_height="350dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="20dp"
+            android:scaleType="centerCrop"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.466"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/idRecipeDescription"
+            app:srcCompat="@mipmap/tiramisu_foreground" />
+        <!-- divider -->
+        <View
+            android:id="@+id/divider"
+            android:layout_width="400dp"
+            android:layout_height="1dp"
+            android:layout_marginTop="36dp"
+            android:background="@color/Text_Grey"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.491"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageView" />
+        <!-- ingredient header -->
+        <TextView
+            android:id="@+id/ingredHeader"
+            android:layout_width="183dp"
+            android:layout_height="37dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="13dp"
+            android:fontFamily="@font/montserrat_semibold"
+            android:gravity="left"
+            android:text="Ingredients"
+            android:textColor="@color/Text_Grey"
+            android:textSize="30sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/divider" />
+        <!-- steps header -->
+        <TextView
+            android:id="@+id/stepsHeader"
+            android:layout_width="98dp"
+            android:layout_height="36dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="13dp"
+            android:fontFamily="@font/montserrat_semibold"
+            android:gravity="left"
+            android:text="Steps"
+            android:textColor="@color/Text_Grey"
+            android:textSize="30sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/divider2" />
+        <!-- divider -->
+        <View
+            android:id="@+id/divider2"
+            android:layout_width="400dp"
+            android:layout_height="1dp"
+            android:layout_marginTop="30dp"
+            android:background="@color/Text_Grey"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.524"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/idIngreds" />
+        <!-- steps -->
+        <TextView
+            android:id="@+id/idSteps"
+            android:layout_width="350dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="30dp"
+            android:layout_marginBottom="30dp"
+            android:text="TextView"
+            android:textSize="16sp"
+            android:fontFamily="@font/montserrat_regular"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/stepsHeader"
+            app:layout_constraintVertical_bias="0.0" />
+        <!-- username -->
+        <TextView
+            android:id="@+id/idUser"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="28dp"
+            android:layout_marginTop="12dp"
+            android:fontFamily="@font/montserrat_italic"
+            android:text="TextView"
+            android:textSize="13sp"
+            app:layout_constraintStart_toEndOf="@+id/ratingBar"
+            app:layout_constraintTop_toBottomOf="@+id/idRecipeName" />
+        <!-- duration -->
+        <TextView
+            android:id="@+id/idDuration"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="8dp"
+            android:text="TextView"
+            android:fontFamily="@font/montserrat_regular"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/difficulty" />
+        <!-- ingredients -->
+        <TextView
+            android:id="@+id/idIngreds"
+            android:layout_width="350dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="30dp"
+            android:gravity="left"
+            android:text="TextView"
+            android:textSize="16sp"
+            android:fontFamily="@font/montserrat_regular"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ingredHeader" />
+        <!-- textview for level of difficulty -->
+        <TextView
+            android:id="@+id/difficulty"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="12dp"
+            android:fontFamily="@font/montserrat_regular"
+            android:text="Level of difficulty : "
+            android:textSize="14sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/idRecipeName" />
 
-            <TextView
-                android:id="@+id/idRecipeName"
-                android:layout_width="300dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="40dp"
-                android:fontFamily="@font/montserrat_bold"
-                android:text="TextView"
-                android:textColor="@color/Main_Primary"
-                android:textSize="30sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <RatingBar
-                android:id="@+id/ratingBar"
-                style="@android:style/Widget.DeviceDefault.Light.RatingBar.Small"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
-                android:progressTint="#FFC100"
-                app:layout_constraintStart_toEndOf="@+id/difficulty"
-                app:layout_constraintTop_toBottomOf="@+id/idRecipeName" />
-
-            <TextView
-                android:id="@+id/idRecipeDescription"
-                android:layout_width="350dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="20dp"
-                android:text="TextView"
-                android:textColor="#000000"
-                android:textSize="18sp"
-                android:fontFamily="@font/montserrat_regular"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/idDuration" />
-
-            <ImageView
-                android:id="@+id/imageView"
-                android:layout_width="350dp"
-                android:layout_height="350dp"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="20dp"
-                android:scaleType="centerCrop"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.466"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/idRecipeDescription"
-                app:srcCompat="@mipmap/tiramisu_foreground" />
-
-            <View
-                android:id="@+id/divider"
-                android:layout_width="400dp"
-                android:layout_height="1dp"
-                android:layout_marginTop="36dp"
-                android:background="@color/Text_Grey"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.491"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/imageView" />
-
-            <TextView
-                android:id="@+id/ingredHeader"
-                android:layout_width="183dp"
-                android:layout_height="37dp"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="13dp"
-                android:fontFamily="@font/montserrat_semibold"
-                android:gravity="left"
-                android:text="Ingredients"
-                android:textColor="@color/Text_Grey"
-                android:textSize="30sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/divider" />
-
-            <TextView
-                android:id="@+id/stepsHeader"
-                android:layout_width="98dp"
-                android:layout_height="36dp"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="13dp"
-                android:fontFamily="@font/montserrat_semibold"
-                android:gravity="left"
-                android:text="Steps"
-                android:textColor="@color/Text_Grey"
-                android:textSize="30sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/divider2" />
-
-            <View
-                android:id="@+id/divider2"
-                android:layout_width="400dp"
-                android:layout_height="1dp"
-                android:layout_marginTop="30dp"
-                android:background="@color/Text_Grey"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.524"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/idIngreds" />
-
-            <TextView
-                android:id="@+id/idSteps"
-                android:layout_width="350dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="30dp"
-                android:layout_marginBottom="30dp"
-                android:text="TextView"
-                android:textSize="16sp"
-                android:fontFamily="@font/montserrat_regular"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/stepsHeader"
-                app:layout_constraintVertical_bias="0.0" />
-
-            <TextView
-                android:id="@+id/idUser"
-                android:layout_width="120dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="28dp"
-                android:layout_marginTop="12dp"
-                android:fontFamily="@font/montserrat_italic"
-                android:text="TextView"
-                android:textSize="13sp"
-                app:layout_constraintStart_toEndOf="@+id/ratingBar"
-                app:layout_constraintTop_toBottomOf="@+id/idRecipeName" />
-
-            <TextView
-                android:id="@+id/idDuration"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="8dp"
-                android:text="TextView"
-                android:fontFamily="@font/montserrat_regular"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/difficulty" />
-
-            <TextView
-                android:id="@+id/idIngreds"
-                android:layout_width="350dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="30dp"
-                android:gravity="left"
-                android:text="TextView"
-                android:textSize="16sp"
-                android:fontFamily="@font/montserrat_regular"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/ingredHeader" />
-
-            <TextView
-                android:id="@+id/difficulty"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="12dp"
-                android:fontFamily="@font/montserrat_regular"
-                android:text="Level of difficulty : "
-                android:textSize="14sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/idRecipeName" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </ScrollView>
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

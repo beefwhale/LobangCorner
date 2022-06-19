@@ -91,23 +91,21 @@ public class HawkerForm extends Fragment {
                              Bundle savedInstanceState) {
         View hf = inflater.inflate(R.layout.fragment_hawker_form, container, false);
 
-        submit = hf.findViewById(R.id.submitBtn);
-
+        //Setting Default Values
         openingTime = "00:00";
         closingTime = "00:00";
         stallName = "";
         desc = "";
         shortDesc = "";
         address = "";
-        downUrl = "https://firebasestorage.googleapis.com/v0/b/lobang-corner.appspot.com/o/DefaultProfilePic%2FPengi.png?alt=media&token=d8cbc81d-6bcd-456b-809d-e867b4506c17";
-
-
+        downUrl = "";
         clHour = 00;
         clMin = 00;
         opHour = 00;
         opMin = 00;
 
         //Assign variable
+        submit = hf.findViewById(R.id.submitBtn);
         displayPicButtonHawker = hf.findViewById(R.id.displayPic);
         sNInput = hf.findViewById(R.id.StallName);
         dInput = hf.findViewById(R.id.Desc);
@@ -131,6 +129,7 @@ public class HawkerForm extends Fragment {
                 }
         );
 
+        //When click button, launches get photo interface
         displayPicButtonHawker.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -209,16 +208,20 @@ public class HawkerForm extends Fragment {
                         opHour = selectedHr;
                         opMin = selectedMin;
                         opTInput.setText(String.format(Locale.getDefault(), "%02d:%02d", opHour, opMin));
+                        //String formatting openingTime variable
                         openingTime = String.format(Locale.getDefault(), "%02d:%02d", opHour, opMin);
+                        //Setting finalTime to openingTime to combine with closingTime later
                         finalTime = openingTime;
                     }
                 };
 
+                //Show timepicker dialog
                 TimePickerDialog timePickerDialog = new TimePickerDialog(getActivity(),TimePickerDialog.THEME_HOLO_LIGHT,
                         onTimeSetListener,opHour,opMin,true);
 
-
+                //Setting title of timepicker
                 timePickerDialog.setTitle("Select Time");
+                //Showing timepicker when button clicked
                 timePickerDialog.show();
             }
         });
@@ -237,7 +240,9 @@ public class HawkerForm extends Fragment {
                             clHour = selectedHr;
                             clMin = selectedMin;
                             clTInput.setText(String.format(Locale.getDefault(), "%02d:%02d", clHour, clMin));
+                            //String formatting openingTime variable
                             closingTime = String.format(Locale.getDefault(), "%02d:%02d", clHour, clMin);
+                            //Combining closingTime with openingTime
                             finalTime = finalTime +" - "+closingTime;
                         }
 
@@ -247,8 +252,9 @@ public class HawkerForm extends Fragment {
                 TimePickerDialog timePickerDialog = new TimePickerDialog(getActivity(),TimePickerDialog.THEME_HOLO_LIGHT,
                         onTimeSetListener,clHour,clMin,true);
 
-
+                //Setting title of timepicker
                 timePickerDialog.setTitle("Select Time");
+                //Showing timepicker when button clicked
                 timePickerDialog.show();
             }
         });
@@ -360,6 +366,7 @@ public class HawkerForm extends Fragment {
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                //If stallnames, description, shortdesc, address or no image, you cannot submit
                 if (stallName.isEmpty() || stallName.length() == 0 || stallName == "" ||
                         desc.isEmpty() || desc.length() == 0 || desc == "" ||
                             shortDesc.isEmpty() || shortDesc.length() == 0 || shortDesc == "" ||
@@ -368,11 +375,11 @@ public class HawkerForm extends Fragment {
                     Toast.makeText(getActivity(),"Please input Stall Name, Descriptions, Image and Address", Toast.LENGTH_SHORT).show();
                 }
                 else{
-                    username = userProfile.getUsername(); //USERNAME parameter
-                    userPfpUrl = userProfile.getProfileImg();
-                    ownerUID = userProfile.getUID();
-                    long timeStamp = System.currentTimeMillis();
-                    String PostID = databaseReferencetest.push().getKey();
+                    username = userProfile.getUsername(); //Getting username
+                    userPfpUrl = userProfile.getProfileImg(); //Getting profile picture
+                    ownerUID = userProfile.getUID(); //Getting profile uid
+                    long timeStamp = System.currentTimeMillis(); //Getting post time
+                    String PostID = databaseReferencetest.push().getKey(); //Getting Post id
                     hCS = new HawkerCornerStalls(PostID, downUrl,ownerUID, stallName,username,desc,address,daysOpen,finalTime,userPfpUrl, shortDesc, timeStamp);
 
                     userCurrentHwk = userProfile.getHawkList();
@@ -380,7 +387,6 @@ public class HawkerForm extends Fragment {
 
 
                     //***********For input to reset when button submit***********
-                    getActivity().recreate();
                     stallName = "";
                     desc = "";
                     shortDesc = "";
@@ -406,6 +412,7 @@ public class HawkerForm extends Fragment {
                     //Clear text view values
                     openDayBtn.setText("");
                     daysOpen = "";
+                    getActivity().recreate();
                 }
                 //Toast.makeText(getActivity(),finalTime, Toast.LENGTH_SHORT).show();
 
