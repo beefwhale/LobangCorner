@@ -198,7 +198,7 @@ public class MainActivity extends AppCompatActivity{
                 bottomNavigationView.setVisibility(View.VISIBLE);
                 findViewById(R.id.floating_main_nav_button).setVisibility(View.VISIBLE);
             }
-        }, 3000);
+        }, 4500);
 
 
         /*public void hcClicked(){
