@@ -54,3 +54,11 @@ dependencies {
     //Dependency for circular image view
     implementation 'de.hdodenhof:circleimageview:3.1.0'
 }
+android {
+    defaultConfig {
+        minSdk 19
+        targetSdk 30
+        versionName '1.0'
+        versionCode 2
+    }
+}
