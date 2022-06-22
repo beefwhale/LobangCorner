@@ -20,4 +20,9 @@
         <item name="colorPrimary">@color/offwhite</item>
         <item name="colorAccent">@color/offwhite</item>
     </style>
+
+    <style name="AppTheme.Picker" parent="Theme.AppCompat.Light.NoActionBar" >
+        <item name="android:textColorPrimary">@color/Text_Grey</item>
+        <item name="dividerColor">@color/Text_Grey</item>
+    </style>
 </resources>
