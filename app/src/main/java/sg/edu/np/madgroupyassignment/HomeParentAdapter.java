@@ -164,14 +164,14 @@ public class HomeParentAdapter extends RecyclerView.Adapter<HomeParentViewHolder
                             activity.getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, chosenfragment).commit();
                         }
                         else{
-                            Fragment rcpFragment = new RecipeCornerPosts();
+                            Fragment chosenfragment = new RecipeCornerPosts();
                             Bundle bundle = new Bundle();
                             bundle.putInt("recipeNo", 0);
                             bundle.putInt("HomeDataCheck", 1); // if from Home, number = 1
                             bundle.putParcelable("list", Parcels.wrap(weekly_list));
-                            rcpFragment.setArguments(bundle);
+                            chosenfragment.setArguments(bundle);
                             activity.getSupportFragmentManager().beginTransaction()
-                                    .replace(R.id.MainFragment, rcpFragment).addToBackStack(null).commit();
+                                    .replace(R.id.MainFragment, chosenfragment).addToBackStack(null).commit();
                         }
                     }
                 });

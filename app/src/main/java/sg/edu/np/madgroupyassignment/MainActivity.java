@@ -10,6 +10,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatDelegate;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -73,7 +74,11 @@ public class MainActivity extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+
+        // Turning off Night Mode
+        //AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+
+        // Hiding Title Bar thing
         getSupportActionBar().hide();
 
         // Makes Status Bar Transparent
@@ -95,9 +100,6 @@ public class MainActivity extends AppCompatActivity{
         HawkerCornerMain hawkerCornerMain = new HawkerCornerMain();
         RecipeCornerMain recipeCornerMain = new RecipeCornerMain();
 
-        //Floating action buttons
-        FloatingActionButton mainFAB, rcFAB, hcFAB;
-        TextView rcFABText, hcFABText;
 
         profileFirstUpdate = true;
         postsHolder = new PostsHolder();
@@ -178,8 +180,6 @@ public class MainActivity extends AppCompatActivity{
         SplashPage splashPage = new SplashPage();
         Home homeFragment = new Home();
         Profile profile = new Profile();
-        HawkerCornerMain hcmain = new HawkerCornerMain();
-        RecipeCornerMain rcmain = new RecipeCornerMain();
 
         if (savedInstanceState == null) {
             getSupportActionBar().hide();
@@ -200,11 +200,6 @@ public class MainActivity extends AppCompatActivity{
             }
         }, 4500);
 
-
-        /*public void hcClicked(){
-            HawkerCornerMain hcmain2 = new HawkerCornerMain();
-            getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, hcmain2, null).commit();
-        }*/
         //Upon Bottom Nav Bar click
         bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
@@ -216,12 +211,12 @@ public class MainActivity extends AppCompatActivity{
                 }
                 switch (item.getItemId()) {
                     case R.id.hc:
-                        getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, hcmain, null).commit();
+                        getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, hawkerCornerMain, null).commit();
                         return true;
                 }
                 switch (item.getItemId()) {
                     case R.id.rc:
-                        getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, rcmain, null).commit();
+                        getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, recipeCornerMain, null).commit();
                         return true;
                 }
                 switch (item.getItemId()) {
@@ -234,6 +229,9 @@ public class MainActivity extends AppCompatActivity{
         });
 
         //Floating Action Buttons
+        FloatingActionButton mainFAB, rcFAB, hcFAB;
+        TextView rcFABText, hcFABText;
+
         mainFAB = findViewById(R.id.floating_main_nav_button);
         rcFAB = findViewById(R.id.floating_rc_nav_button);
         hcFAB = findViewById(R.id.floating_hc_nav_button);
@@ -246,9 +244,6 @@ public class MainActivity extends AppCompatActivity{
         rcFABText.setVisibility(View.GONE);
         hcFABText.setVisibility(View.GONE);
         FABVisible = false;
-
-        //ANimations
-
 
         mainFAB.setOnClickListener(new View.OnClickListener() {
             @Override
