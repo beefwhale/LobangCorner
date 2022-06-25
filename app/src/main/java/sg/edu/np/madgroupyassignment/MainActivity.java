@@ -75,20 +75,16 @@ public class MainActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // Turning off Night Mode
-        //AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-
         // Hiding Title Bar thing
         getSupportActionBar().hide();
 
-        // Makes Status Bar Transparent
+        // Make Fully Transparent Status bar
         if (Build.VERSION.SDK_INT >= 19 && Build.VERSION.SDK_INT < 21) {
             setWindowFlag(this, WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS, true);
         }
         if (Build.VERSION.SDK_INT >= 19) {
             getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
         }
-        //make fully Android Transparent Status bar
         if (Build.VERSION.SDK_INT >= 21) {
             setWindowFlag(this, WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS, false);
             getWindow().setStatusBarColor(Color.TRANSPARENT);
@@ -191,6 +187,7 @@ public class MainActivity extends AppCompatActivity{
                     .commit();
         }
 
+        // Hiding Nav Bars and FAB and during splash page duration
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -200,7 +197,7 @@ public class MainActivity extends AppCompatActivity{
             }
         }, 4500);
 
-        //Upon Bottom Nav Bar click
+        // Upon Bottom Nav Bar click
         bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -290,7 +287,5 @@ public class MainActivity extends AppCompatActivity{
                 hcFABText.setVisibility(View.GONE);
             }
         });
-
-
     }
 }

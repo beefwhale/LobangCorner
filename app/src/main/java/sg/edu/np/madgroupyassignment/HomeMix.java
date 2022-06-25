@@ -36,7 +36,7 @@ public class HomeMix {
     ArrayList<HomeMixData> mixData = new ArrayList<>();
     ArrayList<HomeMixData> sortedData = new ArrayList<>();
 
-    // Method to Mix HC and RC data
+    // Method to Mix HC and RC data only for Latest Post RV (filterDT method)
     public ArrayList<HomeMixData> setMixData(HawkerCornerStalls[] recentHCArray, RecipeCorner[] recentRCArray){
         mixData = new ArrayList<>(); // resetting the mixed list just in case
         // Making new Mixed List
@@ -107,6 +107,7 @@ public class HomeMix {
 
     }
 
+    // Method to Mix HC and RC data only for Discover More Post RV (RandomData method)
     public ArrayList<HomeMixData> setMixData2(ArrayList<HawkerCornerStalls> recentHCArray, ArrayList<RecipeCorner> recentRCArray){
         mixData = new ArrayList<>(); // resetting the list just incase
         // Making new Mixed List

@@ -215,12 +215,13 @@ public class HomeParentAdapter extends RecyclerView.Adapter<HomeParentViewHolder
             lp_rv.setAdapter(lp_adapter);
             lp_rv.setLayoutManager(lp_layout);
 
-            //Rounding corners of ImageView buttons
+            // Explore ImageView "Buttons"
             ImageView exploreHC = item.findViewById(R.id.home_hc_btn);
             ImageView exploreRC = item.findViewById(R.id.home_rc_btn);
             // BLACK Tint to Images
             exploreHC.setColorFilter(Color.argb(130, 0, 0, 0));
             exploreRC.setColorFilter(Color.argb(130, 0, 0, 0));
+            //Rounding corners of ImageView buttons
             exploreHC.setClipToOutline(true);
             exploreRC.setClipToOutline(true);
 

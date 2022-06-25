@@ -38,7 +38,7 @@ public class Home extends Fragment {
 //                randomMixList.remove(i);
 //            }
 //        }
-        //Log.e("Shuffle", mixData.size()+"");
+
         if (randomMixList.size() > 0){ // checking if list is not empty, app wont crash
             Integer limit = randomMixList.size();
             // Setting a Limit to no. of posts in discover more section
