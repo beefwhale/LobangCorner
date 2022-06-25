@@ -20,6 +20,31 @@ MAD'22 Y2S1 Assignment LobangCorner
 **Hawker Corner:** Users can share stories or about the food of their favourite hawker stalls. Hawker owners can also promote their stall themselves. <br>
 **Recipe Corner:** Users can share their favorite or even their family recipes with the community. 
 
+### Design Decisions 
+
+Font: Montserrat Regular, SemiBold, Bold <br>
+<https://fonts.google.com/specimen/Montserrat#standard-styles>
+
+#### Colour Palette  
+- Primary : #ede9da Cream (Background) / #FAF9F6 Off White (Cards)  
+- Secondary: #F6412D Red 
+- Accent: #FFC100 Yellow 
+- Text: Default Grey  
+
+_No harsh outlines in app._
+
+### User Guide
+
+1. Create a new account with LobangCorner or Login with a preexisting account.  
+2. Navigate to each section using the bottom navigation bar. First Icon is Home Page, followed by Hawker Corner, then Recipe Corner, then finally Profile Page. The Default page is Home.  
+3. View existing posts on Home, HC or RC. 
+4. Click on the red Floating Action Button at the bottom right corner of the screen to access the forms to make HC/ RC posts. 
+5. Click on ‘Hawker Corner’ to make a Hawker Corner Post. Click on ‘Recipe Corner’ to make a Recipe Corner Post. 
+6. To make a full recipe, don’t forget to swipe right to enter more things like ingredients and steps. 
+7. You can also access your profile by pressing the first icon from the right of the bottom nav bar. 
+8. In the profile section, tap on your photo to customize your profile photo. You can also customize the “About Me” section by directly clicking on the box itself. Don’t forget to press the Submit button after to save your changes.  
+10. You can choose to Log Out by clicking the red bottom most button in profile page.  
+
 ### Roles and Contributions
 
 Yongqing:
