@@ -53,4 +53,4 @@ Yong Chuen:
 - Uploading data obtained into firebase 
 
 
-_LobangCorner brought to you by MAD P03 Team Y, AY22'23._
+_LobangCorner brought to you by MAD P03 Team Y, AY22._
