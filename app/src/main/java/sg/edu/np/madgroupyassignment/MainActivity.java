@@ -174,7 +174,6 @@ public class MainActivity extends AppCompatActivity{
                     FragmentManager fm = getSupportFragmentManager();
                     fm.beginTransaction()
                             .replace(R.id.MainFragment, new Home())
-                            .addToBackStack(null)
                             .commit();
                 }
             }
@@ -190,7 +189,14 @@ public class MainActivity extends AppCompatActivity{
 //        SplashPage splashPage = new SplashPage();
         Home homeFragment = new Home();
         Profile profile = new Profile();
-
+        if (savedInstanceState == null) {
+            getSupportActionBar().hide();
+            // Default home fragment
+            FragmentManager fm = getSupportFragmentManager();
+            fm.beginTransaction()
+                    .replace(R.id.MainFragment, new Home())
+                    .commit();
+        }
         // Hiding Nav Bars and FAB and during splash page duration
 //        handler.postDelayed(new Runnable() {
 //            @Override
