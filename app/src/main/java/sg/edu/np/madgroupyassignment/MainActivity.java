@@ -31,6 +31,8 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 
 public class MainActivity extends AppCompatActivity{
@@ -165,39 +167,42 @@ public class MainActivity extends AppCompatActivity{
                 recipeForm.retrieveUserProfile(userProfile);
                 hawkerForm.retrieveUserProfile(userProfile);
 
+                // Deafult fragment when app is first loaded
+                if (savedInstanceState == null) {
+                    getSupportActionBar().hide();
+                    // Default home fragment
+                    FragmentManager fm = getSupportFragmentManager();
+                    fm.beginTransaction()
+                            .replace(R.id.MainFragment, new Home())
+                            .addToBackStack(null)
+                            .commit();
+                }
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
             }
+
+
         });
 
         //Calling classes to replace upon nav bar click
-        SplashPage splashPage = new SplashPage();
+//        SplashPage splashPage = new SplashPage();
         Home homeFragment = new Home();
         Profile profile = new Profile();
 
-        if (savedInstanceState == null) {
-            getSupportActionBar().hide();
-            bottomNavigationView.setVisibility(View.GONE);
-            findViewById(R.id.floating_main_nav_button).setVisibility(View.GONE);
-            FragmentManager fm = getSupportFragmentManager();
-            fm.beginTransaction()
-                    .replace(R.id.MainFragment, splashPage)
-                    .commit();
-        }
-
         // Hiding Nav Bars and FAB and during splash page duration
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, homeFragment, null).commit();
-                bottomNavigationView.setVisibility(View.VISIBLE);
-                findViewById(R.id.floating_main_nav_button).setVisibility(View.VISIBLE);
-            }
-        }, 4500);
+//        handler.postDelayed(new Runnable() {
+//            @Override
+//            public void run() {
+//                getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, homeFragment, null).commit();
+//                bottomNavigationView.setVisibility(View.VISIBLE);
+//                findViewById(R.id.floating_main_nav_button).setVisibility(View.VISIBLE);
+//            }
+//        }, 4500);
 
         // Upon Bottom Nav Bar click
+        FragmentManager fm = getSupportFragmentManager();
         bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {

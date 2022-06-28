@@ -15,8 +15,11 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 import java.util.Collections;
 
+
 public class Home extends Fragment {
+    public static ArrayList<HomeMixData> randomMixList;
     Context c;
+
     public Home() {
         this.c= c; // extending scope of Home cus u cant called Home.this anymore
     }
@@ -29,7 +32,11 @@ public class Home extends Fragment {
 
         // Parent (Latest) Post RV
         ArrayList<HomeParentData> feed_data = new ArrayList<>();
-        ArrayList<HomeMixData> randomMixList = homeMix.RandomData();
+        randomMixList = homeMix.RandomData();
+        // Shuffles Discover More Section everytime
+        Collections.shuffle(randomMixList);
+
+
         ArrayList<HomeMixData> sortedMixList = homeMix.filterDT();
 //        for (HomeMixData i : randomMixList){
 //            Log.e("lol2", sortedMixList.size() + "");

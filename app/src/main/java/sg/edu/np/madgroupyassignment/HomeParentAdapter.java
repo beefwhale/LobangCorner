@@ -95,6 +95,7 @@ public class HomeParentAdapter extends RecyclerView.Adapter<HomeParentViewHolder
                     // Immediately setting a post as a weekly feature
                     storedDate = new Date(System.currentTimeMillis());
                     storedUID = weeklyPost.postID;
+
                 }
                 //Getting Current Date Week
                 Date currentDate = new Date(System.currentTimeMillis());
@@ -140,7 +141,7 @@ public class HomeParentAdapter extends RecyclerView.Adapter<HomeParentViewHolder
                     if (weeklyPost.identifier == true) { // if its Hawker Corner post
                         weekly_title.setText(weeklyPost.hcstallname);
                         weekly_author.setText("By: "+weeklyPost.hcauthor);
-                        Picasso.get().load(weeklyPost.hccoverimg).into(weekly_img);
+                        Picasso.get().load(weeklyPost.hccoverimg).resize(400,400).into(weekly_img);
                     }
                     else{// if its Recipe Corner post
                         weekly_title.setText(weeklyPost.recipeName);
@@ -148,6 +149,7 @@ public class HomeParentAdapter extends RecyclerView.Adapter<HomeParentViewHolder
                         Picasso.get().load(weeklyPost.foodImage).into(weekly_img);
                     }
                 }
+
                 weekly_img.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -207,6 +209,7 @@ public class HomeParentAdapter extends RecyclerView.Adapter<HomeParentViewHolder
                 }
 
             }
+
             // Child RV
             RecyclerView lp_rv = item.findViewById(R.id.lp_rv);
             LinearLayoutManager lp_layout = new LinearLayoutManager(c, LinearLayoutManager.HORIZONTAL, false);
@@ -274,8 +277,8 @@ public class HomeParentAdapter extends RecyclerView.Adapter<HomeParentViewHolder
             // First view holder, where child layout is in
             // But now position is 1, our data has to start from 0 for parent RV data thus -1
             HomeParentData p = data.get(position-1);
-            HomeMix homeMix = new HomeMix();
-            ArrayList<HomeMixData> randomMixList = homeMix.RandomData(); // List with Random Mixed HC and RC info
+            //HomeMix homeMix = new HomeMix();
+            ArrayList<HomeMixData> randomMixList = Home.randomMixList; // List with Random Mixed HC and RC info
 
             if (randomMixList.size() > 0){
                 HomeMixData randomMixListItem = randomMixList.get(holder.getAdapterPosition()-1);
