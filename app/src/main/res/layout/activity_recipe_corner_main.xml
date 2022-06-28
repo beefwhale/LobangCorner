@@ -1,59 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
+
+<!-- recipe corner main page -->
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".RecipeCornerMain"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
     android:background="@color/Background_Cream"
     android:fillViewport="true">
-    <!-- recipe corner main page -->
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context=".RecipeCornerMain">
-        <!-- search bar -->
-        <SearchView
-            android:id="@+id/SearchID"
-            android:layout_width="374dp"
-            android:layout_height="60dp"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="40dp"
-            android:layout_marginEnd="20dp"
-            android:background="@drawable/light_shadow"
-            android:icon="@android:drawable/ic_menu_search"
-            android:iconifiedByDefault="false"
-            android:queryHint="Find a recipe"
-            android:title="Search"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.476"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-        <!-- recyclerview -->
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/idRVRecipe"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="10dp"
-            android:nestedScrollingEnabled="true"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/spinner" />
-        <!-- spinner -->
-        <Spinner
-            android:id="@+id/spinner"
-            android:layout_width="370dp"
-            android:layout_height="60dp"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="20dp"
-            android:background="@drawable/light_shadow"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.454"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/SearchID" />
+    <!-- search bar -->
+    <SearchView
+        android:id="@+id/SearchID"
+        android:layout_width="374dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="20dp"
+        android:background="@drawable/light_shadow"
+        android:icon="@android:drawable/ic_menu_search"
+        android:iconifiedByDefault="false"
+        android:queryHint="Find a recipe"
+        android:title="Search"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.476"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+    <!-- recyclerview -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/idRVRecipe"
+        android:layout_width="0dp"
+        android:layout_height="547dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/spinner" />
+    <!-- spinner -->
+    <Spinner
+        android:id="@+id/spinner"
+        android:layout_width="370dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:background="@drawable/light_shadow"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.454"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/SearchID" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
-</ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>
+
