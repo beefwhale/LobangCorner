@@ -5,6 +5,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.viewpager2.widget.ViewPager2;
@@ -146,14 +147,10 @@ public class RecipeForm extends Fragment {
                     recipeCorner = new RecipeCorner(PostID, ownerUID, recipeName, recipeDesc, difficulty, username, duration, steps,totalIngred, timeStamp, selectedImg);
                     userCurrentRcp = userProfile.getRcpList();
                     RcpUp(userCurrentRcp, recipeCorner, PostID);
-                    getActivity().recreate();
+                    //getActivity().recreate();
+                    getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, new Home()).commit();
                 }
-
-
-
-
                 //Toast.makeText(getActivity(), totalIngred, Toast.LENGTH_SHORT).show();
-
 
             }
         });

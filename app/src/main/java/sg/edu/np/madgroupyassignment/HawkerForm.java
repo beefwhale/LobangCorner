@@ -412,7 +412,8 @@ public class HawkerForm extends Fragment {
                     //Clear text view values
                     openDayBtn.setText("");
                     daysOpen = "";
-                    getActivity().recreate();
+//                    getActivity().recreate();
+                    getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, new Home()).commit();
                 }
                 //Toast.makeText(getActivity(),finalTime, Toast.LENGTH_SHORT).show();
 
