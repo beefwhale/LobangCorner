@@ -143,7 +143,7 @@ public class Profile extends Fragment {
                     AppCompatActivity activity = (AppCompatActivity) view.getContext();
                     Fragment profileHcFragment = new ProfileHawkerRV();
                     activity.getSupportFragmentManager().beginTransaction()
-                            .replace(R.id.MainFragment, profileHcFragment).addToBackStack(null).commit();
+                            .replace(R.id.MainFragment, profileHcFragment).commit();
                 } else {
                     Toast.makeText(getActivity(), "No Hawker Corner Posts made", Toast.LENGTH_SHORT).show();
                 }
@@ -158,7 +158,7 @@ public class Profile extends Fragment {
                     AppCompatActivity activity = (AppCompatActivity) view.getContext();
                     Fragment profileRcpFragment = new ProfileRecipeRV();
                     activity.getSupportFragmentManager().beginTransaction()
-                            .replace(R.id.MainFragment, profileRcpFragment).addToBackStack(null).commit();
+                            .replace(R.id.MainFragment, profileRcpFragment).commit();
                 } else {
                     Toast.makeText(getActivity(), "No Recipe Corner Posts made", Toast.LENGTH_SHORT).show();
                 }

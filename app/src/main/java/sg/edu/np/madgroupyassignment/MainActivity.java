@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
@@ -24,6 +25,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import android.os.Handler;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -48,11 +50,14 @@ public class MainActivity extends AppCompatActivity{
 
     public static Date storedDate;
     public static String storedUID;
+    public static ArrayList<HomeMixData> randomMixList;
 
 
 
     Context c;
     Boolean FABVisible;
+    HomeMix homeMix = new HomeMix();
+
     public static BottomNavigationView bottomNavigationView;
 
     public MainActivity(){
@@ -109,6 +114,10 @@ public class MainActivity extends AppCompatActivity{
         UID = mAuth.getCurrentUser().getUid();
 
         bottomNavigationView = findViewById(R.id.bottomNavigationView);
+
+        //Makes boolean false again on app startup
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(MainActivity.this);
+        preferences.edit().remove("onlyonce").commit();
 
 //        Getting data from database
         databaseReference.addValueEventListener(new ValueEventListener() {
@@ -167,14 +176,25 @@ public class MainActivity extends AppCompatActivity{
                 recipeForm.retrieveUserProfile(userProfile);
                 hawkerForm.retrieveUserProfile(userProfile);
 
-                // Deafult fragment when app is first loaded
-                if (savedInstanceState == null) {
-                    getSupportActionBar().hide();
+                // Default fragment when app is started, only runs once per app startup
+                randomMixList = homeMix.RandomData();
+
+                SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(MainActivity.this);
+                // Only runs when app is first opened
+                if (!prefs.getBoolean("onlyonce", false)) {
                     // Default home fragment
                     FragmentManager fm = getSupportFragmentManager();
                     fm.beginTransaction()
                             .replace(R.id.MainFragment, new Home())
                             .commit();
+                    Log.e("home page", "indeed");
+                    // Shuffles Discover More Section everytime
+                    Collections.shuffle(randomMixList);
+
+                    // mark once runned.
+                    SharedPreferences.Editor editor = prefs.edit();
+                    editor.putBoolean("onlyonce", true);
+                    editor.commit();
                 }
             }
 
@@ -186,17 +206,18 @@ public class MainActivity extends AppCompatActivity{
         });
 
         //Calling classes to replace upon nav bar click
-//        SplashPage splashPage = new SplashPage();
+        SplashPage splashPage = new SplashPage();
         Home homeFragment = new Home();
         Profile profile = new Profile();
-        if (savedInstanceState == null) {
-            getSupportActionBar().hide();
-            // Default home fragment
-            FragmentManager fm = getSupportFragmentManager();
-            fm.beginTransaction()
-                    .replace(R.id.MainFragment, new Home())
-                    .commit();
-        }
+//        if (savedInstanceState == null) {
+//            getSupportActionBar().hide();
+//            // Default home fragment
+//            FragmentManager fm = getSupportFragmentManager();
+//            fm.beginTransaction()
+//                    .replace(R.id.MainFragment, new Home())
+//                    .commit();
+//            Log.e("home page", "indeed");
+//        }
         // Hiding Nav Bars and FAB and during splash page duration
 //        handler.postDelayed(new Runnable() {
 //            @Override
@@ -206,6 +227,8 @@ public class MainActivity extends AppCompatActivity{
 //                findViewById(R.id.floating_main_nav_button).setVisibility(View.VISIBLE);
 //            }
 //        }, 4500);
+
+
 
         // Upon Bottom Nav Bar click
         FragmentManager fm = getSupportFragmentManager();
@@ -298,5 +321,10 @@ public class MainActivity extends AppCompatActivity{
                 hcFABText.setVisibility(View.GONE);
             }
         });
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
     }
 }

@@ -29,14 +29,9 @@ public class Home extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_home_parent, container, false);
         HomeMix homeMix = new HomeMix();
+        ArrayList<HomeParentData> feed_data = new ArrayList<>();
 
         // Parent (Latest) Post RV
-        ArrayList<HomeParentData> feed_data = new ArrayList<>();
-        randomMixList = homeMix.RandomData();
-        // Shuffles Discover More Section everytime
-        Collections.shuffle(randomMixList);
-
-
         ArrayList<HomeMixData> sortedMixList = homeMix.filterDT();
 //        for (HomeMixData i : randomMixList){
 //            Log.e("lol2", sortedMixList.size() + "");
@@ -46,6 +41,8 @@ public class Home extends Fragment {
 //            }
 //        }
 
+        // Getting from Main activity if shuffled or not
+        randomMixList = MainActivity.randomMixList;
         if (randomMixList.size() > 0){ // checking if list is not empty, app wont crash
             Integer limit = randomMixList.size();
             // Setting a Limit to no. of posts in discover more section

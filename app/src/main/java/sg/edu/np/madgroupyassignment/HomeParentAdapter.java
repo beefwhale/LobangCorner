@@ -278,8 +278,7 @@ public class HomeParentAdapter extends RecyclerView.Adapter<HomeParentViewHolder
             // But now position is 1, our data has to start from 0 for parent RV data thus -1
             HomeParentData p = data.get(position-1);
             //HomeMix homeMix = new HomeMix();
-            ArrayList<HomeMixData> randomMixList = Home.randomMixList; // List with Random Mixed HC and RC info
-
+            ArrayList<HomeMixData> randomMixList = MainActivity.randomMixList; // List with Random Mixed HC and RC info
             if (randomMixList.size() > 0){
                 HomeMixData randomMixListItem = randomMixList.get(holder.getAdapterPosition()-1);
                 if (randomMixList.get(holder.getAdapterPosition()-1).identifier == true) {// If hawker post
