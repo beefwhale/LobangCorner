@@ -198,7 +198,7 @@ public class Profile extends Fragment {
         Picasso.get().load(userProfile.getProfileImg()).into(profP);
         username.setText(userProfile.getUsername());
         if (aboutme != null) {
-            aboutme.setText("\n" + userProfile.getAboutMe());
+            aboutme.setText(userProfile.getAboutMe());
         }
         hwkObj.setText("" + (userProfile.getHawkList().size() - 1) + "\n\nHawker Posts");
         rcpObj.setText("" + (userProfile.getRcpList().size() - 1) + "\n\nRecipe Post");

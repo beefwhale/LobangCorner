@@ -33,13 +33,6 @@ public class Home extends Fragment {
 
         // Parent (Latest) Post RV
         ArrayList<HomeMixData> sortedMixList = homeMix.filterDT();
-//        for (HomeMixData i : randomMixList){
-//            Log.e("lol2", sortedMixList.size() + "");
-//            if (sortedMixList.contains(i) == true){
-//                Log.e("lol", sortedMixList.size() + "");
-//                randomMixList.remove(i);
-//            }
-//        }
 
         // Getting from Main activity if shuffled or not
         randomMixList = MainActivity.randomMixList;

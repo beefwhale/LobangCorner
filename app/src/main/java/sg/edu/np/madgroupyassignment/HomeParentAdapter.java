@@ -145,7 +145,7 @@ public class HomeParentAdapter extends RecyclerView.Adapter<HomeParentViewHolder
                     }
                     else{// if its Recipe Corner post
                         weekly_title.setText(weeklyPost.recipeName);
-                        weekly_author.setText(weeklyPost.userName);
+                        weekly_author.setText("By: "+weeklyPost.userName);
                         Picasso.get().load(weeklyPost.foodImage).into(weekly_img);
                     }
                 }

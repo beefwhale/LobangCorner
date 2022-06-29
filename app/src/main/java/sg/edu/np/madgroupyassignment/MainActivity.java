@@ -115,6 +115,7 @@ public class MainActivity extends AppCompatActivity{
 
         bottomNavigationView = findViewById(R.id.bottomNavigationView);
 
+
         //Makes boolean false again on app startup
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(MainActivity.this);
         preferences.edit().remove("onlyonce").commit();
@@ -178,14 +179,13 @@ public class MainActivity extends AppCompatActivity{
 
                 // Default fragment when app is started, only runs once per app startup
                 randomMixList = homeMix.RandomData();
-
                 SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(MainActivity.this);
                 // Only runs when app is first opened
                 if (!prefs.getBoolean("onlyonce", false)) {
                     // Default home fragment
                     FragmentManager fm = getSupportFragmentManager();
                     fm.beginTransaction()
-                            .replace(R.id.MainFragment, new Home())
+                            .replace(R.id.MainFragment, new SplashPage())
                             .commit();
                     Log.e("home page", "indeed");
                     // Shuffles Discover More Section everytime
@@ -201,32 +201,24 @@ public class MainActivity extends AppCompatActivity{
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
             }
-
-
         });
 
         //Calling classes to replace upon nav bar click
-        SplashPage splashPage = new SplashPage();
+//        SplashPage splashPage = new SplashPage();
         Home homeFragment = new Home();
         Profile profile = new Profile();
-//        if (savedInstanceState == null) {
-//            getSupportActionBar().hide();
-//            // Default home fragment
-//            FragmentManager fm = getSupportFragmentManager();
-//            fm.beginTransaction()
-//                    .replace(R.id.MainFragment, new Home())
-//                    .commit();
-//            Log.e("home page", "indeed");
-//        }
-        // Hiding Nav Bars and FAB and during splash page duration
-//        handler.postDelayed(new Runnable() {
-//            @Override
-//            public void run() {
-//                getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, homeFragment, null).commit();
-//                bottomNavigationView.setVisibility(View.VISIBLE);
-//                findViewById(R.id.floating_main_nav_button).setVisibility(View.VISIBLE);
-//            }
-//        }, 4500);
+
+//         Hiding Nav Bars and FAB and during splash page duration
+        bottomNavigationView.setVisibility(View.GONE);
+        findViewById(R.id.floating_main_nav_button).setVisibility(View.GONE);
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, homeFragment, null).commit();
+                bottomNavigationView.setVisibility(View.VISIBLE);
+                findViewById(R.id.floating_main_nav_button).setVisibility(View.VISIBLE);
+            }
+        }, 2500);
 
 
 
