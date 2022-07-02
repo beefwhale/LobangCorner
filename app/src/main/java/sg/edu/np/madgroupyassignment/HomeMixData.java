@@ -1,5 +1,8 @@
 package sg.edu.np.madgroupyassignment;
 
+import org.parceler.Parcel;
+
+@Parcel
 public class HomeMixData {
     public long postTimeStamp;
     public Boolean identifier; // Identifier for HC (true) and RC (false) and

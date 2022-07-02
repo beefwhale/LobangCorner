@@ -1,5 +1,8 @@
 package sg.edu.np.madgroupyassignment;
 
+import org.parceler.Parcel;
+
+@Parcel
 public class RecipeCorner {
     //variables for recipe corner class
     String owner;
