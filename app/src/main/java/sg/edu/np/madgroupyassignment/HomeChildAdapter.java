@@ -80,7 +80,8 @@ public class HomeChildAdapter extends RecyclerView.Adapter<HomeChildViewHolder> 
                     bundle.putParcelable("list", Parcels.wrap(sortedMixList));
                     chosenfragment.setArguments(bundle);
 
-                    activity.getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, chosenfragment).commit();
+                    activity.getSupportFragmentManager().beginTransaction()
+                            .replace(R.id.MainFragment, chosenfragment).addToBackStack(null).commit();
                 }
                 else{
                     Fragment rcpFragment = new RecipeCornerPosts();

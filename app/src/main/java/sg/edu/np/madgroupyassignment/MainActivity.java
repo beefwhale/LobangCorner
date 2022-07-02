@@ -185,8 +185,7 @@ public class MainActivity extends AppCompatActivity{
                     // Default home fragment
                     FragmentManager fm = getSupportFragmentManager();
                     fm.beginTransaction()
-                            .replace(R.id.MainFragment, new SplashPage())
-                            .commit();
+                            .replace(R.id.MainFragment, new SplashPage(), null).commit();
                     Log.e("home page", "indeed");
                     // Shuffles Discover More Section everytime
                     Collections.shuffle(randomMixList);
@@ -214,7 +213,7 @@ public class MainActivity extends AppCompatActivity{
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, homeFragment, null).commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, homeFragment).commit();
                 bottomNavigationView.setVisibility(View.VISIBLE);
                 findViewById(R.id.floating_main_nav_button).setVisibility(View.VISIBLE);
             }
@@ -229,22 +228,26 @@ public class MainActivity extends AppCompatActivity{
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.home:
-                        getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, homeFragment, null).commit();
+                        getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, homeFragment, null)
+                                .addToBackStack(null).commit();
                         return true;
                 }
                 switch (item.getItemId()) {
                     case R.id.hc:
-                        getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, hawkerCornerMain, null).commit();
+                        getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, hawkerCornerMain, null)
+                                .addToBackStack(null).commit();
                         return true;
                 }
                 switch (item.getItemId()) {
                     case R.id.rc:
-                        getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, recipeCornerMain, null).commit();
+                        getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, recipeCornerMain, null)
+                                .addToBackStack(null).commit();
                         return true;
                 }
                 switch (item.getItemId()) {
                     case R.id.profile:
-                        getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, profile, null).commit();
+                        getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, profile, null)
+                                .addToBackStack(null).commit();
                         return true;
                 }
                 return false;

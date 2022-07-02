@@ -163,7 +163,8 @@ public class HomeParentAdapter extends RecyclerView.Adapter<HomeParentViewHolder
                             bundle.putParcelable("list", Parcels.wrap(weekly_list));
                             chosenfragment.setArguments(bundle);
 
-                            activity.getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, chosenfragment).commit();
+                            activity.getSupportFragmentManager().beginTransaction()
+                                    .replace(R.id.MainFragment, chosenfragment).addToBackStack(null).commit();
                         }
                         else{
                             Fragment chosenfragment = new RecipeCornerPosts();
@@ -312,7 +313,8 @@ public class HomeParentAdapter extends RecyclerView.Adapter<HomeParentViewHolder
                         bundle.putParcelable("list", Parcels.wrap(randomMixList));
                         chosenfragment.setArguments(bundle);
 
-                        activity.getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, chosenfragment).commit();
+                        activity.getSupportFragmentManager().beginTransaction()
+                                .replace(R.id.MainFragment, chosenfragment).addToBackStack(null).commit();
                     }
                     else{ // If Recipe Post
                         Fragment rcpFragment = new RecipeCornerPosts();
