@@ -142,6 +142,13 @@ public class Profile extends Fragment {
                 if (postsHolder.getUserHawkerPosts().size() > 0) {
                     AppCompatActivity activity = (AppCompatActivity) view.getContext();
                     Fragment profileHcFragment = new ProfileHawkerRV();
+
+                    //pass username
+                    Bundle bundle = new Bundle();
+                    bundle.putString("username", userProfile.getUsername());
+                    profileHcFragment.setArguments(bundle);
+
+                    //change fragment
                     activity.getSupportFragmentManager().beginTransaction()
                             .replace(R.id.MainFragment, profileHcFragment).commit();
                 } else {

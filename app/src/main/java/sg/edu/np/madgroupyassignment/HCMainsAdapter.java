@@ -6,6 +6,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.Toast;
@@ -26,17 +28,29 @@ public class HCMainsAdapter extends RecyclerView.Adapter<HCMainViewHolder> {
     //Adapter for Recycler View in Hawker Corner Main Page.
 
     ArrayList<HawkerCornerStalls> stallsList;
+    Boolean status;
+    CheckBox cbSelect;
+    public Integer cbCount = 0 ;
+    View stall;
 
     //Constructor for Adapter.
-    public HCMainsAdapter (ArrayList<HawkerCornerStalls> stallsList){
+    public HCMainsAdapter (ArrayList<HawkerCornerStalls> stallsList, Boolean status){
         this.stallsList = stallsList;
+        this.status =  status;
     }
 
     //Create View holder, parent as Stalls are centered.
     @NonNull
     @Override
     public HCMainViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View stall = LayoutInflater.from(parent.getContext()).inflate(R.layout.hawker_corner_stalls, parent, false);
+        // Checks which layout u want (checkbox = false, no checkbox = true)
+        if (status == true){
+            stall = LayoutInflater.from(parent.getContext()).inflate(R.layout.hawker_corner_stalls, parent, false);
+        }
+        else{
+            stall = LayoutInflater.from(parent.getContext()).inflate(R.layout.activity_profile_hc_card, parent, false);
+        }
+
         return new HCMainViewHolder(stall);
     }
 
@@ -66,6 +80,26 @@ public class HCMainsAdapter extends RecyclerView.Adapter<HCMainViewHolder> {
                 activity.getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, chosenfragment).addToBackStack(null).commit();
             }
         });
+        // If layout has checkbox
+        if (status == false){
+            cbSelect = stall.findViewById(R.id.hccheckbox);
+            newstall.setChecked(false);
+            cbSelect.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (newstall.getChecked() == true) {
+                        newstall.setChecked(false);
+                        cbCount = cbCount - 1;
+                        Log.e("count",""+cbCount);
+                    }
+                    else {
+                        newstall.setChecked(true);
+                        cbCount = cbCount + 1;
+                        Log.e("count",""+cbCount);
+                    }
+                }
+            });
+        }
     }
 
     @Override

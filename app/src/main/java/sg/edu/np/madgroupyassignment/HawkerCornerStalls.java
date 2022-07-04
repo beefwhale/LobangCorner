@@ -27,11 +27,13 @@ public class HawkerCornerStalls {
     public String hoursopen;           //Hours open
     public long postTimeStamp;         //Time stamp for home page
 
+    public Boolean isChecked;          // Checks checkbox
+
     //Constructors
     public HawkerCornerStalls (){ }
 
     public HawkerCornerStalls(String postid, String hccoverimg,String hcOwner, String hcstallname, String hcauthor, String hccparagraph, String hccaddress,
-                              String daysopen, String hoursopen, String hccuserpfp,String shortdesc, long postTimeStamp){
+                              String daysopen, String hoursopen, String hccuserpfp,String shortdesc, long postTimeStamp, Boolean isChecked){
         this.postid = postid;
         this.hccoverimg = hccoverimg;
         this.hcOwner = hcOwner;
@@ -44,6 +46,7 @@ public class HawkerCornerStalls {
         this.hccuserpfp = hccuserpfp;
         this.shortdesc = shortdesc;
         this.postTimeStamp = postTimeStamp;
+        this.isChecked = isChecked;
     }
 
     //Getters and setters
@@ -131,4 +134,7 @@ public class HawkerCornerStalls {
     public void setPostTimeStamp(long postTimeStamp) {
         this.postTimeStamp = postTimeStamp;
     }
+
+    public Boolean getChecked() {return isChecked; }
+    public void setChecked(Boolean isChecked) { this.isChecked = isChecked; }
 }

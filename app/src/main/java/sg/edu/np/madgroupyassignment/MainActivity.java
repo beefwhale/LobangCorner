@@ -222,37 +222,61 @@ public class MainActivity extends AppCompatActivity{
 
 
         // Upon Bottom Nav Bar click
-        FragmentManager fm = getSupportFragmentManager();
         bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.home:
-                        getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, homeFragment, null)
-                                .addToBackStack(null).commit();
+                        if (null == getSupportFragmentManager().findFragmentByTag("Home")){
+                            getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, homeFragment, "Home")
+                                    .commit();
+                        }
+                        else{
+                            getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, homeFragment, "Home")
+                                    .addToBackStack(null).commit();
+                        }
                         return true;
                 }
                 switch (item.getItemId()) {
                     case R.id.hc:
-                        getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, hawkerCornerMain, null)
-                                .addToBackStack(null).commit();
+                        if (null == getSupportFragmentManager().findFragmentByTag("HC")){
+                            getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, hawkerCornerMain, "HC")
+                                    .commit();
+                        }
+                        else{
+                            getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, hawkerCornerMain, "HC")
+                                    .addToBackStack(null).commit();
+                        }
                         return true;
                 }
                 switch (item.getItemId()) {
                     case R.id.rc:
-                        getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, recipeCornerMain, null)
-                                .addToBackStack(null).commit();
+                        if (null == getSupportFragmentManager().findFragmentByTag("RC")){
+                            getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, recipeCornerMain, "RC")
+                                    .commit();
+                        }
+                        else{
+                            getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, recipeCornerMain, "RC")
+                                    .addToBackStack(null).commit();
+                        }
                         return true;
                 }
                 switch (item.getItemId()) {
                     case R.id.profile:
-                        getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, profile, null)
-                                .addToBackStack(null).commit();
+                        if (null == getSupportFragmentManager().findFragmentByTag("Profile")){
+                            getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, profile, "Profile")
+                                    .commit();
+                        }
+                        else{
+                            getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, profile, "Profile")
+                                    .addToBackStack(null).commit();
+                        }
                         return true;
                 }
                 return false;
             }
         });
+
 
         //Floating Action Buttons
         FloatingActionButton mainFAB, rcFAB, hcFAB;

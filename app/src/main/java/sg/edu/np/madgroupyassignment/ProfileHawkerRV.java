@@ -2,12 +2,15 @@ package sg.edu.np.madgroupyassignment;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.fragment.app.Fragment;
 
+import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -15,7 +18,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.ImageButton;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.navigation.NavigationBarView;
@@ -40,30 +47,77 @@ public class ProfileHawkerRV extends Fragment {
     private ArrayList<HawkerCornerStalls> hawkerCornersList = new ArrayList<>();
 
     //Recyclerview & Adapter so different functions can access
+    private static TextView hcheader;
     RecyclerView hcmainrv;
     HCMainsAdapter hcadapter;
+    String username;
+    ImageButton deleteBtn;
+    private static UserProfile userProfile;
+    CheckBox checkBox;
+    AlertDialog.Builder builder;
+    Context c;
+
+    public ProfileHawkerRV(){
+        this.c = c;
+    }
 
     public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState){
         View view = inflater.inflate(R.layout.activity_profile_hawkerrv, parent, false);
+        Bundle bundle = this.getArguments();
+
+        //Make sure bundle
+        assert bundle != null;
+        username = (String) bundle.getString("username");
+        hcheader = view.findViewById(R.id.profile_hc_header);
+        hcheader.setText(username + "'s Hawker Corner");
+
+        //Upon Delete button click
+        hcadapter = new HCMainsAdapter(hawkerCornersList, false);
+        deleteBtn = view.findViewById(R.id.deleteBtn);
+        builder = new AlertDialog.Builder(getContext());
+        deleteBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //At least one post selected
+                if (hcadapter.cbCount > 0){
+                    //Setting message manually and performing action on button click
+                    builder.setTitle("Confirm Delete ?")
+                            .setMessage("Are you sure you want to permanently delete ("+hcadapter.cbCount+") posts?")
+                            .setCancelable(false)
+                            .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    //  Action for 'NO' Button
+                                    dialog.cancel();
+//                                Toast.makeText(getApplicationContext(),"you choose no action for alertbox",
+//                                        Toast.LENGTH_SHORT).show();
+                                }
+                            })
+                            .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    dialog.cancel();
+                                    Toast.makeText(getActivity(),hcadapter.cbCount+" Post(s) Deleted",
+                                            Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                    //Creating dialog box
+                    AlertDialog alert = builder.create();
+                    //Setting the title manually
+                    alert.setTitle("AlertDialogExample");
+                    alert.show();
+                }
+                else{
+                    Toast.makeText(getActivity(),"No Post Selected",
+                            Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
 
         hawkerCornersList.removeAll(hawkerCornersList);
         for (HawkerCornerStalls obj : postsHolder.getUserHawkerPosts()) {
             hawkerCornersList.add(obj);
         }
-
-
-        //Populate user's stall List, temporary and will change to get data from firebase
-        if (hawkerCornersList.isEmpty()){
-            for (int i = 0; i < 10; i++) {
-                HawkerCornerStalls newstall = new HawkerCornerStalls();
-                newstall.hcstallname = "Stall " + i;
-                newstall.hcauthor = "Author " + i;
-                hawkerCornersList.add(newstall);
-            }
-        }
-
         hcmainrv = view.findViewById(R.id.hawkercornerrv);
-        hcadapter = new HCMainsAdapter(hawkerCornersList);
+        // If you want the checkbox layout, set as false
         LinearLayoutManager hclayout = new LinearLayoutManager(view.getContext());
 
         hcmainrv.setAdapter(hcadapter);
