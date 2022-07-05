@@ -22,6 +22,7 @@ import com.squareup.picasso.Picasso;
 import org.parceler.Parcel;
 import org.parceler.Parcels;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class HCMainsAdapter extends RecyclerView.Adapter<HCMainViewHolder> {
@@ -31,6 +32,8 @@ public class HCMainsAdapter extends RecyclerView.Adapter<HCMainViewHolder> {
     Boolean status;
     CheckBox cbSelect;
     public Integer cbCount = 0 ;
+    public ArrayList<Integer> listPos = new ArrayList<>();
+    Integer toRemove;
     View stall;
 
     //Constructor for Adapter.
@@ -90,12 +93,20 @@ public class HCMainsAdapter extends RecyclerView.Adapter<HCMainViewHolder> {
                     if (newstall.getChecked() == true) {
                         newstall.setChecked(false);
                         cbCount = cbCount - 1;
-                        Log.e("count",""+cbCount);
+                        for (Integer i:listPos){ //finding integer within list
+                            if (i.equals(holder.getAdapterPosition())){
+                                toRemove = i; // getting interger position
+                            }
+                        }
+                        //Remove integer from list using integer position
+                        listPos.remove(toRemove);
+
+
                     }
                     else {
                         newstall.setChecked(true);
                         cbCount = cbCount + 1;
-                        Log.e("count",""+cbCount);
+                        listPos.add(holder.getAdapterPosition());
                     }
                 }
             });

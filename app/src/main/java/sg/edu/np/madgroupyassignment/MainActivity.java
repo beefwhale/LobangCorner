@@ -181,12 +181,11 @@ public class MainActivity extends AppCompatActivity{
                 randomMixList = homeMix.RandomData();
                 SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(MainActivity.this);
                 // Only runs when app is first opened
-                if (!prefs.getBoolean("onlyonce", false)) {
+                if (prefs.getBoolean("onlyonce", false) != true) {
                     // Default home fragment
                     FragmentManager fm = getSupportFragmentManager();
                     fm.beginTransaction()
                             .replace(R.id.MainFragment, new SplashPage(), null).commit();
-                    Log.e("home page", "indeed");
                     // Shuffles Discover More Section everytime
                     Collections.shuffle(randomMixList);
 
@@ -207,19 +206,20 @@ public class MainActivity extends AppCompatActivity{
         Home homeFragment = new Home();
         Profile profile = new Profile();
 
-//         Hiding Nav Bars and FAB and during splash page duration
-        bottomNavigationView.setVisibility(View.GONE);
-        findViewById(R.id.floating_main_nav_button).setVisibility(View.GONE);
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, homeFragment).commit();
-                bottomNavigationView.setVisibility(View.VISIBLE);
-                findViewById(R.id.floating_main_nav_button).setVisibility(View.VISIBLE);
-            }
-        }, 2500);
-
-
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(MainActivity.this);
+        if (prefs.getBoolean("onlyonce", false) != true){
+            //         Hiding Nav Bars and FAB and during splash page duration
+            bottomNavigationView.setVisibility(View.GONE);
+            findViewById(R.id.floating_main_nav_button).setVisibility(View.GONE);
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, homeFragment).commit();
+                    bottomNavigationView.setVisibility(View.VISIBLE);
+                    findViewById(R.id.floating_main_nav_button).setVisibility(View.VISIBLE);
+                }
+            }, 2500);
+        }
 
         // Upon Bottom Nav Bar click
         bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {

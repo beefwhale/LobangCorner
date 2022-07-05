@@ -413,7 +413,7 @@ public class HawkerForm extends Fragment {
                     openDayBtn.setText("");
                     daysOpen = "";
 //                    getActivity().recreate();
-                    getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, new Home()).commit();
+                    getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, new HawkerForm()).commit();
                 }
                 //Toast.makeText(getActivity(),finalTime, Toast.LENGTH_SHORT).show();
 

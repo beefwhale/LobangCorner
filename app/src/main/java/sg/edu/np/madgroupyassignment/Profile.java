@@ -146,6 +146,9 @@ public class Profile extends Fragment {
                     //pass username
                     Bundle bundle = new Bundle();
                     bundle.putString("username", userProfile.getUsername());
+                    bundle.putString("usernameID", userProfile.getUID());
+                    bundle.putString("usernameImg", userProfile.getProfileImg());
+
                     profileHcFragment.setArguments(bundle);
 
                     //change fragment

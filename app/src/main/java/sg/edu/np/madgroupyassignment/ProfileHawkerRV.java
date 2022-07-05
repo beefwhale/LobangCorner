@@ -33,6 +33,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import org.parceler.Parcels;
 
@@ -51,10 +53,19 @@ public class ProfileHawkerRV extends Fragment {
     RecyclerView hcmainrv;
     HCMainsAdapter hcadapter;
     String username;
+    String usernameID;
+    String usernameImg;
     ImageButton deleteBtn;
+
     private static UserProfile userProfile;
+
     CheckBox checkBox;
     AlertDialog.Builder builder;
+    ArrayList<Integer> listPos;
+    private StorageReference storageReference;
+    private DatabaseReference databaseReference;
+    private FirebaseDatabase firebaseDatabase;
+
     Context c;
 
     public ProfileHawkerRV(){
@@ -65,24 +76,30 @@ public class ProfileHawkerRV extends Fragment {
         View view = inflater.inflate(R.layout.activity_profile_hawkerrv, parent, false);
         Bundle bundle = this.getArguments();
 
+        storageReference = FirebaseStorage.getInstance().getReference();
+        firebaseDatabase = FirebaseDatabase.getInstance();
+        databaseReference = firebaseDatabase.getReference();
+
         //Make sure bundle
         assert bundle != null;
         username = (String) bundle.getString("username");
+        usernameID = (String) bundle.getString("usernameID");
+        usernameImg = (String) bundle.getString("usernameImg");
         hcheader = view.findViewById(R.id.profile_hc_header);
         hcheader.setText(username + "'s Hawker Corner");
 
         //Upon Delete button click
         hcadapter = new HCMainsAdapter(hawkerCornersList, false);
         deleteBtn = view.findViewById(R.id.deleteBtn);
-        builder = new AlertDialog.Builder(getContext());
         deleteBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                builder = new AlertDialog.Builder(getContext());
                 //At least one post selected
                 if (hcadapter.cbCount > 0){
                     //Setting message manually and performing action on button click
                     builder.setTitle("Confirm Delete ?")
-                            .setMessage("Are you sure you want to permanently delete ("+hcadapter.cbCount+") posts?")
+                            .setMessage("You sure you want to permanently delete ("+hcadapter.cbCount+") posts?")
                             .setCancelable(false)
                             .setNegativeButton("No", new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int id) {
@@ -95,14 +112,27 @@ public class ProfileHawkerRV extends Fragment {
                             .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int id) {
                                     dialog.cancel();
+                                    listPos = hcadapter.listPos;
+                                    for (int i: listPos) {
+                                        HawkerCornerStalls deleteItem = hawkerCornersList.get(i);
+
+
+                                        //removing from database
+                                        databaseReference.child("UserProfile").child(usernameID).child("hawkList").child(deleteItem.getPostid()).removeValue();
+                                        databaseReference.child("Posts").child("Hawkers").child(deleteItem.getPostid()).removeValue();
+                                        StorageReference storageLocationCheck = FirebaseStorage.getInstance().getReferenceFromUrl(deleteItem.hccoverimg);
+                                        storageLocationCheck.delete();
+
+                                        //Updating List
+                                        hawkerCornersList.remove(i);
+                                        hcadapter.notifyItemRemoved(i);
+                                    }
                                     Toast.makeText(getActivity(),hcadapter.cbCount+" Post(s) Deleted",
                                             Toast.LENGTH_SHORT).show();
                                 }
                             });
                     //Creating dialog box
                     AlertDialog alert = builder.create();
-                    //Setting the title manually
-                    alert.setTitle("AlertDialogExample");
                     alert.show();
                 }
                 else{
@@ -116,6 +146,7 @@ public class ProfileHawkerRV extends Fragment {
         for (HawkerCornerStalls obj : postsHolder.getUserHawkerPosts()) {
             hawkerCornersList.add(obj);
         }
+        hcadapter = new HCMainsAdapter(hawkerCornersList, false);
         hcmainrv = view.findViewById(R.id.hawkercornerrv);
         // If you want the checkbox layout, set as false
         LinearLayoutManager hclayout = new LinearLayoutManager(view.getContext());
