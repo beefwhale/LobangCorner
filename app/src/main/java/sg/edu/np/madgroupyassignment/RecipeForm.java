@@ -1,8 +1,11 @@
 package sg.edu.np.madgroupyassignment;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
@@ -60,6 +63,37 @@ public class RecipeForm extends Fragment {
         // Inflate the layout for this fragment
         databaseReferencetest = FirebaseDatabase.getInstance().getReference();
         View recipeform = inflater.inflate(R.layout.fragment_recipe_form, container, false);
+
+        //Toast shows up when back button is pressed.
+        OnBackPressedCallback callback = new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+
+                AlertDialog.Builder builder1 = new AlertDialog.Builder(getActivity()); //Context is getActivity
+
+                //Set title
+                builder1.setTitle("Save or Not");
+                builder1.setMessage("Do you want to save this to drafts?");
+
+                builder1.setPositiveButton("Save", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        getParentFragmentManager().popBackStack();
+                    }
+                });
+
+                builder1.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        //dismiss Dialog
+                        dialogInterface.dismiss();
+                    }
+                });
+
+                builder1.show();
+            }
+        };
+        requireActivity().getOnBackPressedDispatcher().addCallback(getActivity(), callback);
 
 
         //Connecting the 3 fragments through tabLayout

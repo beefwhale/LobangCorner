@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.net.Uri;
 import android.os.Bundle;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
@@ -90,6 +91,39 @@ public class HawkerForm extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View hf = inflater.inflate(R.layout.fragment_hawker_form, container, false);
+
+        //Toast shows up when back button is pressed.
+        OnBackPressedCallback callback = new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+
+                AlertDialog.Builder builder1 = new AlertDialog.Builder(getActivity()); //Context is getActivity
+
+                //Set title
+                builder1.setTitle("Save or Not");
+                builder1.setMessage("Do you want to save this to drafts?");
+
+                builder1.setPositiveButton("Save", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        getParentFragmentManager().popBackStack();
+                    }
+                });
+
+                builder1.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        //dismiss Dialog
+                        dialogInterface.dismiss();
+                    }
+                });
+
+                builder1.show();
+            }
+        };
+
+        requireActivity().getOnBackPressedDispatcher().addCallback(getActivity(), callback);
+
 
         //Setting Default Values
         openingTime = "00:00";
@@ -424,6 +458,8 @@ public class HawkerForm extends Fragment {
 
         return hf;
     }
+
+
 
     private void HwkUp(HashMap<String, Object> userHwkList, HawkerCornerStalls HwkObj, String PostID) {
 //        databaseReferencetest = FirebaseDatabase.getInstance().getReference();
