@@ -5,59 +5,41 @@ import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
-import android.app.Activity;
+import android.content.ActivityNotFoundException;
 import android.content.ContentResolver;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
-import android.view.WindowManager;
 import android.webkit.MimeTypeMap;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
 
-import org.parceler.Parcels;
-import org.w3c.dom.Text;
-
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
-
-import de.hdodenhof.circleimageview.CircleImageView;
 
 public class Profile extends Fragment {
 
@@ -65,12 +47,17 @@ public class Profile extends Fragment {
     private static String aboutMeInput;
     private static TextView username, hwkObj, rcpObj, fishRandom;
     private static ImageView profP, fishView;
+    private static ImageButton socialBtn;
+    private static ImageView social_insta, social_twt, social_fb;
     private Button logout, aboutbtn;
     private ProgressBar loadingPB;
     private EditText aboutme;
     private PostsHolder postsHolder;
     private LayoutInflater layoutInflater;
     private View fish;
+
+    String sAppLink,sPackage,sWebLink;
+    String insta_username,fb_username,twt_username;
 
     private Uri ImageUri;
     private FirebaseAuth mAuth;
@@ -82,7 +69,7 @@ public class Profile extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.activity_log_test, null);
+        View view = inflater.inflate(R.layout.activity_profile, null);
 
         profP = view.findViewById(R.id.idProfP);
         username = view.findViewById(R.id.TestTitle);
@@ -96,6 +83,12 @@ public class Profile extends Fragment {
         fishRandom = fish.findViewById(R.id.fishText);
         fishView = fish.findViewById(R.id.fishView);
         aboutbtn = view.findViewById(R.id.about_btn);
+
+        //Social Section
+        socialBtn = view.findViewById(R.id.socialBtn);
+        social_insta = view.findViewById(R.id.social_insta);
+        social_twt = view.findViewById(R.id.social_twt);
+        social_fb = view.findViewById(R.id.social_fb);
 
         mAuth = FirebaseAuth.getInstance();
         storageReference = FirebaseStorage.getInstance().getReference();
@@ -176,6 +169,71 @@ public class Profile extends Fragment {
             }
         });
 
+//        Add Social Button
+        socialBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Fragment socialsFragment = new ProfileSocials();
+
+                //pass username
+                Bundle bundle = new Bundle();
+                bundle.putString("usernameID", userProfile.getUID());
+                bundle.putString("insta", insta_username);
+                bundle.putString("fb", fb_username);
+                bundle.putString("twt", twt_username);
+                socialsFragment.setArguments(bundle);
+
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, socialsFragment).addToBackStack(null).commit();
+            }
+        });
+//      Making Social Buttons GONE if no info added
+        if (insta_username.equals("") || insta_username == null){
+            social_insta.setVisibility(View.GONE);
+        }
+        if (fb_username.equals("") || fb_username == null){
+            social_fb.setVisibility(View.GONE);
+        }
+        else{
+            Log.e("fb",fb_username);
+        }
+        if (twt_username.equals("") || twt_username == null){
+            social_twt.setVisibility(View.GONE);
+        }
+//        Instagram Button
+        social_insta.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                Log.e("Instagram", insta_username+"egg");
+                String sAppLink = "https://www.instagram.com/"+insta_username+"/";
+                String sPackage = "com.instagram.android";
+                String sWebLink = "https://www.instagram.com/"+insta_username+"/";
+                openLink(sAppLink, sPackage, sWebLink);
+            }
+        });
+//        Facebook Button
+        social_fb.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String sAppLink = fb_username;
+                String sPackage = "com.facebook.katana";
+                String sWebLink = fb_username;
+                openLink(sAppLink, sPackage, sWebLink);
+            }
+        });
+//        Twitter Button
+        social_twt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String sAppLink = "twitter://user?screen_name="+twt_username;
+                String sPackage = "com.twitter.android";
+                String sWebLink = "https://twitter.com/"+twt_username;
+                openLink(sAppLink, sPackage, sWebLink);
+            }
+        });
+
+
+
+
 //        Sign up button
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -200,6 +258,26 @@ public class Profile extends Fragment {
         return view;
     }
 
+    // Opening social media links
+    private void openLink(String sAppLink, String sPackage, String sWebLink) {
+        try{
+            Uri uri = Uri.parse(sAppLink);
+            Intent intent = new Intent(Intent.ACTION_VIEW);
+            intent.setData(uri);
+            intent.setPackage(sPackage);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
+        }
+        catch(ActivityNotFoundException activityNotFoundException){
+            Uri uri = Uri.parse(sWebLink);
+            Intent intent = new Intent(Intent.ACTION_VIEW);
+            intent.setData(uri);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
+        }
+
+    }
+
     //    Updating profile page
     public void updatePage() {
         MainActivity mainActivity = new MainActivity();
@@ -212,6 +290,11 @@ public class Profile extends Fragment {
         }
         hwkObj.setText("" + (userProfile.getHawkList().size() - 1) + "\n\nHawker Posts");
         rcpObj.setText("" + (userProfile.getRcpList().size() - 1) + "\n\nRecipe Post");
+
+        //Socials
+        insta_username = userProfile.getInstagram();
+        fb_username = userProfile.getFacebook();
+        twt_username = userProfile.getTwitter();
 
         getUserPost();
     }

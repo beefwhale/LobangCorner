@@ -16,11 +16,16 @@ public class UserProfile {
     HashMap<String, Object> HawkList;
     HashMap<String, Object> RcpList;
 
+    String instagram;
+    String facebook;
+    String twitter;
+
     public UserProfile() {
 
     }
 
-    public UserProfile(String UID, String username, String email, String profileImg, String aboutMe, HashMap<String, Object> hawkList, HashMap<String, Object> rcpList) {
+    public UserProfile(String UID, String username, String email, String profileImg, String aboutMe, HashMap<String, Object> hawkList, HashMap<String, Object> rcpList,
+                       String instagram, String facebook, String twitter) {
         this.UID = UID;
         this.username = username;
         this.email = email;
@@ -28,6 +33,11 @@ public class UserProfile {
         this.aboutMe = aboutMe;
         HawkList = hawkList;
         RcpList = rcpList;
+
+        //Socials
+        this.instagram = instagram;
+        this.facebook = facebook;
+        this.twitter = twitter;
     }
 
     public String getUID() {
@@ -80,5 +90,27 @@ public class UserProfile {
 
     public void setRcpList(HashMap<String, Object> rcpList) {
         RcpList = rcpList;
+    }
+
+    public String getInstagram() { return instagram; }
+
+    public void setInstagram(String instagram) {
+        this.instagram = instagram;
+    }
+
+    public String getFacebook() {
+        return facebook;
+    }
+
+    public void setFacebook(String facebook) {
+        this.facebook = facebook;
+    }
+
+    public String getTwitter() {
+        return twitter;
+    }
+
+    public void setTwitter(String twitter) {
+        this.twitter = twitter;
     }
 }

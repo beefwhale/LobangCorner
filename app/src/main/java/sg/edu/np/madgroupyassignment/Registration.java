@@ -36,6 +36,7 @@ public class Registration extends AppCompatActivity {
 
     private TextInputEditText username, email, password, cnfpassword;
     private String UID, profP, aboutMe;
+    private String instagram, facebook, twitter;
     private Button regBtn;
     private ProgressBar loadingPB;
     private TextView loginTV;
@@ -121,9 +122,12 @@ public class Registration extends AppCompatActivity {
                                 HawkSeed.put("Seed", "HawkSeed");
                                 RcpSeed = new HashMap<String, Object>();
                                 RcpSeed.put("Seed", "RcpSeed");
+                                instagram = "";
+                                facebook = "";
+                                twitter = "";
 
 //                                Creating new user profile
-                                CreateProfile(UID, Username, Email, profP, aboutMe, HawkSeed, RcpSeed);
+                                CreateProfile(UID, Username, Email, profP, aboutMe, HawkSeed, RcpSeed, instagram, facebook, twitter);
 
 //                                Sending user to login page after registration
                                 Toast.makeText(Registration.this, "User Registered...", Toast.LENGTH_SHORT).show();
@@ -145,9 +149,10 @@ public class Registration extends AppCompatActivity {
 
     }
 
-    private void CreateProfile(String UID, String Username, String Email, String profP, String aboutMe, HashMap<String, Object> HawkSeed, HashMap<String, Object> RcpSeed) {
+    private void CreateProfile(String UID, String Username, String Email, String profP, String aboutMe, HashMap<String, Object> HawkSeed, HashMap<String, Object> RcpSeed,
+                               String Instagram, String Facebook, String Twitter) {
 //        Creating new userProfile object
-        userProfile = new UserProfile(UID, Username, Email, profP, aboutMe, HawkSeed, RcpSeed);
+        userProfile = new UserProfile(UID, Username, Email, profP, aboutMe, HawkSeed, RcpSeed, Instagram, Facebook, Twitter);
 //        Adding user profile to database
         databaseReference.child(UID).setValue(userProfile);
 

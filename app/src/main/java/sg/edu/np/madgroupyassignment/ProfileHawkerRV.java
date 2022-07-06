@@ -56,6 +56,7 @@ public class ProfileHawkerRV extends Fragment {
     String usernameID;
     String usernameImg;
     ImageButton deleteBtn;
+    ImageButton editBtn;
 
     private static UserProfile userProfile;
 
@@ -90,6 +91,8 @@ public class ProfileHawkerRV extends Fragment {
 
         //Upon Delete button click
         hcadapter = new HCMainsAdapter(hawkerCornersList, false);
+
+//        Deleting Users own post
         deleteBtn = view.findViewById(R.id.deleteBtn);
         deleteBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -141,7 +144,21 @@ public class ProfileHawkerRV extends Fragment {
                 }
             }
         });
+//        Editing Users own Post
+        editBtn = view.findViewById(R.id.editBtn);
+        editBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //Only one post selected
+                if (hcadapter.cbCount == 1){
 
+                }
+                else{
+                    Toast.makeText(getActivity(),"You can only Edit 1 post at a time",
+                            Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
         hawkerCornersList.removeAll(hawkerCornersList);
         for (HawkerCornerStalls obj : postsHolder.getUserHawkerPosts()) {
             hawkerCornersList.add(obj);
