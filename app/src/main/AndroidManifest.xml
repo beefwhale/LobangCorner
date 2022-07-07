@@ -13,44 +13,47 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MADGroupYAssignment">
         <activity
+            android:name=".BookmarkActivity"
+            android:exported="false" />
+        <activity
             android:name=".RecipeCornerPosts"
-            android:exported="false"/>
+            android:exported="false" />
         <activity
             android:name=".RecipeCornerMain"
-            android:exported="false"/>
+            android:exported="false" />
         <activity
             android:name=".Profile"
             android:exported="false" />
         <activity
             android:name=".Registration"
             android:exported="false"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".Login"
             android:exported="true"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
             android:name=".HCChosenStall"
             android:exported="false"
-            android:label="Hawker Corner"/>
+            android:label="Hawker Corner" />
         <activity
             android:name=".HawkerCornerMain"
             android:exported="false"
-            android:label="Hawker Corner"/>
+            android:label="Hawker Corner" />
         <activity
             android:name=".MainActivity"
             android:exported="true"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".SplashPage"
-            android:theme="@style/SplashTheme"
-            android:screenOrientation="portrait">
-        </activity>
+            android:screenOrientation="portrait"
+            android:theme="@style/SplashTheme"></activity>
     </application>
 
 </manifest>

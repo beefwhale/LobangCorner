@@ -277,5 +277,15 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@mipmap/logo_text_yq_foreground" />
 
+    <ImageView
+        android:id="@+id/bookmark"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:layout_marginStart="224dp"
+        android:layout_marginTop="40dp"
+        app:layout_constraintStart_toEndOf="@+id/imageView2"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_bookmark" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

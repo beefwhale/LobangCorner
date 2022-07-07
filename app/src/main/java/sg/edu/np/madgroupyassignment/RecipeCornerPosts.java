@@ -17,6 +17,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
@@ -32,6 +33,8 @@ public class RecipeCornerPosts extends Fragment {
     //constructor
     public RecipeCornerPosts(){this.c =c;};
 
+    public ArrayList<RecipeCorner> rcbookmarklist = new ArrayList<>();
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,7 +45,7 @@ public class RecipeCornerPosts extends Fragment {
         TextView id = view.findViewById(R.id.idUser);
         RatingBar rb = view.findViewById(R.id.ratingBar);
         ImageView i = view.findViewById(R.id.imageView);
-
+        ImageView i2 = view.findViewById(R.id.rcbookmark);
         TextView duration = view.findViewById(R.id.idDuration);
         TextView steps = view.findViewById(R.id.idSteps);
         TextView ingred = view.findViewById(R.id.idIngreds);
@@ -84,6 +87,23 @@ public class RecipeCornerPosts extends Fragment {
             ingred.setText(recipePost.ingredients);
             Picasso.get().load(recipePost.getFoodImage()).into(i);
         }
+
+        i2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(getContext(), "Recipe saved!", Toast.LENGTH_SHORT).show();
+                ArrayList<RecipeCorner> recipeList = new ArrayList<>();
+                recipeList = Parcels.unwrap(b.getParcelable("list"));
+                RecipeCorner recipePost;
+                recipePost = recipeList.get(rcNo);
+                rcbookmarklist.add(recipePost);
+                //hvent add to firebase
+            }
+        });
         return view;
+    }
+
+    public ArrayList<RecipeCorner> getRcbookmarklist() {
+        return rcbookmarklist;
     }
 }

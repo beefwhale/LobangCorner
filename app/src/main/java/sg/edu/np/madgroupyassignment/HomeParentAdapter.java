@@ -1,6 +1,7 @@
 package sg.edu.np.madgroupyassignment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -11,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -79,7 +81,7 @@ public class HomeParentAdapter extends RecyclerView.Adapter<HomeParentViewHolder
             ImageView weekly_img = item.findViewById(R.id.weekly_img);
             TextView weekly_title = item.findViewById(R.id.weekly_title);
             TextView weekly_author = item.findViewById(R.id.weekly_author);
-
+            ImageView bookmark_img = item.findViewById(R.id.bookmark);
 
             // Getting Weekly Date and UId Stored in Firebase
             MainActivity mainActivity = new MainActivity();
@@ -257,6 +259,17 @@ public class HomeParentAdapter extends RecyclerView.Adapter<HomeParentViewHolder
                 }
             });
 
+            bookmark_img.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    AppCompatActivity activity = (AppCompatActivity) parent.getContext();
+                    //Intent in = new Intent(activity, BookmarkActivity.class);
+                    //activity.startActivity(in);
+                    BookmarkActivity b = new BookmarkActivity();
+                    activity.getSupportFragmentManager().beginTransaction()
+                            .replace(R.id.MainFragment, b).addToBackStack(null).commit();
+                }
+            });
 
         }
         else{

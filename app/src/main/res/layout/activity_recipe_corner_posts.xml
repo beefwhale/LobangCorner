@@ -186,5 +186,15 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/idRecipeName" />
 
+        <ImageView
+            android:id="@+id/rcbookmark"
+            android:layout_width="31dp"
+            android:layout_height="32dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="40dp"
+            app:layout_constraintStart_toEndOf="@+id/idRecipeName"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_bookmark" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>
