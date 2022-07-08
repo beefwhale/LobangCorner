@@ -155,11 +155,18 @@ public class ProfileHawkerRV extends Fragment {
                 if (hcadapter.cbCount == 1 && hcadapter.listPos.size() == 1){
                     //Getting Chosen Post to Edit
                     Integer pos = hcadapter.listPos.get(0);
-                    hawkerCornersList.get(pos);
+
+                    Fragment HawkerForm = new HawkerForm(false);
+
+                    //pass username
+                    Bundle bundle = new Bundle();
+                    bundle.putInt("stallposition", pos);
+                    bundle.putParcelable("list", Parcels.wrap(hawkerCornersList));
+                    HawkerForm.setArguments(bundle);
 
                     //Creating activity context to for the view, starting new fragment when view is clicked
                     AppCompatActivity activity = (AppCompatActivity) view.getContext();
-                    activity.getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment,new HawkerForm(false)).addToBackStack(null).commit();
+                    activity.getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, HawkerForm).addToBackStack(null).commit();
                 }
                 // No post selected
                 else if(hcadapter.cbCount==0){

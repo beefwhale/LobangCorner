@@ -38,6 +38,8 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
 
+import org.parceler.Parcels;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -82,7 +84,10 @@ public class HawkerForm extends Fragment {
     private StorageReference storageReference;
     ActivityResultLauncher<String> getPhoto;
     HawkerCornerStalls hCS;
+
+    // For editing forms
     Boolean check;
+    HawkerCornerStalls chosenstall;
 
     public HawkerForm(Boolean check) {
         //Checks if its creating or editing forms
@@ -97,9 +102,8 @@ public class HawkerForm extends Fragment {
             hf = inflater.inflate(R.layout.fragment_hawker_form, container, false);
         }
         else{
-            hf = inflater.inflate(R.layout.fragent_hawker_form_edit, container, false);
+            hf = inflater.inflate(R.layout.fragment_hawker_form_edit, container, false);
         }
-
 
         //Toast shows up when back button is pressed.
         OnBackPressedCallback callback = new OnBackPressedCallback(true) {
@@ -132,21 +136,6 @@ public class HawkerForm extends Fragment {
         };
 
         requireActivity().getOnBackPressedDispatcher().addCallback(getActivity(), callback);
-
-
-        //Setting Default Values
-        openingTime = "00:00";
-        closingTime = "00:00";
-        stallName = "";
-        desc = "";
-        shortDesc = "";
-        address = "";
-        downUrl = "";
-        clHour = 00;
-        clMin = 00;
-        opHour = 00;
-        opMin = 00;
-
         //Assign variable
         submit = hf.findViewById(R.id.submitBtn);
         displayPicButtonHawker = hf.findViewById(R.id.displayPic);
@@ -179,6 +168,51 @@ public class HawkerForm extends Fragment {
                 getPhoto.launch("image/*");
             }
         });
+        //CREATING : Setting Default Values
+        if (check == true) {
+            openingTime = "00:00";
+            closingTime = "00:00";
+            stallName = "";
+            desc = "";
+            shortDesc = "";
+            address = "";
+            downUrl = "";
+            clHour = 00;
+            clMin = 00;
+            opHour = 00;
+            opMin = 00;
+        }
+        // EDIITNG : setting values
+        else{
+            // getting data from bundle
+            Bundle bundle = this.getArguments();
+            assert bundle != null;
+            int chosenstallno = (int) bundle.getInt("stallposition");
+            ArrayList<HawkerCornerStalls> stallsList = Parcels.unwrap(bundle.getParcelable("list"));
+            chosenstall = stallsList.get(chosenstallno);
+
+            openingTime = chosenstall.hoursopen.substring(0,5);
+            closingTime = chosenstall.hoursopen.substring(8,13);
+            stallName = chosenstall.hcstallname;
+            desc = chosenstall.hccparagraph;
+            shortDesc = chosenstall.shortdesc;
+            address = chosenstall.hccaddress;
+            downUrl = chosenstall.hccoverimg;
+            clHour = Integer.parseInt(chosenstall.hoursopen.substring(8,10));
+            clMin = Integer.parseInt(chosenstall.hoursopen.substring(11,13));
+            opHour = Integer.parseInt(chosenstall.hoursopen.substring(0,2));
+            opMin = Integer.parseInt(chosenstall.hoursopen.substring(3,5));
+
+            displayPicButtonHawker = hf.findViewById(R.id.displayPic);
+            sNInput.setText(stallName);
+            dInput.setText(desc);
+            sdInput.setText(shortDesc);
+            aInput.setText(address);
+            opTInput.setText(openingTime);
+            clTInput.setText(closingTime);
+        }
+
+
 
         //Assigning Stall Name to variable
         sNInput.addTextChangedListener(new TextWatcher() {
@@ -404,7 +438,6 @@ public class HawkerForm extends Fragment {
 
             }
         });
-
 
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
