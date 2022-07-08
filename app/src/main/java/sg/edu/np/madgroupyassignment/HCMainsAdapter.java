@@ -30,7 +30,6 @@ public class HCMainsAdapter extends RecyclerView.Adapter<HCMainViewHolder> {
 
     ArrayList<HawkerCornerStalls> stallsList;
     Boolean status;
-    CheckBox cbSelect;
     public Integer cbCount = 0 ;
     public ArrayList<Integer> listPos = new ArrayList<>();
     Integer toRemove;
@@ -60,7 +59,6 @@ public class HCMainsAdapter extends RecyclerView.Adapter<HCMainViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull HCMainViewHolder holder, int position) {
         HawkerCornerStalls newstall = stallsList.get(position);
-
         Picasso.get().load(newstall.getHccoverimg()).into(holder.hccoverimg);
         holder.hcstallname.setText(newstall.hcstallname);
         holder.hcshortdesc.setText(newstall.shortdesc);
@@ -85,9 +83,17 @@ public class HCMainsAdapter extends RecyclerView.Adapter<HCMainViewHolder> {
         });
         // If layout has checkbox
         if (status == false){
-            cbSelect = stall.findViewById(R.id.hccheckbox);
+            //Setting all as default unselected
             newstall.setChecked(false);
-            cbSelect.setOnClickListener(new View.OnClickListener() {
+
+            //DESELECTION : if removed from listPos, updating checkbox for every card
+            if (listPos.contains(holder.getAdapterPosition()) == false){
+                holder.hcCheckbox.setChecked(false);
+            }
+            else{
+                holder.hcCheckbox.setChecked(true);
+            }
+            holder.hcCheckbox.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     if (newstall.getChecked() == true) {
@@ -101,17 +107,18 @@ public class HCMainsAdapter extends RecyclerView.Adapter<HCMainViewHolder> {
                         //Remove integer from list using integer position
                         listPos.remove(toRemove);
 
-
-                    }
+                }
                     else {
                         newstall.setChecked(true);
                         cbCount = cbCount + 1;
+                        //Add to list of checked using adapter position
                         listPos.add(holder.getAdapterPosition());
                     }
                 }
             });
         }
     }
+
 
     @Override
     public int getItemCount() {

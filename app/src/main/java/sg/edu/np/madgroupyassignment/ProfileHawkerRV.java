@@ -104,7 +104,7 @@ public class ProfileHawkerRV extends Fragment {
                     builder.setTitle("Confirm Delete ?")
                             .setMessage("You sure you want to permanently delete ("+hcadapter.cbCount+") posts?")
                             .setCancelable(false)
-                            .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                            .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int id) {
                                     //  Action for 'NO' Button
                                     dialog.cancel();
@@ -115,6 +115,7 @@ public class ProfileHawkerRV extends Fragment {
                             .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int id) {
                                     dialog.cancel();
+                                    //List of selected positions in RV (Checked)
                                     listPos = hcadapter.listPos;
                                     for (int i: listPos) {
                                         HawkerCornerStalls deleteItem = hawkerCornersList.get(i);
@@ -149,13 +150,56 @@ public class ProfileHawkerRV extends Fragment {
         editBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                builder = new AlertDialog.Builder(getContext());
                 //Only one post selected
-                if (hcadapter.cbCount == 1){
+                if (hcadapter.cbCount == 1 && hcadapter.listPos.size() == 1){
+                    //Getting Chosen Post to Edit
+                    Integer pos = hcadapter.listPos.get(0);
+                    hawkerCornersList.get(pos);
 
+                    //Creating activity context to for the view, starting new fragment when view is clicked
+                    AppCompatActivity activity = (AppCompatActivity) view.getContext();
+                    activity.getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment,new HawkerForm(false)).addToBackStack(null).commit();
                 }
-                else{
-                    Toast.makeText(getActivity(),"You can only Edit 1 post at a time",
+                // No post selected
+                else if(hcadapter.cbCount==0){
+                    Toast.makeText(getActivity(),"Please select a post to edit",
                             Toast.LENGTH_SHORT).show();
+                }
+                // More than 1 post selected
+                else{
+                    //Setting message manually and performing action on button click
+                    builder.setTitle("Deselect ALL posts?")
+                            .setMessage("You can only edit 1 post at a time.")
+                            .setCancelable(false)
+                            .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    //  Action for 'NO' Button
+                                    dialog.cancel();
+//                                Toast.makeText(getApplicationContext(),"you choose no action for alertbox",
+//                                        Toast.LENGTH_SHORT).show();
+                                }
+                            })
+                            .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    dialog.cancel();
+                                    //Deselect all Posts
+                                    for (HawkerCornerStalls i: hawkerCornersList) {
+                                        i.setChecked(false);
+
+                                    }
+                                    hcadapter.cbCount = 0;
+                                    hcadapter.listPos.clear();
+                                    hcadapter.notifyDataSetChanged();
+
+                                    Toast.makeText(getActivity(),"All posts unselected.",
+                                            Toast.LENGTH_SHORT).show();
+
+                                }
+                            });
+                    //Creating dialog box
+                    AlertDialog alert = builder.create();
+                    alert.show();
                 }
             }
         });

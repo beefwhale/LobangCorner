@@ -1,6 +1,7 @@
 package sg.edu.np.madgroupyassignment;
 
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -14,6 +15,7 @@ public class HCMainViewHolder extends RecyclerView.ViewHolder {
     TextView hcstallname;
     TextView hcauthor;
     TextView hcshortdesc;
+    CheckBox hcCheckbox;
 
     public HCMainViewHolder(View item){
         super(item);
@@ -22,6 +24,7 @@ public class HCMainViewHolder extends RecyclerView.ViewHolder {
         hcstallname = item.findViewById(R.id.hcstallname);
         hcauthor = item.findViewById(R.id.hccoverauthor);
         hcshortdesc = item.findViewById(R.id.hcshortdesc);
+        hcCheckbox = item.findViewById(R.id.hccheckbox);
 
     }
 

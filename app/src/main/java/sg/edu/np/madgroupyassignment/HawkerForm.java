@@ -82,15 +82,24 @@ public class HawkerForm extends Fragment {
     private StorageReference storageReference;
     ActivityResultLauncher<String> getPhoto;
     HawkerCornerStalls hCS;
+    Boolean check;
 
-    public HawkerForm() {
-
+    public HawkerForm(Boolean check) {
+        //Checks if its creating or editing forms
+        // Create = true, Edit = false
+        this.check = check;
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        View hf = inflater.inflate(R.layout.fragment_hawker_form, container, false);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View hf;
+        if (check ==true){
+            hf = inflater.inflate(R.layout.fragment_hawker_form, container, false);
+        }
+        else{
+            hf = inflater.inflate(R.layout.fragent_hawker_form_edit, container, false);
+        }
+
 
         //Toast shows up when back button is pressed.
         OnBackPressedCallback callback = new OnBackPressedCallback(true) {
@@ -447,7 +456,10 @@ public class HawkerForm extends Fragment {
                     openDayBtn.setText("");
                     daysOpen = "";
 //                    getActivity().recreate();
-                    getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, new HawkerForm()).commit();
+                    if (check == true){
+                        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, new HawkerForm(true)).commit();
+                    }
+
                 }
                 //Toast.makeText(getActivity(),finalTime, Toast.LENGTH_SHORT).show();
 

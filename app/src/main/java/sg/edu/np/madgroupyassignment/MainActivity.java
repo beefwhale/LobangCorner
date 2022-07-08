@@ -99,7 +99,7 @@ public class MainActivity extends AppCompatActivity{
 
         Profile log_test = new Profile();
         RecipeForm recipeForm = new RecipeForm();
-        HawkerForm hawkerForm = new HawkerForm();
+        HawkerForm hawkerForm = new HawkerForm(true);
         HawkerCornerMain hawkerCornerMain = new HawkerCornerMain();
         RecipeCornerMain recipeCornerMain = new RecipeCornerMain();
 
