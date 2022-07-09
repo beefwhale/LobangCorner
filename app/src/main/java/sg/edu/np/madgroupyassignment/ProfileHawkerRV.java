@@ -169,7 +169,7 @@ public class ProfileHawkerRV extends Fragment {
                     activity.getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, HawkerForm).addToBackStack(null).commit();
                 }
                 // No post selected
-                else if(hcadapter.cbCount==0){
+                else if(hcadapter.cbCount.equals(0)){
                     Toast.makeText(getActivity(),"Please select a post to edit",
                             Toast.LENGTH_SHORT).show();
                 }

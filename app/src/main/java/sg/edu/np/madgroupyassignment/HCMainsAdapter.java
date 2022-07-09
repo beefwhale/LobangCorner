@@ -106,7 +106,6 @@ public class HCMainsAdapter extends RecyclerView.Adapter<HCMainViewHolder> {
                         }
                         //Remove integer from list using integer position
                         listPos.remove(toRemove);
-
                 }
                     else {
                         newstall.setChecked(true);
