@@ -51,6 +51,7 @@ public class RecipeForm extends Fragment {
     RecipeCorner recipeCorner;
     HashMap<String, Object> userCurrentRcp;
 
+    OnBackPressedCallback callback;
     public RecipeForm() {
         // Required empty public constructor
     }
@@ -64,36 +65,6 @@ public class RecipeForm extends Fragment {
         databaseReferencetest = FirebaseDatabase.getInstance().getReference();
         View recipeform = inflater.inflate(R.layout.fragment_recipe_form, container, false);
 
-        //Toast shows up when back button is pressed.
-        OnBackPressedCallback callback = new OnBackPressedCallback(true) {
-            @Override
-            public void handleOnBackPressed() {
-
-                AlertDialog.Builder builder1 = new AlertDialog.Builder(getActivity()); //Context is getActivity
-
-                //Set title
-                builder1.setTitle("Save or Not");
-                builder1.setMessage("Do you want to save this to drafts?");
-
-                builder1.setPositiveButton("Save", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        getParentFragmentManager().popBackStack();
-                    }
-                });
-
-                builder1.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        //dismiss Dialog
-                        dialogInterface.dismiss();
-                    }
-                });
-
-                builder1.show();
-            }
-        };
-        requireActivity().getOnBackPressedDispatcher().addCallback(getActivity(), callback);
 
 
         //Connecting the 3 fragments through tabLayout
@@ -206,5 +177,50 @@ public class RecipeForm extends Fragment {
         this.userProfile = userProfile;
     }
 
+    private void leaveAlert(){
+        AlertDialog.Builder builder1 = new AlertDialog.Builder(getActivity()); //Context is getActivity
 
+        //Set title
+        builder1.setTitle("Save or Not");
+        builder1.setMessage("Do you want to save this to drafts?");
+
+        builder1.setPositiveButton("Save", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                getParentFragmentManager().popBackStack();
+            }
+        });
+
+        builder1.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                //dismiss Dialog
+                dialogInterface.dismiss();
+            }
+        });
+
+        builder1.show();
+    }
+
+    @Override
+    public void onResume() {
+        //Toast shows up when back button is pressed
+        callback = new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                leaveAlert();
+                //Ensure it doesnt affect when not in forms
+                setEnabled(false);
+            }
+        };
+
+        requireActivity().getOnBackPressedDispatcher().addCallback(getActivity(), callback);
+        super.onResume();
+    }
+
+    @Override
+    public void onPause() {
+        callback.setEnabled(false);
+        super.onPause();
+    }
 }

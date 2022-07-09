@@ -18,6 +18,7 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.MimeTypeMap;
@@ -32,6 +33,8 @@ import android.widget.Toast;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.navigation.NavigationBarView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -79,6 +82,7 @@ public class HawkerForm extends Fragment {
     String ownerUID;
     String username;
     HashMap<String, Object> userCurrentHwk;
+    OnBackPressedCallback callback;
 
     ImageView displayPicButtonHawker;
     Uri ImageUri;
@@ -90,6 +94,7 @@ public class HawkerForm extends Fragment {
     // For editing forms
     Boolean check;
     HawkerCornerStalls chosenstall;
+
 
     public HawkerForm(Boolean check) {
         //Checks if its creating or editing forms
@@ -112,39 +117,6 @@ public class HawkerForm extends Fragment {
             chosenstall = stallsList.get(chosenstallno);
         }
 
-        if (check == true){
-            //Toast shows up when back button is pressed.
-            OnBackPressedCallback callback = new OnBackPressedCallback(true) {
-                @Override
-                public void handleOnBackPressed() {
-
-                    AlertDialog.Builder builder1 = new AlertDialog.Builder(getActivity()); //Context is getActivity
-
-                    //Set title
-                    builder1.setTitle("Save or Not");
-                    builder1.setMessage("Do you want to save this to drafts?");
-
-                    builder1.setPositiveButton("Save", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialogInterface, int i) {
-                            getParentFragmentManager().popBackStack();
-                        }
-                    });
-
-                    builder1.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialogInterface, int i) {
-                            //dismiss Dialog
-                            dialogInterface.dismiss();
-                        }
-                    });
-
-                    builder1.show();
-                }
-            };
-
-            requireActivity().getOnBackPressedDispatcher().addCallback(getActivity(), callback);
-        }
 
         //Assign variable
         submit = hf.findViewById(R.id.submitBtn);
@@ -215,6 +187,7 @@ public class HawkerForm extends Fragment {
             downUrl = chosenstall.hccoverimg;
             Picasso.get().load(downUrl).into(displayPicButtonHawker);
         }
+
 
         //Button to get photo
         getPhoto = registerForActivityResult(
@@ -518,6 +491,7 @@ public class HawkerForm extends Fragment {
                     desc = "";
                     shortDesc = "";
                     address = "";
+                    downUrl = "";
                     daysOpen = "";
                     openingTime = "00:00";
                     closingTime ="00:00";
@@ -612,5 +586,80 @@ public class HawkerForm extends Fragment {
         } else {
             Toast.makeText(getActivity(), "No file selected", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    public void leaveAlert(){
+        AlertDialog.Builder builder1 = new AlertDialog.Builder(getActivity()); //Context is getActivity
+
+        //Set title
+        builder1.setTitle("Save or Not");
+        builder1.setMessage("Do you want to save this to drafts?");
+
+        builder1.setPositiveButton("Save", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                getParentFragmentManager().popBackStack();
+            }
+        });
+
+        builder1.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                //dismiss Dialog
+                dialogInterface.dismiss();
+            }
+        });
+
+        builder1.show();
+    }
+
+    @Override
+    public void onResume() {
+        // Clears input when reenter forms
+        stallName = "";
+        desc = "";
+        shortDesc = "";
+        address = "";
+        downUrl = "";
+        daysOpen = "";
+        openingTime = "00:00";
+        closingTime ="00:00";
+        finalTime = "";
+
+
+        sNInput.setText("");
+        dInput.setText("");
+        sdInput.setText("");
+        aInput.setText("");
+        opTInput.setText("");
+        clTInput.setText("");
+        for (int j=0; j<selectedDay.length; j++) {
+            //Remove all selection
+            selectedDay[j] = false;
+        }
+        //Clear day list
+        dayList.clear();
+        //Clear text view values
+        openDayBtn.setText("");
+        daysOpen = "";
+
+        //Alert shows up when back button is pressed.
+        callback = new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                leaveAlert();
+                //Ensure it doesnt affect when not in forms
+                setEnabled(false);
+            }
+        };
+
+        requireActivity().getOnBackPressedDispatcher().addCallback(getActivity(), callback);
+        super.onResume();
+    }
+
+    @Override
+    public void onPause() {
+        callback.setEnabled(false);
+        super.onPause();
     }
 }
