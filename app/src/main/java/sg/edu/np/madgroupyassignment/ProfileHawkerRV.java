@@ -187,7 +187,7 @@ public class ProfileHawkerRV extends Fragment {
 //                                        Toast.LENGTH_SHORT).show();
                                 }
                             })
-                            .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                            .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int id) {
                                     dialog.cancel();
                                     //Deselect all Posts

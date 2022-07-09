@@ -16,6 +16,7 @@ import androidx.fragment.app.Fragment;
 
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,6 +24,7 @@ import android.webkit.MimeTypeMap;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
@@ -50,7 +52,7 @@ public class HawkerForm extends Fragment {
     TextView openDayBtn;
     boolean[] selectedDay;
     ArrayList<Integer> dayList = new ArrayList<>();
-    String daysOpen;
+    String daysOpen = "";
     String[] dayArray = {"Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"};
     int opHour, opMin, clHour, clMin;
 
@@ -103,39 +105,47 @@ public class HawkerForm extends Fragment {
         }
         else{
             hf = inflater.inflate(R.layout.fragment_hawker_form_edit, container, false);
+            Bundle bundle = this.getArguments();
+            assert bundle != null;
+            int chosenstallno = (int) bundle.getInt("stallposition");
+            ArrayList<HawkerCornerStalls> stallsList = Parcels.unwrap(bundle.getParcelable("list"));
+            chosenstall = stallsList.get(chosenstallno);
         }
 
-        //Toast shows up when back button is pressed.
-        OnBackPressedCallback callback = new OnBackPressedCallback(true) {
-            @Override
-            public void handleOnBackPressed() {
+        if (check == true){
+            //Toast shows up when back button is pressed.
+            OnBackPressedCallback callback = new OnBackPressedCallback(true) {
+                @Override
+                public void handleOnBackPressed() {
 
-                AlertDialog.Builder builder1 = new AlertDialog.Builder(getActivity()); //Context is getActivity
+                    AlertDialog.Builder builder1 = new AlertDialog.Builder(getActivity()); //Context is getActivity
 
-                //Set title
-                builder1.setTitle("Save or Not");
-                builder1.setMessage("Do you want to save this to drafts?");
+                    //Set title
+                    builder1.setTitle("Save or Not");
+                    builder1.setMessage("Do you want to save this to drafts?");
 
-                builder1.setPositiveButton("Save", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        getParentFragmentManager().popBackStack();
-                    }
-                });
+                    builder1.setPositiveButton("Save", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            getParentFragmentManager().popBackStack();
+                        }
+                    });
 
-                builder1.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        //dismiss Dialog
-                        dialogInterface.dismiss();
-                    }
-                });
+                    builder1.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            //dismiss Dialog
+                            dialogInterface.dismiss();
+                        }
+                    });
 
-                builder1.show();
-            }
-        };
+                    builder1.show();
+                }
+            };
 
-        requireActivity().getOnBackPressedDispatcher().addCallback(getActivity(), callback);
+            requireActivity().getOnBackPressedDispatcher().addCallback(getActivity(), callback);
+        }
+
         //Assign variable
         submit = hf.findViewById(R.id.submitBtn);
         displayPicButtonHawker = hf.findViewById(R.id.displayPic);
@@ -149,25 +159,10 @@ public class HawkerForm extends Fragment {
         storageReference = FirebaseStorage.getInstance().getReference();
         databaseReferencetest = FirebaseDatabase.getInstance().getReference();
 
-        //Button to get photo
-        getPhoto = registerForActivityResult(
-                new ActivityResultContracts.GetContent(),
-                new ActivityResultCallback<Uri>() {
-                    @Override
-                    public void onActivityResult(Uri result) {
-                        ImageUri = result;
-                        upPost();
-                    }
-                }
-        );
 
-        //When click button, launches get photo interface
-        displayPicButtonHawker.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                getPhoto.launch("image/*");
-            }
-        });
+        //Select Opening and Closing Time
+        finalTime = "";
+
         //CREATING : Setting Default Values
         if (check == true) {
             openingTime = "00:00";
@@ -181,38 +176,64 @@ public class HawkerForm extends Fragment {
             clMin = 00;
             opHour = 00;
             opMin = 00;
-        }
-        // EDIITNG : setting values
-        else{
-            // getting data from bundle
-            Bundle bundle = this.getArguments();
-            assert bundle != null;
-            int chosenstallno = (int) bundle.getInt("stallposition");
-            ArrayList<HawkerCornerStalls> stallsList = Parcels.unwrap(bundle.getParcelable("list"));
-            chosenstall = stallsList.get(chosenstallno);
 
-            openingTime = chosenstall.hoursopen.substring(0,5);
-            closingTime = chosenstall.hoursopen.substring(8,13);
+        }
+        // EDITING : setting values
+        else{
+            if (chosenstall.hoursopen.equals("") == false){
+                openingTime = chosenstall.hoursopen.substring(0,5);
+                closingTime = chosenstall.hoursopen.substring(8,13);
+
+                clHour = Integer.parseInt(chosenstall.hoursopen.substring(8,10));
+                clMin = Integer.parseInt(chosenstall.hoursopen.substring(11,13));
+                opHour = Integer.parseInt(chosenstall.hoursopen.substring(0,2));
+                opMin = Integer.parseInt(chosenstall.hoursopen.substring(3,5));
+
+                opTInput.setText(openingTime);
+                clTInput.setText(closingTime);
+                finalTime = openingTime+" - "+closingTime;
+            }
+            if (chosenstall.daysopen.equals("") == false){
+                daysOpen = chosenstall.daysopen;
+
+            }
             stallName = chosenstall.hcstallname;
             desc = chosenstall.hccparagraph;
             shortDesc = chosenstall.shortdesc;
             address = chosenstall.hccaddress;
             downUrl = chosenstall.hccoverimg;
-            clHour = Integer.parseInt(chosenstall.hoursopen.substring(8,10));
-            clMin = Integer.parseInt(chosenstall.hoursopen.substring(11,13));
-            opHour = Integer.parseInt(chosenstall.hoursopen.substring(0,2));
-            opMin = Integer.parseInt(chosenstall.hoursopen.substring(3,5));
+
 
             displayPicButtonHawker = hf.findViewById(R.id.displayPic);
             sNInput.setText(stallName);
             dInput.setText(desc);
             sdInput.setText(shortDesc);
             aInput.setText(address);
-            opTInput.setText(openingTime);
-            clTInput.setText(closingTime);
+
+
+            //Setting image
+            downUrl = chosenstall.hccoverimg;
+            Picasso.get().load(downUrl).into(displayPicButtonHawker);
         }
 
-
+        //Button to get photo
+        getPhoto = registerForActivityResult(
+                new ActivityResultContracts.GetContent(),
+                new ActivityResultCallback<Uri>() {
+                    @Override
+                    public void onActivityResult(Uri result) {
+                        ImageUri = result;
+                        upPost(ImageUri);
+                    }
+                }
+        );
+        //When click button, launches get photo interface
+        displayPicButtonHawker.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getPhoto.launch("image/*");
+            }
+        });
 
         //Assigning Stall Name to variable
         sNInput.addTextChangedListener(new TextWatcher() {
@@ -273,8 +294,7 @@ public class HawkerForm extends Fragment {
         });
 
 
-        //Select Opening and Closing Time
-        finalTime = "";
+
 
         opTInput.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -337,27 +357,41 @@ public class HawkerForm extends Fragment {
         });
 
 
-
-
-
-
-
-
-        //*************************************Everything from here onwards is for Opening Days********************************
+        //*************************************Everything from here onwards is for Opening Days********************************\
         //Assign variable
         openDayBtn = hf.findViewById(R.id.openDaysBtn);
-
         //Initialize selected day array
         selectedDay = new boolean[dayArray.length];
+
+        // EDIT FORMS : setting checked days
+        if (check == false && chosenstall.daysopen != null){
+            String daysOpen = chosenstall.daysopen;
+            openDayBtn.setText(daysOpen);
+            String[] daysSplit = daysOpen.split(",");
+            // Matching Day eg;(Monday) to the list of days to get position
+            for (String i : daysSplit) {
+                //Removing spaces
+                i = i.trim();
+                for (int g = 0; g < dayArray.length; g++) {
+                    if (i.equals(dayArray[g])) {
+                        dayList.add(g);
+                        Collections.sort(dayList);
+                    }
+                }
+            }
+            //Updating Checkbox
+            for (int i : dayList) {
+                selectedDay[i] = true;
+            }
+        }
 
         openDayBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 //initialize alert dialog
                 AlertDialog.Builder builder = new AlertDialog.Builder(getActivity()); //Context is getActivity
-
                 //Set title
-                builder.setTitle("Select Day");
+                builder.setTitle("Select Day(s)");
                 //Set dialog non cancelable
                 builder.setCancelable(false);
 
@@ -386,6 +420,7 @@ public class HawkerForm extends Fragment {
                         //Initialize string builder
                         StringBuilder stringBuilder = new StringBuilder();
                         //use for loop
+                        daysOpen ="";
                         for (int j = 0; j<dayList.size(); j++){
                             //Concat array value
                             stringBuilder.append(dayArray[dayList.get(j)]);
@@ -398,7 +433,6 @@ public class HawkerForm extends Fragment {
                         }
                         //to set text of list
                         openDayBtn.setText(stringBuilder.toString());
-                        daysOpen = ""; //String with all the stuff
                         for (int j =0;j<dayList.size();j++){
                             if (j == dayList.size()-1){
                                 daysOpen = daysOpen + dayArray[dayList.get(j)];
@@ -451,15 +485,32 @@ public class HawkerForm extends Fragment {
                     Toast.makeText(getActivity(),"Please input Stall Name, Descriptions, Image and Address", Toast.LENGTH_SHORT).show();
                 }
                 else{
-                    username = userProfile.getUsername(); //Getting username
-                    userPfpUrl = userProfile.getProfileImg(); //Getting profile picture
-                    ownerUID = userProfile.getUID(); //Getting profile uid
-                    long timeStamp = System.currentTimeMillis(); //Getting post time
-                    String PostID = databaseReferencetest.push().getKey(); //Getting Post id
-                    hCS = new HawkerCornerStalls(PostID, downUrl,ownerUID, stallName,username,desc,address,daysOpen,finalTime,userPfpUrl, shortDesc, timeStamp, false);
+                    //Posting Form
+                    if (check == true){
+                        username = userProfile.getUsername(); //Getting username
+                        userPfpUrl = userProfile.getProfileImg(); //Getting profile picture
+                        ownerUID = userProfile.getUID(); //Getting profile uid
+                        long timeStamp = System.currentTimeMillis(); //Getting post time
+                        String PostID = databaseReferencetest.push().getKey(); //Getting Post id
+                        hCS = new HawkerCornerStalls(PostID, downUrl,ownerUID, stallName,username,desc,address,daysOpen,finalTime,userPfpUrl, shortDesc, timeStamp, false);
 
-                    userCurrentHwk = userProfile.getHawkList();
-                    HwkUp(userCurrentHwk, hCS, PostID);
+                        userCurrentHwk = userProfile.getHawkList();
+                        HwkUp(userCurrentHwk, hCS, PostID);
+                    }
+                    //Editing Form
+                    else{
+                        username = userProfile.getUsername(); //Getting username
+                        userPfpUrl = userProfile.getProfileImg(); //Getting profile picture
+                        ownerUID = userProfile.getUID(); //Getting profile uid
+
+                        long timeStamp = chosenstall.postTimeStamp; //Getting post time
+                        String PostID = chosenstall.postid; //Getting Post id
+                        hCS = new HawkerCornerStalls(PostID, downUrl,ownerUID, stallName,username,desc,address,daysOpen,finalTime,userPfpUrl, shortDesc, timeStamp, false);
+
+                        userCurrentHwk = userProfile.getHawkList();
+                        HwkUp(userCurrentHwk, hCS, PostID);
+                    }
+
 
 
                     //***********For input to reset when button submit***********
@@ -492,15 +543,15 @@ public class HawkerForm extends Fragment {
                     if (check == true){
                         getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, new HawkerForm(true)).commit();
                     }
+                    else{
+                        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, new Profile()).commit();
+                    }
 
                 }
                 //Toast.makeText(getActivity(),finalTime, Toast.LENGTH_SHORT).show();
 
             }
         });
-
-
-
         return hf;
     }
 
@@ -511,11 +562,19 @@ public class HawkerForm extends Fragment {
         mAuth = FirebaseAuth.getInstance();
 
         //String PostID = databaseReferencetest.push().getKey();
-        databaseReferencetest.child("Posts").child("Hawkers").child(PostID).setValue(HwkObj);
+        // Posting Forms
+        if (check == true){
+            databaseReferencetest.child("Posts").child("Hawkers").child(PostID).setValue(HwkObj);
+            userHwkList.put(PostID, PostID);
+            databaseReferencetest.child("UserProfile").child(mAuth.getUid()).child("hawkList").updateChildren(userHwkList);
+            Toast.makeText(getActivity(), "HawkerPost Uploaded", Toast.LENGTH_SHORT).show();
+        }
+        // Editing Forms
+        else{
+            databaseReferencetest.child("Posts").child("Hawkers").child(PostID).setValue(HwkObj);
+            Toast.makeText(getActivity(), "HawkerPost Edited", Toast.LENGTH_SHORT).show();
+        }
 
-        userHwkList.put(PostID, PostID);
-        databaseReferencetest.child("UserProfile").child(mAuth.getUid()).child("hawkList").updateChildren(userHwkList);
-        Toast.makeText(getActivity(), "HawkerPost Uploaded", Toast.LENGTH_SHORT).show();
     }
 
     public void retrieveUserProfile(UserProfile userProfile){
@@ -529,7 +588,7 @@ public class HawkerForm extends Fragment {
         return mime.getExtensionFromMimeType(cR.getType(uri));
     }
 
-    private void upPost() {
+    private void upPost(Uri ImageUri) {
         if (ImageUri != null) {
             StorageReference fileReference = storageReference.child("ImgUps").child(System.currentTimeMillis() + "." + getFileExt(ImageUri));
 
