@@ -612,37 +612,37 @@ public class HawkerForm extends Fragment {
 
         builder1.show();
     }
-
     @Override
     public void onResume() {
         // Clears input when reenter forms
-        stallName = "";
-        desc = "";
-        shortDesc = "";
-        address = "";
-        downUrl = "";
-        daysOpen = "";
-        openingTime = "00:00";
-        closingTime ="00:00";
-        finalTime = "";
+        if (check == true){
+            stallName = "";
+            desc = "";
+            shortDesc = "";
+            address = "";
+            downUrl = "";
+            daysOpen = "";
+            openingTime = "00:00";
+            closingTime ="00:00";
+            finalTime = "";
 
 
-        sNInput.setText("");
-        dInput.setText("");
-        sdInput.setText("");
-        aInput.setText("");
-        opTInput.setText("");
-        clTInput.setText("");
-        for (int j=0; j<selectedDay.length; j++) {
-            //Remove all selection
-            selectedDay[j] = false;
+            sNInput.setText("");
+            dInput.setText("");
+            sdInput.setText("");
+            aInput.setText("");
+            opTInput.setText("");
+            clTInput.setText("");
+            for (int j=0; j<selectedDay.length; j++) {
+                //Remove all selection
+                selectedDay[j] = false;
+            }
+            //Clear day list
+            dayList.clear();
+            //Clear text view values
+            openDayBtn.setText("");
+            daysOpen = "";
         }
-        //Clear day list
-        dayList.clear();
-        //Clear text view values
-        openDayBtn.setText("");
-        daysOpen = "";
-
         //Alert shows up when back button is pressed.
         callback = new OnBackPressedCallback(true) {
             @Override

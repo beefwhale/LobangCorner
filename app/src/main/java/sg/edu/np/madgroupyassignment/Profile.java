@@ -89,6 +89,7 @@ public class Profile extends Fragment {
         social_twt = view.findViewById(R.id.social_twt);
         social_fb = view.findViewById(R.id.social_fb);
 
+
         mAuth = FirebaseAuth.getInstance();
         storageReference = FirebaseStorage.getInstance().getReference();
         firebaseDatabase = FirebaseDatabase.getInstance();
@@ -293,10 +294,27 @@ public class Profile extends Fragment {
         rcpObj.setText("" + (userProfile.getRcpList().size() - 1) + "\n\nRecipe Post");
 
         //Socials
-        insta_username = userProfile.getInstagram();
-        fb_username = userProfile.getFacebook();
-        twt_username = userProfile.getTwitter();
-
+        //If there no accounts inside yet
+        //INSTAGRAM
+        if (userProfile.getInstagram() == null || userProfile.getInstagram().equals("")){
+            insta_username = "";
+        }
+        else{
+            insta_username = userProfile.getInstagram();
+        }
+        //FACEBOOK
+        if (userProfile.getFacebook() == null || userProfile.getFacebook().equals("")){
+            fb_username = "";
+        }
+        else{
+            fb_username = userProfile.getFacebook();
+        }
+        if (userProfile.getTwitter() == null || userProfile.getTwitter().equals("")){
+            twt_username = "";
+        }
+        else{
+            twt_username = userProfile.getTwitter();
+        }
         getUserPost();
     }
 
