@@ -48,6 +48,7 @@
             android:label="Hawker Corner" />
         <activity
             android:name=".MainActivity"
+            android:windowSoftInputMode="adjustPan"
             android:exported="true"
             android:screenOrientation="portrait" />
         <activity

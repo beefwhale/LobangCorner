@@ -15,7 +15,10 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
@@ -147,6 +150,29 @@ public class Login extends AppCompatActivity {
                 }
             }
         });
+
+//        loginBtn.setOnLongClickListener(new View.OnLongClickListener() {
+//            @Override
+//            public boolean onLongClick(View view) {
+//                LayoutInflater inflater = getLayoutInflater();
+//                View test = inflater.inflate(R.layout.activity_splash_page, (ViewGroup) view.findViewById(R.id.splash));
+//                Toast toast = new Toast(getApplicationContext());
+//                toast.setView(test);
+//                toast.setGravity(Gravity.FILL_VERTICAL|Gravity.FILL_HORIZONTAL, 0, 0);
+//                toast.setDuration(Toast.LENGTH_LONG);
+//                toast.show();
+//                return true;
+//            }
+//        });
+//
+//        //
+//        LayoutInflater inflater = getLayoutInflater();
+//        View test = inflater.inflate(R.layout.activity_splash_page, (ViewGroup) this.findViewById(R.id.splash));
+//        Toast toast = new Toast(getApplicationContext());
+//        toast.setView(test);
+//        toast.setGravity(Gravity.FILL_VERTICAL|Gravity.FILL_HORIZONTAL, 0, 0);
+//        toast.setDuration(Toast.LENGTH_LONG);
+//        toast.show();
 
         registerTV.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -1,6 +1,5 @@
 package sg.edu.np.madgroupyassignment;
 
-
 import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
@@ -56,8 +55,8 @@ public class Profile extends Fragment {
     private LayoutInflater layoutInflater;
     private View fish;
 
-    String sAppLink,sPackage,sWebLink;
-    String insta_username,fb_username,twt_username;
+    private String sAppLink,sPackage,sWebLink;
+    private String insta_username,fb_username,twt_username;
 
     private Uri ImageUri;
     private FirebaseAuth mAuth;
@@ -186,6 +185,7 @@ public class Profile extends Fragment {
                 getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, socialsFragment).addToBackStack(null).commit();
             }
         });
+
 //      Making Social Buttons GONE if no info added
         if (insta_username.equals("") || insta_username == null){
             social_insta.setVisibility(View.GONE);
@@ -199,6 +199,7 @@ public class Profile extends Fragment {
         if (twt_username.equals("") || twt_username == null){
             social_twt.setVisibility(View.GONE);
         }
+
 //        Instagram Button
         social_insta.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -210,6 +211,7 @@ public class Profile extends Fragment {
                 openLink(sAppLink, sPackage, sWebLink);
             }
         });
+
 //        Facebook Button
         social_fb.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -220,6 +222,7 @@ public class Profile extends Fragment {
                 openLink(sAppLink, sPackage, sWebLink);
             }
         });
+
 //        Twitter Button
         social_twt.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -230,8 +233,6 @@ public class Profile extends Fragment {
                 openLink(sAppLink, sPackage, sWebLink);
             }
         });
-
-
 
 
 //        Sign up button
@@ -383,7 +384,6 @@ public class Profile extends Fragment {
         startActivity(i);
         getActivity().finish();
     }
-
 
     //Update on database change
     public void setUserProfile(UserProfile userProfile) {

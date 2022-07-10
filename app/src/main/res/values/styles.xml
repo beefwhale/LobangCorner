@@ -21,6 +21,16 @@
         <item name="colorAccent">@color/offwhite</item>
     </style>
 
+    <style name="comment_post_button_1" parent="ThemeOverlay.AppCompat">
+        <item name="colorPrimary">@color/Main_Primary</item>
+        <item  name="colorAccent">#f98073</item>
+    </style>
+
+    <style name="comment_post_button_2" parent="ThemeOverlay.AppCompat">
+        <item name="colorPrimary">#f98073</item>
+        <item name="colorAccent">#f98073</item>
+    </style>
+
     <style name="AppTheme.Picker" parent="Theme.AppCompat.Light.NoActionBar" >
         <item name="android:textColorPrimary">@color/Text_Grey</item>
         <item name="dividerColor">@color/Text_Grey</item>

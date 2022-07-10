@@ -66,6 +66,13 @@
             android:textColor="@color/Text_Grey"
             android:textColorHint="@color/Text_Grey"
             android:textSize="14sp" />
+
+        <ImageView
+            android:id="@+id/fishGif"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            android:translationZ="100dp" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <Button
@@ -105,12 +112,5 @@
         android:indeterminate="true"
         android:indeterminateDrawable="@drawable/prog_back"
         android:visibility="gone" />
-
-    <ImageView
-        android:id="@+id/fishGif"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scaleType="centerCrop"
-        android:translationZ="100dp"/>
 
 </RelativeLayout>
