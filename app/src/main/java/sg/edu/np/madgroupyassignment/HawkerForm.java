@@ -67,7 +67,7 @@ public class HawkerForm extends Fragment {
     Button opTInput;
     Button clTInput;
 
-    String stallName;
+    public static String stallName;
     String desc;
     String shortDesc;
     String address;
@@ -592,13 +592,22 @@ public class HawkerForm extends Fragment {
         AlertDialog.Builder builder1 = new AlertDialog.Builder(getActivity()); //Context is getActivity
 
         //Set title
-        builder1.setTitle("Save or Not");
+        builder1.setTitle("Wait!");
         builder1.setMessage("Do you want to save this to drafts?");
 
         builder1.setPositiveButton("Save", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 getParentFragmentManager().popBackStack();
+                MainActivity.mainFAB.show();
+            }
+        });
+
+        builder1.setNeutralButton("Don't Save", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                getParentFragmentManager().popBackStack();
+                MainActivity.mainFAB.show();
             }
         });
 
@@ -607,6 +616,8 @@ public class HawkerForm extends Fragment {
             public void onClick(DialogInterface dialogInterface, int i) {
                 //dismiss Dialog
                 dialogInterface.dismiss();
+                callback.setEnabled(true);
+                MainActivity.checkFormsNum = 0;
             }
         });
 
@@ -647,9 +658,15 @@ public class HawkerForm extends Fragment {
         callback = new OnBackPressedCallback(true) {
             @Override
             public void handleOnBackPressed() {
-                leaveAlert();
-                //Ensure it doesnt affect when not in forms
-                setEnabled(false);
+                if (stallName == "" || stallName.isEmpty() || stallName == null){
+                    getParentFragmentManager().popBackStack();
+                    MainActivity.mainFAB.show();
+                }
+                else{
+                    leaveAlert();
+                    //Ensure it doesnt affect when not in forms
+                    setEnabled(false);
+                }
             }
         };
 

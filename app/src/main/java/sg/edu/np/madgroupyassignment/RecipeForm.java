@@ -35,14 +35,14 @@ public class RecipeForm extends Fragment {
     private ViewPager2 viewPager;
     Button submitButton;
     private static UserProfile userProfile;
-    FormsViewModel viewModel;
+    public static FormsViewModel viewModel;
     private DatabaseReference databaseReferencetest;
     private FirebaseAuth mAuth;
 
     String ownerUID;
     String username;
     String totalIngred;
-    String recipeName;
+    public static String recipeName;
     String recipeDesc;
     String duration;
     String steps;
@@ -88,6 +88,7 @@ public class RecipeForm extends Fragment {
         }).attach();
 
         viewModel = new ViewModelProvider(this).get(FormsViewModel.class);
+        recipeName = "";
 
 
         submitButton.setOnClickListener(new View.OnClickListener() {
@@ -138,7 +139,7 @@ public class RecipeForm extends Fragment {
                     }
                 });
 
-                if(recipeName == null || recipeName.length() == 0 || recipeName.isEmpty() ||
+                if(recipeName == null || recipeName.length() == 0 || recipeName.isEmpty() || recipeName == "" ||
                         recipeDesc == null || recipeDesc.length() == 0 || recipeDesc.isEmpty() ||
                             totalIngred == null || totalIngred.length() == 0 || totalIngred.isEmpty() ||
                                 steps == null || steps.length() == 0 || steps.isEmpty() ||
@@ -181,13 +182,22 @@ public class RecipeForm extends Fragment {
         AlertDialog.Builder builder1 = new AlertDialog.Builder(getActivity()); //Context is getActivity
 
         //Set title
-        builder1.setTitle("Save or Not");
+        builder1.setTitle("Wait!");
         builder1.setMessage("Do you want to save this to drafts?");
 
         builder1.setPositiveButton("Save", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 getParentFragmentManager().popBackStack();
+                MainActivity.mainFAB.show();
+            }
+        });
+
+        builder1.setNeutralButton("Don't Save", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                getParentFragmentManager().popBackStack();
+                MainActivity.mainFAB.show();
             }
         });
 
@@ -196,6 +206,8 @@ public class RecipeForm extends Fragment {
             public void onClick(DialogInterface dialogInterface, int i) {
                 //dismiss Dialog
                 dialogInterface.dismiss();
+                callback.setEnabled(true);
+                MainActivity.checkFormsNum = 0;
             }
         });
 
@@ -208,9 +220,21 @@ public class RecipeForm extends Fragment {
         callback = new OnBackPressedCallback(true) {
             @Override
             public void handleOnBackPressed() {
-                leaveAlert();
-                //Ensure it doesnt affect when not in forms
-                setEnabled(false);
+                viewModel.getSelectedRecipeName().observe(getViewLifecycleOwner(), new Observer<String>() {
+                    @Override
+                    public void onChanged(String s) {
+                        recipeName = s; //RECIPE TITLE parameter
+                    }
+                });
+                if (recipeName == "" || recipeName.isEmpty() || recipeName == null){
+                    getParentFragmentManager().popBackStack();
+                    MainActivity.mainFAB.show();
+                }
+                else{
+                    leaveAlert();
+                    //Ensure it doesnt affect when not in forms
+                    setEnabled(false);
+                }
             }
         };
 
