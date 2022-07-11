@@ -51,7 +51,7 @@ public class BRCFragment extends Fragment {
         }
 
         // initializing our adapter class.
-        adapter = new RecipeAdapter(rcplist, getActivity(), false);
+        adapter = new RecipeAdapter(rcplist, getActivity(), 1);
 
         // adding layout manager to our recycler view.
         LinearLayoutManager manager = new LinearLayoutManager(getActivity());

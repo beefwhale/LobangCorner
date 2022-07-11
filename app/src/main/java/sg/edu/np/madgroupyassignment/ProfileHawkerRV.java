@@ -1,10 +1,7 @@
 package sg.edu.np.madgroupyassignment;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.SearchView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.fragment.app.Fragment;
@@ -12,35 +9,22 @@ import androidx.fragment.app.Fragment;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ImageButton;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.material.navigation.NavigationBarView;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.ChildEventListener;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
 import org.parceler.Parcels;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 
 //Class for hawker corner main page is a fragment
 public class ProfileHawkerRV extends Fragment {
@@ -86,7 +70,8 @@ public class ProfileHawkerRV extends Fragment {
         username = (String) bundle.getString("username");
         usernameID = (String) bundle.getString("usernameID");
         usernameImg = (String) bundle.getString("usernameImg");
-        hcheader = view.findViewById(R.id.profile_hc_header);
+        hcheader = view.findViewById(R.id.profile_rc_header);
+        //Setting personalised header
         hcheader.setText(username + "'s Hawker Corner");
 
         //Upon Delete button click

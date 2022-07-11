@@ -159,7 +159,17 @@ public class Profile extends Fragment {
             public void onClick(View view) {
                 if (postsHolder.getUserRecipePosts().size() > 0) {
                     AppCompatActivity activity = (AppCompatActivity) view.getContext();
+
                     Fragment profileRcpFragment = new ProfileRecipeRV();
+
+                    //pass username
+                    Bundle bundle = new Bundle();
+                    bundle.putString("username", userProfile.getUsername());
+                    bundle.putString("usernameID", userProfile.getUID());
+                    bundle.putString("usernameImg", userProfile.getProfileImg());
+
+                    profileRcpFragment.setArguments(bundle);
+
                     activity.getSupportFragmentManager().beginTransaction()
                             .replace(R.id.MainFragment, profileRcpFragment).commit();
                 } else {
@@ -327,8 +337,8 @@ public class Profile extends Fragment {
         }
 
         ProfileRecipeRV profileRecipeRV = new ProfileRecipeRV();
-        if (profileRecipeRV.adapter != null) {
-            profileRecipeRV.adapter.notifyDataSetChanged();
+        if (profileRecipeRV.rcadapter != null) {
+            profileRecipeRV.rcadapter.notifyDataSetChanged();
         }
     }
 

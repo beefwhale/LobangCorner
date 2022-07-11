@@ -86,7 +86,6 @@ public class HCMainsAdapter extends RecyclerView.Adapter<HCMainViewHolder> {
         if (status == false){
             //Setting all as default unselected
             newstall.setChecked(false);
-
             //DESELECTION : if removed from listPos, updating checkbox for every card
             if (listPos.contains(holder.getAdapterPosition()) == false){
                 holder.hcCheckbox.setChecked(false);

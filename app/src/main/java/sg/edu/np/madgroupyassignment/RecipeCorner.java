@@ -17,6 +17,8 @@ public class RecipeCorner {
     String foodImage;
     String postID;
 
+    public Boolean isChecked;          // Checks checkbox
+
     //Empty constructor
     public RecipeCorner(){
 
@@ -25,7 +27,7 @@ public class RecipeCorner {
     // creating constructor for our variables.
     public RecipeCorner(String postID, String owner, String recipeName, String recipeDescription, int recipeRating,
                         String userName, String duration,
-                         String steps, String ingredients, Long postTimeStamp, String foodImage) {
+                         String steps, String ingredients, Long postTimeStamp, String foodImage, Boolean isChecked) {
         this.postID = postID;                       //postID for database use
         this.owner = owner;                         //post owner for rc form and profile
         this.recipeName = recipeName;               //recipe name
@@ -37,6 +39,8 @@ public class RecipeCorner {
         this.ingredients = ingredients;             //ingredients of the recipe
         this.postTimeStamp = postTimeStamp;         //time stamp for home page
         this.foodImage = foodImage;                 //image of the recipe displayed
+
+        this.isChecked = isChecked; // for Checkbox
     }
 
     // creating getter and setter methods.
@@ -117,4 +121,7 @@ public class RecipeCorner {
     public void setFoodImage(String foodImage) {
         this.foodImage = foodImage;
     }
+
+    public Boolean getChecked() {return isChecked; }
+    public void setChecked(Boolean isChecked) { this.isChecked = isChecked; }
 }
