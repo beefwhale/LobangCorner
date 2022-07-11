@@ -258,7 +258,6 @@ public class RecipeCommentAdapter extends RecyclerView.Adapter<CommentViewholder
 
                 }
             });
-
         }
     }
 
