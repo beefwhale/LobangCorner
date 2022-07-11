@@ -156,7 +156,6 @@
             app:layout_constraintTop_toBottomOf="@+id/hccaddress">
 
             <TableRow android:background="@drawable/hctableborder">
-
                 <TextView
                     android:id="@+id/openingtv"
                     android:layout_width="match_parent"

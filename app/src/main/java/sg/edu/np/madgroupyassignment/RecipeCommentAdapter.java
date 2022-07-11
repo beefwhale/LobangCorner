@@ -126,6 +126,11 @@ public class RecipeCommentAdapter extends RecyclerView.Adapter<CommentViewholder
                 commentMore.setVisibility(View.GONE);
                 commentSince.setVisibility(View.GONE);
             }
+            else{
+                commentPic.setVisibility(View.VISIBLE);
+                commentMore.setVisibility(View.VISIBLE);
+                commentSince.setVisibility(View.VISIBLE);
+            }
 
             //Load comment data
             if (!contentCheck) {
@@ -179,8 +184,14 @@ public class RecipeCommentAdapter extends RecyclerView.Adapter<CommentViewholder
                                     databaseReference.child(recyclerCurrentComment.getCommentUID()).setValue(null);
                                     Toast.makeText(c, "Deleted...", Toast.LENGTH_SHORT).show();
                                     commentData.remove(holder.getAdapterPosition()-1);
+                                    Log.e("commentdelete", false+"");
                                     if (commentData.size() == 0) {
+                                        Log.e("commentdelete", true+"");
                                         Comments comment = new Comments();
+                                        commentPic.setVisibility(View.GONE);
+                                        commentMore.setVisibility(View.GONE);
+                                        commentSince.setVisibility(View.GONE);
+
                                         comment.setCommentUsername("Be the first to write a Comment!");
                                         commentData.add(comment);
                                         contentCheck = true;

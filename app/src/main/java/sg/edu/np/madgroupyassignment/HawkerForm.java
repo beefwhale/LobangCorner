@@ -131,6 +131,7 @@ public class HawkerForm extends Fragment {
 
         storageReference = FirebaseStorage.getInstance().getReference();
         databaseReferencetest = FirebaseDatabase.getInstance().getReference();
+        userProfile = postsHolder.getUserProfile();
 
 
         //Select Opening and Closing Time
