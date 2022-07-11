@@ -34,7 +34,8 @@ public class RecipeForm extends Fragment {
     private TabLayout tabLayout;
     private ViewPager2 viewPager;
     Button submitButton;
-    private static UserProfile userProfile;
+    private PostsHolder postsHolder;
+    private UserProfile userProfile;
     FormsViewModel viewModel;
     private DatabaseReference databaseReferencetest;
     private FirebaseAuth mAuth;
@@ -64,8 +65,6 @@ public class RecipeForm extends Fragment {
         // Inflate the layout for this fragment
         databaseReferencetest = FirebaseDatabase.getInstance().getReference();
         View recipeform = inflater.inflate(R.layout.fragment_recipe_form, container, false);
-
-
 
         //Connecting the 3 fragments through tabLayout
         tabLayout = recipeform.findViewById(R.id.tabLayout);
@@ -173,8 +172,8 @@ public class RecipeForm extends Fragment {
         Toast.makeText(getActivity(), "Recipe Uploaded", Toast.LENGTH_SHORT).show();
     }
 
-    public void retrieveUserProfile(UserProfile userProfile){
-        this.userProfile = userProfile;
+    public void retrieveUserProfile(){
+        this.userProfile = postsHolder.getUserProfile();
     }
 
     private void leaveAlert(){

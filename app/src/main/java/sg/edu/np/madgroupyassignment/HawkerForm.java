@@ -76,9 +76,10 @@ public class HawkerForm extends Fragment {
     String userPfpUrl;
     String finalTime;
 
+    private PostsHolder postsHolder;
     private DatabaseReference databaseReferencetest;
     private FirebaseAuth mAuth;
-    private static UserProfile userProfile;
+    private UserProfile userProfile;
     String ownerUID;
     String username;
     HashMap<String, Object> userCurrentHwk;
@@ -551,8 +552,8 @@ public class HawkerForm extends Fragment {
 
     }
 
-    public void retrieveUserProfile(UserProfile userProfile){
-        this.userProfile = userProfile;
+    public void retrieveUserProfile(){
+        this.userProfile = postsHolder.getUserProfile();
     }
 
     //    Getting file extension

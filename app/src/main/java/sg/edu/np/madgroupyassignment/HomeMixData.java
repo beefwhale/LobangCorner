@@ -243,4 +243,12 @@ public class HomeMixData {
     public void setFoodImage(String foodImage) {
         this.foodImage = foodImage;
     }
+
+    public String getPostID() {
+        return postID;
+    }
+
+    public void setPostID(String postID) {
+        this.postID = postID;
+    }
 }

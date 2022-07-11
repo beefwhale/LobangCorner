@@ -51,7 +51,7 @@ public class Comments {
     }
 
     public void setCommentPFP(String commentPFP) {
-        commentPFP = commentPFP;
+        this.commentPFP = commentPFP;
     }
 
     public String getCommentUsername() {
@@ -59,7 +59,7 @@ public class Comments {
     }
 
     public void setCommentUsername(String commentUsername) {
-        commentUsername = commentUsername;
+        this.commentUsername = commentUsername;
     }
 
     public String getCommentText() {
@@ -67,7 +67,7 @@ public class Comments {
     }
 
     public void setCommentText(String commentText) {
-        commentText = commentText;
+        this.commentText = commentText;
     }
 
     public Long getTimestamp() {

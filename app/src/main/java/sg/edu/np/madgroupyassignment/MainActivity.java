@@ -54,8 +54,6 @@ public class MainActivity extends AppCompatActivity{
     public static String storedUID;
     public static ArrayList<HomeMixData> randomMixList;
 
-
-
     Context c;
     Boolean FABVisible;
     HomeMix homeMix = new HomeMix();
@@ -103,7 +101,7 @@ public class MainActivity extends AppCompatActivity{
             getWindow().setStatusBarColor(Color.TRANSPARENT);
         }
 
-        Profile log_test = new Profile();
+        Profile profilePage = new Profile();
         RecipeForm recipeForm = new RecipeForm();
         HawkerForm hawkerForm = new HawkerForm(true);
         HawkerCornerMain hawkerCornerMain = new HawkerCornerMain();
@@ -132,6 +130,7 @@ public class MainActivity extends AppCompatActivity{
             public void onDataChange(@NonNull DataSnapshot snapshot) {
 //                Getting user profile
                 userProfile = snapshot.child("UserProfile").child(UID).getValue(UserProfile.class);
+                postsHolder.setUserProfile(userProfile);
 
 //                Getting Weekly Post
                 storedDate = new Date(snapshot.child("WeeklyDate").getValue(Long.class));
@@ -164,9 +163,8 @@ public class MainActivity extends AppCompatActivity{
                 }
 
 //                Updating profile page
-                log_test.setUserProfile(userProfile);
                 if (profileFirstUpdate != true) {
-                    log_test.updatePage();
+                    profilePage.updatePage();
                 }
 
                 //Updating hawker corner
@@ -180,8 +178,8 @@ public class MainActivity extends AppCompatActivity{
                 }
 
                 //Sending user profile to forms
-                recipeForm.retrieveUserProfile(userProfile);
-                hawkerForm.retrieveUserProfile(userProfile);
+                recipeForm.retrieveUserProfile();
+                hawkerForm.retrieveUserProfile();
 
                 // Default fragment when app is started, only runs once per app startup
                 randomMixList = homeMix.RandomData();

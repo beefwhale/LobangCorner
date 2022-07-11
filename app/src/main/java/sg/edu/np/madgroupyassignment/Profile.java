@@ -42,7 +42,7 @@ import java.util.HashMap;
 
 public class Profile extends Fragment {
 
-    private static UserProfile userProfile;
+    private UserProfile userProfile;
     private static String aboutMeInput;
     private static TextView username, hwkObj, rcpObj, fishRandom;
     private static ImageView profP, fishView;
@@ -284,6 +284,7 @@ public class Profile extends Fragment {
     public void updatePage() {
         MainActivity mainActivity = new MainActivity();
         mainActivity.profileFirstUpdate = false;
+        userProfile = postsHolder.getUserProfile();
 
         Picasso.get().load(userProfile.getProfileImg()).into(profP);
         username.setText(userProfile.getUsername());
@@ -401,11 +402,6 @@ public class Profile extends Fragment {
 
         startActivity(i);
         getActivity().finish();
-    }
-
-    //Update on database change
-    public void setUserProfile(UserProfile userProfile) {
-        this.userProfile = userProfile;
     }
 
 }
