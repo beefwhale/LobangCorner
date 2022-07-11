@@ -98,6 +98,7 @@
             android:layout_marginTop="15dp"
             android:layout_marginHorizontal="20dp"
             android:ems="10"
+            android:maxLength="100"
             android:hint="Enter Stall Address"
             android:textColorHint="@color/cameragrey"
             android:paddingLeft="10dp"
