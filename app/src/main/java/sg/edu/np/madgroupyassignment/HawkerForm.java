@@ -462,6 +462,7 @@ public class HawkerForm extends Fragment {
                 else{
                     //Posting Form
                     if (check == 0){
+                        MainActivity.checkFormsNum = 1;
                         username = userProfile.getUsername(); //Getting username
                         userPfpUrl = userProfile.getProfileImg(); //Getting profile picture
                         ownerUID = userProfile.getUID(); //Getting profile uid
