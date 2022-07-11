@@ -124,6 +124,7 @@ public class ProfileHawkerRV extends Fragment {
                                         //removing from database
                                         databaseReference.child("UserProfile").child(usernameID).child("hawkList").child(deleteItem.getPostid()).removeValue();
                                         databaseReference.child("Posts").child("Hawkers").child(deleteItem.getPostid()).removeValue();
+                                        databaseReference.child("Comments").child(deleteItem.getPostid()).removeValue();
                                         StorageReference storageLocationCheck = FirebaseStorage.getInstance().getReferenceFromUrl(deleteItem.hccoverimg);
                                         storageLocationCheck.delete();
 
