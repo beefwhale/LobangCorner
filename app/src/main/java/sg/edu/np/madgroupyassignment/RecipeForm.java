@@ -60,6 +60,7 @@ public class RecipeForm extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        userProfile = postsHolder.getUserProfile();
         selectedImg = "";
         difficulty = 1;
         // Inflate the layout for this fragment
@@ -147,6 +148,7 @@ public class RecipeForm extends Fragment {
                 }
                 else{
                     MainActivity.checkFormsNum = 1;
+                    MainActivity.mainFAB.show();
                     ownerUID = userProfile.getUID();
                     Long timeStamp = System.currentTimeMillis();
                     String PostID = databaseReferencetest.push().getKey();
@@ -189,7 +191,6 @@ public class RecipeForm extends Fragment {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 getParentFragmentManager().popBackStack();
-                MainActivity.mainFAB.show();
             }
         });
 
@@ -197,7 +198,6 @@ public class RecipeForm extends Fragment {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 getParentFragmentManager().popBackStack();
-                MainActivity.mainFAB.show();
             }
         });
 
@@ -228,7 +228,6 @@ public class RecipeForm extends Fragment {
                 });
                 if (recipeName == "" || recipeName.isEmpty() || recipeName == null){
                     getParentFragmentManager().popBackStack();
-                    MainActivity.mainFAB.show();
                 }
                 else{
                     leaveAlert();

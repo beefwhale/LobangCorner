@@ -463,6 +463,7 @@ public class HawkerForm extends Fragment {
                     //Posting Form
                     if (check == 0){
                         MainActivity.checkFormsNum = 1;
+                        MainActivity.mainFAB.show();
                         username = userProfile.getUsername(); //Getting username
                         userPfpUrl = userProfile.getProfileImg(); //Getting profile picture
                         ownerUID = userProfile.getUID(); //Getting profile uid
@@ -518,7 +519,7 @@ public class HawkerForm extends Fragment {
                     daysOpen = "";
 //                    getActivity().recreate();
                     if (check == 0){
-                        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, new HawkerForm(0)).commit();
+                        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, new Home()).commit();
                     }
                     else if (check == 1){
                         getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, new Profile()).commit();
@@ -602,7 +603,6 @@ public class HawkerForm extends Fragment {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 getParentFragmentManager().popBackStack();
-                MainActivity.mainFAB.show();
             }
         });
 
@@ -610,7 +610,6 @@ public class HawkerForm extends Fragment {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 getParentFragmentManager().popBackStack();
-                MainActivity.mainFAB.show();
             }
         });
 
@@ -663,7 +662,6 @@ public class HawkerForm extends Fragment {
             public void handleOnBackPressed() {
                 if (stallName == "" || stallName.isEmpty() || stallName == null){
                     getParentFragmentManager().popBackStack();
-                    MainActivity.mainFAB.show();
                 }
                 else{
                     leaveAlert();

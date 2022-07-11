@@ -57,7 +57,7 @@ public class MainActivity extends AppCompatActivity{
 
     //Floating Action Buttons
     public static FloatingActionButton mainFAB, rcFAB, hcFAB;
-    TextView rcFABText, hcFABText;
+    public static TextView rcFABText, hcFABText;
 
     Context c;
     Boolean FABVisible;
@@ -112,6 +112,8 @@ public class MainActivity extends AppCompatActivity{
         Profile profilePage = new Profile();
         RecipeForm recipeForm = new RecipeForm();
         HawkerForm hawkerForm = new HawkerForm(0); //Posting = 0
+        HawkerDraftsPage hawkerDraftsPage = new HawkerDraftsPage();
+        RecipeDraftsPage recipeDraftsPage = new RecipeDraftsPage();
         HawkerCornerMain hawkerCornerMain = new HawkerCornerMain();
         RecipeCornerMain recipeCornerMain = new RecipeCornerMain();
 
@@ -249,6 +251,8 @@ public class MainActivity extends AppCompatActivity{
                 switch (item.getItemId()) {
                     case R.id.home:
                         if (checkFormsNum == 1){ //If never enter forms
+                            getSupportFragmentManager().popBackStack();
+                            mainFAB.show();
                             if (null == getSupportFragmentManager().findFragmentByTag("Home")){
                                 getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, homeFragment, "Home")
                                         .commit();
@@ -262,14 +266,8 @@ public class MainActivity extends AppCompatActivity{
                             mainFAB.show();
                             checkFormsNum = 1;
                             getSupportFragmentManager().popBackStack();
-                            if (null == getSupportFragmentManager().findFragmentByTag("Home")){
-                                getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, homeFragment, "Home")
-                                        .commit();
-                            }
-                            else{
-                                getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, homeFragment, "Home")
-                                        .addToBackStack(null).commit();
-                            }
+                            getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, homeFragment, "Home")
+                                    .addToBackStack(null).commit();
                         }
                         else if ( whichForm == 2){
                             RecipeForm.viewModel.getSelectedRecipeName().observe(recipeForm.getViewLifecycleOwner(), new Observer<String>() {
@@ -282,14 +280,8 @@ public class MainActivity extends AppCompatActivity{
                                 mainFAB.show();
                                 checkFormsNum = 1;
                                 getSupportFragmentManager().popBackStack();
-                                if (null == getSupportFragmentManager().findFragmentByTag("Home")){
-                                    getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, homeFragment, "Home")
-                                            .commit();
-                                }
-                                else{
-                                    getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, homeFragment, "Home")
-                                            .addToBackStack(null).commit();
-                                }
+                                getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, homeFragment, "Home")
+                                        .addToBackStack(null).commit();
                             }
                             else{
                                 AlertDialog.Builder builder1 = new AlertDialog.Builder(MainActivity.this); //Context is getActivity
@@ -303,15 +295,9 @@ public class MainActivity extends AppCompatActivity{
                                     public void onClick(DialogInterface dialogInterface, int i) {
                                         checkFormsNum = 1; //changes to 1 when click back to the pages that are not forms
                                         mainFAB.show();
-                                        if (null == getSupportFragmentManager().findFragmentByTag("Home")){
-                                            getSupportFragmentManager().popBackStack();
-                                            getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, homeFragment, "Home")
-                                                    .commit();
-                                        }
-                                        else{
-                                            getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, homeFragment, "Home")
-                                                    .addToBackStack(null).commit();
-                                        }
+                                        getSupportFragmentManager().popBackStack();
+                                        getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, homeFragment, "Home")
+                                                .addToBackStack(null).commit();
                                     }
                                 });
 
@@ -320,15 +306,9 @@ public class MainActivity extends AppCompatActivity{
                                     public void onClick(DialogInterface dialogInterface, int i) {
                                         checkFormsNum = 1; //changes to 1 when click back to the pages that are not forms
                                         mainFAB.show();
-                                        if (null == getSupportFragmentManager().findFragmentByTag("Home")){
-                                            getSupportFragmentManager().popBackStack();
-                                            getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, homeFragment, "Home")
-                                                    .commit();
-                                        }
-                                        else{
-                                            getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, homeFragment, "Home")
-                                                    .addToBackStack(null).commit();
-                                        }
+                                        getSupportFragmentManager().popBackStack();
+                                        getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, homeFragment, "Home")
+                                                .addToBackStack(null).commit();
                                     }
                                 });
 
@@ -355,15 +335,9 @@ public class MainActivity extends AppCompatActivity{
                                 public void onClick(DialogInterface dialogInterface, int i) {
                                     checkFormsNum = 1; //changes to 1 when click back to the pages that are not forms
                                     mainFAB.show();
-                                    if (null == getSupportFragmentManager().findFragmentByTag("Home")){
-                                        getSupportFragmentManager().popBackStack();
-                                        getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, homeFragment, "Home")
-                                                .commit();
-                                    }
-                                    else{
-                                        getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, homeFragment, "Home")
-                                                .addToBackStack(null).commit();
-                                    }
+                                    getSupportFragmentManager().popBackStack();
+                                    getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, homeFragment, "Home")
+                                            .addToBackStack(null).commit();
                                 }
                             });
 
@@ -372,15 +346,9 @@ public class MainActivity extends AppCompatActivity{
                                 public void onClick(DialogInterface dialogInterface, int i) {
                                     checkFormsNum = 1; //changes to 1 when click back to the pages that are not forms
                                     mainFAB.show();
-                                    if (null == getSupportFragmentManager().findFragmentByTag("Home")){
-                                        getSupportFragmentManager().popBackStack();
-                                        getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, homeFragment, "Home")
-                                                .commit();
-                                    }
-                                    else{
-                                        getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, homeFragment, "Home")
-                                                .addToBackStack(null).commit();
-                                    }
+                                    getSupportFragmentManager().popBackStack();
+                                    getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, homeFragment, "Home")
+                                            .addToBackStack(null).commit();
                                 }
                             });
 
@@ -404,6 +372,8 @@ public class MainActivity extends AppCompatActivity{
                 switch (item.getItemId()) {
                     case R.id.hc:
                         if (checkFormsNum == 1){ //If never enter forms
+                            mainFAB.show();
+                            getSupportFragmentManager().popBackStack();
                             if (null == getSupportFragmentManager().findFragmentByTag("HC")){
                                 getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, hawkerCornerMain, "HC")
                                         .commit();
@@ -417,14 +387,8 @@ public class MainActivity extends AppCompatActivity{
                             mainFAB.show();
                             checkFormsNum = 1;
                             getSupportFragmentManager().popBackStack();
-                            if (null == getSupportFragmentManager().findFragmentByTag("HC")){
-                                getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, hawkerCornerMain, "HC")
-                                        .commit();
-                            }
-                            else{
-                                getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, hawkerCornerMain, "HC")
-                                        .addToBackStack(null).commit();
-                            }
+                            getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, hawkerCornerMain, "HC")
+                                    .addToBackStack(null).commit();
                         }
                         else if ( whichForm == 2){
                             RecipeForm.viewModel.getSelectedRecipeName().observe(recipeForm.getViewLifecycleOwner(), new Observer<String>() {
@@ -437,14 +401,8 @@ public class MainActivity extends AppCompatActivity{
                                 mainFAB.show();
                                 checkFormsNum = 1;
                                 getSupportFragmentManager().popBackStack();
-                                if (null == getSupportFragmentManager().findFragmentByTag("HC")){
-                                    getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, hawkerCornerMain, "HC")
-                                            .commit();
-                                }
-                                else{
-                                    getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, hawkerCornerMain, "HC")
-                                            .addToBackStack(null).commit();
-                                }
+                                getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, hawkerCornerMain, "HC")
+                                        .addToBackStack(null).commit();
                             }
                             else{
                                 AlertDialog.Builder builder1 = new AlertDialog.Builder(MainActivity.this); //Context is getActivity
@@ -458,15 +416,9 @@ public class MainActivity extends AppCompatActivity{
                                     public void onClick(DialogInterface dialogInterface, int i) {
                                         checkFormsNum = 1; //changes to 1 when click back to the pages that are not forms
                                         mainFAB.show();
-                                        if (null == getSupportFragmentManager().findFragmentByTag("HC")){
-                                            getSupportFragmentManager().popBackStack();
-                                            getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, hawkerCornerMain, "HC")
-                                                    .commit();
-                                        }
-                                        else{
-                                            getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, hawkerCornerMain, "HC")
-                                                    .addToBackStack(null).commit();
-                                        }
+                                        getSupportFragmentManager().popBackStack();
+                                        getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, hawkerCornerMain, "HC")
+                                                .addToBackStack(null).commit();
                                     }
                                 });
 
@@ -475,15 +427,9 @@ public class MainActivity extends AppCompatActivity{
                                     public void onClick(DialogInterface dialogInterface, int i) {
                                         checkFormsNum = 1; //changes to 1 when click back to the pages that are not forms
                                         mainFAB.show();
-                                        if (null == getSupportFragmentManager().findFragmentByTag("HC")){
-                                            getSupportFragmentManager().popBackStack();
-                                            getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, hawkerCornerMain, "HC")
-                                                    .commit();
-                                        }
-                                        else{
-                                            getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, hawkerCornerMain, "HC")
-                                                    .addToBackStack(null).commit();
-                                        }
+                                        getSupportFragmentManager().popBackStack();
+                                        getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, hawkerCornerMain, "HC")
+                                                .addToBackStack(null).commit();
                                     }
                                 });
 
@@ -510,15 +456,9 @@ public class MainActivity extends AppCompatActivity{
                                 public void onClick(DialogInterface dialogInterface, int i) {
                                     mainFAB.show();
                                     checkFormsNum = 1; //changes to 1 when click back to the pages that are not forms
-                                    if (null == getSupportFragmentManager().findFragmentByTag("HC")){
-                                        getSupportFragmentManager().popBackStack();
-                                        getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, hawkerCornerMain, "HC")
-                                                .commit();
-                                    }
-                                    else{
-                                        getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, hawkerCornerMain, "HC")
-                                                .addToBackStack(null).commit();
-                                    }
+                                    getSupportFragmentManager().popBackStack();
+                                    getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, hawkerCornerMain, "HC")
+                                            .addToBackStack(null).commit();
                                 }
                             });
 
@@ -527,15 +467,9 @@ public class MainActivity extends AppCompatActivity{
                                 public void onClick(DialogInterface dialogInterface, int i) {
                                     mainFAB.show();
                                     checkFormsNum = 1; //changes to 1 when click back to the pages that are not forms
-                                    if (null == getSupportFragmentManager().findFragmentByTag("HC")){
-                                        getSupportFragmentManager().popBackStack();
-                                        getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, hawkerCornerMain, "HC")
-                                                .commit();
-                                    }
-                                    else{
-                                        getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, hawkerCornerMain, "HC")
-                                                .addToBackStack(null).commit();
-                                    }
+                                    getSupportFragmentManager().popBackStack();
+                                    getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, hawkerCornerMain, "HC")
+                                            .addToBackStack(null).commit();
                                 }
                             });
 
@@ -561,6 +495,8 @@ public class MainActivity extends AppCompatActivity{
                 switch (item.getItemId()) {
                     case R.id.rc:
                         if (checkFormsNum == 1) { //If never enter forms
+                            mainFAB.show();
+                            getSupportFragmentManager().popBackStack();
                             if (null == getSupportFragmentManager().findFragmentByTag("RC")){
                                 getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, recipeCornerMain, "RC")
                                         .commit();
@@ -574,14 +510,8 @@ public class MainActivity extends AppCompatActivity{
                             mainFAB.show();
                             checkFormsNum = 1;
                             getSupportFragmentManager().popBackStack();
-                            if (null == getSupportFragmentManager().findFragmentByTag("RC")){
-                                getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, recipeCornerMain, "RC")
-                                        .commit();
-                            }
-                            else{
-                                getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, recipeCornerMain, "RC")
-                                        .addToBackStack(null).commit();
-                            }
+                            getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, recipeCornerMain, "RC")
+                                    .addToBackStack(null).commit();
                         }
                         else if ( whichForm == 2){
                             RecipeForm.viewModel.getSelectedRecipeName().observe(recipeForm.getViewLifecycleOwner(), new Observer<String>() {
@@ -594,14 +524,8 @@ public class MainActivity extends AppCompatActivity{
                                 mainFAB.show();
                                 checkFormsNum = 1;
                                 getSupportFragmentManager().popBackStack();
-                                if (null == getSupportFragmentManager().findFragmentByTag("RC")){
-                                    getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, recipeCornerMain, "RC")
-                                            .commit();
-                                }
-                                else{
-                                    getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, recipeCornerMain, "RC")
-                                            .addToBackStack(null).commit();
-                                }
+                                getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, recipeCornerMain, "RC")
+                                        .addToBackStack(null).commit();
                             }
                             else{
                                 AlertDialog.Builder builder1 = new AlertDialog.Builder(MainActivity.this); //Context is getActivity
@@ -615,15 +539,9 @@ public class MainActivity extends AppCompatActivity{
                                     public void onClick(DialogInterface dialogInterface, int i) {
                                         checkFormsNum = 1; //changes to 1 when click back to the pages that are not forms
                                         mainFAB.show();
-                                        if (null == getSupportFragmentManager().findFragmentByTag("RC")){
-                                            getSupportFragmentManager().popBackStack();
-                                            getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, recipeCornerMain, "RC")
-                                                    .commit();
-                                        }
-                                        else{
-                                            getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, recipeCornerMain, "RC")
-                                                    .addToBackStack(null).commit();
-                                        }
+                                        getSupportFragmentManager().popBackStack();
+                                        getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, recipeCornerMain, "RC")
+                                                .addToBackStack(null).commit();
                                     }
                                 });
 
@@ -632,15 +550,9 @@ public class MainActivity extends AppCompatActivity{
                                     public void onClick(DialogInterface dialogInterface, int i) {
                                         checkFormsNum = 1; //changes to 1 when click back to the pages that are not forms
                                         mainFAB.show();
-                                        if (null == getSupportFragmentManager().findFragmentByTag("RC")){
-                                            getSupportFragmentManager().popBackStack();
-                                            getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, recipeCornerMain, "RC")
-                                                    .commit();
-                                        }
-                                        else{
-                                            getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, recipeCornerMain, "RC")
-                                                    .addToBackStack(null).commit();
-                                        }
+                                        getSupportFragmentManager().popBackStack();
+                                        getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, recipeCornerMain, "RC")
+                                                .addToBackStack(null).commit();
                                     }
                                 });
 
@@ -667,15 +579,9 @@ public class MainActivity extends AppCompatActivity{
                                 public void onClick(DialogInterface dialogInterface, int i) {
                                     checkFormsNum = 1; //changes to 1 when click back to the pages that are not forms
                                     mainFAB.show();
-                                    if (null == getSupportFragmentManager().findFragmentByTag("RC")){
-                                        getSupportFragmentManager().popBackStack();
-                                        getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, recipeCornerMain, "RC")
-                                                .commit();
-                                    }
-                                    else{
-                                        getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, recipeCornerMain, "RC")
-                                                .addToBackStack(null).commit();
-                                    }
+                                    getSupportFragmentManager().popBackStack();
+                                    getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, recipeCornerMain, "RC")
+                                            .addToBackStack(null).commit();
                                 }
                             });
 
@@ -684,15 +590,9 @@ public class MainActivity extends AppCompatActivity{
                                 public void onClick(DialogInterface dialogInterface, int i) {
                                     checkFormsNum = 1; //changes to 1 when click back to the pages that are not forms
                                     mainFAB.show();
-                                    if (null == getSupportFragmentManager().findFragmentByTag("RC")){
-                                        getSupportFragmentManager().popBackStack();
-                                        getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, recipeCornerMain, "RC")
-                                                .commit();
-                                    }
-                                    else {
-                                        getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, recipeCornerMain, "RC")
-                                                .addToBackStack(null).commit();
-                                    }
+                                    getSupportFragmentManager().popBackStack();
+                                    getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, recipeCornerMain, "RC")
+                                            .addToBackStack(null).commit();
                                 }
                             });
 
@@ -717,6 +617,8 @@ public class MainActivity extends AppCompatActivity{
                 switch (item.getItemId()) {
                     case R.id.profile:
                         if (checkFormsNum == 1){ //If never enter forms
+                            mainFAB.show();
+                            getSupportFragmentManager().popBackStack();
                             if (null == getSupportFragmentManager().findFragmentByTag("Profile")){
                                 getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, profile, "Profile")
                                         .commit();
@@ -730,14 +632,8 @@ public class MainActivity extends AppCompatActivity{
                             mainFAB.show();
                             checkFormsNum = 1;
                             getSupportFragmentManager().popBackStack();
-                            if (null == getSupportFragmentManager().findFragmentByTag("Profile")){
-                                getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, profile, "Profile")
-                                        .commit();
-                            }
-                            else{
-                                getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, profile, "Profile")
-                                        .addToBackStack(null).commit();
-                            }
+                            getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, profile, "Profile")
+                                    .addToBackStack(null).commit();
                         }
                         else if ( whichForm == 2){
                             RecipeForm.viewModel.getSelectedRecipeName().observe(recipeForm.getViewLifecycleOwner(), new Observer<String>() {
@@ -750,14 +646,8 @@ public class MainActivity extends AppCompatActivity{
                                 mainFAB.show();
                                 checkFormsNum = 1;
                                 getSupportFragmentManager().popBackStack();
-                                if (null == getSupportFragmentManager().findFragmentByTag("Profile")){
-                                    getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, profile, "Profile")
-                                            .commit();
-                                }
-                                else{
-                                    getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, profile, "Profile")
-                                            .addToBackStack(null).commit();
-                                }
+                                getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, profile, "Profile")
+                                        .addToBackStack(null).commit();
                             }
                             else{
                                 AlertDialog.Builder builder1 = new AlertDialog.Builder(MainActivity.this); //Context is getActivity
@@ -771,15 +661,9 @@ public class MainActivity extends AppCompatActivity{
                                     public void onClick(DialogInterface dialogInterface, int i) {
                                         checkFormsNum = 1; //changes to 1 when click back to the pages that are not forms
                                         mainFAB.show();
-                                        if (null == getSupportFragmentManager().findFragmentByTag("Profile")){
-                                            getSupportFragmentManager().popBackStack();
-                                            getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, profile, "Profile")
-                                                    .commit();
-                                        }
-                                        else{
-                                            getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, profile, "Profile")
-                                                    .addToBackStack(null).commit();
-                                        }
+                                        getSupportFragmentManager().popBackStack();
+                                        getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, profile, "Profile")
+                                                .addToBackStack(null).commit();
                                     }
                                 });
 
@@ -788,15 +672,9 @@ public class MainActivity extends AppCompatActivity{
                                     public void onClick(DialogInterface dialogInterface, int i) {
                                         checkFormsNum = 1; //changes to 1 when click back to the pages that are not forms
                                         mainFAB.show();
-                                        if (null == getSupportFragmentManager().findFragmentByTag("Profile")){
-                                            getSupportFragmentManager().popBackStack();
-                                            getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, profile, "Profile")
-                                                    .commit();
-                                        }
-                                        else{
-                                            getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, profile, "Profile")
-                                                    .addToBackStack(null).commit();
-                                        }
+                                        getSupportFragmentManager().popBackStack();
+                                        getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, profile, "Profile")
+                                                .addToBackStack(null).commit();
                                     }
                                 });
 
@@ -823,15 +701,9 @@ public class MainActivity extends AppCompatActivity{
                                 public void onClick(DialogInterface dialogInterface, int i) {
                                     checkFormsNum = 1; //changes to 1 when click back to the pages that are not forms\
                                     mainFAB.show();
-                                    if (null == getSupportFragmentManager().findFragmentByTag("Profile")){
-                                        getSupportFragmentManager().popBackStack();
-                                        getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, profile, "Profile")
-                                                .commit();
-                                    }
-                                    else{
-                                        getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, profile, "Profile")
-                                                .addToBackStack(null).commit();
-                                    }
+                                    getSupportFragmentManager().popBackStack();
+                                    getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, profile, "Profile")
+                                            .addToBackStack(null).commit();
                                 }
                             });
 
@@ -840,15 +712,9 @@ public class MainActivity extends AppCompatActivity{
                                 public void onClick(DialogInterface dialogInterface, int i) {
                                     checkFormsNum = 1; //changes to 1 when click back to the pages that are not forms
                                     mainFAB.show();
-                                    if (null == getSupportFragmentManager().findFragmentByTag("Profile")){
-                                        getSupportFragmentManager().popBackStack();
-                                        getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, profile, "Profile")
-                                                .commit();
-                                    }
-                                    else{
-                                        getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, profile, "Profile")
-                                                .addToBackStack(null).commit();
-                                    }
+                                    getSupportFragmentManager().popBackStack();
+                                    getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, profile, "Profile")
+                                            .addToBackStack(null).commit();
                                 }
                             });
 
@@ -901,36 +767,36 @@ public class MainActivity extends AppCompatActivity{
         hcFAB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (checkFormsNum == 1){
-                    checkFormsNum = 0; //changes to 0 when click the floating button
+//                if (checkFormsNum == 1){
+//                    checkFormsNum = 0; //changes to 0 when click the floating button
                     whichForm = 1;
                     AppCompatActivity activity = (AppCompatActivity) v.getContext();
                     activity.getSupportFragmentManager().beginTransaction()
-                            .replace(R.id.MainFragment, hawkerForm).addToBackStack(null).commit();
+                            .replace(R.id.MainFragment, hawkerDraftsPage).addToBackStack(null).commit();
                     mainFAB.hide();
                     rcFAB.hide();
                     hcFAB.hide();
                     rcFABText.setVisibility(View.GONE);
                     hcFABText.setVisibility(View.GONE);
-                }
+//                }
             }
         });
         //FAB Recipe Corner Button
         rcFAB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (checkFormsNum == 1){
-                    checkFormsNum = 0; //changes to 0 when click the floating button
+//                if (checkFormsNum == 1){
+//                    checkFormsNum = 0; //changes to 0 when click the floating button
                     whichForm = 2;
                     AppCompatActivity activity = (AppCompatActivity) v.getContext();
                     activity.getSupportFragmentManager().beginTransaction()
-                            .replace(R.id.MainFragment, recipeForm).addToBackStack(null).commit();
+                            .replace(R.id.MainFragment, recipeDraftsPage).addToBackStack(null).commit();
                     mainFAB.hide();
                     rcFAB.hide();
                     hcFAB.hide();
                     rcFABText.setVisibility(View.GONE);
                     hcFABText.setVisibility(View.GONE);
-                }
+//                }
             }
         });
     }
