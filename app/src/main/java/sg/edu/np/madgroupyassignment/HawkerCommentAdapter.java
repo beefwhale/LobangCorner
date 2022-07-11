@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
+import android.media.Image;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -36,6 +37,7 @@ import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 
 public class HawkerCommentAdapter extends RecyclerView.Adapter<CommentViewholder> {
 
@@ -48,7 +50,9 @@ public class HawkerCommentAdapter extends RecyclerView.Adapter<CommentViewholder
     private UserProfile userProfile;
     private FirebaseAuth firebaseAuth;
     private DatabaseReference databaseReference;
+    private DatabaseReference databaseReference2;
     private FirebaseDatabase firebaseDatabase;
+    private HashMap<String, Object> hwklist = new HashMap<String, Object>();
 
     public HawkerCommentAdapter(Context c, ArrayList<Comments> commentData, HomeMixData CommentRetrieve, Boolean contentCheck) {
         this.c = c;
@@ -62,6 +66,7 @@ public class HawkerCommentAdapter extends RecyclerView.Adapter<CommentViewholder
         userID = firebaseAuth.getUid();
         userProfile = postsHolder.getUserProfile();
         databaseReference = firebaseDatabase.getReference().child("Comments").child(postID);
+        databaseReference2 = firebaseDatabase.getReference();
     }
 
     @Override
@@ -85,6 +90,7 @@ public class HawkerCommentAdapter extends RecyclerView.Adapter<CommentViewholder
             //Variables or views needed to define whats in Chosen stall
             ImageView chosenstallimg = item.findViewById(R.id.chosenstallimg);
             ImageView hccuserpfp = item.findViewById(R.id.hccuserpfp);
+            ImageView hcbookmark = item.findViewById(R.id.hcbookmark);
             TextView chosenstallname = item.findViewById(R.id.chosenstallname);
             TextView hccusername = item.findViewById(R.id.hccusername);
             TextView hccaddress = item.findViewById(R.id.hccaddress);
@@ -103,6 +109,18 @@ public class HawkerCommentAdapter extends RecyclerView.Adapter<CommentViewholder
             descriptionheader.setText("About " + CommentRetrieve.hcstallname);
             hccopendays.setText(CommentRetrieve.daysopen);
             hccopenhours.setText(CommentRetrieve.hoursopen);
+
+            hcbookmark.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Toast.makeText(c, "Hawker stall saved!", Toast.LENGTH_SHORT).show();
+                    hwklist.put(postID, postID);
+                    //reference.child("UserProfile").child(mAuth.getUid()).child("bookmarklist").child(recipePost.postID).setValue(recipePost);
+                    databaseReference2.child("UserProfile").child(firebaseAuth.getUid()).child("bmhawklist").updateChildren(hwklist);
+
+                }
+            });
+
         } else if (viewType == 1) {
             item = LayoutInflater.from(parent.getContext()).inflate(R.layout.comment_layout, parent, false);
         } else {

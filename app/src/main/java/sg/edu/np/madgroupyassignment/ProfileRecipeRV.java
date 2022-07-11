@@ -40,7 +40,7 @@ public class ProfileRecipeRV extends Fragment{
         }
 
         recipeRV = view.findViewById(R.id.idRVRecipe);
-        adapter = new RecipeAdapter(recipeCornersList, c);
+        adapter = new RecipeAdapter(recipeCornersList, c, false);
         LinearLayoutManager manager = new LinearLayoutManager(c);
         recipeRV.setHasFixedSize(true);
 

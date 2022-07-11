@@ -31,6 +31,7 @@ import org.parceler.Parcels;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 
 public class RecipeCommentAdapter extends RecyclerView.Adapter<CommentViewholder> {
 
@@ -43,7 +44,9 @@ public class RecipeCommentAdapter extends RecyclerView.Adapter<CommentViewholder
     private UserProfile userProfile;
     private FirebaseAuth firebaseAuth;
     private DatabaseReference databaseReference;
+    private DatabaseReference databaseReference2;
     private FirebaseDatabase firebaseDatabase;
+    private HashMap<String, Object> rcplist = new HashMap<String, Object>();
 
     public RecipeCommentAdapter(Context c, ArrayList<Comments> commentData, HomeMixData CommentRetrieve, Boolean contentCheck) {
         this.c = c;
@@ -57,6 +60,7 @@ public class RecipeCommentAdapter extends RecyclerView.Adapter<CommentViewholder
         userID = firebaseAuth.getUid();
         userProfile = postsHolder.getUserProfile();
         databaseReference = firebaseDatabase.getReference().child("Comments").child(postID);
+        databaseReference2 = firebaseDatabase.getReference();
     }
 
     @Override
@@ -98,6 +102,17 @@ public class RecipeCommentAdapter extends RecyclerView.Adapter<CommentViewholder
             ingred.setText(CommentRetrieve.ingredients);
             Picasso.get().load(CommentRetrieve.getFoodImage()).into(i);
             //Work on the bookmark here if you want --Celsius
+            i2.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Toast.makeText(c, "Recipe saved!", Toast.LENGTH_SHORT).show();
+                    rcplist.put(postID, postID);
+                    //reference.child("UserProfile").child(mAuth.getUid()).child("bookmarklist").child(recipePost.postID).setValue(recipePost);
+                    databaseReference2.child("UserProfile").child(firebaseAuth.getUid()).child("bmrcplist").updateChildren(rcplist);
+
+                }
+            });
+
 
         } else if (viewType == 1) {
             item = LayoutInflater.from(parent.getContext()).inflate(R.layout.comment_layout, parent, false);

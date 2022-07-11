@@ -34,6 +34,7 @@ public class HCMainsAdapter extends RecyclerView.Adapter<HCMainViewHolder> {
     public ArrayList<Integer> listPos = new ArrayList<>();
     Integer toRemove;
     View stall;
+    public ArrayList<HawkerCornerStalls> del_hcslist = new ArrayList<>();
 
     //Constructor for Adapter.
     public HCMainsAdapter (ArrayList<HawkerCornerStalls> stallsList, Boolean status){
@@ -115,9 +116,30 @@ public class HCMainsAdapter extends RecyclerView.Adapter<HCMainViewHolder> {
                     }
                 }
             });
+
+            holder.hcCheckbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                    if (del_hcslist.contains(newstall)){
+                        del_hcslist.remove(newstall);
+                    }
+                    else{
+                        del_hcslist.add(newstall);
+                    }
+                }
+            });
+
         }
     }
 
+    public ArrayList<HawkerCornerStalls> getDel_hcslist() {
+        return del_hcslist;
+    }
+
+    public void delete(ArrayList<HawkerCornerStalls> deletelist){
+        stallsList = deletelist;
+        notifyDataSetChanged();
+    }
 
     @Override
     public int getItemCount() {

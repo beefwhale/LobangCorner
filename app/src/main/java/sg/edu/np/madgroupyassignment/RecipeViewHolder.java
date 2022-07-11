@@ -1,6 +1,7 @@
 package sg.edu.np.madgroupyassignment;
 
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
@@ -13,6 +14,7 @@ public class RecipeViewHolder extends RecyclerView.ViewHolder {
     TextView recipeName, recipeDesc, userName;
     ImageView foodImage;
     RatingBar ratingBar;
+    CheckBox checkbox;
 
     public RecipeViewHolder(View item) {
         super(item);
@@ -22,5 +24,6 @@ public class RecipeViewHolder extends RecyclerView.ViewHolder {
         userName = itemView.findViewById(R.id.idUser);
         foodImage = itemView.findViewById(R.id.imageView);
         ratingBar = itemView.findViewById(R.id.ratingBar);
+        checkbox = itemView.findViewById(R.id.rccheckbox);
     }
 }

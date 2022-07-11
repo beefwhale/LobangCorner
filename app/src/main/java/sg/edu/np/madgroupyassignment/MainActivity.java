@@ -46,6 +46,7 @@ public class MainActivity extends AppCompatActivity{
     public static Boolean profileFirstUpdate;
     private UserProfile userProfile;
     private PostsHolder postsHolder;
+    private  PostsHolder2 postsHolder2;
     private Handler handler;
     private FirebaseAuth mAuth;
     private FirebaseDatabase firebaseDatabase;
@@ -120,6 +121,7 @@ public class MainActivity extends AppCompatActivity{
 
         profileFirstUpdate = true;
         postsHolder = new PostsHolder();
+        postsHolder2 = new PostsHolder2();
         handler = new Handler();
 
         mAuth = FirebaseAuth.getInstance();
@@ -179,6 +181,31 @@ public class MainActivity extends AppCompatActivity{
                     }
                     postsHolder.updateRecentHawkerPosts(hwkObject);
                 }
+
+                //                Getting bookmarked recipe posts
+                postsHolder2.removeRecipePosts();
+                for (DataSnapshot objectEntry : snapshot.child("UserProfile").child(mAuth.getUid()).child("bmrcplist").getChildren()){
+                    String PostID = objectEntry.getValue(String.class);
+                    for (DataSnapshot objectEntry2 : snapshot.child("Posts").child("Recipes").getChildren()) {
+                        RecipeCorner rcpObject2 = objectEntry2.getValue(RecipeCorner.class);
+                        if (rcpObject2.getPostID().equals(PostID)){
+                            postsHolder2.setRecipePosts(rcpObject2);
+                        }
+                    }
+                }
+
+//                Getting bookmarked hawker posts
+                postsHolder2.removeHawkerPosts();
+                for (DataSnapshot objectEntry : snapshot.child("UserProfile").child(mAuth.getUid()).child("bmhawklist").getChildren()){
+                    String PostID = objectEntry.getValue(String.class);
+                    for (DataSnapshot objectEntry2 : snapshot.child("Posts").child("Hawkers").getChildren()) {
+                        HawkerCornerStalls hwkObject2 = objectEntry2.getValue(HawkerCornerStalls.class);
+                        if (hwkObject2.getPostid().equals(PostID)){
+                            postsHolder2.setHawkerposts(hwkObject2);
+                        }
+                    }
+                }
+
 
 //                Updating profile page
                 if (profileFirstUpdate != true) {

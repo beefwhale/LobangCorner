@@ -86,7 +86,7 @@ public class RecipeCornerMain extends Fragment implements AdapterView.OnItemSele
 
         // initializing our adapter class.
         Collections.reverse(recipeModalArrayList); //default displays newest post first
-        adapter = new RecipeAdapter(recipeModalArrayList, getActivity());
+        adapter = new RecipeAdapter(recipeModalArrayList, getActivity(),true);
 
         // adding layout manager to our recycler view.
         LinearLayoutManager manager = new LinearLayoutManager(getActivity());

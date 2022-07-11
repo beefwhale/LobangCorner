@@ -271,10 +271,11 @@
             android:id="@+id/hcbookmark"
             android:layout_width="30dp"
             android:layout_height="34dp"
-            android:layout_marginStart="180dp"
+            android:layout_marginEnd="16dp"
             app:layout_constraintBottom_toBottomOf="@+id/hccusername"
-            app:layout_constraintStart_toEndOf="@+id/hccusername"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/hccusername"
+            app:layout_constraintVertical_bias="0.875"
             app:srcCompat="@drawable/ic_bookmark" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

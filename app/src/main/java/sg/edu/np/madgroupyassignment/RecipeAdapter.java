@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CompoundButton;
 import android.widget.RatingBar;
 
 import androidx.annotation.NonNull;
@@ -28,11 +29,14 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeViewHolder>{
     // creating a variable for array list and context.
     private ArrayList<RecipeCorner> recipeArrayList;
     private Context context;
+    Boolean status;
+    ArrayList<RecipeCorner> del_rcplist = new ArrayList<>();
 
     // creating a constructor for our variables.
-    public RecipeAdapter(ArrayList<RecipeCorner> recipeArrayList, Context context) {
+    public RecipeAdapter(ArrayList<RecipeCorner> recipeArrayList, Context context, Boolean status) {
         this.recipeArrayList = recipeArrayList;
         this.context = context;
+        this.status = status;
     }
 
     // method called from recipeCornerMain to sort list and update the data
@@ -63,7 +67,10 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeViewHolder>{
     public RecipeViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         // below line is to inflate our layout.
         View view;
-        view = LayoutInflater.from(parent.getContext()).inflate(R.layout.recipe_corner_layout, parent, false);
+        if (status == true)
+            view = LayoutInflater.from(parent.getContext()).inflate(R.layout.recipe_corner_layout, parent, false);
+        else
+            view = LayoutInflater.from(parent.getContext()).inflate(R.layout.activity_profile_rc_card, parent, false);
 
         return new RecipeViewHolder(view);
     }
@@ -94,6 +101,42 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeViewHolder>{
                         .replace(R.id.MainFragment, rcpFragment).addToBackStack(null).commit();
             }
         });
+        if (status==false){
+//            holder.checkbox.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View view) {
+//                    if (holder.checkbox.isChecked()){
+//                        holder.checkbox.isChecked() = true;
+//                           del_rcp(del_rcplist, item);
+//                    }
+//                    else{
+//                        if (del_rcplist.)
+//                    }
+//                }
+//            });
+            holder.checkbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                    if (del_rcplist.contains(item)){
+                        //holder.checkbox.setChecked(false);
+                        del_rcplist.remove(item);
+                    }
+                    else{
+                        //holder.checkbox.setChecked(true);
+                        del_rcplist.add(item);
+                    }
+                }
+            });
+        }
+    }
+
+    public ArrayList<RecipeCorner> getDel_rcplist() {
+        return del_rcplist;
+    }
+
+    public void delete(ArrayList<RecipeCorner> deletelist){
+        recipeArrayList = deletelist;
+        notifyDataSetChanged();
     }
 
     //display all the items of the array list in recyclerview
