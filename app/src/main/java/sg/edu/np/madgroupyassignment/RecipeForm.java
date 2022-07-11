@@ -36,7 +36,7 @@ public class RecipeForm extends Fragment {
     Button submitButton;
     private PostsHolder postsHolder;
     private UserProfile userProfile;
-    FormsViewModel viewModel;
+    public static FormsViewModel viewModel;
     private DatabaseReference databaseReferencetest;
     private FirebaseAuth mAuth;
 

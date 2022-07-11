@@ -55,7 +55,9 @@ public class MainActivity extends AppCompatActivity{
     public static String storedUID;
     public static ArrayList<HomeMixData> randomMixList;
 
-
+    //Floating Action Buttons
+    public static FloatingActionButton mainFAB, rcFAB, hcFAB;
+    TextView rcFABText, hcFABText;
 
     Context c;
     Boolean FABVisible;
