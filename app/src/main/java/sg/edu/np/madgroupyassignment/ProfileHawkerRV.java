@@ -156,7 +156,7 @@ public class ProfileHawkerRV extends Fragment {
                     //Getting Chosen Post to Edit
                     Integer pos = hcadapter.listPos.get(0);
 
-                    Fragment HawkerForm = new HawkerForm(false);
+                    Fragment HawkerForm = new HawkerForm(1); //Editing = 1
 
                     //pass username
                     Bundle bundle = new Bundle();

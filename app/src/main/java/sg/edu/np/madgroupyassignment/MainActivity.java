@@ -15,6 +15,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.lifecycle.Observer;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -54,12 +55,16 @@ public class MainActivity extends AppCompatActivity{
     public static String storedUID;
     public static ArrayList<HomeMixData> randomMixList;
 
+
+
     Context c;
     Boolean FABVisible;
     HomeMix homeMix = new HomeMix();
 
     //This is to check when user is in forms
-    Integer checkFormsNum;
+    public static Integer checkFormsNum;
+    //This is to check which form user is in
+    public static Integer whichForm;
 
     public static BottomNavigationView bottomNavigationView;
 
@@ -85,7 +90,8 @@ public class MainActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        checkFormsNum = 1; //default for checkFormsNum is 1
+        checkFormsNum = 1; //default for checkFormsNum is 1\
+        whichForm = 0; //default for checking which form
         // Hiding Title Bar thing
         getSupportActionBar().hide();
 
@@ -103,7 +109,7 @@ public class MainActivity extends AppCompatActivity{
 
         Profile profilePage = new Profile();
         RecipeForm recipeForm = new RecipeForm();
-        HawkerForm hawkerForm = new HawkerForm(true);
+        HawkerForm hawkerForm = new HawkerForm(0); //Posting = 0
         HawkerCornerMain hawkerCornerMain = new HawkerCornerMain();
         RecipeCornerMain recipeCornerMain = new RecipeCornerMain();
 
@@ -118,6 +124,14 @@ public class MainActivity extends AppCompatActivity{
         UID = mAuth.getCurrentUser().getUid();
 
         bottomNavigationView = findViewById(R.id.bottomNavigationView);
+
+        //Defining Floating Button
+        mainFAB = findViewById(R.id.floating_main_nav_button);
+        rcFAB = findViewById(R.id.floating_rc_nav_button);
+        hcFAB = findViewById(R.id.floating_hc_nav_button);
+        rcFABText = findViewById(R.id.floating_rc_nav_button_text);
+        hcFABText = findViewById(R.id.floating_hc_nav_button_text);
+
 
 
         //Makes boolean false again on app startup
@@ -229,6 +243,7 @@ public class MainActivity extends AppCompatActivity{
         bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                //When click on home
                 switch (item.getItemId()) {
                     case R.id.home:
                         if (checkFormsNum == 1){ //If never enter forms
@@ -241,18 +256,120 @@ public class MainActivity extends AppCompatActivity{
                                         .addToBackStack(null).commit();
                             }
                         }
+                        else if ( whichForm == 1 && HawkerForm.stallName == "" || whichForm == 1 && HawkerForm.stallName.isEmpty() || whichForm == 1 && HawkerForm.stallName == null){
+                            mainFAB.show();
+                            checkFormsNum = 1;
+                            getSupportFragmentManager().popBackStack();
+                            if (null == getSupportFragmentManager().findFragmentByTag("Home")){
+                                getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, homeFragment, "Home")
+                                        .commit();
+                            }
+                            else{
+                                getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, homeFragment, "Home")
+                                        .addToBackStack(null).commit();
+                            }
+                        }
+                        else if ( whichForm == 2){
+                            RecipeForm.viewModel.getSelectedRecipeName().observe(recipeForm.getViewLifecycleOwner(), new Observer<String>() {
+                                @Override
+                                public void onChanged(String s) {
+                                    RecipeForm.recipeName = s; //RECIPE TITLE parameter
+                                }
+                            });
+                            if (RecipeForm.recipeName == "" || RecipeForm.recipeName.isEmpty() || RecipeForm.recipeName == null){
+                                mainFAB.show();
+                                checkFormsNum = 1;
+                                getSupportFragmentManager().popBackStack();
+                                if (null == getSupportFragmentManager().findFragmentByTag("Home")){
+                                    getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, homeFragment, "Home")
+                                            .commit();
+                                }
+                                else{
+                                    getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, homeFragment, "Home")
+                                            .addToBackStack(null).commit();
+                                }
+                            }
+                            else{
+                                AlertDialog.Builder builder1 = new AlertDialog.Builder(MainActivity.this); //Context is getActivity
+
+                                //Set title
+                                builder1.setTitle("Wait!");
+                                builder1.setMessage("Do you want to save this to drafts?");
+
+                                builder1.setPositiveButton("Save", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialogInterface, int i) {
+                                        checkFormsNum = 1; //changes to 1 when click back to the pages that are not forms
+                                        mainFAB.show();
+                                        if (null == getSupportFragmentManager().findFragmentByTag("Home")){
+                                            getSupportFragmentManager().popBackStack();
+                                            getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, homeFragment, "Home")
+                                                    .commit();
+                                        }
+                                        else{
+                                            getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, homeFragment, "Home")
+                                                    .addToBackStack(null).commit();
+                                        }
+                                    }
+                                });
+
+                                builder1.setNeutralButton("Don't Save", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialogInterface, int i) {
+                                        checkFormsNum = 1; //changes to 1 when click back to the pages that are not forms
+                                        mainFAB.show();
+                                        if (null == getSupportFragmentManager().findFragmentByTag("Home")){
+                                            getSupportFragmentManager().popBackStack();
+                                            getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, homeFragment, "Home")
+                                                    .commit();
+                                        }
+                                        else{
+                                            getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, homeFragment, "Home")
+                                                    .addToBackStack(null).commit();
+                                        }
+                                    }
+                                });
+
+                                builder1.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialogInterface, int i) {
+                                        //dismiss Dialog
+                                        dialogInterface.dismiss();
+                                    }
+                                });
+
+                                builder1.show();
+                            }
+                        }
                         else{ //If enter forms
                             AlertDialog.Builder builder1 = new AlertDialog.Builder(MainActivity.this); //Context is getActivity
 
                             //Set title
-                            builder1.setTitle("Save or Not");
+                            builder1.setTitle("Wait!");
                             builder1.setMessage("Do you want to save this to drafts?");
 
                             builder1.setPositiveButton("Save", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialogInterface, int i) {
-                                    //getParentFragmentManager().popBackStack();
                                     checkFormsNum = 1; //changes to 1 when click back to the pages that are not forms
+                                    mainFAB.show();
+                                    if (null == getSupportFragmentManager().findFragmentByTag("Home")){
+                                        getSupportFragmentManager().popBackStack();
+                                        getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, homeFragment, "Home")
+                                                .commit();
+                                    }
+                                    else{
+                                        getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, homeFragment, "Home")
+                                                .addToBackStack(null).commit();
+                                    }
+                                }
+                            });
+
+                            builder1.setNeutralButton("Don't Save", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    checkFormsNum = 1; //changes to 1 when click back to the pages that are not forms
+                                    mainFAB.show();
                                     if (null == getSupportFragmentManager().findFragmentByTag("Home")){
                                         getSupportFragmentManager().popBackStack();
                                         getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, homeFragment, "Home")
@@ -277,6 +394,11 @@ public class MainActivity extends AppCompatActivity{
                         }
                         return true;
                 }
+
+
+
+
+                //When click on hc
                 switch (item.getItemId()) {
                     case R.id.hc:
                         if (checkFormsNum == 1){ //If never enter forms
@@ -289,17 +411,119 @@ public class MainActivity extends AppCompatActivity{
                                         .addToBackStack(null).commit();
                             }
                         }
+                        else if ( whichForm == 1 && HawkerForm.stallName == "" || whichForm == 1 && HawkerForm.stallName.isEmpty() || whichForm == 1 && HawkerForm.stallName == null){
+                            mainFAB.show();
+                            checkFormsNum = 1;
+                            getSupportFragmentManager().popBackStack();
+                            if (null == getSupportFragmentManager().findFragmentByTag("HC")){
+                                getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, hawkerCornerMain, "HC")
+                                        .commit();
+                            }
+                            else{
+                                getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, hawkerCornerMain, "HC")
+                                        .addToBackStack(null).commit();
+                            }
+                        }
+                        else if ( whichForm == 2){
+                            RecipeForm.viewModel.getSelectedRecipeName().observe(recipeForm.getViewLifecycleOwner(), new Observer<String>() {
+                                @Override
+                                public void onChanged(String s) {
+                                    RecipeForm.recipeName = s; //RECIPE TITLE parameter
+                                }
+                            });
+                            if (RecipeForm.recipeName == "" || RecipeForm.recipeName.isEmpty() || RecipeForm.recipeName == null){
+                                mainFAB.show();
+                                checkFormsNum = 1;
+                                getSupportFragmentManager().popBackStack();
+                                if (null == getSupportFragmentManager().findFragmentByTag("HC")){
+                                    getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, hawkerCornerMain, "HC")
+                                            .commit();
+                                }
+                                else{
+                                    getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, hawkerCornerMain, "HC")
+                                            .addToBackStack(null).commit();
+                                }
+                            }
+                            else{
+                                AlertDialog.Builder builder1 = new AlertDialog.Builder(MainActivity.this); //Context is getActivity
+
+                                //Set title
+                                builder1.setTitle("Wait!");
+                                builder1.setMessage("Do you want to save this to drafts?");
+
+                                builder1.setPositiveButton("Save", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialogInterface, int i) {
+                                        checkFormsNum = 1; //changes to 1 when click back to the pages that are not forms
+                                        mainFAB.show();
+                                        if (null == getSupportFragmentManager().findFragmentByTag("HC")){
+                                            getSupportFragmentManager().popBackStack();
+                                            getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, hawkerCornerMain, "HC")
+                                                    .commit();
+                                        }
+                                        else{
+                                            getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, hawkerCornerMain, "HC")
+                                                    .addToBackStack(null).commit();
+                                        }
+                                    }
+                                });
+
+                                builder1.setNeutralButton("Don't Save", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialogInterface, int i) {
+                                        checkFormsNum = 1; //changes to 1 when click back to the pages that are not forms
+                                        mainFAB.show();
+                                        if (null == getSupportFragmentManager().findFragmentByTag("HC")){
+                                            getSupportFragmentManager().popBackStack();
+                                            getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, hawkerCornerMain, "HC")
+                                                    .commit();
+                                        }
+                                        else{
+                                            getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, hawkerCornerMain, "HC")
+                                                    .addToBackStack(null).commit();
+                                        }
+                                    }
+                                });
+
+                                builder1.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialogInterface, int i) {
+                                        //dismiss Dialog
+                                        dialogInterface.dismiss();
+                                    }
+                                });
+
+                                builder1.show();
+                            }
+                        }
                         else { //If enter forms
                             AlertDialog.Builder builder1 = new AlertDialog.Builder(MainActivity.this); //Context is getActivity
 
                             //Set title
-                            builder1.setTitle("Save or Not");
+                            builder1.setTitle("Wait!");
                             builder1.setMessage("Do you want to save this to drafts?");
 
                             builder1.setPositiveButton("Save", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialogInterface, int i) {
-                                    //getParentFragmentManager().popBackStack();
+                                    mainFAB.show();
+                                    checkFormsNum = 1; //changes to 1 when click back to the pages that are not forms
+                                    if (null == getSupportFragmentManager().findFragmentByTag("HC")){
+                                        getSupportFragmentManager().popBackStack();
+                                        getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, hawkerCornerMain, "HC")
+                                                .commit();
+                                    }
+                                    else{
+                                        getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, hawkerCornerMain, "HC")
+                                                .addToBackStack(null).commit();
+                                    }
+                                }
+                            });
+
+                            builder1.setNeutralButton("Don't Save", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    mainFAB.show();
                                     checkFormsNum = 1; //changes to 1 when click back to the pages that are not forms
                                     if (null == getSupportFragmentManager().findFragmentByTag("HC")){
                                         getSupportFragmentManager().popBackStack();
@@ -327,6 +551,11 @@ public class MainActivity extends AppCompatActivity{
 
                         return true;
                 }
+
+
+
+
+                //When click on rc
                 switch (item.getItemId()) {
                     case R.id.rc:
                         if (checkFormsNum == 1) { //If never enter forms
@@ -339,18 +568,103 @@ public class MainActivity extends AppCompatActivity{
                                         .addToBackStack(null).commit();
                             }
                         }
+                        else if ( whichForm == 1 && HawkerForm.stallName == "" || whichForm == 1 && HawkerForm.stallName.isEmpty() || whichForm == 1 && HawkerForm.stallName == null){
+                            mainFAB.show();
+                            checkFormsNum = 1;
+                            getSupportFragmentManager().popBackStack();
+                            if (null == getSupportFragmentManager().findFragmentByTag("RC")){
+                                getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, recipeCornerMain, "RC")
+                                        .commit();
+                            }
+                            else{
+                                getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, recipeCornerMain, "RC")
+                                        .addToBackStack(null).commit();
+                            }
+                        }
+                        else if ( whichForm == 2){
+                            RecipeForm.viewModel.getSelectedRecipeName().observe(recipeForm.getViewLifecycleOwner(), new Observer<String>() {
+                                @Override
+                                public void onChanged(String s) {
+                                    RecipeForm.recipeName = s; //RECIPE TITLE parameter
+                                }
+                            });
+                            if (RecipeForm.recipeName == "" || RecipeForm.recipeName.isEmpty() || RecipeForm.recipeName == null){
+                                mainFAB.show();
+                                checkFormsNum = 1;
+                                getSupportFragmentManager().popBackStack();
+                                if (null == getSupportFragmentManager().findFragmentByTag("RC")){
+                                    getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, recipeCornerMain, "RC")
+                                            .commit();
+                                }
+                                else{
+                                    getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, recipeCornerMain, "RC")
+                                            .addToBackStack(null).commit();
+                                }
+                            }
+                            else{
+                                AlertDialog.Builder builder1 = new AlertDialog.Builder(MainActivity.this); //Context is getActivity
+
+                                //Set title
+                                builder1.setTitle("Wait!");
+                                builder1.setMessage("Do you want to save this to drafts?");
+
+                                builder1.setPositiveButton("Save", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialogInterface, int i) {
+                                        checkFormsNum = 1; //changes to 1 when click back to the pages that are not forms
+                                        mainFAB.show();
+                                        if (null == getSupportFragmentManager().findFragmentByTag("RC")){
+                                            getSupportFragmentManager().popBackStack();
+                                            getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, recipeCornerMain, "RC")
+                                                    .commit();
+                                        }
+                                        else{
+                                            getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, recipeCornerMain, "RC")
+                                                    .addToBackStack(null).commit();
+                                        }
+                                    }
+                                });
+
+                                builder1.setNeutralButton("Don't Save", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialogInterface, int i) {
+                                        checkFormsNum = 1; //changes to 1 when click back to the pages that are not forms
+                                        mainFAB.show();
+                                        if (null == getSupportFragmentManager().findFragmentByTag("RC")){
+                                            getSupportFragmentManager().popBackStack();
+                                            getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, recipeCornerMain, "RC")
+                                                    .commit();
+                                        }
+                                        else{
+                                            getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, recipeCornerMain, "RC")
+                                                    .addToBackStack(null).commit();
+                                        }
+                                    }
+                                });
+
+                                builder1.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialogInterface, int i) {
+                                        //dismiss Dialog
+                                        dialogInterface.dismiss();
+                                    }
+                                });
+
+                                builder1.show();
+                            }
+                        }
                         else{ //If enter forms
                             AlertDialog.Builder builder1 = new AlertDialog.Builder(MainActivity.this); //Context is getActivity
 
                             //Set title
-                            builder1.setTitle("Save or Not");
+                            builder1.setTitle("Wait!");
                             builder1.setMessage("Do you want to save this to drafts?");
 
                             builder1.setPositiveButton("Save", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialogInterface, int i) {
-                                    //getParentFragmentManager().popBackStack();
                                     checkFormsNum = 1; //changes to 1 when click back to the pages that are not forms
+                                    mainFAB.show();
                                     if (null == getSupportFragmentManager().findFragmentByTag("RC")){
                                         getSupportFragmentManager().popBackStack();
                                         getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, recipeCornerMain, "RC")
@@ -362,6 +676,24 @@ public class MainActivity extends AppCompatActivity{
                                     }
                                 }
                             });
+
+                            builder1.setNeutralButton("Don't Save", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    checkFormsNum = 1; //changes to 1 when click back to the pages that are not forms
+                                    mainFAB.show();
+                                    if (null == getSupportFragmentManager().findFragmentByTag("RC")){
+                                        getSupportFragmentManager().popBackStack();
+                                        getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, recipeCornerMain, "RC")
+                                                .commit();
+                                    }
+                                    else {
+                                        getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, recipeCornerMain, "RC")
+                                                .addToBackStack(null).commit();
+                                    }
+                                }
+                            });
+
 
                             builder1.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                                 @Override
@@ -375,6 +707,11 @@ public class MainActivity extends AppCompatActivity{
                         }
                         return true;
                 }
+
+
+
+
+                //When click on profile
                 switch (item.getItemId()) {
                     case R.id.profile:
                         if (checkFormsNum == 1){ //If never enter forms
@@ -387,18 +724,120 @@ public class MainActivity extends AppCompatActivity{
                                         .addToBackStack(null).commit();
                             }
                         }
+                        else if ( whichForm == 1 && HawkerForm.stallName == "" || whichForm == 1 &&  HawkerForm.stallName.isEmpty() || whichForm == 1 && HawkerForm.stallName == null){
+                            mainFAB.show();
+                            checkFormsNum = 1;
+                            getSupportFragmentManager().popBackStack();
+                            if (null == getSupportFragmentManager().findFragmentByTag("Profile")){
+                                getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, profile, "Profile")
+                                        .commit();
+                            }
+                            else{
+                                getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, profile, "Profile")
+                                        .addToBackStack(null).commit();
+                            }
+                        }
+                        else if ( whichForm == 2){
+                            RecipeForm.viewModel.getSelectedRecipeName().observe(recipeForm.getViewLifecycleOwner(), new Observer<String>() {
+                                @Override
+                                public void onChanged(String s) {
+                                    RecipeForm.recipeName = s; //RECIPE TITLE parameter
+                                }
+                            });
+                            if (RecipeForm.recipeName == "" || RecipeForm.recipeName.isEmpty() || RecipeForm.recipeName == null){
+                                mainFAB.show();
+                                checkFormsNum = 1;
+                                getSupportFragmentManager().popBackStack();
+                                if (null == getSupportFragmentManager().findFragmentByTag("Profile")){
+                                    getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, profile, "Profile")
+                                            .commit();
+                                }
+                                else{
+                                    getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, profile, "Profile")
+                                            .addToBackStack(null).commit();
+                                }
+                            }
+                            else{
+                                AlertDialog.Builder builder1 = new AlertDialog.Builder(MainActivity.this); //Context is getActivity
+
+                                //Set title
+                                builder1.setTitle("Wait!");
+                                builder1.setMessage("Do you want to save this to drafts?");
+
+                                builder1.setPositiveButton("Save", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialogInterface, int i) {
+                                        checkFormsNum = 1; //changes to 1 when click back to the pages that are not forms
+                                        mainFAB.show();
+                                        if (null == getSupportFragmentManager().findFragmentByTag("Profile")){
+                                            getSupportFragmentManager().popBackStack();
+                                            getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, profile, "Profile")
+                                                    .commit();
+                                        }
+                                        else{
+                                            getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, profile, "Profile")
+                                                    .addToBackStack(null).commit();
+                                        }
+                                    }
+                                });
+
+                                builder1.setNeutralButton("Don't Save", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialogInterface, int i) {
+                                        checkFormsNum = 1; //changes to 1 when click back to the pages that are not forms
+                                        mainFAB.show();
+                                        if (null == getSupportFragmentManager().findFragmentByTag("Profile")){
+                                            getSupportFragmentManager().popBackStack();
+                                            getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, profile, "Profile")
+                                                    .commit();
+                                        }
+                                        else{
+                                            getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, profile, "Profile")
+                                                    .addToBackStack(null).commit();
+                                        }
+                                    }
+                                });
+
+                                builder1.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialogInterface, int i) {
+                                        //dismiss Dialog
+                                        dialogInterface.dismiss();
+                                    }
+                                });
+
+                                builder1.show();
+                            }
+                        }
                         else{ //If enter forms
                             AlertDialog.Builder builder1 = new AlertDialog.Builder(MainActivity.this); //Context is getActivity
 
                             //Set title
-                            builder1.setTitle("Save or Not");
+                            builder1.setTitle("Wait!");
                             builder1.setMessage("Do you want to save this to drafts?");
 
                             builder1.setPositiveButton("Save", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialogInterface, int i) {
-                                    //getParentFragmentManager().popBackStack();
+                                    checkFormsNum = 1; //changes to 1 when click back to the pages that are not forms\
+                                    mainFAB.show();
+                                    if (null == getSupportFragmentManager().findFragmentByTag("Profile")){
+                                        getSupportFragmentManager().popBackStack();
+                                        getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, profile, "Profile")
+                                                .commit();
+                                    }
+                                    else{
+                                        getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, profile, "Profile")
+                                                .addToBackStack(null).commit();
+                                    }
+                                }
+                            });
+
+                            builder1.setNeutralButton("Don't Save", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
                                     checkFormsNum = 1; //changes to 1 when click back to the pages that are not forms
+                                    mainFAB.show();
                                     if (null == getSupportFragmentManager().findFragmentByTag("Profile")){
                                         getSupportFragmentManager().popBackStack();
                                         getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, profile, "Profile")
@@ -428,15 +867,7 @@ public class MainActivity extends AppCompatActivity{
         });
 
 
-        //Floating Action Buttons
-        FloatingActionButton mainFAB, rcFAB, hcFAB;
-        TextView rcFABText, hcFABText;
 
-        mainFAB = findViewById(R.id.floating_main_nav_button);
-        rcFAB = findViewById(R.id.floating_rc_nav_button);
-        hcFAB = findViewById(R.id.floating_hc_nav_button);
-        rcFABText = findViewById(R.id.floating_rc_nav_button_text);
-        hcFABText = findViewById(R.id.floating_hc_nav_button_text);
 
         //set all as invisible when loaded
         rcFAB.setVisibility(View.GONE);
@@ -470,91 +901,33 @@ public class MainActivity extends AppCompatActivity{
             public void onClick(View v) {
                 if (checkFormsNum == 1){
                     checkFormsNum = 0; //changes to 0 when click the floating button
+                    whichForm = 1;
                     AppCompatActivity activity = (AppCompatActivity) v.getContext();
                     activity.getSupportFragmentManager().beginTransaction()
                             .replace(R.id.MainFragment, hawkerForm).addToBackStack(null).commit();
+                    mainFAB.hide();
                     rcFAB.hide();
                     hcFAB.hide();
                     rcFABText.setVisibility(View.GONE);
                     hcFABText.setVisibility(View.GONE);
                 }
-                else{
-                    AlertDialog.Builder builder1 = new AlertDialog.Builder(MainActivity.this); //Context is getActivity
-
-                    //Set title
-                    builder1.setTitle("Save or Not");
-                    builder1.setMessage("Do you want to save this to drafts?");
-
-                    builder1.setPositiveButton("Save", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialogInterface, int i) {
-                            //getParentFragmentManager().popBackStack();
-                            AppCompatActivity activity = (AppCompatActivity) v.getContext();
-                            activity.getSupportFragmentManager().beginTransaction()
-                                    .replace(R.id.MainFragment, hawkerForm).addToBackStack(null).commit();
-                            rcFAB.hide();
-                            hcFAB.hide();
-                            rcFABText.setVisibility(View.GONE);
-                            hcFABText.setVisibility(View.GONE);
-                        }
-                    });
-
-                    builder1.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialogInterface, int i) {
-                            //dismiss Dialog
-                            dialogInterface.dismiss();
-                        }
-                    });
-
-                    builder1.show();
-                }
             }
         });
-        //FAB RC Corner Button
+        //FAB Recipe Corner Button
         rcFAB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (checkFormsNum == 1){
                     checkFormsNum = 0; //changes to 0 when click the floating button
+                    whichForm = 2;
                     AppCompatActivity activity = (AppCompatActivity) v.getContext();
                     activity.getSupportFragmentManager().beginTransaction()
                             .replace(R.id.MainFragment, recipeForm).addToBackStack(null).commit();
+                    mainFAB.hide();
                     rcFAB.hide();
                     hcFAB.hide();
                     rcFABText.setVisibility(View.GONE);
                     hcFABText.setVisibility(View.GONE);
-                }
-                else{
-                    AlertDialog.Builder builder1 = new AlertDialog.Builder(MainActivity.this); //Context is getActivity
-
-                    //Set title
-                    builder1.setTitle("Save or Not");
-                    builder1.setMessage("Do you want to save this to drafts?");
-
-                    builder1.setPositiveButton("Save", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialogInterface, int i) {
-                            //getParentFragmentManager().popBackStack();
-                            AppCompatActivity activity = (AppCompatActivity) v.getContext();
-                            activity.getSupportFragmentManager().beginTransaction()
-                                    .replace(R.id.MainFragment, recipeForm).addToBackStack(null).commit();
-                            rcFAB.hide();
-                            hcFAB.hide();
-                            rcFABText.setVisibility(View.GONE);
-                            hcFABText.setVisibility(View.GONE);
-                        }
-                    });
-
-                    builder1.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialogInterface, int i) {
-                            //dismiss Dialog
-                            dialogInterface.dismiss();
-                        }
-                    });
-
-                    builder1.show();
                 }
             }
         });
@@ -571,28 +944,4 @@ public class MainActivity extends AppCompatActivity{
         super.onBackPressed();
     }
 
-    private void leaveAlert(){
-        AlertDialog.Builder builder1 = new AlertDialog.Builder(MainActivity.this); //Context is getActivity
-
-        //Set title
-        builder1.setTitle("Save or Not");
-        builder1.setMessage("Do you want to save this to drafts?");
-
-        builder1.setPositiveButton("Save", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-
-            }
-        });
-
-        builder1.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                //dismiss Dialog
-                dialogInterface.dismiss();
-            }
-        });
-
-        builder1.show();
-    }
 }

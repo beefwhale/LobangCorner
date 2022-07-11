@@ -67,7 +67,7 @@ public class HawkerForm extends Fragment {
     Button opTInput;
     Button clTInput;
 
-    String stallName;
+    public static String stallName;
     String desc;
     String shortDesc;
     String address;
@@ -93,20 +93,20 @@ public class HawkerForm extends Fragment {
     HawkerCornerStalls hCS;
 
     // For editing forms
-    Boolean check;
+    Integer check;
     HawkerCornerStalls chosenstall;
 
 
-    public HawkerForm(Boolean check) {
+    public HawkerForm(Integer check) {
         //Checks if its creating or editing forms
-        // Create = true, Edit = false
+        // Create = 0, Edit = 1, Edit Draft = 2
         this.check = check;
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View hf;
-        if (check ==true){
+        if (check == 0){
             hf = inflater.inflate(R.layout.fragment_hawker_form, container, false);
         }
         else{
@@ -137,7 +137,7 @@ public class HawkerForm extends Fragment {
         finalTime = "";
 
         //CREATING : Setting Default Values
-        if (check == true) {
+        if (check == 0) {
             openingTime = "00:00";
             closingTime = "00:00";
             stallName = "";
@@ -152,7 +152,7 @@ public class HawkerForm extends Fragment {
 
         }
         // EDITING : setting values
-        else{
+        else if(check== 1){
             if (chosenstall.hoursopen.equals("") == false){
                 openingTime = chosenstall.hoursopen.substring(0,5);
                 closingTime = chosenstall.hoursopen.substring(8,13);
@@ -338,7 +338,7 @@ public class HawkerForm extends Fragment {
         selectedDay = new boolean[dayArray.length];
 
         // EDIT FORMS : setting checked days
-        if (check == false && chosenstall.daysopen != null){
+        if (check == 1 && chosenstall.daysopen != null){
             String daysOpen = chosenstall.daysopen;
             openDayBtn.setText(daysOpen);
             String[] daysSplit = daysOpen.split(",");
@@ -460,7 +460,7 @@ public class HawkerForm extends Fragment {
                 }
                 else{
                     //Posting Form
-                    if (check == true){
+                    if (check == 0){
                         username = userProfile.getUsername(); //Getting username
                         userPfpUrl = userProfile.getProfileImg(); //Getting profile picture
                         ownerUID = userProfile.getUID(); //Getting profile uid
@@ -472,7 +472,7 @@ public class HawkerForm extends Fragment {
                         HwkUp(userCurrentHwk, hCS, PostID);
                     }
                     //Editing Form
-                    else{
+                    else if (check == 1){
                         username = userProfile.getUsername(); //Getting username
                         userPfpUrl = userProfile.getProfileImg(); //Getting profile picture
                         ownerUID = userProfile.getUID(); //Getting profile uid
@@ -515,10 +515,10 @@ public class HawkerForm extends Fragment {
                     openDayBtn.setText("");
                     daysOpen = "";
 //                    getActivity().recreate();
-                    if (check == true){
-                        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, new HawkerForm(true)).commit();
+                    if (check == 0){
+                        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, new HawkerForm(0)).commit();
                     }
-                    else{
+                    else if (check == 1){
                         getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, new Profile()).commit();
                     }
 
@@ -538,14 +538,14 @@ public class HawkerForm extends Fragment {
 
         //String PostID = databaseReferencetest.push().getKey();
         // Posting Forms
-        if (check == true){
+        if (check == 0){
             databaseReferencetest.child("Posts").child("Hawkers").child(PostID).setValue(HwkObj);
             userHwkList.put(PostID, PostID);
             databaseReferencetest.child("UserProfile").child(mAuth.getUid()).child("hawkList").updateChildren(userHwkList);
             Toast.makeText(getActivity(), "HawkerPost Uploaded", Toast.LENGTH_SHORT).show();
         }
         // Editing Forms
-        else{
+        else if (check == 1){
             databaseReferencetest.child("Posts").child("Hawkers").child(PostID).setValue(HwkObj);
             Toast.makeText(getActivity(), "HawkerPost Edited", Toast.LENGTH_SHORT).show();
         }
@@ -593,13 +593,22 @@ public class HawkerForm extends Fragment {
         AlertDialog.Builder builder1 = new AlertDialog.Builder(getActivity()); //Context is getActivity
 
         //Set title
-        builder1.setTitle("Save or Not");
+        builder1.setTitle("Wait!");
         builder1.setMessage("Do you want to save this to drafts?");
 
         builder1.setPositiveButton("Save", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 getParentFragmentManager().popBackStack();
+                MainActivity.mainFAB.show();
+            }
+        });
+
+        builder1.setNeutralButton("Don't Save", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                getParentFragmentManager().popBackStack();
+                MainActivity.mainFAB.show();
             }
         });
 
@@ -608,6 +617,8 @@ public class HawkerForm extends Fragment {
             public void onClick(DialogInterface dialogInterface, int i) {
                 //dismiss Dialog
                 dialogInterface.dismiss();
+                callback.setEnabled(true);
+                MainActivity.checkFormsNum = 0;
             }
         });
 
@@ -616,7 +627,7 @@ public class HawkerForm extends Fragment {
     @Override
     public void onResume() {
         // Clears input when reenter forms
-        if (check == true){
+        if (check == 0){
             stallName = "";
             desc = "";
             shortDesc = "";
@@ -648,9 +659,15 @@ public class HawkerForm extends Fragment {
         callback = new OnBackPressedCallback(true) {
             @Override
             public void handleOnBackPressed() {
-                leaveAlert();
-                //Ensure it doesnt affect when not in forms
-                setEnabled(false);
+                if (stallName == "" || stallName.isEmpty() || stallName == null){
+                    getParentFragmentManager().popBackStack();
+                    MainActivity.mainFAB.show();
+                }
+                else{
+                    leaveAlert();
+                    //Ensure it doesnt affect when not in forms
+                    setEnabled(false);
+                }
             }
         };
 
