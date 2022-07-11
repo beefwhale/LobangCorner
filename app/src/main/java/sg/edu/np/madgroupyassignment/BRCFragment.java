@@ -21,6 +21,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class BRCFragment extends Fragment {
 
@@ -76,12 +77,16 @@ public class BRCFragment extends Fragment {
                 }
                 else{
                     Toast.makeText(getContext(), Integer.toString(dellist.size()) + " recipe(s) deleted", Toast.LENGTH_SHORT).show();
+                    List<RecipeCorner> toRemove = new ArrayList<>();
                     for (RecipeCorner drcpObject : dellist)
                     {
-                        rcplist.remove(drcpObject);
-                        dellist.remove(drcpObject);
+                        toRemove.add(drcpObject);
+                        //rcplist.remove(drcpObject);
+                        //dellist.remove(drcpObject);
                         reference.child("UserProfile").child(mAuth.getUid()).child("bmrcplist").child(drcpObject.postID).removeValue();
                     }
+                    rcplist.removeAll(toRemove);
+                    dellist.removeAll(toRemove);
                     adapter.delete(rcplist);
                     recyclerView.setAdapter(adapter);
                 }

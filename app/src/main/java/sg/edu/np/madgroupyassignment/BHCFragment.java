@@ -17,6 +17,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class BHCFragment extends Fragment {
 
@@ -71,12 +72,16 @@ public class BHCFragment extends Fragment {
                 }
                 else{
                     Toast.makeText(getContext(), Integer.toString(dellist.size()) + " stall(s) deleted", Toast.LENGTH_SHORT).show();
+                    List<HawkerCornerStalls> toRemove = new ArrayList<>();
                     for (HawkerCornerStalls dhwkObject : dellist)
                     {
-                        hwklist.remove(dhwkObject);
-                        dellist.remove(dhwkObject);
+                        toRemove.add(dhwkObject);
+//                        hwklist.remove(dhwkObject);
+//                        dellist.remove(dhwkObject);
                         reference.child("UserProfile").child(mAuth.getUid()).child("bmhawklist").child(dhwkObject.postid).removeValue();
                     }
+                    hwklist.removeAll(toRemove);
+                    dellist.removeAll(toRemove);
                     adapter.delete(hwklist);
                     recyclerView.setAdapter(adapter);
                 }
