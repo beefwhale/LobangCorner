@@ -146,12 +146,13 @@ public class RecipeForm extends Fragment {
                     Toast.makeText(getActivity(), "Please input recipe title, description, image, ingredients and steps", Toast.LENGTH_SHORT).show();
                 }
                 else{
+                    MainActivity.checkFormsNum = 1;
                     ownerUID = userProfile.getUID();
                     Long timeStamp = System.currentTimeMillis();
                     String PostID = databaseReferencetest.push().getKey();
                     recipeCorner = new RecipeCorner(PostID, ownerUID, recipeName, recipeDesc, difficulty, username, duration, steps,totalIngred, timeStamp, selectedImg);
                     userCurrentRcp = userProfile.getRcpList();
-                    RcpUp(userCurrentRcp, recipeCorner, PostID);
+                    //RcpUp(userCurrentRcp, recipeCorner, PostID);
                     //getActivity().recreate();
                     getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, new Home()).commit();
                 }
