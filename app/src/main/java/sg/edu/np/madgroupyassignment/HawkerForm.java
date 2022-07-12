@@ -520,9 +520,11 @@ public class HawkerForm extends Fragment {
 //                    getActivity().recreate();
                     if (check == 0){
                         getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, new Home()).commit();
+                        MainActivity.bottomNavigationView.getMenu().findItem(R.id.home).setChecked(true);
                     }
                     else if (check == 1){
                         getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, new Profile()).commit();
+                        MainActivity.bottomNavigationView.getMenu().findItem(R.id.profile).setChecked(true);
                     }
 
                 }

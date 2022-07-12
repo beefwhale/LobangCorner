@@ -147,6 +147,10 @@ public class HawkerCommentAdapter extends RecyclerView.Adapter<CommentViewholder
                 commentPic.setVisibility(View.GONE);
                 commentMore.setVisibility(View.GONE);
                 commentSince.setVisibility(View.GONE);
+            }else{
+                commentPic.setVisibility(View.VISIBLE);
+                commentMore.setVisibility(View.VISIBLE);
+                commentSince.setVisibility(View.VISIBLE);
             }
 
             //Load comment data
