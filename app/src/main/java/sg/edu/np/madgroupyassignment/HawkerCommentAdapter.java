@@ -29,8 +29,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
 import org.w3c.dom.Text;
@@ -110,16 +113,38 @@ public class HawkerCommentAdapter extends RecyclerView.Adapter<CommentViewholder
             hccopendays.setText(CommentRetrieve.daysopen);
             hccopenhours.setText(CommentRetrieve.hoursopen);
 
-            hcbookmark.setOnClickListener(new View.OnClickListener() {
+            DatabaseReference dr = databaseReference2.child("UserProfile").child(firebaseAuth.getUid()).child("bmhawklist");
+            dr.addValueEventListener(new ValueEventListener() {
                 @Override
-                public void onClick(View view) {
-                    Toast.makeText(c, "Hawker stall saved!", Toast.LENGTH_SHORT).show();
-                    hwklist.put(postID, postID);
-                    //reference.child("UserProfile").child(mAuth.getUid()).child("bookmarklist").child(recipePost.postID).setValue(recipePost);
-                    databaseReference2.child("UserProfile").child(firebaseAuth.getUid()).child("bmhawklist").updateChildren(hwklist);
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    if (snapshot.hasChild(postID)){
+                        hcbookmark.setImageResource(R.drawable.ic_bookmark_filled);
+                        hcbookmark.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                Toast.makeText(c, "Hawker stall already saved", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                    }
+                    else{
+                        hcbookmark.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                Toast.makeText(c, "Hawker stall saved!", Toast.LENGTH_SHORT).show();
+                                hwklist.put(postID, postID);
+                                databaseReference2.child("UserProfile").child(firebaseAuth.getUid()).child("bmhawklist").updateChildren(hwklist);
+
+                            }
+                        });
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
 
                 }
             });
+
 
         } else if (viewType == 1) {
             item = LayoutInflater.from(parent.getContext()).inflate(R.layout.comment_layout, parent, false);

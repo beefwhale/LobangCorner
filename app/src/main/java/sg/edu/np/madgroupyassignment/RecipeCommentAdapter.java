@@ -23,8 +23,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
 import org.parceler.Parcels;
@@ -101,18 +104,38 @@ public class RecipeCommentAdapter extends RecyclerView.Adapter<CommentViewholder
             steps.setText(CommentRetrieve.steps);
             ingred.setText(CommentRetrieve.ingredients);
             Picasso.get().load(CommentRetrieve.getFoodImage()).into(i);
-            //Work on the bookmark here if you want --Celsius
-            i2.setOnClickListener(new View.OnClickListener() {
+
+            DatabaseReference dr = databaseReference2.child("UserProfile").child(firebaseAuth.getUid()).child("bmrcplist");
+            dr.addValueEventListener(new ValueEventListener() {
                 @Override
-                public void onClick(View view) {
-                    Toast.makeText(c, "Recipe saved!", Toast.LENGTH_SHORT).show();
-                    rcplist.put(postID, postID);
-                    //reference.child("UserProfile").child(mAuth.getUid()).child("bookmarklist").child(recipePost.postID).setValue(recipePost);
-                    databaseReference2.child("UserProfile").child(firebaseAuth.getUid()).child("bmrcplist").updateChildren(rcplist);
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    if (snapshot.hasChild(postID)){                             //if post alr exist in bookmark rcp list,
+                        i2.setImageResource(R.drawable.ic_bookmark_filled);     // replace image with a filled icon
+                        i2.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                Toast.makeText(c, "Recipe already saved", Toast.LENGTH_SHORT).show();   //when icon is clicked, toast message displayed
+                            }
+                        });
+                    }
+                    else{                                                       //if post do not exist, when icon is clicked
+                        i2.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                i2.setImageResource(R.drawable.ic_bookmark_filled);                     //replace image with a filled icon
+                                Toast.makeText(c, "Recipe saved!", Toast.LENGTH_SHORT).show();      //display toast message
+                                rcplist.put(postID, postID);                                             //save in firebase
+                                databaseReference2.child("UserProfile").child(firebaseAuth.getUid()).child("bmrcplist").updateChildren(rcplist);
+                            }
+                        });
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
 
                 }
             });
-
 
         } else if (viewType == 1) {
             item = LayoutInflater.from(parent.getContext()).inflate(R.layout.comment_layout, parent, false);

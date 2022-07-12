@@ -9,7 +9,7 @@
     <!-- recipe name -->
     <TextView
         android:id="@+id/idRecipeName"
-        android:layout_width="190dp"
+        android:layout_width="175dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
