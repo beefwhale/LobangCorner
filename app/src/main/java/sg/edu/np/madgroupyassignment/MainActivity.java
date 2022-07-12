@@ -263,7 +263,7 @@ public class MainActivity extends AppCompatActivity{
             handler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, homeFragment).commit();
+                    getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, homeFragment, "Home").commit();
                     bottomNavigationView.setVisibility(View.VISIBLE);
                     findViewById(R.id.floating_main_nav_button).setVisibility(View.VISIBLE);
                 }
@@ -278,21 +278,16 @@ public class MainActivity extends AppCompatActivity{
                 switch (item.getItemId()) {
                     case R.id.home:
                         if (checkFormsNum == 1){ //If never enter forms
-                            getSupportFragmentManager().popBackStack();
+//                            getSupportFragmentManager().popBackStack();
                             mainFAB.show();
-                            if (null == getSupportFragmentManager().findFragmentByTag("Home")){
-                                getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, homeFragment, "Home")
-                                        .commit();
-                            }
-                            else{
-                                getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, homeFragment, "Home")
-                                        .addToBackStack(null).commit();
-                            }
+                            getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, homeFragment, "Home")
+                                    .addToBackStack(null).commit();
+
                         }
                         else if ( whichForm == 1 && HawkerForm.stallName == "" || whichForm == 1 && HawkerForm.stallName.isEmpty() || whichForm == 1 && HawkerForm.stallName == null){
                             mainFAB.show();
                             checkFormsNum = 1;
-                            getSupportFragmentManager().popBackStack();
+//                            getSupportFragmentManager().popBackStack();
                             getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, homeFragment, "Home")
                                     .addToBackStack(null).commit();
                         }
@@ -400,15 +395,9 @@ public class MainActivity extends AppCompatActivity{
                     case R.id.hc:
                         if (checkFormsNum == 1){ //If never enter forms
                             mainFAB.show();
-                            getSupportFragmentManager().popBackStack();
-                            if (null == getSupportFragmentManager().findFragmentByTag("HC")){
-                                getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, hawkerCornerMain, "HC")
-                                        .commit();
-                            }
-                            else{
-                                getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, hawkerCornerMain, "HC")
-                                        .addToBackStack(null).commit();
-                            }
+                            //getSupportFragmentManager().popBackStack();
+                            getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, hawkerCornerMain, "HC")
+                                    .addToBackStack(null).commit();
                         }
                         else if ( whichForm == 1 && HawkerForm.stallName == "" || whichForm == 1 && HawkerForm.stallName.isEmpty() || whichForm == 1 && HawkerForm.stallName == null){
                             mainFAB.show();
@@ -523,15 +512,9 @@ public class MainActivity extends AppCompatActivity{
                     case R.id.rc:
                         if (checkFormsNum == 1) { //If never enter forms
                             mainFAB.show();
-                            getSupportFragmentManager().popBackStack();
-                            if (null == getSupportFragmentManager().findFragmentByTag("RC")){
-                                getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, recipeCornerMain, "RC")
-                                        .commit();
-                            }
-                            else{
-                                getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, recipeCornerMain, "RC")
-                                        .addToBackStack(null).commit();
-                            }
+//                            getSupportFragmentManager().popBackStack();
+                            getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, recipeCornerMain, "RC")
+                                    .addToBackStack(null).commit();
                         }
                         else if ( whichForm == 1 && HawkerForm.stallName == "" || whichForm == 1 && HawkerForm.stallName.isEmpty() || whichForm == 1 && HawkerForm.stallName == null){
                             mainFAB.show();
@@ -645,15 +628,9 @@ public class MainActivity extends AppCompatActivity{
                     case R.id.profile:
                         if (checkFormsNum == 1){ //If never enter forms
                             mainFAB.show();
-                            getSupportFragmentManager().popBackStack();
-                            if (null == getSupportFragmentManager().findFragmentByTag("Profile")){
-                                getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, profile, "Profile")
-                                        .commit();
-                            }
-                            else{
-                                getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, profile, "Profile")
-                                        .addToBackStack(null).commit();
-                            }
+//                            getSupportFragmentManager().popBackStack();
+                            getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, profile, "Profile")
+                                    .addToBackStack(null).commit();
                         }
                         else if ( whichForm == 1 && HawkerForm.stallName == "" || whichForm == 1 &&  HawkerForm.stallName.isEmpty() || whichForm == 1 && HawkerForm.stallName == null){
                             mainFAB.show();
@@ -837,6 +814,22 @@ public class MainActivity extends AppCompatActivity{
     public void onBackPressed() {
         checkFormsNum = 1;
         super.onBackPressed();
+        Home homeFragment = (Home)getSupportFragmentManager().findFragmentByTag("Home");
+        if (homeFragment != null && homeFragment.isVisible()) {
+            MainActivity.bottomNavigationView.getMenu().findItem(R.id.home).setChecked(true);
+        }
+        HawkerCornerMain hcFragment = (HawkerCornerMain)getSupportFragmentManager().findFragmentByTag("HC");
+        if (hcFragment != null && hcFragment.isVisible()) {
+            MainActivity.bottomNavigationView.getMenu().findItem(R.id.hc).setChecked(true);
+        }
+        RecipeCornerMain rcFragment = (RecipeCornerMain)getSupportFragmentManager().findFragmentByTag("RC");
+        if (rcFragment != null && rcFragment.isVisible()) {
+            MainActivity.bottomNavigationView.getMenu().findItem(R.id.rc).setChecked(true);
+        }
+        Profile profileFragment = (Profile)getSupportFragmentManager().findFragmentByTag("Profil");
+        if (profileFragment != null && profileFragment.isVisible()) {
+            MainActivity.bottomNavigationView.getMenu().findItem(R.id.profile).setChecked(true);
+        }
     }
 
 }

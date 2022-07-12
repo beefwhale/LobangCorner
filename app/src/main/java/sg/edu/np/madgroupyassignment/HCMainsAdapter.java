@@ -79,7 +79,7 @@ public class HCMainsAdapter extends RecyclerView.Adapter<HCMainViewHolder> {
                 bundle.putParcelable("list", Parcels.wrap(stallsList));
                 chosenfragment.setArguments(bundle);
 
-                activity.getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, chosenfragment).addToBackStack(null).commit();
+                activity.getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, chosenfragment, "HCpost").addToBackStack(null).commit();
             }
         });
         // If layout has checkbox
