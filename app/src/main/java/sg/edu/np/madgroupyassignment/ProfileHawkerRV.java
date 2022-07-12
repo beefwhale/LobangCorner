@@ -25,6 +25,7 @@ import com.google.firebase.storage.StorageReference;
 import org.parceler.Parcels;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 //Class for hawker corner main page is a fragment
 public class ProfileHawkerRV extends Fragment {
@@ -105,7 +106,6 @@ public class ProfileHawkerRV extends Fragment {
                                     for (int i: listPos) {
                                         HawkerCornerStalls deleteItem = hawkerCornersList.get(i);
 
-
                                         //removing from database
                                         databaseReference.child("UserProfile").child(usernameID).child("hawkList").child(deleteItem.getPostid()).removeValue();
                                         databaseReference.child("Posts").child("Hawkers").child(deleteItem.getPostid()).removeValue();
@@ -116,6 +116,7 @@ public class ProfileHawkerRV extends Fragment {
                                         //Updating List
                                         hawkerCornersList.remove(i);
                                         hcadapter.notifyItemRemoved(i);
+                                        hcadapter.notifyItemRangeChanged(0,listPos.size());
                                     }
                                     Toast.makeText(getActivity(),hcadapter.cbCount+" Post(s) Deleted",
                                             Toast.LENGTH_SHORT).show();

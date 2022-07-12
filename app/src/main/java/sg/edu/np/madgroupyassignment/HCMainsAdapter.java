@@ -101,7 +101,7 @@ public class HCMainsAdapter extends RecyclerView.Adapter<HCMainViewHolder> {
                         cbCount = cbCount - 1;
                         for (Integer i:listPos){ //finding integer within list
                             if (i.equals(holder.getAdapterPosition())){
-                                toRemove = i; // getting interger position
+                                toRemove = i; // getting integer position
                             }
                         }
                         //Remove integer from list using integer position
