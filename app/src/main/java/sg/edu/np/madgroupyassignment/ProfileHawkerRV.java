@@ -103,9 +103,10 @@ public class ProfileHawkerRV extends Fragment {
                                     dialog.cancel();
                                     //List of selected positions in RV (Checked)
                                     listPos = hcadapter.listPos;
+                                    //Sort list in descending order to avoid Array Out of Bounds
+                                    Collections.sort(listPos, Collections.reverseOrder());
                                     for (int i: listPos) {
                                         HawkerCornerStalls deleteItem = hawkerCornersList.get(i);
-
                                         //removing from database
                                         databaseReference.child("UserProfile").child(usernameID).child("hawkList").child(deleteItem.getPostid()).removeValue();
                                         databaseReference.child("Posts").child("Hawkers").child(deleteItem.getPostid()).removeValue();

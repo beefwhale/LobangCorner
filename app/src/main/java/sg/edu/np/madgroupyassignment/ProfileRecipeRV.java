@@ -22,6 +22,7 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class ProfileRecipeRV extends Fragment{
 
@@ -93,6 +94,8 @@ public class ProfileRecipeRV extends Fragment{
                                     dialog.cancel();
                                     //List of selected positions in RV (Checked)
                                     listPos = rcadapter.listPos;
+                                    //Sort list in descending order to avoid Array Out of Bounds
+                                    Collections.sort(listPos, Collections.reverseOrder());
                                     for (int i: listPos) {
                                         RecipeCorner deleteItem = recipeCornersList.get(i);
 
