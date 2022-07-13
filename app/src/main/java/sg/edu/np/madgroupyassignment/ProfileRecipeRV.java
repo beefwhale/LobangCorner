@@ -146,7 +146,7 @@ public class ProfileRecipeRV extends Fragment{
 
                     //pass username
                     Bundle bundle = new Bundle();
-                    bundle.putInt("stallposition", pos);
+                    bundle.putInt("position", pos);
                     bundle.putParcelable("list", Parcels.wrap(recipeCornersList));
                     RecipeForm.setArguments(bundle);
 

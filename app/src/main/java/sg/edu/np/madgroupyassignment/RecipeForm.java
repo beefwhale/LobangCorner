@@ -13,6 +13,7 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.viewpager2.widget.ViewPager2;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -45,7 +46,7 @@ public class RecipeForm extends Fragment {
     RecipeCorner recipeCorner;
     HashMap<String, Object> userCurrentRcp;
 
-    Integer status;
+    public Integer status;
     OnBackPressedCallback callback;
     public RecipeForm(Integer status ) {
         // Required empty public constructor
@@ -85,6 +86,22 @@ public class RecipeForm extends Fragment {
         viewModel = new ViewModelProvider(this).get(FormsViewModel.class);
         recipeDrafts = new RecipeCorner();
         recipeName = "";
+
+        //Setting this so it can be referenced in the Main/Ingredients/steps fragment
+        if (status.equals(0)){ // If Posting
+            viewModel.status(0);
+        }
+        else if(status.equals(1)){ // If Editing Post
+            viewModel.status(1);
+
+            Bundle bundle = this.getArguments();
+            assert bundle != null;
+            int chosenrecipeno = (int) bundle.getInt("position");
+            ArrayList<RecipeCorner> recipeList = Parcels.unwrap(bundle.getParcelable("list"));
+            recipeDrafts = recipeList.get(chosenrecipeno);
+            viewModel.recipePost(recipeDrafts);
+        }
+
 
         viewModel.getchangeFragment().observe(getViewLifecycleOwner(), new Observer<Integer>() {
             @Override
@@ -155,17 +172,30 @@ public class RecipeForm extends Fragment {
                         Toast.makeText(getActivity(), "Please input recipe title, description, image, ingredients and steps", Toast.LENGTH_SHORT).show();
                     }
                     else{
+                        //POSTING:
                         MainActivity.checkFormsNum = 1;
                         MainActivity.mainFAB.show();
                         ownerUID = userProfile.getUID();
-                        Long timeStamp = System.currentTimeMillis();
-                        String PostID = databaseReferencetest.push().getKey();
-                        recipeCorner = new RecipeCorner(PostID, ownerUID, recipeName, recipeDesc, difficulty, username, duration, steps,totalIngred, timeStamp, selectedImg, false);
-                        userCurrentRcp = userProfile.getRcpList();
-                        RcpUp(userCurrentRcp, recipeCorner, PostID);
+                        Long timeStamp;
+                        String PostID ="";
+                        if (status == 0){
+                            timeStamp = System.currentTimeMillis();
+                            PostID = databaseReferencetest.push().getKey();
+                            recipeCorner = new RecipeCorner(PostID, ownerUID, recipeName, recipeDesc, difficulty, username, duration, steps,totalIngred, timeStamp, selectedImg, false);
+                            userCurrentRcp = userProfile.getRcpList();
+                        }
+                        //EDITING: POST
+                        else if (status == 1){
+                            timeStamp = recipeDrafts.getPostTimeStamp();
+                            PostID = recipeDrafts.getPostID();
+                            recipeCorner = new RecipeCorner(PostID, ownerUID, recipeName, recipeDesc, difficulty, username, duration, steps,totalIngred, timeStamp, selectedImg, false);
+                            userCurrentRcp = userProfile.getRcpList();
+                        }
+                        RcpUp(userCurrentRcp, recipeCorner, PostID, status);
                         //getActivity().recreate();
                         getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, new Home(), "Home").commit();
                         MainActivity.bottomNavigationView.getMenu().findItem(R.id.home).setChecked(true);
+
                     }
                     //Toast.makeText(getActivity(), totalIngred, Toast.LENGTH_SHORT).show();
                 }
@@ -179,15 +209,22 @@ public class RecipeForm extends Fragment {
         return recipeform;
     }
 
-    private void RcpUp(HashMap<String, Object> userRcpList, RecipeCorner RcpObj, String PostID) {
+    private void RcpUp(HashMap<String, Object> userRcpList, RecipeCorner RcpObj, String PostID, Integer status) {
         mAuth = FirebaseAuth.getInstance();
-
         databaseReferencetest.child("Posts").child("Recipes").child(PostID).setValue(RcpObj);
-
-        userRcpList.put(PostID, PostID);
-        databaseReferencetest.child("UserProfile").child(mAuth.getUid()).child("rcpList").updateChildren(userRcpList);
-        Toast.makeText(getActivity(), "Recipe Uploaded", Toast.LENGTH_SHORT).show();
         viewModel.changeFragment(0);
+        //POSTING:
+        if (status == 0){
+            userRcpList.put(PostID, PostID);
+            databaseReferencetest.child("UserProfile").child(mAuth.getUid()).child("rcpList").updateChildren(userRcpList);
+            Toast.makeText(getActivity(), "Recipe Uploaded Successfully!", Toast.LENGTH_SHORT).show();
+
+        }
+        //EDITING: POST
+        else if(status == 1){
+            Toast.makeText(getActivity(), "Recipe Edited Successfully!", Toast.LENGTH_SHORT).show();
+        }
+
     }
 
     private void RcpDraftUp(/*HashMap<String, Object> userHwkDraftList,*/ RecipeCorner rcpDraftObj, String DraftID) {

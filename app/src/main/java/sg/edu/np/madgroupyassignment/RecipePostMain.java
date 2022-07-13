@@ -9,10 +9,12 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,6 +23,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.NumberPicker;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -55,8 +58,11 @@ public class RecipePostMain extends Fragment {
     ActivityResultLauncher<String> getPhoto;
 
     Button nextBtn;
+    RecipeCorner recipeStall = new RecipeCorner();
+
     Array[] returnArray;
     private FormsViewModel viewModel;
+
 
 
 
@@ -76,7 +82,40 @@ public class RecipePostMain extends Fragment {
         displayPicButtonRecipe = f1.findViewById(R.id.displayPic2);
         nextBtn = f1.findViewById(R.id.f1nextbutton);
         newVal = 1;
+
+
         viewModel = new ViewModelProvider(requireParentFragment()).get(FormsViewModel.class);
+        viewModel.getStatus().observe(getViewLifecycleOwner(), new Observer<Integer>() {
+            @Override
+            public void onChanged(Integer i) {
+                if (i == 1){ // if editing
+                    TextView formsTitle = f1.findViewById(R.id.title);
+                    formsTitle.setText("Edit Recipe Corner"); //Changing forms title to EDIT
+                }
+            }
+        });
+        viewModel.getRecipePost().observe(getViewLifecycleOwner(), new Observer<RecipeCorner>() {
+            public void onChanged(RecipeCorner i) {
+                if (i.recipeName != null || i.recipeName != ""){
+                     recipeStall = i;
+                    //Setting image
+                    downUrl = recipeStall.foodImage;
+                    Picasso.get().load(downUrl).into(displayPicButtonRecipe);
+                    viewModel.selectImg(downUrl);
+                    //Setting Title Input
+                    titleInput.setText(recipeStall.recipeName);
+                    //Setting Description
+                    descInput.setText(recipeStall.recipeDescription);
+                    //Setting Duration
+                    durInput.setText(recipeStall.duration);
+                    //Setting Difficulty Rating
+                    numberPicker.setValue(recipeStall.getRecipeRating());
+
+                }
+
+            }
+        });
+
 
         storageReference = FirebaseStorage.getInstance().getReference();
 
@@ -119,7 +158,7 @@ public class RecipePostMain extends Fragment {
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 title = titleInput.getText().toString(); //NAME parameter
-
+                Log.e("beef", title);
             }
 
             @Override

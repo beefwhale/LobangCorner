@@ -13,7 +13,8 @@
     <RelativeLayout
         android:id="@+id/f3header"
         android:layout_width="match_parent"
-        android:layout_height="100dp">
+        android:layout_height="100dp"
+        android:layout_alignParentTop="true">
 
         <EditText
             android:id="@+id/IngredInput"

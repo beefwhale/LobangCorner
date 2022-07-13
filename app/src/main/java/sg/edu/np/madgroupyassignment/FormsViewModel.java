@@ -58,8 +58,18 @@ public class FormsViewModel extends ViewModel {
     public void selectImg(String string){selectedImg.setValue(string);}
     public LiveData<String> getSelectedImg(){return selectedImg;}
 
-    //RecipeDifficulty Transfer
+    //changing fragment
     private final MutableLiveData<Integer> changeFragment = new MutableLiveData<Integer>();
     public void changeFragment(Integer integer){changeFragment.setValue(integer);}
     public LiveData<Integer> getchangeFragment(){return changeFragment;}
+
+    //checking if Posting / Editing
+    private final MutableLiveData<Integer> status = new MutableLiveData<Integer>();
+    public void status(Integer integer){status.setValue(integer);}
+    public LiveData<Integer> getStatus(){return status;}
+
+    //Passing recipe objects to child fragments
+    private final MutableLiveData<RecipeCorner> recipePost = new MutableLiveData<RecipeCorner>();
+    public void recipePost(RecipeCorner RecipeCorner){recipePost.setValue(RecipeCorner);}
+    public LiveData<RecipeCorner> getRecipePost(){return recipePost;}
 }
