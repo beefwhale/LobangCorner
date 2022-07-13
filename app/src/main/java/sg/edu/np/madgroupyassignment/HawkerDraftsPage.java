@@ -20,8 +20,10 @@ public class HawkerDraftsPage extends Fragment {
 
     RecyclerView hawkerDraftRV;
     OnBackPressedCallback callback;
+    PostsHolder postsHolder;
 
     public HawkerDraftsPage() {
+
     }
 
     @Override

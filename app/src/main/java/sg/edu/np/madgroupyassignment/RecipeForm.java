@@ -38,16 +38,10 @@ public class RecipeForm extends Fragment {
     public static FormsViewModel viewModel;
     private DatabaseReference databaseReferencetest;
     private FirebaseAuth mAuth;
+    public static RecipeCorner recipeDrafts;
 
-    String ownerUID;
-    String username;
-    String totalIngred;
-    public static String recipeName;
-    String recipeDesc;
-    String duration;
-    String steps;
-    String selectedImg;
-    Integer difficulty;
+    public static String ownerUID, username, totalIngred, recipeDesc, duration, steps, selectedImg, recipeName;
+    public static Integer difficulty;
     RecipeCorner recipeCorner;
     HashMap<String, Object> userCurrentRcp;
 
@@ -89,6 +83,7 @@ public class RecipeForm extends Fragment {
         viewPager.setUserInputEnabled(false);
 
         viewModel = new ViewModelProvider(this).get(FormsViewModel.class);
+        recipeDrafts = new RecipeCorner();
         recipeName = "";
 
         viewModel.getchangeFragment().observe(getViewLifecycleOwner(), new Observer<Integer>() {
@@ -194,6 +189,14 @@ public class RecipeForm extends Fragment {
         Toast.makeText(getActivity(), "Recipe Uploaded", Toast.LENGTH_SHORT).show();
     }
 
+    private void RcpDraftUp(/*HashMap<String, Object> userHwkDraftList,*/ RecipeCorner rcpDraftObj, String DraftID) {
+        mAuth = FirebaseAuth.getInstance();
+        databaseReferencetest.child("Drafts").child("Recipes").child(DraftID).setValue(rcpDraftObj);
+//        userHwkDraftList.put(DraftID, DraftID);
+//        databaseReferencetest.child("UserProfile").child(mAuth.getUid()).child("hawkList").updateChildren(userHwkDraftList);
+        Toast.makeText(getActivity(), "Recipe saved to drafts", Toast.LENGTH_SHORT).show();
+    }
+
     public void retrieveUserProfile(){
         this.userProfile = postsHolder.getUserProfile();
     }
@@ -208,6 +211,63 @@ public class RecipeForm extends Fragment {
         builder1.setPositiveButton("Save", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
+
+                viewModel.getSelectedRecipeName().observe(getViewLifecycleOwner(), new Observer<String>() {
+                    @Override
+                    public void onChanged(String s) {
+                        recipeName = s; //RECIPE TITLE parameter
+                    }
+                });
+                viewModel.getSelectedRecipeDesc().observe(getViewLifecycleOwner(), new Observer<String>() {
+                    @Override
+                    public void onChanged(String s) {
+                        recipeDesc = s; //DESCRIPTION parameter
+                    }
+                });
+                viewModel.getSelectedRecipeDuration().observe(getViewLifecycleOwner(), new Observer<String>() {
+                    @Override
+                    public void onChanged(String s) {
+                        duration = s; //DURATION parameter
+                    }
+                });
+                viewModel.getSelectedRecipeSteps().observe(getViewLifecycleOwner(), new Observer<String>() {
+                    @Override
+                    public void onChanged(String s) {
+                        steps = s; //STEPS parameter
+                    }
+                });
+                viewModel.getSelectedRecipeIngred().observe(getViewLifecycleOwner(), new Observer<String>() {
+                    @Override
+                    public void onChanged(String s) {
+                        totalIngred = s;//INGREDIENT parameter
+                    }
+                });
+                viewModel.getSelectedDifficulty().observe(getViewLifecycleOwner(), new Observer<Integer>() {
+                    @Override
+                    public void onChanged(Integer s) {
+                        difficulty = s;//difficulty parameter
+                    }
+                });
+                viewModel.getSelectedImg().observe(getViewLifecycleOwner(), new Observer<String>() {
+                    @Override
+                    public void onChanged(String s) {
+                        selectedImg = s;//Image parameter
+                    }
+                });
+
+                recipeDrafts.recipeName = recipeName;
+                recipeDrafts.postID = databaseReferencetest.push().getKey();
+                recipeDrafts.owner = userProfile.getUID();
+                recipeDrafts.recipeDescription = recipeDesc;
+                recipeDrafts.duration = duration;
+                recipeDrafts.recipeRating = difficulty;
+                recipeDrafts.userName = userProfile.getUsername();
+                recipeDrafts.steps = steps;
+                recipeDrafts.ingredients = totalIngred;
+                recipeDrafts.foodImage = selectedImg;
+
+//                RcpDraftUp(recipeDrafts,recipeDrafts.postID);
+//                Toast.makeText(getActivity(), recipeDrafts.steps, Toast.LENGTH_SHORT).show();
                 getParentFragmentManager().popBackStack();
             }
         });
@@ -234,6 +294,17 @@ public class RecipeForm extends Fragment {
 
     @Override
     public void onResume() {
+
+        ownerUID = "";
+        username = "";
+        totalIngred = "";
+        recipeDesc = "";
+        duration = "";
+        steps = "";
+        selectedImg = "";
+        recipeName = "";
+        difficulty = 1;
+
         //Toast shows up when back button is pressed
         callback = new OnBackPressedCallback(true) {
             @Override

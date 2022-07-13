@@ -55,7 +55,7 @@ public class HawkerForm extends Fragment {
     TextView openDayBtn;
     boolean[] selectedDay;
     ArrayList<Integer> dayList = new ArrayList<>();
-    String daysOpen = "";
+    public static String daysOpen = "";
     String[] dayArray = {"Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"};
     int opHour, opMin, clHour, clMin;
 
@@ -67,14 +67,7 @@ public class HawkerForm extends Fragment {
     Button opTInput;
     Button clTInput;
 
-    public static String stallName;
-    String desc;
-    String shortDesc;
-    String address;
-    String openingTime;
-    String closingTime;
-    String userPfpUrl;
-    String finalTime;
+    public static String stallName, desc, shortDesc , address, openingTime, closingTime, userPfpUrl, finalTime, downUrl;
 
     private PostsHolder postsHolder;
     private DatabaseReference databaseReferencetest;
@@ -87,7 +80,6 @@ public class HawkerForm extends Fragment {
 
     ImageView displayPicButtonHawker;
     Uri ImageUri;
-    String downUrl;
     private StorageReference storageReference;
     ActivityResultLauncher<String> getPhoto;
     HawkerCornerStalls hCS;
@@ -95,6 +87,9 @@ public class HawkerForm extends Fragment {
     // For editing forms
     Integer check;
     HawkerCornerStalls chosenstall;
+
+    //For drafts
+    public static HawkerCornerStalls hawkerDrafts;
 
 
     public HawkerForm(Integer check) {
@@ -448,6 +443,9 @@ public class HawkerForm extends Fragment {
             }
         });
 
+
+        /////////////////////////////Submit////////////////////////////////
+
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -532,6 +530,11 @@ public class HawkerForm extends Fragment {
 
             }
         });
+
+        ////////////////////////////////////////////////////////////////////////////////
+        hawkerDrafts = new HawkerCornerStalls();
+
+
         return hf;
     }
 
@@ -553,6 +556,10 @@ public class HawkerForm extends Fragment {
         else if (check == 1){
             databaseReferencetest.child("Posts").child("Hawkers").child(PostID).setValue(HwkObj);
             Toast.makeText(getActivity(), "HawkerPost Edited", Toast.LENGTH_SHORT).show();
+        }
+        else if (check == 2){
+            // delete draft from drafts
+            // upload onto post
         }
 
     }
@@ -604,6 +611,23 @@ public class HawkerForm extends Fragment {
         builder1.setPositiveButton("Save", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
+                hawkerDrafts.hcauthor = userProfile.getUsername();
+                hawkerDrafts.hccuserpfp = userProfile.getProfileImg();
+                hawkerDrafts.hcOwner = userProfile.getUID();
+
+                hawkerDrafts.hcstallname = stallName;
+                hawkerDrafts.shortdesc = shortDesc;
+                hawkerDrafts.hccoverimg = downUrl;
+                hawkerDrafts.hccparagraph = desc;
+                hawkerDrafts.hccaddress = address;
+                hawkerDrafts.postid = databaseReferencetest.push().getKey();
+                hawkerDrafts.daysopen = daysOpen;
+                hawkerDrafts.hoursopen = finalTime;
+
+
+                //HwkDraftUp(hawkerDrafts, hawkerDrafts.postid);
+
+                Toast.makeText(getActivity(), hawkerDrafts.shortdesc, Toast.LENGTH_SHORT).show();
                 getParentFragmentManager().popBackStack();
             }
         });
@@ -627,6 +651,15 @@ public class HawkerForm extends Fragment {
 
         builder1.show();
     }
+
+    private void HwkDraftUp(/*HashMap<String, Object> userHwkDraftList,*/ HawkerCornerStalls HwkDraftObj, String DraftID) {
+        mAuth = FirebaseAuth.getInstance();
+        databaseReferencetest.child("Drafts").child("Hawkers").child(DraftID).setValue(HwkDraftObj);
+//        userHwkDraftList.put(DraftID, DraftID);
+//        databaseReferencetest.child("UserProfile").child(mAuth.getUid()).child("hawkList").updateChildren(userHwkDraftList);
+        Toast.makeText(getActivity(), "HawkerPost saved to drafts", Toast.LENGTH_SHORT).show();
+    }
+
     @Override
     public void onResume() {
         // Clears input when reenter forms
@@ -658,6 +691,7 @@ public class HawkerForm extends Fragment {
             openDayBtn.setText("");
             daysOpen = "";
         }
+
         //Alert shows up when back button is pressed.
         callback = new OnBackPressedCallback(true) {
             @Override
@@ -672,6 +706,13 @@ public class HawkerForm extends Fragment {
                 }
             }
         };
+
+        if (check == 1) {
+            callback.setEnabled(false);
+        }
+        else{
+            callback.setEnabled(true);
+        }
 
         requireActivity().getOnBackPressedDispatcher().addCallback(getActivity(), callback);
         super.onResume();

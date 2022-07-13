@@ -35,6 +35,7 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -68,6 +69,9 @@ public class MainActivity extends AppCompatActivity{
     public static Integer checkFormsNum;
     //This is to check which form user is in
     public static Integer whichForm;
+    public static RecipeForm recipeForm;
+    HawkerCornerStalls hawkerDrafts;
+    RecipeCorner recipeDrafts;
 
     public static BottomNavigationView bottomNavigationView;
 
@@ -111,14 +115,15 @@ public class MainActivity extends AppCompatActivity{
         }
 
         Profile profilePage = new Profile();
-        RecipeForm recipeForm = new RecipeForm(0); //Posting = 0
+        recipeForm = new RecipeForm();
         HawkerForm hawkerForm = new HawkerForm(0); //Posting = 0
         HawkerDraftsPage hawkerDraftsPage = new HawkerDraftsPage();
         RecipeDraftsPage recipeDraftsPage = new RecipeDraftsPage();
         HawkerCornerMain hawkerCornerMain = new HawkerCornerMain();
         RecipeCornerMain recipeCornerMain = new RecipeCornerMain();
 
-
+        hawkerDrafts = new HawkerCornerStalls();
+        recipeDrafts = new RecipeCorner();
         profileFirstUpdate = true;
         postsHolder = new PostsHolder();
         postsHolder2 = new PostsHolder2();
@@ -156,6 +161,18 @@ public class MainActivity extends AppCompatActivity{
                 storedDate = new Date(snapshot.child("WeeklyDate").getValue(Long.class));
                 storedUID = snapshot.child("WeeklyPost").getValue(String.class);
 
+//                Getting Hawker Drafts
+                postsHolder.removeHawkerDrafts();
+                for (DataSnapshot objectEntry : snapshot.child("Drafts").child("Hawkers").child(mAuth.getUid()).getChildren()){
+
+                }
+
+//                Getting Recipe Drafts
+                postsHolder.removeRecipeDrafts();
+                for (DataSnapshot objectEntry : snapshot.child("Drafts").child("Recipes").child(mAuth.getUid()).getChildren()){
+
+                }
+
 //                Getting recipe posts
                 postsHolder.removeRecipePosts();
                 postsHolder.removeUserRecipePosts();
@@ -182,7 +199,7 @@ public class MainActivity extends AppCompatActivity{
                     postsHolder.updateRecentHawkerPosts(hwkObject);
                 }
 
-//                Getting bookmarked recipe posts
+                //                Getting bookmarked recipe posts
                 postsHolder2.removeRecipePosts();
                 for (DataSnapshot objectEntry : snapshot.child("UserProfile").child(mAuth.getUid()).child("bmrcplist").getChildren()){
                     String PostID = objectEntry.getValue(String.class);
@@ -295,7 +312,7 @@ public class MainActivity extends AppCompatActivity{
                             RecipeForm.viewModel.getSelectedRecipeName().observe(recipeForm.getViewLifecycleOwner(), new Observer<String>() {
                                 @Override
                                 public void onChanged(String s) {
-                                    RecipeForm.recipeName = s; //RECIPE TITLE parameter
+                                    RecipeForm.recipeName = s;
                                 }
                             });
                             if (RecipeForm.recipeName == "" || RecipeForm.recipeName.isEmpty() || RecipeForm.recipeName == null){
@@ -315,6 +332,7 @@ public class MainActivity extends AppCompatActivity{
                                 builder1.setPositiveButton("Save", new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialogInterface, int i) {
+                                        saveToRecipeDrafts();
                                         checkFormsNum = 1; //changes to 1 when click back to the pages that are not forms
                                         mainFAB.show();
                                         getSupportFragmentManager().popBackStack();
@@ -355,6 +373,7 @@ public class MainActivity extends AppCompatActivity{
                             builder1.setPositiveButton("Save", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialogInterface, int i) {
+                                    saveToHawkerDrafts();
                                     checkFormsNum = 1; //changes to 1 when click back to the pages that are not forms
                                     mainFAB.show();
                                     getSupportFragmentManager().popBackStack();
@@ -430,6 +449,7 @@ public class MainActivity extends AppCompatActivity{
                                 builder1.setPositiveButton("Save", new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialogInterface, int i) {
+                                        saveToRecipeDrafts();
                                         checkFormsNum = 1; //changes to 1 when click back to the pages that are not forms
                                         mainFAB.show();
                                         getSupportFragmentManager().popBackStack();
@@ -470,6 +490,7 @@ public class MainActivity extends AppCompatActivity{
                             builder1.setPositiveButton("Save", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialogInterface, int i) {
+                                    saveToHawkerDrafts();
                                     mainFAB.show();
                                     checkFormsNum = 1; //changes to 1 when click back to the pages that are not forms
                                     getSupportFragmentManager().popBackStack();
@@ -547,6 +568,7 @@ public class MainActivity extends AppCompatActivity{
                                 builder1.setPositiveButton("Save", new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialogInterface, int i) {
+                                        saveToRecipeDrafts();
                                         checkFormsNum = 1; //changes to 1 when click back to the pages that are not forms
                                         mainFAB.show();
                                         getSupportFragmentManager().popBackStack();
@@ -587,6 +609,7 @@ public class MainActivity extends AppCompatActivity{
                             builder1.setPositiveButton("Save", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialogInterface, int i) {
+                                    saveToHawkerDrafts();
                                     checkFormsNum = 1; //changes to 1 when click back to the pages that are not forms
                                     mainFAB.show();
                                     getSupportFragmentManager().popBackStack();
@@ -663,6 +686,7 @@ public class MainActivity extends AppCompatActivity{
                                 builder1.setPositiveButton("Save", new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialogInterface, int i) {
+                                        saveToRecipeDrafts();
                                         checkFormsNum = 1; //changes to 1 when click back to the pages that are not forms
                                         mainFAB.show();
                                         getSupportFragmentManager().popBackStack();
@@ -703,6 +727,7 @@ public class MainActivity extends AppCompatActivity{
                             builder1.setPositiveButton("Save", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialogInterface, int i) {
+                                    saveToHawkerDrafts();
                                     checkFormsNum = 1; //changes to 1 when click back to the pages that are not forms\
                                     mainFAB.show();
                                     getSupportFragmentManager().popBackStack();
@@ -830,6 +855,99 @@ public class MainActivity extends AppCompatActivity{
         if (profileFragment != null && profileFragment.isVisible()) {
             MainActivity.bottomNavigationView.getMenu().findItem(R.id.profile).setChecked(true);
         }
+    }
+
+    public void saveToHawkerDrafts(){
+        hawkerDrafts.hcauthor = userProfile.getUsername();
+        hawkerDrafts.hccuserpfp = userProfile.getProfileImg();
+        hawkerDrafts.hcOwner = userProfile.getUID();
+
+        hawkerDrafts.hcstallname = HawkerForm.stallName;
+        hawkerDrafts.shortdesc = HawkerForm.shortDesc;
+        hawkerDrafts.hccoverimg = HawkerForm.downUrl;
+        hawkerDrafts.hccparagraph = HawkerForm.desc;
+        hawkerDrafts.hccaddress = HawkerForm.address;
+        hawkerDrafts.postid = databaseReference.push().getKey();
+        hawkerDrafts.daysopen = HawkerForm.daysOpen;
+        hawkerDrafts.hoursopen = HawkerForm.finalTime;
+
+//        Toast.makeText(this, hawkerDrafts.postid, Toast.LENGTH_SHORT).show();
+        //HwkDraftUp(hawkerDrafts, hawkerDrafts.postid);
+    }
+
+    public void saveToRecipeDrafts(){
+        RecipeForm.viewModel.getSelectedRecipeName().observe(recipeForm.getViewLifecycleOwner(), new Observer<String>() {
+            @Override
+            public void onChanged(String s) {
+                RecipeForm.recipeName = s; //RECIPE TITLE parameter
+            }
+        });
+        RecipeForm.viewModel.getSelectedRecipeDesc().observe(recipeForm.getViewLifecycleOwner(), new Observer<String>() {
+            @Override
+            public void onChanged(String s) {
+                RecipeForm.recipeDesc = s; //DESCRIPTION parameter
+            }
+        });
+        RecipeForm.viewModel.getSelectedRecipeDuration().observe(recipeForm.getViewLifecycleOwner(), new Observer<String>() {
+            @Override
+            public void onChanged(String s) {
+                RecipeForm.duration = s; //DURATION parameter
+            }
+        });
+        RecipeForm.viewModel.getSelectedRecipeSteps().observe(recipeForm.getViewLifecycleOwner(), new Observer<String>() {
+            @Override
+            public void onChanged(String s) {
+                RecipeForm.steps = s; //STEPS parameter
+            }
+        });
+        RecipeForm.viewModel.getSelectedRecipeIngred().observe(recipeForm.getViewLifecycleOwner(), new Observer<String>() {
+            @Override
+            public void onChanged(String s) {
+                RecipeForm.totalIngred = s;//INGREDIENT parameter
+            }
+        });
+        RecipeForm.viewModel.getSelectedDifficulty().observe(recipeForm.getViewLifecycleOwner(), new Observer<Integer>() {
+            @Override
+            public void onChanged(Integer s) {
+                RecipeForm.difficulty = s;//difficulty parameter
+            }
+        });
+        RecipeForm.viewModel.getSelectedImg().observe(recipeForm.getViewLifecycleOwner(), new Observer<String>() {
+            @Override
+            public void onChanged(String s) {
+                RecipeForm.selectedImg = s;//Image parameter
+            }
+        });
+
+        recipeDrafts.recipeName = RecipeForm.recipeName;
+        recipeDrafts.postID = databaseReference.push().getKey();
+        recipeDrafts.owner = userProfile.getUID();
+        recipeDrafts.recipeDescription = RecipeForm.recipeDesc;
+        recipeDrafts.duration = RecipeForm.duration;
+        recipeDrafts.recipeRating = RecipeForm.difficulty;
+        recipeDrafts.userName = userProfile.getUsername();
+        recipeDrafts.steps = RecipeForm.steps;
+        recipeDrafts.ingredients = RecipeForm.totalIngred;
+        recipeDrafts.foodImage = RecipeForm.selectedImg;
+
+//        RcpDraftUp(recipeDrafts,recipeDrafts.postID);
+//        Toast.makeText(this, recipeDrafts.foodImage, Toast.LENGTH_SHORT).show();
+    }
+
+    public void HwkDraftUp(/*HashMap<String, Object> userHwkDraftList,*/ HawkerCornerStalls HwkDraftObj, String DraftID) {
+        mAuth = FirebaseAuth.getInstance();
+        databaseReference.child("Drafts").child("Hawkers").child(DraftID).setValue(HwkDraftObj);
+//        userHwkDraftList.put(DraftID, DraftID);
+//        databaseReferencetest.child("UserProfile").child(mAuth.getUid()).child("hawkList").updateChildren(userHwkDraftList);
+        Toast.makeText(this, "HawkerPost saved to drafts", Toast.LENGTH_SHORT).show();
+    }
+
+    private void RcpDraftUp(/*HashMap<String, Object> userHwkDraftList,*/ RecipeCorner rcpDraftObj, String DraftID) {
+        mAuth = FirebaseAuth.getInstance();
+        databaseReference.child("Drafts").child("Recipes").child(DraftID).setValue(rcpDraftObj);
+//        userHwkDraftList.put(DraftID, DraftID);
+//        databaseReferencetest.child("UserProfile").child(mAuth.getUid()).child("hawkList").updateChildren(userHwkDraftList);
+        Toast.makeText(this, "Recipe saved to drafts", Toast.LENGTH_SHORT).show();
     }
 
 }
