@@ -115,7 +115,7 @@ public class MainActivity extends AppCompatActivity{
         }
 
         Profile profilePage = new Profile();
-        recipeForm = new RecipeForm();
+        recipeForm = new RecipeForm(0);
         HawkerForm hawkerForm = new HawkerForm(0); //Posting = 0
         HawkerDraftsPage hawkerDraftsPage = new HawkerDraftsPage();
         RecipeDraftsPage recipeDraftsPage = new RecipeDraftsPage();
