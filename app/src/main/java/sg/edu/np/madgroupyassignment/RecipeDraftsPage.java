@@ -61,7 +61,6 @@ public class RecipeDraftsPage extends Fragment {
 
         @Override
         public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-            RecipeForm recipeForm = new RecipeForm(); //Posting = 0
             if (this.getItemViewType(position) == 0){
                 holder.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -71,7 +70,7 @@ public class RecipeDraftsPage extends Fragment {
                             MainActivity.whichForm = 2;
                             AppCompatActivity activity = (AppCompatActivity) view.getContext();
                             activity.getSupportFragmentManager().beginTransaction()
-                                    .replace(R.id.MainFragment, recipeForm).addToBackStack(null).commit();
+                                    .replace(R.id.MainFragment, MainActivity.recipeForm).addToBackStack(null).commit();
                             MainActivity.mainFAB.hide();
                             MainActivity.rcFAB.hide();
                             MainActivity.hcFAB.hide();
