@@ -187,6 +187,7 @@ public class RecipeForm extends Fragment {
         userRcpList.put(PostID, PostID);
         databaseReferencetest.child("UserProfile").child(mAuth.getUid()).child("rcpList").updateChildren(userRcpList);
         Toast.makeText(getActivity(), "Recipe Uploaded", Toast.LENGTH_SHORT).show();
+        viewModel.changeFragment(0);
     }
 
     private void RcpDraftUp(/*HashMap<String, Object> userHwkDraftList,*/ RecipeCorner rcpDraftObj, String DraftID) {

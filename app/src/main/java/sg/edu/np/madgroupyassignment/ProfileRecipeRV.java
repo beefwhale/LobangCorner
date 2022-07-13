@@ -132,70 +132,70 @@ public class ProfileRecipeRV extends Fragment{
             }
         });
 //        Editing Users own Post
-//        editBtn = view.findViewById(R.id.editBtn);
-//        editBtn.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                builder = new AlertDialog.Builder(getContext());
-//                //Only one post selected
-//                if (rcadapter.cbCount == 1 && rcadapter.listPos.size() == 1){
-//                    //Getting Chosen Post to Edit
-//                    Integer pos = rcadapter.listPos.get(0);
-//
-//                    Fragment RecipeForm = new RecipeForm(1); //Editing = 1
-//
-//                    //pass username
-//                    Bundle bundle = new Bundle();
-//                    bundle.putInt("stallposition", pos);
-//                    bundle.putParcelable("list", Parcels.wrap(recipeCornersList));
-//                    RecipeForm.setArguments(bundle);
-//
-//                    //Creating activity context to for the view, starting new fragment when view is clicked
-//                    AppCompatActivity activity = (AppCompatActivity) view.getContext();
-//                    activity.getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, RecipeForm).addToBackStack(null).commit();
-//                }
-//                // No post selected
-//                else if(rcadapter.cbCount.equals(0)){
-//                    Toast.makeText(getActivity(),"Please select a post to edit",
-//                            Toast.LENGTH_SHORT).show();
-//                }
-//                // More than 1 post selected
-//                else{
-//                    //Setting message manually and performing action on button click
-//                    builder.setTitle("Deselect ALL posts?")
-//                            .setMessage("You can only edit 1 post at a time.")
-//                            .setCancelable(false)
-//                            .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-//                                public void onClick(DialogInterface dialog, int id) {
-//                                    //  Action for 'NO' Button
-//                                    dialog.cancel();
-////                                Toast.makeText(getApplicationContext(),"you choose no action for alertbox",
-////                                        Toast.LENGTH_SHORT).show();
-//                                }
-//                            })
-//                            .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-//                                public void onClick(DialogInterface dialog, int id) {
-//                                    dialog.cancel();
-//                                    //Deselect all Posts
-//                                    for (RecipeCorner i: recipeCornersList) {
-//                                        i.setChecked(false);
-//
-//                                    }
-//                                    rcadapter.cbCount = 0;
-//                                    rcadapter.listPos.clear();
-//                                    rcadapter.notifyDataSetChanged();
-//
-//                                    Toast.makeText(getActivity(),"All posts unselected.",
-//                                            Toast.LENGTH_SHORT).show();
-//
-//                                }
-//                            });
-//                    //Creating dialog box
-//                    AlertDialog alert = builder.create();
-//                    alert.show();
-//                }
-//            }
-//        });
+        editBtn = view.findViewById(R.id.editBtn);
+        editBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                builder = new AlertDialog.Builder(getContext());
+                //Only one post selected
+                if (rcadapter.cbCount == 1 && rcadapter.listPos.size() == 1){
+                    //Getting Chosen Post to Edit
+                    Integer pos = rcadapter.listPos.get(0);
+
+                    Fragment RecipeForm = new RecipeForm(1); //Editing = 1
+
+                    //pass username
+                    Bundle bundle = new Bundle();
+                    bundle.putInt("stallposition", pos);
+                    bundle.putParcelable("list", Parcels.wrap(recipeCornersList));
+                    RecipeForm.setArguments(bundle);
+
+                    //Creating activity context to for the view, starting new fragment when view is clicked
+                    AppCompatActivity activity = (AppCompatActivity) view.getContext();
+                    activity.getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, RecipeForm).addToBackStack(null).commit();
+                }
+                // No post selected
+                else if(rcadapter.cbCount.equals(0)){
+                    Toast.makeText(getActivity(),"Please select a post to edit",
+                            Toast.LENGTH_SHORT).show();
+                }
+                // More than 1 post selected
+                else{
+                    //Setting message manually and performing action on button click
+                    builder.setTitle("Deselect ALL posts?")
+                            .setMessage("You can only edit 1 post at a time.")
+                            .setCancelable(false)
+                            .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    //  Action for 'NO' Button
+                                    dialog.cancel();
+//                                Toast.makeText(getApplicationContext(),"you choose no action for alertbox",
+//                                        Toast.LENGTH_SHORT).show();
+                                }
+                            })
+                            .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    dialog.cancel();
+                                    //Deselect all Posts
+                                    for (RecipeCorner i: recipeCornersList) {
+                                        i.setChecked(false);
+
+                                    }
+                                    rcadapter.cbCount = 0;
+                                    rcadapter.listPos.clear();
+                                    rcadapter.notifyDataSetChanged();
+
+                                    Toast.makeText(getActivity(),"All posts unselected.",
+                                            Toast.LENGTH_SHORT).show();
+
+                                }
+                            });
+                    //Creating dialog box
+                    AlertDialog alert = builder.create();
+                    alert.show();
+                }
+            }
+        });
 
         recipeCornersList.removeAll(recipeCornersList);
         for (RecipeCorner obj : postsHolder.getUserRecipePosts()) {
