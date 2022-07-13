@@ -29,6 +29,7 @@ public class RecipePostSteps extends Fragment {
     static String finalSteps;
     private FormsViewModel viewModel;
 
+    Button prevBtn, submitBtn;
     public RecipePostSteps() {
         // Required empty public constructor
     }
@@ -36,22 +37,22 @@ public class RecipePostSteps extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View f2 = inflater.inflate(R.layout.fragment_recipe_post_steps, container, false);
+        View f3 = inflater.inflate(R.layout.fragment_recipe_post_steps, container, false);
 
         items = new ArrayList<>();
 
-        recyclerView = f2.findViewById(R.id.f2recyclerView);
+        recyclerView = f3.findViewById(R.id.f2recyclerView);
         adapter = new RVAdapterSteps(getActivity().getApplicationContext(),items,requireParentFragment());
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity().getApplicationContext()));
 
-
-
-        input = (EditText) f2.findViewById(R.id.input); //Defining input
-        add = f2.findViewById(R.id.f2add); //Defining "plus sign" image
+        input = (EditText) f3.findViewById(R.id.input); //Defining input
+        add = f3.findViewById(R.id.f2add); //Defining "plus sign" image
+        prevBtn = f3.findViewById(R.id.f3prevbutton);
+        submitBtn = f3.findViewById(R.id.f3submitbutton);
 
         //Make the plus sign add item
-
+        viewModel = new ViewModelProvider(requireParentFragment()).get(FormsViewModel.class);
         add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -73,16 +74,27 @@ public class RecipePostSteps extends Fragment {
                                     items.get(i) + "\n" + "\n"; //String formatting for steps
                         }
                     }
-
-                    viewModel = new ViewModelProvider(requireParentFragment()).get(FormsViewModel.class);
                     viewModel.selectRecipeSteps(finalSteps);
                 }
             }
         });
+        //Moving to prev page (Ingredients)
+        prevBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                viewModel.changeFragment(1);
+            }
+        });
+        //Submit Button
+        submitBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                viewModel.changeFragment(3);
+            }
+        });
 
 
-
-        return f2;
+        return f3;
     }
     //function to add onto list
     public static void addItem(String item){

@@ -21,6 +21,7 @@ public class PostsHolder {
     private static HawkerCornerStalls[] recentHawkerPosts = new HawkerCornerStalls[5];
     private static RecipeCorner[] recentRecipePosts = new RecipeCorner[5];
 
+
     public PostsHolder() {
         this.userProfile = new UserProfile();
         this.hawkerPosts = new ArrayList<>();

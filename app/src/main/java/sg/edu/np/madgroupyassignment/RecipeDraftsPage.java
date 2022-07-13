@@ -61,7 +61,7 @@ public class RecipeDraftsPage extends Fragment {
 
         @Override
         public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-            RecipeForm recipeForm = new RecipeForm(); //Posting = 0
+            RecipeForm recipeForm = new RecipeForm(0); //Posting = 0
             if (this.getItemViewType(position) == 0){
                 holder.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override

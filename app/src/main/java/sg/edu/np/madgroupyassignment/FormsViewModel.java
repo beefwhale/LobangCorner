@@ -57,4 +57,9 @@ public class FormsViewModel extends ViewModel {
     private final MutableLiveData<String> selectedImg = new MutableLiveData<String>();
     public void selectImg(String string){selectedImg.setValue(string);}
     public LiveData<String> getSelectedImg(){return selectedImg;}
+
+    //RecipeDifficulty Transfer
+    private final MutableLiveData<Integer> changeFragment = new MutableLiveData<Integer>();
+    public void changeFragment(Integer integer){changeFragment.setValue(integer);}
+    public LiveData<Integer> getchangeFragment(){return changeFragment;}
 }

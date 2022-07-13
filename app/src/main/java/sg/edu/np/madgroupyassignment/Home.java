@@ -36,40 +36,43 @@ public class Home extends Fragment {
 
         // Getting from Main activity if shuffled or not
         randomMixList = MainActivity.randomMixList;
-        if (randomMixList.size() > 0){ // checking if list is not empty, app wont crash
-            Integer limit = randomMixList.size();
-            // Setting a Limit to no. of posts in discover more section
-            if (randomMixList.size()>7){
-                limit = 8;
-            }
-
-            for (int i = 0; i < limit; i++)  {
-                //Adding the data for every ViewHolder
-                HomeParentData d = new HomeParentData();
-                if (randomMixList.get(i).identifier == true) { // if its Hawker Corner post
-                    d.post_header = randomMixList.get(i).hcstallname;
-                    d.post_desc = randomMixList.get(i).shortdesc;
-                    d.post_author = randomMixList.get(i).hcauthor;
-                    feed_data.add(d);
+        if (randomMixList  != null){
+            if (randomMixList.size() > 0){ // checking if list is not empty, app wont crash
+                Integer limit = randomMixList.size();
+                // Setting a Limit to no. of posts in discover more section
+                if (randomMixList.size()>7){
+                    limit = 8;
                 }
-                else{// if its Recipe Corner post
-                    d.post_header = randomMixList.get(i).recipeName;
-                    d.post_desc = randomMixList.get(i).recipeDescription;
-                    d.post_author = randomMixList.get(i).userName;
+
+                for (int i = 0; i < limit; i++)  {
+                    //Adding the data for every ViewHolder
+                    HomeParentData d = new HomeParentData();
+                    if (randomMixList.get(i).identifier == true) { // if its Hawker Corner post
+                        d.post_header = randomMixList.get(i).hcstallname;
+                        d.post_desc = randomMixList.get(i).shortdesc;
+                        d.post_author = randomMixList.get(i).hcauthor;
+                        feed_data.add(d);
+                    }
+                    else{// if its Recipe Corner post
+                        d.post_header = randomMixList.get(i).recipeName;
+                        d.post_desc = randomMixList.get(i).recipeDescription;
+                        d.post_author = randomMixList.get(i).userName;
+                        feed_data.add(d);
+                    }
+                }
+            }
+            else{
+                for (int i = 1; i < 11; i++) {
+                    HomeParentData d = new HomeParentData();
+                    d.post_header = "Feed Title" + i;
+                    d.post_desc = "Feed Desc" + i;
+                    d.post_author = "by Feed Author" + i;
+
                     feed_data.add(d);
                 }
             }
         }
-        else{
-            for (int i = 1; i < 11; i++) {
-                HomeParentData d = new HomeParentData();
-                d.post_header = "Feed Title" + i;
-                d.post_desc = "Feed Desc" + i;
-                d.post_author = "by Feed Author" + i;
 
-                feed_data.add(d);
-            }
-        }
         RecyclerView home_main_rv = view.findViewById(R.id.home_main_rv);
         LinearLayoutManager main_layout = new LinearLayoutManager(c, LinearLayoutManager.VERTICAL, false);
         HomeParentAdapter tp_adapter = new HomeParentAdapter(c,feed_data);

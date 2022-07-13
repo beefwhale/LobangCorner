@@ -111,7 +111,7 @@ public class MainActivity extends AppCompatActivity{
         }
 
         Profile profilePage = new Profile();
-        RecipeForm recipeForm = new RecipeForm();
+        RecipeForm recipeForm = new RecipeForm(0); //Posting = 0
         HawkerForm hawkerForm = new HawkerForm(0); //Posting = 0
         HawkerDraftsPage hawkerDraftsPage = new HawkerDraftsPage();
         RecipeDraftsPage recipeDraftsPage = new RecipeDraftsPage();
@@ -182,7 +182,7 @@ public class MainActivity extends AppCompatActivity{
                     postsHolder.updateRecentHawkerPosts(hwkObject);
                 }
 
-                //                Getting bookmarked recipe posts
+//                Getting bookmarked recipe posts
                 postsHolder2.removeRecipePosts();
                 for (DataSnapshot objectEntry : snapshot.child("UserProfile").child(mAuth.getUid()).child("bmrcplist").getChildren()){
                     String PostID = objectEntry.getValue(String.class);

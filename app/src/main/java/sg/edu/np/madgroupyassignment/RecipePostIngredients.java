@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -32,6 +33,7 @@ public class RecipePostIngredients extends Fragment {
     ArrayList<String> totalIngredList;
     FormsViewModel viewModel;
     String unt;
+    Button nextBtn, prevBtn;
 
     public RecipePostIngredients() {
 
@@ -41,19 +43,23 @@ public class RecipePostIngredients extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View f3 = inflater.inflate(R.layout.fragment_recipe_post_ingredients, container, false);
+        View f2 = inflater.inflate(R.layout.fragment_recipe_post_ingredients, container, false);
         ingredList = new ArrayList<>();
 
-        recyclerView = f3.findViewById(R.id.f3recyclerView); //Defining listView
+        recyclerView = f2.findViewById(R.id.f3recyclerView); //Defining listView
         adapter = new RVAdapterIngred(getActivity().getApplicationContext(),ingredList,requireParentFragment());
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity().getApplicationContext()));
 
 
-        ingredientName = f3.findViewById(R.id.IngredInput); //Defining Ingred input
-        qty = f3.findViewById(R.id.QtyInput); //Defining Qty input
-        unit = f3.findViewById(R.id.UntInput); //Defining Unit input
-        add = f3.findViewById(R.id.f3add); //Defining "plus sign" image
+        ingredientName = f2.findViewById(R.id.IngredInput); //Defining Ingred input
+        qty = f2.findViewById(R.id.QtyInput); //Defining Qty input
+        unit = f2.findViewById(R.id.UntInput); //Defining Unit input
+        add = f2.findViewById(R.id.f3add); //Defining "plus sign" image
+        nextBtn = f2.findViewById(R.id.f2nextbutton);
+        prevBtn = f2.findViewById(R.id.f2prevbutton);
+
+        viewModel = new ViewModelProvider(requireParentFragment()).get(FormsViewModel.class);
         //Make the plus sign add item
         add.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -104,14 +110,25 @@ public class RecipePostIngredients extends Fragment {
                         }
                     }
 
-                    viewModel = new ViewModelProvider(requireParentFragment()).get(FormsViewModel.class);
                     viewModel.selectRecipeIngred(totalIngred);
                 }
             }
         });
-
-
-        return f3;
+        //Moving to next page (Steps)
+        nextBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                viewModel.changeFragment(2);
+            }
+        });
+        //Moving to prev page (Main)
+        prevBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                viewModel.changeFragment(0);
+            }
+        });
+        return f2;
     }
     //function to add onto list
     public static void addItem(Ingredient item){

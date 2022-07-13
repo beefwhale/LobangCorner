@@ -31,9 +31,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class RecipeForm extends Fragment {
-    private TabLayout tabLayout;
+    public TabLayout tabLayout;
     private ViewPager2 viewPager;
-    Button submitButton;
     private PostsHolder postsHolder;
     private UserProfile userProfile;
     public static FormsViewModel viewModel;
@@ -52,9 +51,12 @@ public class RecipeForm extends Fragment {
     RecipeCorner recipeCorner;
     HashMap<String, Object> userCurrentRcp;
 
+    Integer status;
     OnBackPressedCallback callback;
-    public RecipeForm() {
+    public RecipeForm(Integer status ) {
         // Required empty public constructor
+        //Creating Post = 0, Editing Post = 1, Editing Draft  = 2
+        this.status = status;
     }
 
     @Override
@@ -70,16 +72,12 @@ public class RecipeForm extends Fragment {
         //Connecting the 3 fragments through tabLayout
         tabLayout = recipeform.findViewById(R.id.tabLayout);
         viewPager = recipeform.findViewById(R.id.viewPager);
-        submitButton = recipeform.findViewById(R.id.submitbutton);
         RecipePostVPAdapter vpAdapter = new RecipePostVPAdapter(getChildFragmentManager(), getLifecycle());
         vpAdapter.addFragment(new RecipePostMain(), "Recipe Post");
-        vpAdapter.addFragment(new RecipePostSteps(), "Recipe Steps");
         vpAdapter.addFragment(new RecipePostIngredients(), "Recipe Ingredients");
+        vpAdapter.addFragment(new RecipePostSteps(), "Recipe Steps");
         viewPager.setAdapter(vpAdapter);
         viewPager.setSaveEnabled(false);
-
-
-
         new TabLayoutMediator(tabLayout, viewPager, new TabLayoutMediator.TabConfigurationStrategy() {
             @Override
             public void onConfigureTab(@NonNull TabLayout.Tab tab, int position) {
@@ -87,81 +85,100 @@ public class RecipeForm extends Fragment {
             }
         }).attach();
 
+        // making Tab layout not swipeable, only navigate using buttons below / using tabs
+        viewPager.setUserInputEnabled(false);
+
         viewModel = new ViewModelProvider(this).get(FormsViewModel.class);
         recipeName = "";
 
-
-        submitButton.setOnClickListener(new View.OnClickListener() {
+        viewModel.getchangeFragment().observe(getViewLifecycleOwner(), new Observer<Integer>() {
             @Override
-            public void onClick(View view) {
-                username = userProfile.getUsername(); //USERNAME parameter
+            public void onChanged(Integer i) {
+                if (i == 1){ // Change to Ingredients page
+                    TabLayout.Tab tab = tabLayout.getTabAt(i);
+                    tab.select();
+                }
+                else if (i == 2){ // Steps Page
+                    TabLayout.Tab tab = tabLayout.getTabAt(i);
+                    tab.select();
+                }
+                else if (i == 0){ // Main Page
+                    TabLayout.Tab tab = tabLayout.getTabAt(i);
+                    tab.select();
+                }
+                else if( i == 3){ // Submit Button is pressed
+                    username = userProfile.getUsername(); //USERNAME parameter
 
-                viewModel.getSelectedRecipeName().observe(getViewLifecycleOwner(), new Observer<String>() {
-                    @Override
-                    public void onChanged(String s) {
-                        recipeName = s; //RECIPE TITLE parameter
-                    }
-                });
-                viewModel.getSelectedRecipeDesc().observe(getViewLifecycleOwner(), new Observer<String>() {
-                    @Override
-                    public void onChanged(String s) {
-                        recipeDesc = s; //DESCRIPTION parameter
-                    }
-                });
-                viewModel.getSelectedRecipeDuration().observe(getViewLifecycleOwner(), new Observer<String>() {
-                    @Override
-                    public void onChanged(String s) {
-                        duration = s; //DURATION parameter
-                    }
-                });
-                viewModel.getSelectedRecipeSteps().observe(getViewLifecycleOwner(), new Observer<String>() {
-                    @Override
-                    public void onChanged(String s) {
-                        steps = s; //STEPS parameter
-                    }
-                });
-                viewModel.getSelectedRecipeIngred().observe(getViewLifecycleOwner(), new Observer<String>() {
-                    @Override
-                    public void onChanged(String s) {
-                        totalIngred = s;//INGREDIENT parameter
-                    }
-                });
-                viewModel.getSelectedDifficulty().observe(getViewLifecycleOwner(), new Observer<Integer>() {
-                    @Override
-                    public void onChanged(Integer s) {
-                        difficulty = s;//difficulty parameter
-                    }
-                });
-                viewModel.getSelectedImg().observe(getViewLifecycleOwner(), new Observer<String>() {
-                    @Override
-                    public void onChanged(String s) {
-                        selectedImg = s;//Image parameter
-                    }
-                });
+                    viewModel.getSelectedRecipeName().observe(getViewLifecycleOwner(), new Observer<String>() {
+                        @Override
+                        public void onChanged(String s) {
+                            recipeName = s; //RECIPE TITLE parameter
+                        }
+                    });
+                    viewModel.getSelectedRecipeDesc().observe(getViewLifecycleOwner(), new Observer<String>() {
+                        @Override
+                        public void onChanged(String s) {
+                            recipeDesc = s; //DESCRIPTION parameter
+                        }
+                    });
+                    viewModel.getSelectedRecipeDuration().observe(getViewLifecycleOwner(), new Observer<String>() {
+                        @Override
+                        public void onChanged(String s) {
+                            duration = s; //DURATION parameter
+                        }
+                    });
+                    viewModel.getSelectedRecipeSteps().observe(getViewLifecycleOwner(), new Observer<String>() {
+                        @Override
+                        public void onChanged(String s) {
+                            steps = s; //STEPS parameter
+                        }
+                    });
+                    viewModel.getSelectedRecipeIngred().observe(getViewLifecycleOwner(), new Observer<String>() {
+                        @Override
+                        public void onChanged(String s) {
+                            totalIngred = s;//INGREDIENT parameter
+                        }
+                    });
+                    viewModel.getSelectedDifficulty().observe(getViewLifecycleOwner(), new Observer<Integer>() {
+                        @Override
+                        public void onChanged(Integer s) {
+                            difficulty = s;//difficulty parameter
+                        }
+                    });
+                    viewModel.getSelectedImg().observe(getViewLifecycleOwner(), new Observer<String>() {
+                        @Override
+                        public void onChanged(String s) {
+                            selectedImg = s;//Image parameter
+                        }
+                    });
 
-                if(recipeName == null || recipeName.length() == 0 || recipeName.isEmpty() || recipeName == "" ||
-                        recipeDesc == null || recipeDesc.length() == 0 || recipeDesc.isEmpty() ||
+                    if(recipeName == null || recipeName.length() == 0 || recipeName.isEmpty() || recipeName == "" ||
+                            recipeDesc == null || recipeDesc.length() == 0 || recipeDesc.isEmpty() ||
                             totalIngred == null || totalIngred.length() == 0 || totalIngred.isEmpty() ||
-                                steps == null || steps.length() == 0 || steps.isEmpty() ||
-                                    selectedImg.isEmpty() || selectedImg.length() == 0 || selectedImg == ""){
-                    Toast.makeText(getActivity(), "Please input recipe title, description, image, ingredients and steps", Toast.LENGTH_SHORT).show();
+                            steps == null || steps.length() == 0 || steps.isEmpty() ||
+                            selectedImg.isEmpty() || selectedImg.length() == 0 || selectedImg == ""){
+                        Toast.makeText(getActivity(), "Please input recipe title, description, image, ingredients and steps", Toast.LENGTH_SHORT).show();
+                    }
+                    else{
+                        MainActivity.checkFormsNum = 1;
+                        MainActivity.mainFAB.show();
+                        ownerUID = userProfile.getUID();
+                        Long timeStamp = System.currentTimeMillis();
+                        String PostID = databaseReferencetest.push().getKey();
+                        recipeCorner = new RecipeCorner(PostID, ownerUID, recipeName, recipeDesc, difficulty, username, duration, steps,totalIngred, timeStamp, selectedImg, false);
+                        userCurrentRcp = userProfile.getRcpList();
+                        RcpUp(userCurrentRcp, recipeCorner, PostID);
+                        //getActivity().recreate();
+                        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, new Home(), "Home").commit();
+                        MainActivity.bottomNavigationView.getMenu().findItem(R.id.home).setChecked(true);
+                    }
+                    //Toast.makeText(getActivity(), totalIngred, Toast.LENGTH_SHORT).show();
                 }
                 else{
-                    MainActivity.checkFormsNum = 1;
-                    MainActivity.mainFAB.show();
-                    ownerUID = userProfile.getUID();
-                    Long timeStamp = System.currentTimeMillis();
-                    String PostID = databaseReferencetest.push().getKey();
-                    recipeCorner = new RecipeCorner(PostID, ownerUID, recipeName, recipeDesc, difficulty, username, duration, steps,totalIngred, timeStamp, selectedImg, false);
-                    userCurrentRcp = userProfile.getRcpList();
-                    //RcpUp(userCurrentRcp, recipeCorner, PostID);
-                    //getActivity().recreate();
-                    getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, new Home()).commit();
-                    MainActivity.bottomNavigationView.getMenu().findItem(R.id.home).setChecked(true);
+                    viewModel.changeFragment(0); // Default Zero: forms main page
                 }
-                //Toast.makeText(getActivity(), totalIngred, Toast.LENGTH_SHORT).show();
-
             }
+
         });
 
         return recipeform;

@@ -8,9 +8,7 @@ import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.text.Editable;
@@ -23,7 +21,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.NumberPicker;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -34,10 +31,7 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
 
-import org.w3c.dom.Text;
-
-import java.io.StringBufferInputStream;
-import java.text.Normalizer;
+import java.lang.reflect.Array;
 
 
 public class RecipePostMain extends Fragment {
@@ -60,6 +54,8 @@ public class RecipePostMain extends Fragment {
     private StorageReference storageReference;
     ActivityResultLauncher<String> getPhoto;
 
+    Button nextBtn;
+    Array[] returnArray;
     private FormsViewModel viewModel;
 
 
@@ -78,6 +74,7 @@ public class RecipePostMain extends Fragment {
         descInput = f1.findViewById(R.id.Desc);
         numberPicker = f1.findViewById(R.id.numPicker);
         displayPicButtonRecipe = f1.findViewById(R.id.displayPic2);
+        nextBtn = f1.findViewById(R.id.f1nextbutton);
         newVal = 1;
         viewModel = new ViewModelProvider(requireParentFragment()).get(FormsViewModel.class);
 
@@ -167,8 +164,13 @@ public class RecipePostMain extends Fragment {
             }
         });
 
-
-
+        //Moving to next page (Ingredients)
+        nextBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                viewModel.changeFragment(1);
+            }
+        });
         return f1;
     }
 
