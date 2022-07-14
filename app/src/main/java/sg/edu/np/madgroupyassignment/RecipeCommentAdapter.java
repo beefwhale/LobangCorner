@@ -102,7 +102,11 @@ public class RecipeCommentAdapter extends RecyclerView.Adapter<CommentViewholder
             rb.setRating(CommentRetrieve.recipeRating);
             duration.setText("Duration: " + CommentRetrieve.duration + " mins");
             steps.setText(CommentRetrieve.steps);
-            ingred.setText(CommentRetrieve.ingredients);
+            //Cleaning Comments
+            String ingredients = CommentRetrieve.ingredients;
+            ingredients = ingredients.replace("#=#", " ");
+            ingredients = ingredients.replace("#-#", "\n");
+            ingred.setText(ingredients);
             Picasso.get().load(CommentRetrieve.getFoodImage()).into(i);
 
             DatabaseReference dr = databaseReference2.child("UserProfile").child(firebaseAuth.getUid()).child("bmrcplist");

@@ -62,11 +62,6 @@ public class RecipePostMain extends Fragment {
 
     Array[] returnArray;
     private FormsViewModel viewModel;
-
-
-
-
-
     public RecipePostMain() {
 
     }
@@ -110,6 +105,7 @@ public class RecipePostMain extends Fragment {
                     durInput.setText(recipeStall.duration);
                     //Setting Difficulty Rating
                     numberPicker.setValue(recipeStall.getRecipeRating());
+                    viewModel.selectDifficulty(recipeStall.getRecipeRating());
 
                 }
 

@@ -9,6 +9,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +18,8 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -32,6 +35,8 @@ public class RecipePostSteps extends Fragment {
     private FormsViewModel viewModel;
 
     Button prevBtn, submitBtn;
+    RecipeCorner recipeStall = new RecipeCorner();
+
     public RecipePostSteps() {
         // Required empty public constructor
     }
@@ -65,6 +70,22 @@ public class RecipePostSteps extends Fragment {
                 }
             }
         });
+        viewModel.getRecipePost().observe(getViewLifecycleOwner(), new Observer<RecipeCorner>() {
+            public void onChanged(RecipeCorner i) {
+                if (i.recipeName != null || i.recipeName != ""){
+                    recipeStall = i;
+                    finalSteps = recipeStall.getSteps();
+                    String[] stepArray1 = recipeStall.getSteps().split("\n\n");
+                    for (String s:stepArray1) {
+                        String[] stepArray2 = s.split(": "); // Removing the "Step: "
+                        items.add(stepArray2[1]);
+                    }
+                    viewModel.selectRecipeSteps(finalSteps);
+                }
+
+            }
+        });
+
         add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

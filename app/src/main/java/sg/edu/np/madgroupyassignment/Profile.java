@@ -301,8 +301,11 @@ public class Profile extends Fragment {
         if (aboutme != null) {
             aboutme.setText(userProfile.getAboutMe());
         }
-        hwkObj.setText("" + (userProfile.getHawkList().size() - 1) + "\n\nHawker Posts");
-        rcpObj.setText("" + (userProfile.getRcpList().size() - 1) + "\n\nRecipe Post");
+        if (userProfile.getHawkList()!= null && userProfile.getRcpList()!= null ){
+            hwkObj.setText("" + (userProfile.getHawkList().size() - 1) + "\n\nHawker Posts");
+            rcpObj.setText("" + (userProfile.getRcpList().size() - 1) + "\n\nRecipe Post");
+        }
+
 
         //Socials
         //If there no accounts inside yet
