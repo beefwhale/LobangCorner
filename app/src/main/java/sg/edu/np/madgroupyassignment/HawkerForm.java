@@ -625,7 +625,7 @@ public class HawkerForm extends Fragment {
                 hawkerDrafts.hoursopen = finalTime;
 
 
-                //HwkDraftUp(hawkerDrafts, hawkerDrafts.postid);
+                HwkDraftUp(hawkerDrafts, hawkerDrafts.postid);
 
                 Toast.makeText(getActivity(), hawkerDrafts.shortdesc, Toast.LENGTH_SHORT).show();
                 getParentFragmentManager().popBackStack();
@@ -654,7 +654,7 @@ public class HawkerForm extends Fragment {
 
     private void HwkDraftUp(/*HashMap<String, Object> userHwkDraftList,*/ HawkerCornerStalls HwkDraftObj, String DraftID) {
         mAuth = FirebaseAuth.getInstance();
-        databaseReferencetest.child("Drafts").child("Hawkers").child(DraftID).setValue(HwkDraftObj);
+        databaseReferencetest.child("Drafts").child("Hawkers").child(mAuth.getUid()).child(DraftID).setValue(HwkDraftObj); //Changed to draftid under uid under hawker under drafts
 //        userHwkDraftList.put(DraftID, DraftID);
 //        databaseReferencetest.child("UserProfile").child(mAuth.getUid()).child("hawkList").updateChildren(userHwkDraftList);
         Toast.makeText(getActivity(), "HawkerPost saved to drafts", Toast.LENGTH_SHORT).show();

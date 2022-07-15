@@ -231,7 +231,7 @@ public class RecipeForm extends Fragment {
 
     private void RcpDraftUp(/*HashMap<String, Object> userHwkDraftList,*/ RecipeCorner rcpDraftObj, String DraftID) {
         mAuth = FirebaseAuth.getInstance();
-        databaseReferencetest.child("Drafts").child("Recipes").child(DraftID).setValue(rcpDraftObj);
+        databaseReferencetest.child("Drafts").child("Recipes").child(mAuth.getUid()).child(DraftID).setValue(rcpDraftObj);
 //        userHwkDraftList.put(DraftID, DraftID);
 //        databaseReferencetest.child("UserProfile").child(mAuth.getUid()).child("hawkList").updateChildren(userHwkDraftList);
         Toast.makeText(getActivity(), "Recipe saved to drafts", Toast.LENGTH_SHORT).show();
@@ -306,7 +306,7 @@ public class RecipeForm extends Fragment {
                 recipeDrafts.ingredients = totalIngred;
                 recipeDrafts.foodImage = selectedImg;
 
-//                RcpDraftUp(recipeDrafts,recipeDrafts.postID);
+                RcpDraftUp(recipeDrafts,recipeDrafts.postID);
 //                Toast.makeText(getActivity(), recipeDrafts.steps, Toast.LENGTH_SHORT).show();
                 getParentFragmentManager().popBackStack();
             }

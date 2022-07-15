@@ -18,6 +18,7 @@ public class RecipeDraftsPage extends Fragment {
 
     RecyclerView recipeDraftRV;
     OnBackPressedCallback callback;
+    PostsHolder postsHolder;
 
     public RecipeDraftsPage() {
     }
@@ -97,7 +98,7 @@ public class RecipeDraftsPage extends Fragment {
 
         @Override
         public int getItemCount() {
-            return 5;
+            return (1 + postsHolder.getRecipeDrafts().size());
         }
     }
 

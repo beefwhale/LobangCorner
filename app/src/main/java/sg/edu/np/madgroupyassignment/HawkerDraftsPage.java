@@ -102,7 +102,7 @@ public class HawkerDraftsPage extends Fragment {
 
         @Override
         public int getItemCount() {
-            return 5;
+            return (1+postsHolder.getHawkerDrafts().size());
         }
     }
 
