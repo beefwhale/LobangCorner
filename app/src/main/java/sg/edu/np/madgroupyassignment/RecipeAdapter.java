@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CompoundButton;
 import android.widget.RatingBar;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -108,6 +109,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeViewHolder>{
                         .replace(R.id.MainFragment, rcpFragment).addToBackStack(null).commit();
             }
         });
+
         // for bookmark page
         if (status==1){
             holder.checkbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {

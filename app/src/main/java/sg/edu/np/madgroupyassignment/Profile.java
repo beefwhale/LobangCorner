@@ -176,7 +176,7 @@ public class Profile extends Fragment {
 
                     //change fragment
                     activity.getSupportFragmentManager().beginTransaction()
-                            .replace(R.id.MainFragment, profileHcFragment).commit();
+                            .replace(R.id.MainFragment, profileHcFragment).addToBackStack(null).commit();
                 } else {
                     Toast.makeText(getActivity(), "No Hawker Corner Posts made", Toast.LENGTH_SHORT).show();
                 }
@@ -201,7 +201,7 @@ public class Profile extends Fragment {
                     profileRcpFragment.setArguments(bundle);
 
                     activity.getSupportFragmentManager().beginTransaction()
-                            .replace(R.id.MainFragment, profileRcpFragment).commit();
+                            .replace(R.id.MainFragment, profileRcpFragment).addToBackStack(null).commit();
                 } else {
                     Toast.makeText(getActivity(), "No Recipe Corner Posts made", Toast.LENGTH_SHORT).show();
                 }

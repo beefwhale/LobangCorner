@@ -115,6 +115,7 @@ public class RecipeCornerPosts extends Fragment {
             commentSend.steps = recipePost.steps;
             commentSend.ingredients = recipePost.ingredients;
             commentSend.foodImage = recipePost.foodImage;
+            commentSend.owner = recipePost.owner;
 
             databaseReference = firebaseDatabase.getReference().child("Comments").child(recipePost.getPostID());
             databaseReference.get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {

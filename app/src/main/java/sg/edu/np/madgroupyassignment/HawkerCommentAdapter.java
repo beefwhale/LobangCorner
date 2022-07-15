@@ -62,6 +62,7 @@ public class HawkerCommentAdapter extends RecyclerView.Adapter<CommentViewholder
     private FirebaseDatabase firebaseDatabase;
     private HashMap<String, Object> hwklist = new HashMap<String, Object>();
     TextView hccusername;
+    View item;
 
     public HawkerCommentAdapter(Context c, ArrayList<Comments> commentData, HomeMixData CommentRetrieve, Boolean contentCheck) {
         this.c = c;
@@ -92,7 +93,6 @@ public class HawkerCommentAdapter extends RecyclerView.Adapter<CommentViewholder
     @NonNull
     @Override
     public CommentViewholder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View item;
         if (viewType == 0) {
             item = LayoutInflater.from(parent.getContext()).inflate(R.layout.activity_hcchosen_stall, null, false);
 
@@ -121,28 +121,8 @@ public class HawkerCommentAdapter extends RecyclerView.Adapter<CommentViewholder
             //Leads to author's profile page
             hccusername.setOnClickListener(new View.OnClickListener() {
                 @Override
-                public void onClick(View v) {
-                    AppCompatActivity activity = (AppCompatActivity) item.getContext();
-                    if (CommentRetrieve.hcOwner != null){
-                        if (CommentRetrieve.hcOwner.equals(userProfile.UID)){ // if its the user's own account
-                            activity.getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, new Profile(true), "Profile")
-                                    .addToBackStack(null).commit();
-                            MainActivity.bottomNavigationView.getMenu().findItem(R.id.profile).setChecked(true);
-                        }
-                        else{ // Not the user's wn account = author's account
-                            Fragment profileFragment = new Profile(false);
-                            Bundle bundle = new Bundle();
-                            bundle.putString("userID", CommentRetrieve.hcOwner); // Passing username inside
-                            profileFragment.setArguments(bundle);
-                            activity.getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, profileFragment)
-                                    .addToBackStack(null).commit();
-                        }
-
-                    }
-                    else{
-                        Toast.makeText(c, "An Error Occured", Toast.LENGTH_SHORT).show();
-                    }
-
+                public void onClick(View v){
+                    displayAuthorProfile();
                 }
             });
 
@@ -344,6 +324,27 @@ public class HawkerCommentAdapter extends RecyclerView.Adapter<CommentViewholder
         }
     }
 
+    public void displayAuthorProfile(){
+        AppCompatActivity activity = (AppCompatActivity) item.getContext();
+        if (CommentRetrieve.hcOwner != null){
+            if (CommentRetrieve.hcOwner.equals(userProfile.UID)){ // if its the user's own account
+                activity.getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, new Profile(true), "Profile")
+                        .addToBackStack(null).commit();
+                MainActivity.bottomNavigationView.getMenu().findItem(R.id.profile).setChecked(true);
+            }
+            else{ // Not the user's wn account = author's account
+                Fragment profileFragment = new Profile(false);
+                Bundle bundle = new Bundle();
+                bundle.putString("userID", CommentRetrieve.hcOwner); // Passing username inside
+                profileFragment.setArguments(bundle);
+                activity.getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, profileFragment)
+                        .addToBackStack(null).commit();
+            }
+        }
+        else{
+            Toast.makeText(c, "An Error Occured", Toast.LENGTH_SHORT).show();
+        }
+    }
     @Override
     public int getItemCount() {
         return commentData.size() + 2;

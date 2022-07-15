@@ -3,6 +3,7 @@ package sg.edu.np.madgroupyassignment;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
+import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -19,6 +20,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.textfield.TextInputEditText;
@@ -50,6 +53,7 @@ public class RecipeCommentAdapter extends RecyclerView.Adapter<CommentViewholder
     private DatabaseReference databaseReference2;
     private FirebaseDatabase firebaseDatabase;
     private HashMap<String, Object> rcplist = new HashMap<String, Object>();
+    View item;
 
     public RecipeCommentAdapter(Context c, ArrayList<Comments> commentData, HomeMixData CommentRetrieve, Boolean contentCheck) {
         this.c = c;
@@ -80,7 +84,6 @@ public class RecipeCommentAdapter extends RecyclerView.Adapter<CommentViewholder
     @NonNull
     @Override
     public CommentViewholder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View item;
         if (viewType == 0) {
             item = LayoutInflater.from(parent.getContext()).inflate(R.layout.activity_recipe_corner_posts, null, false);
 
@@ -102,6 +105,14 @@ public class RecipeCommentAdapter extends RecyclerView.Adapter<CommentViewholder
             rb.setRating(CommentRetrieve.recipeRating);
             duration.setText("Duration: " + CommentRetrieve.duration + " mins");
             steps.setText(CommentRetrieve.steps);
+
+            // Making Username Clickable
+            id.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    displayAuthorProfile();
+                }
+            });
             //Cleaning Comments
             String ingredients = CommentRetrieve.ingredients;
             ingredients = ingredients.replace("#=#", " ");
@@ -314,6 +325,28 @@ public class RecipeCommentAdapter extends RecyclerView.Adapter<CommentViewholder
         }
     }
 
+
+    public void displayAuthorProfile(){
+        AppCompatActivity activity = (AppCompatActivity) item.getContext();
+        if (CommentRetrieve.owner != null){
+            if (CommentRetrieve.owner.equals(userProfile.UID)){ // if its the user's own account
+                activity.getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, new Profile(true), "Profile")
+                        .addToBackStack(null).commit();
+                MainActivity.bottomNavigationView.getMenu().findItem(R.id.profile).setChecked(true);
+            }
+            else{ // Not the user's wn account = author's account
+                Fragment profileFragment = new Profile(false);
+                Bundle bundle = new Bundle();
+                bundle.putString("userID", CommentRetrieve.owner); // Passing username inside
+                profileFragment.setArguments(bundle);
+                activity.getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, profileFragment)
+                        .addToBackStack(null).commit();
+            }
+        }
+        else{
+            Toast.makeText(c, "An Error Occured", Toast.LENGTH_SHORT).show();
+        }
+    }
     @Override
     public int getItemCount() {
         return commentData.size() + 2;
