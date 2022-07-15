@@ -58,6 +58,10 @@ public class MainActivity extends AppCompatActivity{
     public static String storedUID;
     public static ArrayList<HomeMixData> randomMixList;
 
+    public static RecipeForm recipeForm;
+    HawkerCornerStalls hawkerDrafts;
+    RecipeCorner recipeDrafts;
+
     //Floating Action Buttons
     public static FloatingActionButton mainFAB, rcFAB, hcFAB;
     public static TextView rcFABText, hcFABText;
@@ -70,9 +74,12 @@ public class MainActivity extends AppCompatActivity{
     public static Integer checkFormsNum;
     //This is to check which form user is in
     public static Integer whichForm;
-    public static RecipeForm recipeForm;
-    HawkerCornerStalls hawkerDrafts;
-    RecipeCorner recipeDrafts;
+
+    //List to store User Hawker Drafts
+    public static ArrayList<HawkerCornerStalls> hawkerDraftsList;
+    //List to store User Recipe Drafts
+    public static ArrayList<RecipeCorner> recipeDraftsList;
+
 
     public static BottomNavigationView bottomNavigationView;
 
@@ -170,15 +177,23 @@ public class MainActivity extends AppCompatActivity{
                 storedUID = snapshot.child("WeeklyPost").getValue(String.class);
 
 //                Getting Hawker Drafts
+                hawkerDraftsList = new ArrayList<HawkerCornerStalls>();
                 postsHolder.removeHawkerDrafts();
                 for (DataSnapshot objectEntry : snapshot.child("Drafts").child("Hawkers").child(mAuth.getUid()).getChildren()){
-
+                    HawkerCornerStalls eachHawkerObj = objectEntry.getValue(HawkerCornerStalls.class);
+                    hawkerDraftsList.add(eachHawkerObj);
+                    postsHolder.setHawkerDrafts(hawkerDraftsList);
+                    //^ set into postsholder\
                 }
 
 //                Getting Recipe Drafts
+                recipeDraftsList = new ArrayList<RecipeCorner>();
                 postsHolder.removeRecipeDrafts();
                 for (DataSnapshot objectEntry : snapshot.child("Drafts").child("Recipes").child(mAuth.getUid()).getChildren()){
-
+                    RecipeCorner eachRecipeObj = objectEntry.getValue(RecipeCorner.class);
+                    recipeDraftsList.add(eachRecipeObj);
+                    postsHolder.setRecipeDrafts(recipeDraftsList);
+                    //^ set into postsholder\
                 }
 
 //                Getting recipe posts
@@ -880,7 +895,7 @@ public class MainActivity extends AppCompatActivity{
         hawkerDrafts.hoursopen = HawkerForm.finalTime;
 
 //        Toast.makeText(this, hawkerDrafts.postid, Toast.LENGTH_SHORT).show();
-        //HwkDraftUp(hawkerDrafts, hawkerDrafts.postid);
+        HwkDraftUp(hawkerDrafts, hawkerDrafts.postid);
     }
 
     public void saveToRecipeDrafts(){
@@ -938,13 +953,13 @@ public class MainActivity extends AppCompatActivity{
         recipeDrafts.ingredients = RecipeForm.totalIngred;
         recipeDrafts.foodImage = RecipeForm.selectedImg;
 
-//        RcpDraftUp(recipeDrafts,recipeDrafts.postID);
+        RcpDraftUp(recipeDrafts,recipeDrafts.postID);
 //        Toast.makeText(this, recipeDrafts.foodImage, Toast.LENGTH_SHORT).show();
     }
 
     public void HwkDraftUp(/*HashMap<String, Object> userHwkDraftList,*/ HawkerCornerStalls HwkDraftObj, String DraftID) {
         mAuth = FirebaseAuth.getInstance();
-        databaseReference.child("Drafts").child("Hawkers").child(DraftID).setValue(HwkDraftObj);
+        databaseReference.child("Drafts").child("Hawkers").child(mAuth.getUid()).child(DraftID).setValue(HwkDraftObj);
 //        userHwkDraftList.put(DraftID, DraftID);
 //        databaseReferencetest.child("UserProfile").child(mAuth.getUid()).child("hawkList").updateChildren(userHwkDraftList);
         Toast.makeText(this, "HawkerPost saved to drafts", Toast.LENGTH_SHORT).show();
@@ -952,7 +967,7 @@ public class MainActivity extends AppCompatActivity{
 
     private void RcpDraftUp(/*HashMap<String, Object> userHwkDraftList,*/ RecipeCorner rcpDraftObj, String DraftID) {
         mAuth = FirebaseAuth.getInstance();
-        databaseReference.child("Drafts").child("Recipes").child(DraftID).setValue(rcpDraftObj);
+        databaseReference.child("Drafts").child("Recipes").child(mAuth.getUid()).child(DraftID).setValue(rcpDraftObj);
 //        userHwkDraftList.put(DraftID, DraftID);
 //        databaseReferencetest.child("UserProfile").child(mAuth.getUid()).child("hawkList").updateChildren(userHwkDraftList);
         Toast.makeText(this, "Recipe saved to drafts", Toast.LENGTH_SHORT).show();
