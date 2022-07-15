@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -52,14 +53,17 @@ public class ProfileHawkerRV extends Fragment {
     private DatabaseReference databaseReference;
     private FirebaseDatabase firebaseDatabase;
 
+    Boolean status;
     Context c;
 
-    public ProfileHawkerRV(){
+    public ProfileHawkerRV(Boolean status){ // User;s own profile = true, Author's profile = false
         this.c = c;
+        this.status = status;
     }
 
     public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState){
-        View view = inflater.inflate(R.layout.activity_profile_hawkerrv, parent, false);
+        View view;
+        view= inflater.inflate(R.layout.activity_profile_hawkerrv, parent, false);
         Bundle bundle = this.getArguments();
 
         storageReference = FirebaseStorage.getInstance().getReference();
@@ -76,10 +80,19 @@ public class ProfileHawkerRV extends Fragment {
         hcheader.setText(username + "'s Hawker Corner");
 
         //Upon Delete button click
-        hcadapter = new HCMainsAdapter(hawkerCornersList, false);
+        hcadapter = new HCMainsAdapter(hawkerCornersList, status);
+        deleteBtn = view.findViewById(R.id.deleteBtn);
+        editBtn = view.findViewById(R.id.editBtn);
+        if (status == false){
+            deleteBtn.setVisibility(View.GONE);
+            editBtn.setVisibility(View.GONE);
+        }
+        else{
+            deleteBtn.setVisibility(View.VISIBLE);
+            editBtn.setVisibility(View.VISIBLE);
+        }
 
 //        Deleting Users own post
-        deleteBtn = view.findViewById(R.id.deleteBtn);
         deleteBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -134,7 +147,6 @@ public class ProfileHawkerRV extends Fragment {
             }
         });
 //        Editing Users own Post
-        editBtn = view.findViewById(R.id.editBtn);
         editBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -199,10 +211,21 @@ public class ProfileHawkerRV extends Fragment {
             }
         });
         hawkerCornersList.removeAll(hawkerCornersList);
-        for (HawkerCornerStalls obj : postsHolder.getUserHawkerPosts()) {
-            hawkerCornersList.add(obj);
+        if (status == true){
+            for (HawkerCornerStalls obj : postsHolder.getUserHawkerPosts()) {
+                hawkerCornersList.add(obj);
+            }
+            hcadapter = new HCMainsAdapter(hawkerCornersList, false);
         }
-        hcadapter = new HCMainsAdapter(hawkerCornersList, false);
+        else{
+            for (HawkerCornerStalls obj : postsHolder.getHawkerPosts()) {
+                if (obj.hcOwner.equals(usernameID)){
+                    hawkerCornersList.add(obj);
+                }
+            }
+            hcadapter = new HCMainsAdapter(hawkerCornersList, true);
+        }
+
         hcmainrv = view.findViewById(R.id.hawkercornerrv);
         // If you want the checkbox layout, set as false
         LinearLayoutManager hclayout = new LinearLayoutManager(view.getContext());

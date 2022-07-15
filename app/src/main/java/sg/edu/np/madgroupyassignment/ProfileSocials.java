@@ -78,7 +78,7 @@ public class ProfileSocials extends Fragment {
                 data.put("twitter", twitter);
                 databaseReference.child("UserProfile").child(usernameID).updateChildren(data);
 
-                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, new Profile()).addToBackStack(null).commit();
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, new Profile(true)).addToBackStack(null).commit();
 
                 Toast.makeText(getActivity(), "Changes Saved", Toast.LENGTH_SHORT).show();
             }

@@ -109,6 +109,7 @@ public class HCChosenStall extends Fragment {
             commentSend.hcstallname = chosenstall.hcstallname;
             commentSend.daysopen = chosenstall.daysopen;
             commentSend.hoursopen = chosenstall.hoursopen;
+            commentSend.hcOwner = chosenstall.hcOwner;
 
             databaseReference = firebaseDatabase.getReference().child("Comments").child(commentSend.getPostID());
             databaseReference.get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {

@@ -38,11 +38,15 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
 
+import org.parceler.Parcels;
+
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Profile extends Fragment {
 
     private UserProfile userProfile;
+    private ArrayList<UserProfile> userProfileList;
     private static String aboutMeInput;
     private static TextView username, hwkObj, rcpObj, fishRandom;
     private static ImageView profP, fishView;
@@ -65,6 +69,12 @@ public class Profile extends Fragment {
     private FirebaseDatabase firebaseDatabase;
 
     ActivityResultLauncher<String> getPhoto;
+    public Boolean status = true;
+    public String userID;
+
+    public Profile(Boolean status){
+        this.status = status; // true = the users own pfp, false = not the user's own pfp (clicked from a post)
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -95,28 +105,48 @@ public class Profile extends Fragment {
         firebaseDatabase = FirebaseDatabase.getInstance();
         databaseReference = firebaseDatabase.getReference();
 
+        // Users own profile page or not (true = user, false = author)
+        if (status == false){
+            // Getting Username ID (that needs to be shown)
+            Bundle bundle = this.getArguments();
+            if (bundle != null){
+                userProfileList = PostsHolder.getAuthorProfileList(); //Getting entire profile List
+                userID = bundle.getString("userID");
+                for (UserProfile i: userProfileList) {
+                    if (i.getUID().equals(userID)){
+                        userProfile = i;
+                    }
+                }
+            }
+            socialBtn.setVisibility(View.GONE);
+            aboutme.setFocusable(false);
+            aboutbtn.setVisibility(View.GONE);
+            logout.setVisibility(View.GONE);
+        }
 //        Updating page
         updatePage();
 
 //        Getting image
         getPhoto = registerForActivityResult(
-                new ActivityResultContracts.GetContent(),
-                new ActivityResultCallback<Uri>() {
-                    @Override
-                    public void onActivityResult(Uri result) {
-                        ImageUri = result;
-                        upPost();
-                    }
+            new ActivityResultContracts.GetContent(),
+            new ActivityResultCallback<Uri>() {
+                @Override
+                public void onActivityResult(Uri result) {
+                    ImageUri = result;
+                    upPost();
                 }
+            }
         );
 
 //        Getting image when profile pic is clicked
-        profP.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                getPhoto.launch("image/*");
-            }
-        });
+        if (status == true){
+            profP.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    getPhoto.launch("image/*");
+                }
+            });
+        }
 
 //        Changes about me text on clicked
         aboutbtn.setOnClickListener(new View.OnClickListener() {
@@ -134,7 +164,7 @@ public class Profile extends Fragment {
             public void onClick(View view) {
                 if (postsHolder.getUserHawkerPosts().size() > 0) {
                     AppCompatActivity activity = (AppCompatActivity) view.getContext();
-                    Fragment profileHcFragment = new ProfileHawkerRV();
+                    Fragment profileHcFragment = new ProfileHawkerRV(status);
 
                     //pass username
                     Bundle bundle = new Bundle();
@@ -160,7 +190,7 @@ public class Profile extends Fragment {
                 if (postsHolder.getUserRecipePosts().size() > 0) {
                     AppCompatActivity activity = (AppCompatActivity) view.getContext();
 
-                    Fragment profileRcpFragment = new ProfileRecipeRV();
+                    Fragment profileRcpFragment = new ProfileRecipeRV(status);
 
                     //pass username
                     Bundle bundle = new Bundle();
@@ -294,7 +324,10 @@ public class Profile extends Fragment {
     public void updatePage() {
         MainActivity mainActivity = new MainActivity();
         mainActivity.profileFirstUpdate = false;
-        userProfile = postsHolder.getUserProfile();
+
+        if (status == true){ // users own profile
+            userProfile = postsHolder.getUserProfile();
+        }
 
         Picasso.get().load(userProfile.getProfileImg()).into(profP);
         username.setText(userProfile.getUsername());
@@ -334,12 +367,12 @@ public class Profile extends Fragment {
 
     //    Removes all non-user posts
     private void getUserPost() {
-        ProfileHawkerRV profileHawkerRV = new ProfileHawkerRV();
+        ProfileHawkerRV profileHawkerRV = new ProfileHawkerRV(status);
         if (profileHawkerRV.hcadapter != null) {
             profileHawkerRV.hcadapter.notifyDataSetChanged();
         }
 
-        ProfileRecipeRV profileRecipeRV = new ProfileRecipeRV();
+        ProfileRecipeRV profileRecipeRV = new ProfileRecipeRV(status);
         if (profileRecipeRV.rcadapter != null) {
             profileRecipeRV.rcadapter.notifyDataSetChanged();
         }

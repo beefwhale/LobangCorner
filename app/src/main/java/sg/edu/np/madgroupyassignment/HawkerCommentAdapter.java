@@ -5,6 +5,7 @@ import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.media.Image;
+import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -25,8 +26,11 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.view.menu.MenuBuilder;
 import androidx.appcompat.view.menu.MenuPopupHelper;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -36,6 +40,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
+import org.parceler.Parcel;
+import org.parceler.Parcels;
 import org.w3c.dom.Text;
 
 import java.util.ArrayList;
@@ -50,12 +56,12 @@ public class HawkerCommentAdapter extends RecyclerView.Adapter<CommentViewholder
     private Boolean contentCheck;
     private String postID, userID;
     private PostsHolder postsHolder;
-    private UserProfile userProfile;
+    private UserProfile userProfile, authorProfile;
     private FirebaseAuth firebaseAuth;
-    private DatabaseReference databaseReference;
-    private DatabaseReference databaseReference2;
+    private DatabaseReference databaseReference, databaseReference2;
     private FirebaseDatabase firebaseDatabase;
     private HashMap<String, Object> hwklist = new HashMap<String, Object>();
+    TextView hccusername;
 
     public HawkerCommentAdapter(Context c, ArrayList<Comments> commentData, HomeMixData CommentRetrieve, Boolean contentCheck) {
         this.c = c;
@@ -95,7 +101,7 @@ public class HawkerCommentAdapter extends RecyclerView.Adapter<CommentViewholder
             ImageView hccuserpfp = item.findViewById(R.id.hccuserpfp);
             ImageView hcbookmark = item.findViewById(R.id.hcbookmark);
             TextView chosenstallname = item.findViewById(R.id.chosenstallname);
-            TextView hccusername = item.findViewById(R.id.hccusername);
+            hccusername = item.findViewById(R.id.hccusername);
             TextView hccaddress = item.findViewById(R.id.hccaddress);
             TextView hccparagraph = item.findViewById(R.id.hccparagraph);
             TextView descriptionheader = item.findViewById(R.id.descriptiontv);
@@ -112,6 +118,33 @@ public class HawkerCommentAdapter extends RecyclerView.Adapter<CommentViewholder
             descriptionheader.setText("About " + CommentRetrieve.hcstallname);
             hccopendays.setText(CommentRetrieve.daysopen);
             hccopenhours.setText(CommentRetrieve.hoursopen);
+            //Leads to author's profile page
+            hccusername.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    AppCompatActivity activity = (AppCompatActivity) item.getContext();
+                    if (CommentRetrieve.hcOwner != null){
+                        if (CommentRetrieve.hcOwner.equals(userProfile.UID)){ // if its the user's own account
+                            activity.getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, new Profile(true), "Profile")
+                                    .addToBackStack(null).commit();
+                            MainActivity.bottomNavigationView.getMenu().findItem(R.id.profile).setChecked(true);
+                        }
+                        else{ // Not the user's wn account = author's account
+                            Fragment profileFragment = new Profile(false);
+                            Bundle bundle = new Bundle();
+                            bundle.putString("userID", CommentRetrieve.hcOwner); // Passing username inside
+                            profileFragment.setArguments(bundle);
+                            activity.getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, profileFragment)
+                                    .addToBackStack(null).commit();
+                        }
+
+                    }
+                    else{
+                        Toast.makeText(c, "An Error Occured", Toast.LENGTH_SHORT).show();
+                    }
+
+                }
+            });
 
             DatabaseReference dr = databaseReference2.child("UserProfile").child(firebaseAuth.getUid()).child("bmhawklist");
             dr.addValueEventListener(new ValueEventListener() {

@@ -521,7 +521,7 @@ public class HawkerForm extends Fragment {
                         MainActivity.bottomNavigationView.getMenu().findItem(R.id.home).setChecked(true);
                     }
                     else if (check == 1){
-                        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, new Profile()).commit();
+                        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, new Profile(true)).commit();
                         MainActivity.bottomNavigationView.getMenu().findItem(R.id.profile).setChecked(true);
                     }
 

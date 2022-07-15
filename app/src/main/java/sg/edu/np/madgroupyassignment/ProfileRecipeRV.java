@@ -51,8 +51,11 @@ public class ProfileRecipeRV extends Fragment{
     private DatabaseReference databaseReference;
     private FirebaseDatabase firebaseDatabase;
 
-    public ProfileRecipeRV(){
+    Boolean status;
+    public ProfileRecipeRV(Boolean status){// User;s own profile = true, Author's profile = false
+
         this.c = c;
+        this.status = status;
     }
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -72,10 +75,15 @@ public class ProfileRecipeRV extends Fragment{
         //Setting personalised header
         rcheader.setText(username + "'s Recipe Corner");
 
+        deleteBtn = view.findViewById(R.id.deleteBtn);
+        editBtn = view.findViewById(R.id.editBtn);
         rcadapter = new RecipeAdapter(recipeCornersList, c, 2);
+        if (status == false){
+            deleteBtn.setVisibility(View.GONE);
+            editBtn.setVisibility(View.GONE);
+        }
 
 //        Deleting Users own post
-        deleteBtn = view.findViewById(R.id.deleteBtn);
         deleteBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -132,7 +140,6 @@ public class ProfileRecipeRV extends Fragment{
             }
         });
 //        Editing Users own Post
-        editBtn = view.findViewById(R.id.editBtn);
         editBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -198,15 +205,23 @@ public class ProfileRecipeRV extends Fragment{
         });
 
         recipeCornersList.removeAll(recipeCornersList);
-        for (RecipeCorner obj : postsHolder.getUserRecipePosts()) {
-            recipeCornersList.add(obj);
+        if (status == true){
+            for (RecipeCorner obj : postsHolder.getUserRecipePosts()) {
+                recipeCornersList.add(obj);
+            }
+            rcadapter = new RecipeAdapter(recipeCornersList, c, 2);
         }
-
+        else{
+            for (RecipeCorner obj : postsHolder.getRecipePosts()){
+                if (obj.owner.equals(usernameID)){
+                    recipeCornersList.add(obj);
+                }
+            }
+            rcadapter = new RecipeAdapter(recipeCornersList, c, 0);
+        }
         recipeRV = view.findViewById(R.id.idRVRecipe);
-        rcadapter = new RecipeAdapter(recipeCornersList, c, 2);
         LinearLayoutManager manager = new LinearLayoutManager(c);
         recipeRV.setHasFixedSize(true);
-
         recipeRV.setLayoutManager(manager);
         recipeRV.setAdapter(rcadapter);
 

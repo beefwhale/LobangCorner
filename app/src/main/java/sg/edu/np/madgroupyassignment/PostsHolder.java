@@ -11,6 +11,7 @@ import java.util.concurrent.ThreadLocalRandom;
 public class PostsHolder {
     private static int fishRandom  = new Random().nextInt(888889) + 111111;
     private static UserProfile userProfile;
+    private static ArrayList<UserProfile> authorProfileList;
     private static ArrayList<HawkerCornerStalls> hawkerPosts;
     private static ArrayList<RecipeCorner>  recipePosts;
 
@@ -26,12 +27,15 @@ public class PostsHolder {
 
     public PostsHolder() {
         this.userProfile = new UserProfile();
+        this.authorProfileList = new ArrayList<>();
         this.hawkerPosts = new ArrayList<>();
         this.recipePosts = new ArrayList<>();
         this.userHawkerPosts = new ArrayList<>();
         this.userRecipePosts = new ArrayList<>();
         this.hawkerDrafts = new ArrayList<>();
         this.recipeDrafts = new ArrayList<>();
+
+
 
     }
 
@@ -110,12 +114,24 @@ public class PostsHolder {
         PostsHolder.userProfile = userProfile;
     }
 
+    public static ArrayList<UserProfile> getAuthorProfileList() {
+        return authorProfileList;
+    }
+
+    public static void setAuthorProfileList(UserProfile authorProfileList) {
+        PostsHolder.authorProfileList.add(authorProfileList);
+    }
+
+
     public void removeHawkerPosts(){
         this.hawkerPosts.removeAll(hawkerPosts);
     }
 
     public void removeRecipePosts(){
         this.recipePosts.removeAll(recipePosts);
+    }
+    public void removeAuthorProfileList(){
+        this.authorProfileList.removeAll(authorProfileList);
     }
 
     public void removeUserHawkerPosts(){

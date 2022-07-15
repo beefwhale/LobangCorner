@@ -1,12 +1,13 @@
 package sg.edu.np.madgroupyassignment;
 
-import android.os.Parcel;
 import android.os.Parcelable;
+
+import org.parceler.Parcel;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
-@org.parceler.Parcel
+@Parcel
 public class UserProfile {
     String UID;
     String username;

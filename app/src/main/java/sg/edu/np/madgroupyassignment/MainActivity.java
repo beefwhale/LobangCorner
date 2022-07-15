@@ -46,6 +46,7 @@ public class MainActivity extends AppCompatActivity{
     private String UID;
     public static Boolean profileFirstUpdate;
     private UserProfile userProfile;
+    private ArrayList<UserProfile> authorProfileList;
     private PostsHolder postsHolder;
     private  PostsHolder2 postsHolder2;
     private Handler handler;
@@ -114,7 +115,7 @@ public class MainActivity extends AppCompatActivity{
             getWindow().setStatusBarColor(Color.TRANSPARENT);
         }
 
-        Profile profilePage = new Profile();
+        Profile profilePage = new Profile(true);
         recipeForm = new RecipeForm(0);
         HawkerForm hawkerForm = new HawkerForm(0); //Posting = 0
         HawkerDraftsPage hawkerDraftsPage = new HawkerDraftsPage();
@@ -156,6 +157,13 @@ public class MainActivity extends AppCompatActivity{
 //                Getting user profile
                 userProfile = snapshot.child("UserProfile").child(UID).getValue(UserProfile.class);
                 postsHolder.setUserProfile(userProfile);
+
+//                Getting author profile
+                postsHolder.removeAuthorProfileList();
+                for (DataSnapshot objectEntry : snapshot.child("UserProfile").getChildren()) {
+                    UserProfile userObj = objectEntry.getValue(UserProfile.class);
+                    postsHolder.setAuthorProfileList(userObj);
+                }
 
 //                Getting Weekly Post
                 storedDate = new Date(snapshot.child("WeeklyDate").getValue(Long.class));
@@ -270,7 +278,7 @@ public class MainActivity extends AppCompatActivity{
         //Calling classes to replace upon nav bar click
 //        SplashPage splashPage = new SplashPage();
         Home homeFragment = new Home();
-        Profile profile = new Profile();
+        Profile profile = new Profile(true);
 
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(MainActivity.this);
         if (prefs.getBoolean("onlyonce", false) != true){
