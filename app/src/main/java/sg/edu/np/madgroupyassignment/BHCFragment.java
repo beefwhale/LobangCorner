@@ -83,6 +83,7 @@ public class BHCFragment extends Fragment {
                     hwklist.removeAll(toRemove);
                     dellist.removeAll(toRemove);
                     adapter.delete(hwklist);
+                    adapter = new HCMainsAdapter(hwklist, false);
                     recyclerView.setAdapter(adapter);
                 }
             }
