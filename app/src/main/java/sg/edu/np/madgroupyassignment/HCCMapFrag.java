@@ -11,7 +11,6 @@ import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
-import android.location.LocationRequest;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -47,6 +46,7 @@ import com.directions.route.RoutingListener;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -81,18 +81,18 @@ import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class HCCMapFrag extends Fragment implements OnMapReadyCallback, LocationListener{
+public class HCCMapFrag extends Fragment implements OnMapReadyCallback{
 
+    //Global variables
     private MapView mapView;
     private GoogleMap googleMap;
     private Geocoder geocoder;
     private ApiInterface apiInterface;
     private List<LatLng> polylist;
     private PolylineOptions polylineOptions;
-    FusedLocationProviderClient client;
-    Marker position1, position2;
-    Polyline polyline;
-
+    private FusedLocationProviderClient client;
+    private Marker position1, position2;
+    private Polyline polyline;
     private String hccname;
     private String hccaddr;
 
@@ -214,11 +214,6 @@ public class HCCMapFrag extends Fragment implements OnMapReadyCallback, Location
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
-
-    @Override
-    public void onLocationChanged(@NonNull Location location) {
-        mapView.getMapAsync(this);
     }
 
     public void getDirection(String origin, String destination){
