@@ -108,6 +108,23 @@ public class HawkerCommentAdapter extends RecyclerView.Adapter<CommentViewholder
             TextView hccopendays = item.findViewById(R.id.hccopendays);
             TextView hccopenhours = item.findViewById(R.id.hccopenhours);
 
+            //Starts map fragment
+            Button hccmapbtn = item.findViewById(R.id.hcctrack);
+            hccmapbtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    AppCompatActivity activity = (AppCompatActivity) view.getContext();
+                    Fragment stallmap = new HCCMapFrag();
+                    Bundle bundle = new Bundle();
+                    bundle.putString("stalladdr", hccaddress.getText().toString());
+                    bundle.putString("stallname", chosenstallname.getText().toString());
+
+                    stallmap.setArguments(bundle);
+                    activity.getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, stallmap)
+                            .addToBackStack(null).commit();
+                }
+            });
+
             //Adding Stall data
             Picasso.get().load(CommentRetrieve.getHccoverimg()).into(chosenstallimg);
             Picasso.get().load(CommentRetrieve.getHccuserpfp()).into(hccuserpfp);
