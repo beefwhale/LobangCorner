@@ -16,6 +16,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
@@ -87,9 +88,6 @@ public class HCCMapFrag extends Fragment implements OnMapReadyCallback{
     private MapView mapView;
     private GoogleMap googleMap;
     private Geocoder geocoder;
-    private ApiInterface apiInterface;
-    private List<LatLng> polylist;
-    private PolylineOptions polylineOptions;
     private FusedLocationProviderClient client;
     private Marker position1, position2;
     private Polyline polyline;
@@ -118,8 +116,10 @@ public class HCCMapFrag extends Fragment implements OnMapReadyCallback{
         TextView hccloctext = view.findViewById(R.id.hccloctext);
         mapView = view.findViewById(R.id.hccmapview);
         Button hcctrack = view.findViewById(R.id.hcctrack);
-        geocoder = new Geocoder(this.getContext());
+        Button drivebtn = view.findViewById(R.id.drivebtn);
 
+        geocoder = new Geocoder(this.getContext());
+        drivebtn.setVisibility(View.INVISIBLE);
         maptitle.setText(hccname);
         hccloctext.setText(hccaddr);
 
@@ -133,11 +133,23 @@ public class HCCMapFrag extends Fragment implements OnMapReadyCallback{
             public void onClick(View view) {
                 client = LocationServices.getFusedLocationProviderClient(getContext());
                 getCurrentLocation();
-                Retrofit retrofit = new Retrofit.Builder().addConverterFactory(GsonConverterFactory.create())
-                        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                        .baseUrl("https://maps.googleapis.com/")
-                        .build();
-                apiInterface = retrofit.create(ApiInterface.class);
+                drivebtn.setVisibility(View.VISIBLE);
+                drivebtn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        AppCompatActivity activity = (AppCompatActivity) view.getContext();
+                        Fragment hccDriveMap = new HCCDriveMap();
+                        Bundle bundle2 = new Bundle();
+                        bundle2.putDouble("pos2lat", position2.getPosition().latitude);
+                        bundle2.putDouble("pos2lng", position2.getPosition().longitude);
+                        bundle2.putDouble("pos1lat", position1.getPosition().latitude);
+                        bundle2.putDouble("pos1lng", position1.getPosition().longitude);
+
+                        hccDriveMap.setArguments(bundle2);
+                        activity.getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, hccDriveMap)
+                                .addToBackStack(null).commit();
+                    }
+                });
             }
         });
     }
@@ -171,8 +183,6 @@ public class HCCMapFrag extends Fragment implements OnMapReadyCallback{
                                         .add(position1.getPosition(), position2.getPosition())
                                         .color(Color.BLUE);
                                 polyline = googleMap.addPolyline(polylineOptions);
-                                getDirection(position2.getPosition().toString(), position1.getPosition().toString());
-
                             }
                         });
                     } else {
@@ -214,69 +224,5 @@ public class HCCMapFrag extends Fragment implements OnMapReadyCallback{
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
-
-    public void getDirection(String origin, String destination){
-        apiInterface.getDirection("driving", origin, destination, "AIzaSyB4SvXLLKqYV_vG4gxIfW-AKnzdshJzkN0")
-                .subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new SingleObserver<Result>() {
-                    @Override
-                    public void onSubscribe(Disposable d) {
-
-                    }
-
-                    @Override
-                    public void onSuccess(Result result) {
-                        polylist = new ArrayList<>();
-                        Log.d("mylog", result.getRoutes().toString());
-                        List<HCCRoute> routesList = result.getRoutes();
-                        for (HCCRoute route:routesList){
-                            String polyline = route.getOverviewPolyline().getPoints();
-                            polylist.addAll(decodePoly(polyline));
-                        }
-                        polylineOptions = new PolylineOptions();
-                        polylineOptions.addAll(polylist);
-                        polylineOptions.color(Color.BLUE);
-                        polylineOptions.startCap(new ButtCap());
-                        googleMap.addPolyline(polylineOptions);
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-
-                    }
-                });
-    }
-
-    //Method to decode string to Polyline LatLng
-    public List<LatLng> decodePoly(String encoded){
-        List<LatLng> poly = new ArrayList<>();
-        int index = 0, len = encoded.length();
-        int lat = 0, lng = 0;
-
-        while(index < len){
-            int b, shift = 0, result = 0;
-            do {
-                b = encoded.charAt(index++) - 63;
-                result |= (b & 0x1f) << shift;
-                shift += 5;
-            }while (b >= 0x20);
-            int dlat = ((result & 1) != 0 ? ~ (result >> 1): (result >> 1));
-            lat += dlat;
-
-            shift = 0;
-            result = 0;
-            do {
-                b = encoded.charAt(index++) - 63;
-                result |= (b& 0x1f) << shift;
-                shift += 5;
-            }while (b >= 0x20);
-            int dlng = (((result & 1) != 0 ? ~ (result >> 1) : (result>> 1)));
-            lng += dlng;
-
-            LatLng p = new LatLng(((double) lat/1E5), ((double) lng/1E5));
-            poly.add(p);
-        }
-        return poly;
     }
 }

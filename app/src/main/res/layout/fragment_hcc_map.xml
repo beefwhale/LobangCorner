@@ -11,7 +11,7 @@
     <com.google.android.gms.maps.MapView
         android:id="@+id/hccmapview"
         android:layout_width="0dp"
-        android:layout_height="330dp"
+        android:layout_height="310dp"
         android:layout_marginStart="20dp"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="20dp"
@@ -40,7 +40,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="14dp"
         android:layout_marginEnd="20dp"
         android:text="Go There"
         app:backgroundTint="@color/Main_Primary"
@@ -53,7 +53,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="4dp"
         android:layout_marginEnd="20dp"
         android:width="250dp"
         android:fontFamily="@font/montserrat_bold"
@@ -68,10 +68,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="4dp"
         android:fontFamily="@font/montserrat_bold"
         android:text="Stall Title"
-        android:textSize="24sp"
+        android:textSize="22sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/hccaddr" />
 
@@ -88,5 +88,17 @@
         android:textSize="14sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/hccaddrtxt" />
+
+    <Button
+        android:id="@+id/drivebtn"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:text="Driving Mode"
+        app:backgroundTint="@color/Main_Primary"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/hcctrack" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

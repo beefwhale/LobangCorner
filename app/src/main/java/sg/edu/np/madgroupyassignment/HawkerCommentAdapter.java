@@ -114,13 +114,13 @@ public class HawkerCommentAdapter extends RecyclerView.Adapter<CommentViewholder
                 @Override
                 public void onClick(View view) {
                     AppCompatActivity activity = (AppCompatActivity) view.getContext();
-                    Fragment stallmap = new HCCMapFrag();
+                    Fragment splash = new HCCMapSplash();
                     Bundle bundle = new Bundle();
                     bundle.putString("stalladdr", hccaddress.getText().toString());
                     bundle.putString("stallname", chosenstallname.getText().toString());
 
-                    stallmap.setArguments(bundle);
-                    activity.getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, stallmap)
+                    splash.setArguments(bundle);
+                    activity.getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, splash)
                             .addToBackStack(null).commit();
                 }
             });
