@@ -14,13 +14,21 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import com.squareup.picasso.Picasso;
+
+import java.util.ArrayList;
 
 public class HawkerDraftsPage extends Fragment {
 
     RecyclerView hawkerDraftRV;
     OnBackPressedCallback callback;
     PostsHolder postsHolder;
+    ArrayList<HawkerCornerStalls> draftsList = new ArrayList<HawkerCornerStalls>();
 
     public HawkerDraftsPage() {
 
@@ -30,9 +38,13 @@ public class HawkerDraftsPage extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View hawkerDraftPage = inflater.inflate(R.layout.fragment_hawker_drafts_page, container, false);
+        draftsList.removeAll(draftsList);
+        for (HawkerCornerStalls obj : postsHolder.getHawkerDrafts()){
+            draftsList.add(obj);
+        }
         hawkerDraftRV = hawkerDraftPage.findViewById(R.id.hawkerDraftRV);
         hawkerDraftRV.setLayoutManager(new LinearLayoutManager(getActivity().getApplicationContext()));
-        hawkerDraftRV.setAdapter(new HawkerDraftsAdapter());
+        hawkerDraftRV.setAdapter(new HawkerDraftsAdapter(draftsList));
         return hawkerDraftPage;
     }
 
@@ -43,12 +55,27 @@ public class HawkerDraftsPage extends Fragment {
     }
 
     public class HawkerDraftsViewHolder extends RecyclerView.ViewHolder{
-        public HawkerDraftsViewHolder(@NonNull View itemView) {
-            super(itemView);
+        ImageView hccoverimg;
+        TextView hcstallname;
+        TextView hcauthor;
+        TextView hcshortdesc;
+        CheckBox hcCheckbox;
+        public HawkerDraftsViewHolder(@NonNull View item) {
+            super(item);
+            hccoverimg = item.findViewById(R.id.hccoverimg);
+            hcstallname = item.findViewById(R.id.hcstallname);
+            hcauthor = item.findViewById(R.id.hccoverauthor);
+            hcshortdesc = item.findViewById(R.id.hcshortdesc);
+            hcCheckbox = item.findViewById(R.id.hccheckbox);
         }
     }
 
     class HawkerDraftsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
+        ArrayList<HawkerCornerStalls> stallsList;
+
+        public HawkerDraftsAdapter(ArrayList<HawkerCornerStalls> stallsList){
+            this.stallsList = stallsList;
+        }
 
         @NonNull
         @Override
@@ -58,7 +85,7 @@ public class HawkerDraftsPage extends Fragment {
                 return new HawkerDraftsPage.HawkerDraftsAddViewHolder(addDraftView);
             }
             else{
-                View draftView = LayoutInflater.from(parent.getContext()).inflate(R.layout.drafts, parent, false);
+                View draftView = LayoutInflater.from(parent.getContext()).inflate(R.layout.activity_profile_hc_card, parent, false);
                 return new HawkerDraftsPage.HawkerDraftsViewHolder(draftView);
             }
         }
@@ -86,6 +113,16 @@ public class HawkerDraftsPage extends Fragment {
                 });
             }
             else{
+                HawkerDraftsViewHolder hawkerDraftsViewHolder = (HawkerDraftsViewHolder) holder;
+                HawkerCornerStalls newstall = stallsList.get(position-1);
+                if (newstall.getHccoverimg() == "" | newstall.getHccoverimg().isEmpty() | newstall.getHccoverimg() == null){
+                }
+                else{
+                    Picasso.get().load(newstall.getHccoverimg()).into(hawkerDraftsViewHolder.hccoverimg);
+                }
+                hawkerDraftsViewHolder.hcstallname.setText(newstall.hcstallname);
+                hawkerDraftsViewHolder.hcshortdesc.setText(newstall.shortdesc);
+                hawkerDraftsViewHolder.hcauthor.setText("By: " + newstall.hcauthor);
                 holder.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {

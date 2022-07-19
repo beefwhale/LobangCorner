@@ -12,13 +12,22 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
+import android.widget.ImageView;
+import android.widget.RatingBar;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import com.squareup.picasso.Picasso;
+
+import java.util.ArrayList;
 
 public class RecipeDraftsPage extends Fragment {
 
     RecyclerView recipeDraftRV;
     OnBackPressedCallback callback;
     PostsHolder postsHolder;
+    ArrayList<RecipeCorner> draftsList = new ArrayList<RecipeCorner>();
 
     public RecipeDraftsPage() {
     }
@@ -27,9 +36,13 @@ public class RecipeDraftsPage extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View recipeDraftPage = inflater.inflate(R.layout.fragment_recipe_drafts_page, container, false);
+        draftsList.removeAll(draftsList);
+        for (RecipeCorner obj : postsHolder.getRecipeDrafts()){
+            draftsList.add(obj);
+        }
         recipeDraftRV = recipeDraftPage.findViewById(R.id.recipeDraftRV);
         recipeDraftRV.setLayoutManager(new LinearLayoutManager(getActivity().getApplicationContext()));
-        recipeDraftRV.setAdapter(new RecipeDraftsPage.RecipeDraftsAdapter());
+        recipeDraftRV.setAdapter(new RecipeDraftsPage.RecipeDraftsAdapter(draftsList));
         return recipeDraftPage;
     }
 
@@ -40,12 +53,29 @@ public class RecipeDraftsPage extends Fragment {
     }
 
     public class RecipeDraftsViewHolder extends RecyclerView.ViewHolder{
+        TextView recipeName, recipeDesc, userName;
+        ImageView foodImage;
+        RatingBar ratingBar;
+        CheckBox checkbox;
         public RecipeDraftsViewHolder(@NonNull View itemView) {
             super(itemView);
+
+            recipeName = itemView.findViewById(R.id.idRecipeName);
+            recipeDesc = itemView.findViewById(R.id.idRecipeDescription);
+            userName = itemView.findViewById(R.id.idUser);
+            foodImage = itemView.findViewById(R.id.imageView);
+            ratingBar = itemView.findViewById(R.id.ratingBar);
+            checkbox = itemView.findViewById(R.id.rccheckbox);
+
         }
     }
 
     class RecipeDraftsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
+        ArrayList<RecipeCorner> recipeDraftsList;
+
+        public RecipeDraftsAdapter(ArrayList<RecipeCorner> recipeDraftsList){
+            this.recipeDraftsList = recipeDraftsList;
+        }
 
         @NonNull
         @Override
@@ -55,7 +85,7 @@ public class RecipeDraftsPage extends Fragment {
                 return new RecipeDraftsPage.RecipeDraftsAddViewHolder(addDraftView);
             }
             else{
-                View draftView = LayoutInflater.from(parent.getContext()).inflate(R.layout.drafts, parent, false);
+                View draftView = LayoutInflater.from(parent.getContext()).inflate(R.layout.activity_profile_rc_card, parent, false);
                 return new RecipeDraftsPage.RecipeDraftsViewHolder(draftView);
             }
         }
@@ -82,6 +112,18 @@ public class RecipeDraftsPage extends Fragment {
                 });
             }
             else{
+                RecipeDraftsPage.RecipeDraftsViewHolder recipeDraftsViewHolder = (RecipeDraftsPage.RecipeDraftsViewHolder) holder;
+                RecipeCorner item = recipeDraftsList.get(position-1);
+                if (item.getFoodImage() == "" | item.getFoodImage().isEmpty() | item.getFoodImage() == null){
+                }
+                else{
+                    Picasso.get().load(item.getFoodImage()).into(recipeDraftsViewHolder.foodImage); //load image from database to imageview
+                }
+                recipeDraftsViewHolder.recipeName.setText(item.recipeName);         //set textview to recipename
+                recipeDraftsViewHolder.recipeDesc.setText(item.getRecipeDescription()); //set textview to recipedescription
+                recipeDraftsViewHolder.ratingBar.setRating(item.getRecipeRating()); //set ratingbar to recipe difficulty level
+                recipeDraftsViewHolder.userName.setText("By: " + item.getUserName());   //set textview to username
+
                 holder.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
