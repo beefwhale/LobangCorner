@@ -96,6 +96,7 @@
         <entry key="..\:/Users/l1ght/AndroidStudioProjects/LobangCorner/app/src/main/res/layout/activity_login.xml" value="0.22826086956521738" />
         <entry key="..\:/Users/l1ght/AndroidStudioProjects/LobangCorner/app/src/main/res/layout/activity_main.xml" value="0.22826086956521738" />
         <entry key="..\:/Users/l1ght/AndroidStudioProjects/LobangCorner/app/src/main/res/layout/activity_profile_hawkerrv.xml" value="0.14722222222222223" />
+        <entry key="..\:/Users/l1ght/AndroidStudioProjects/LobangCorner/app/src/main/res/layout/activity_profile_hc_card.xml" value="0.20425724637681159" />
         <entry key="..\:/Users/l1ght/AndroidStudioProjects/LobangCorner/app/src/main/res/layout/activity_profile_rc_card.xml" value="0.2164855072463768" />
         <entry key="..\:/Users/l1ght/AndroidStudioProjects/LobangCorner/app/src/main/res/layout/activity_recipe_corner_main.xml" value="0.22760416666666666" />
         <entry key="..\:/Users/l1ght/AndroidStudioProjects/LobangCorner/app/src/main/res/layout/activity_recipe_corner_posts.xml" value="0.22760416666666666" />
@@ -104,6 +105,8 @@
         <entry key="..\:/Users/l1ght/AndroidStudioProjects/LobangCorner/app/src/main/res/layout/chosenstall_comments.xml" value="0.2234375" />
         <entry key="..\:/Users/l1ght/AndroidStudioProjects/LobangCorner/app/src/main/res/layout/comment_layout.xml" value="0.2234375" />
         <entry key="..\:/Users/l1ght/AndroidStudioProjects/LobangCorner/app/src/main/res/layout/drafts.xml" value="0.14842958459979735" />
+        <entry key="..\:/Users/l1ght/AndroidStudioProjects/LobangCorner/app/src/main/res/layout/fragment_bhc.xml" value="0.20425724637681159" />
+        <entry key="..\:/Users/l1ght/AndroidStudioProjects/LobangCorner/app/src/main/res/layout/fragment_brc.xml" value="0.34646739130434784" />
         <entry key="..\:/Users/l1ght/AndroidStudioProjects/LobangCorner/app/src/main/res/layout/fragment_hawker_drafts_page.xml" value="0.25" />
         <entry key="..\:/Users/l1ght/AndroidStudioProjects/LobangCorner/app/src/main/res/layout/fragment_hawker_form.xml" value="0.22760416666666666" />
         <entry key="..\:/Users/l1ght/AndroidStudioProjects/LobangCorner/app/src/main/res/layout/fragment_hcc_map_splash.xml" value="0.2164855072463768" />

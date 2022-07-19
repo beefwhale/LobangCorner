@@ -627,7 +627,7 @@ public class HawkerForm extends Fragment {
 
                 HwkDraftUp(hawkerDrafts, hawkerDrafts.postid);
 
-                Toast.makeText(getActivity(), hawkerDrafts.shortdesc, Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getActivity(), hawkerDrafts.shortdesc, Toast.LENGTH_SHORT).show();
                 getParentFragmentManager().popBackStack();
             }
         });

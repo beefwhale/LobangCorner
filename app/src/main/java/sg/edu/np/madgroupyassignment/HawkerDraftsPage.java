@@ -15,13 +15,21 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class HawkerDraftsPage extends Fragment {
 
@@ -30,6 +38,17 @@ public class HawkerDraftsPage extends Fragment {
     PostsHolder postsHolder;
     ArrayList<HawkerCornerStalls> draftsList = new ArrayList<HawkerCornerStalls>();
 
+    ImageButton deleteBtn;
+    ImageButton editBtn;
+    HawkerDraftsAdapter hcdadapter;
+    private StorageReference storageReference;
+    private DatabaseReference databaseReference;
+    private FirebaseDatabase firebaseDatabase;
+    ArrayList<Integer> listPos;
+
+    AlertDialog.Builder builder;
+    private FirebaseAuth mAuth;
+
     public HawkerDraftsPage() {
 
     }
@@ -37,14 +56,78 @@ public class HawkerDraftsPage extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+//        Defining Items
         View hawkerDraftPage = inflater.inflate(R.layout.fragment_hawker_drafts_page, container, false);
+        deleteBtn = hawkerDraftPage.findViewById(R.id.deleteBtnDrafts);
+        editBtn = hawkerDraftPage.findViewById(R.id.editBtnDrafts);
+        mAuth = FirebaseAuth.getInstance();
+        storageReference = FirebaseStorage.getInstance().getReference();
+        firebaseDatabase = FirebaseDatabase.getInstance();
+        databaseReference = firebaseDatabase.getReference();
+
+//        Setting drafts list to list in firebase
         draftsList.removeAll(draftsList);
         for (HawkerCornerStalls obj : postsHolder.getHawkerDrafts()){
             draftsList.add(obj);
         }
+        hcdadapter = new HawkerDraftsAdapter(draftsList);
+//        Setting RecyclerView
         hawkerDraftRV = hawkerDraftPage.findViewById(R.id.hawkerDraftRV);
         hawkerDraftRV.setLayoutManager(new LinearLayoutManager(getActivity().getApplicationContext()));
-        hawkerDraftRV.setAdapter(new HawkerDraftsAdapter(draftsList));
+        hawkerDraftRV.setAdapter(hcdadapter);
+
+//        Delete User Drafts
+        deleteBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                builder = new AlertDialog.Builder(getContext());
+                //At least one post selected
+                if (hcdadapter.cbCount > 0){
+                    //Setting message manually and performing action on button click
+                    builder.setTitle("Confirm Delete ?")
+                            .setMessage("You sure you want to permanently delete ("+hcdadapter.cbCount+") posts?")
+                            .setCancelable(false)
+                            .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    //  Action for 'NO' Button
+                                    dialog.cancel();
+//                                Toast.makeText(getApplicationContext(),"you choose no action for alertbox",
+//                                        Toast.LENGTH_SHORT).show();
+                                }
+                            })
+                            .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    dialog.cancel();
+                                    //List of selected positions in RV (Checked)
+                                    listPos = hcdadapter.adapterListPos;
+                                    //Sort list in descending order to avoid Array Out of Bounds
+                                    Collections.sort(listPos, Collections.reverseOrder());
+                                    for (int i: listPos) {
+                                        HawkerCornerStalls deleteItem = draftsList.get(i-1);
+                                        //removing from database
+                                        databaseReference.child("Drafts").child("Hawkers").child(mAuth.getUid()).child(deleteItem.getPostid()).removeValue();
+//                                        StorageReference storageLocationCheck = FirebaseStorage.getInstance().getReferenceFromUrl(deleteItem.hccoverimg);
+//                                        storageLocationCheck.delete();
+
+                                        //Updating List
+                                        draftsList.remove(i-1);
+                                        hcdadapter.notifyItemRemoved(i-1);
+                                        hcdadapter.notifyItemRangeChanged(0,listPos.size()-1);
+                                    }
+                                    Toast.makeText(getActivity(),hcdadapter.cbCount+" Post(s) Deleted",
+                                            Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                    //Creating dialog box
+                    AlertDialog alert = builder.create();
+                    alert.show();
+                }
+                else{
+                    Toast.makeText(getActivity(),"No Post Selected",
+                            Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
         return hawkerDraftPage;
     }
 
@@ -72,6 +155,10 @@ public class HawkerDraftsPage extends Fragment {
 
     class HawkerDraftsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
         ArrayList<HawkerCornerStalls> stallsList;
+        public ArrayList<Integer> adapterListPos = new ArrayList<>();
+        public Integer cbCount = 0 ;
+        Integer toRemove;
+        public ArrayList<HawkerCornerStalls> del_hcdlist = new ArrayList<>();
 
         public HawkerDraftsAdapter(ArrayList<HawkerCornerStalls> stallsList){
             this.stallsList = stallsList;
@@ -129,6 +216,39 @@ public class HawkerDraftsPage extends Fragment {
                         Toast.makeText(getActivity(), "rest", Toast.LENGTH_SHORT).show();
                     }
                 });
+                //Setting all as default unselected
+                newstall.setChecked(false);
+                //DESELECTION : if removed from listPos, updating checkbox for every card
+                if (adapterListPos.contains(holder.getAdapterPosition()) == false){
+                    hawkerDraftsViewHolder.hcCheckbox.setChecked(false);
+                }
+                else{
+                    hawkerDraftsViewHolder.hcCheckbox.setChecked(true);
+                }
+                hawkerDraftsViewHolder.hcCheckbox.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (newstall.getChecked() == true) {
+                            newstall.setChecked(false);
+                            cbCount = cbCount - 1;
+                            for (Integer i:adapterListPos){ //finding integer within list
+                                if (i.equals(holder.getAdapterPosition())){
+                                    toRemove = i; // getting integer position
+                                }
+                            }
+                            //Remove integer from list using integer position
+                            adapterListPos.remove(toRemove);
+                        }
+                        else {
+                            newstall.setChecked(true);
+                            cbCount = cbCount + 1;
+                            //Add to list of checked using adapter position
+                            adapterListPos.add(holder.getAdapterPosition());
+                        }
+                    }
+                });
+
+
             }
         }
 
@@ -139,7 +259,12 @@ public class HawkerDraftsPage extends Fragment {
 
         @Override
         public int getItemCount() {
-            return (1+postsHolder.getHawkerDrafts().size());
+            return (1+stallsList.size());
+        }
+
+        public void sortChange(ArrayList<HawkerCornerStalls> newList){
+            this.stallsList = newList;
+            notifyDataSetChanged();
         }
     }
 
