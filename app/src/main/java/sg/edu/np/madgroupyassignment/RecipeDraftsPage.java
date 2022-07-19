@@ -1,9 +1,11 @@
 package sg.edu.np.madgroupyassignment;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 
 import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -13,14 +15,21 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class RecipeDraftsPage extends Fragment {
 
@@ -29,20 +38,96 @@ public class RecipeDraftsPage extends Fragment {
     PostsHolder postsHolder;
     ArrayList<RecipeCorner> draftsList = new ArrayList<RecipeCorner>();
 
+    ImageButton deleteBtn;
+    ImageButton editBtn;
+    RecipeDraftsAdapter rcdadapter;
+    private StorageReference storageReference;
+    private DatabaseReference databaseReference;
+    private FirebaseDatabase firebaseDatabase;
+    ArrayList<Integer> listPos;
+
+    AlertDialog.Builder builder;
+    private FirebaseAuth mAuth;
+
     public RecipeDraftsPage() {
+
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+//        Defining items
         View recipeDraftPage = inflater.inflate(R.layout.fragment_recipe_drafts_page, container, false);
+        deleteBtn = recipeDraftPage.findViewById(R.id.deleteBtnDrafts);
+        editBtn = recipeDraftPage.findViewById(R.id.editBtnDrafts);
+        mAuth = FirebaseAuth.getInstance();
+        storageReference = FirebaseStorage.getInstance().getReference();
+        firebaseDatabase = FirebaseDatabase.getInstance();
+        databaseReference = firebaseDatabase.getReference();
+
+        //        Setting drafts list to list in firebase
         draftsList.removeAll(draftsList);
         for (RecipeCorner obj : postsHolder.getRecipeDrafts()){
             draftsList.add(obj);
         }
+        rcdadapter = new RecipeDraftsPage.RecipeDraftsAdapter(draftsList);
+        //        Setting RecyclerView
         recipeDraftRV = recipeDraftPage.findViewById(R.id.recipeDraftRV);
         recipeDraftRV.setLayoutManager(new LinearLayoutManager(getActivity().getApplicationContext()));
-        recipeDraftRV.setAdapter(new RecipeDraftsPage.RecipeDraftsAdapter(draftsList));
+        recipeDraftRV.setAdapter(rcdadapter);
+
+//        Delete User Drafts
+        deleteBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                builder = new AlertDialog.Builder(getContext());
+                //At least one post selected
+                if (rcdadapter.cbCount > 0){
+                    //Setting message manually and performing action on button click
+                    builder.setTitle("Confirm Delete ?")
+                            .setMessage("You sure you want to permanently delete ("+rcdadapter.cbCount+") posts?")
+                            .setCancelable(false)
+                            .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    //  Action for 'NO' Button
+                                    dialog.cancel();
+//                                Toast.makeText(getApplicationContext(),"you choose no action for alertbox",
+//                                        Toast.LENGTH_SHORT).show();
+                                }
+                            })
+                            .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    dialog.cancel();
+                                    //List of selected positions in RV (Checked)
+                                    listPos = rcdadapter.adapterListPos;
+                                    //Sort list in descending order to avoid Array Out of Bounds
+                                    Collections.sort(listPos, Collections.reverseOrder());
+                                    for (int i: listPos) {
+                                        RecipeCorner deleteItem = draftsList.get(i-1);
+                                        //removing from database
+                                        databaseReference.child("Drafts").child("Recipes").child(mAuth.getUid()).child(deleteItem.getPostID()).removeValue();
+//                                        StorageReference storageLocationCheck = FirebaseStorage.getInstance().getReferenceFromUrl(deleteItem.foodImage);
+//                                        storageLocationCheck.delete();
+
+                                        //Updating List
+                                        draftsList.remove(i-1);
+                                        rcdadapter.notifyItemRemoved(i-1);
+                                        rcdadapter.notifyItemRangeChanged(0,listPos.size()-1);
+                                    }
+                                    Toast.makeText(getActivity(),rcdadapter.cbCount+" Post(s) Deleted",
+                                            Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                    //Creating dialog box
+                    AlertDialog alert = builder.create();
+                    alert.show();
+                }
+                else{
+                    Toast.makeText(getActivity(),"No Post Selected",
+                            Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
         return recipeDraftPage;
     }
 
@@ -72,6 +157,9 @@ public class RecipeDraftsPage extends Fragment {
 
     class RecipeDraftsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
         ArrayList<RecipeCorner> recipeDraftsList;
+        public Integer cbCount = 0 ;
+        public ArrayList<Integer> adapterListPos = new ArrayList<>();
+        Integer toRemove;
 
         public RecipeDraftsAdapter(ArrayList<RecipeCorner> recipeDraftsList){
             this.recipeDraftsList = recipeDraftsList;
@@ -130,6 +218,37 @@ public class RecipeDraftsPage extends Fragment {
                         Toast.makeText(getActivity(), "rest", Toast.LENGTH_SHORT).show();
                     }
                 });
+                //Setting all as default unselected
+                item.setChecked(false);
+                //DESELECTION : if removed from listPos, updating checkbox for every card
+                if (adapterListPos.contains(holder.getAdapterPosition()) == false){
+                    recipeDraftsViewHolder.checkbox.setChecked(false);
+                }
+                else{
+                    recipeDraftsViewHolder.checkbox.setChecked(true);
+                }
+                recipeDraftsViewHolder.checkbox.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (item.getChecked() == true) {
+                            item.setChecked(false);
+                            cbCount = cbCount - 1;
+                            for (Integer i:adapterListPos){ //finding integer within list
+                                if (i.equals(holder.getAdapterPosition())){
+                                    toRemove = i; // getting integer position
+                                }
+                            }
+                            //Remove integer from list using integer position
+                            adapterListPos.remove(toRemove);
+                        }
+                        else {
+                            item.setChecked(true);
+                            cbCount = cbCount + 1;
+                            //Add to list of checked using adapter position
+                            adapterListPos.add(holder.getAdapterPosition());
+                        }
+                    }
+                });
             }
         }
 
@@ -140,7 +259,7 @@ public class RecipeDraftsPage extends Fragment {
 
         @Override
         public int getItemCount() {
-            return (1 + postsHolder.getRecipeDrafts().size());
+            return (1 + recipeDraftsList.size());
         }
     }
 
