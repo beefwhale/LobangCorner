@@ -77,6 +77,7 @@ public class RecipeDraftsPage extends Fragment {
         recipeDraftRV.setAdapter(rcdadapter);
 
 //        Delete User Drafts
+        rcdadapter.adapterListPos.clear();
         deleteBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -114,6 +115,7 @@ public class RecipeDraftsPage extends Fragment {
                                         rcdadapter.notifyItemRemoved(i-1);
                                         rcdadapter.notifyItemRangeChanged(0,listPos.size()-1);
                                     }
+                                    rcdadapter.adapterListPos.clear();
                                     Toast.makeText(getActivity(),rcdadapter.cbCount+" Post(s) Deleted",
                                             Toast.LENGTH_SHORT).show();
                                 }
@@ -246,6 +248,9 @@ public class RecipeDraftsPage extends Fragment {
                             cbCount = cbCount + 1;
                             //Add to list of checked using adapter position
                             adapterListPos.add(holder.getAdapterPosition());
+                        }
+                        if (cbCount == 0){
+                            listPos.clear();
                         }
                     }
                 });

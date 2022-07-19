@@ -77,6 +77,7 @@ public class HawkerDraftsPage extends Fragment {
         hawkerDraftRV.setAdapter(hcdadapter);
 
 //        Delete User Drafts
+        hcdadapter.adapterListPos.clear();
         deleteBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -114,6 +115,7 @@ public class HawkerDraftsPage extends Fragment {
                                         hcdadapter.notifyItemRemoved(i-1);
                                         hcdadapter.notifyItemRangeChanged(0,listPos.size()-1);
                                     }
+                                    hcdadapter.adapterListPos.clear();
                                     Toast.makeText(getActivity(),hcdadapter.cbCount+" Post(s) Deleted",
                                             Toast.LENGTH_SHORT).show();
                                 }
@@ -244,6 +246,9 @@ public class HawkerDraftsPage extends Fragment {
                             cbCount = cbCount + 1;
                             //Add to list of checked using adapter position
                             adapterListPos.add(holder.getAdapterPosition());
+                        }
+                        if (cbCount == 0){
+                            listPos.clear();
                         }
                     }
                 });
