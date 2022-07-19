@@ -93,6 +93,7 @@ public class ProfileHawkerRV extends Fragment {
         }
 
 //        Deleting Users own post
+        hcadapter.listPos.clear();
         deleteBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -119,6 +120,9 @@ public class ProfileHawkerRV extends Fragment {
                                     //Sort list in descending order to avoid Array Out of Bounds
                                     Collections.sort(listPos, Collections.reverseOrder());
                                     for (int i: listPos) {
+                                        Log.e("beef",i+"");
+                                        Log.e("beef2",listPos.size()+"");
+                                        Log.e("beef2",hawkerCornersList.size()+"");
                                         HawkerCornerStalls deleteItem = hawkerCornersList.get(i);
                                         //removing from database
                                         databaseReference.child("UserProfile").child(usernameID).child("hawkList").child(deleteItem.getPostid()).removeValue();
@@ -132,6 +136,7 @@ public class ProfileHawkerRV extends Fragment {
                                         hcadapter.notifyItemRemoved(i);
                                         hcadapter.notifyItemRangeChanged(0,listPos.size());
                                     }
+                                    hcadapter.listPos.clear();
                                     Toast.makeText(getActivity(),hcadapter.cbCount+" Post(s) Deleted",
                                             Toast.LENGTH_SHORT).show();
                                 }

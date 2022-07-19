@@ -125,6 +125,7 @@ public class ProfileRecipeRV extends Fragment{
                                         rcadapter.notifyItemRemoved(i);
                                         rcadapter.notifyItemRangeChanged(0,listPos.size());
                                     }
+                                    listPos.clear();
                                     Toast.makeText(getActivity(),rcadapter.cbCount+" Post(s) Deleted",
                                             Toast.LENGTH_SHORT).show();
                                 }

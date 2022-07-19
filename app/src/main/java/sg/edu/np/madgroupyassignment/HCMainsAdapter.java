@@ -113,6 +113,9 @@ public class HCMainsAdapter extends RecyclerView.Adapter<HCMainViewHolder> {
                         //Add to list of checked using adapter position
                         listPos.add(holder.getAdapterPosition());
                     }
+                    if (cbCount == 0){
+                        listPos.clear();
+                    }
                 }
             });
 
