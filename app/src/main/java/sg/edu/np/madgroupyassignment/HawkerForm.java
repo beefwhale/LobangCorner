@@ -113,7 +113,6 @@ public class HawkerForm extends Fragment {
             chosenstall = stallsList.get(chosenstallno);
         }
 
-
         //Assign variable
         submit = hf.findViewById(R.id.submitBtn);
         displayPicButtonHawker = hf.findViewById(R.id.displayPic);

@@ -35,6 +35,7 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
@@ -54,11 +55,11 @@ public class HawkerCommentAdapter extends RecyclerView.Adapter<CommentViewholder
     private ArrayList<Comments> commentData;
     private HomeMixData CommentRetrieve;
     private Boolean contentCheck;
-    private String postID, userID;
+    private String postID, userID, token;
     private PostsHolder postsHolder;
     private UserProfile userProfile, authorProfile;
     private FirebaseAuth firebaseAuth;
-    private DatabaseReference databaseReference, databaseReference2;
+    private DatabaseReference databaseReference, databaseReference2, deviceTokenReference;
     private FirebaseDatabase firebaseDatabase;
     private HashMap<String, Object> hwklist = new HashMap<String, Object>();
     TextView hccusername;
@@ -77,6 +78,16 @@ public class HawkerCommentAdapter extends RecyclerView.Adapter<CommentViewholder
         userProfile = postsHolder.getUserProfile();
         databaseReference = firebaseDatabase.getReference().child("Comments").child(postID);
         databaseReference2 = firebaseDatabase.getReference();
+        deviceTokenReference = firebaseDatabase.getReference().child("Device Registration Tokens").child(CommentRetrieve.getHcOwner());
+
+        deviceTokenReference.get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DataSnapshot> task) {
+                if (task.isSuccessful()){
+                    token = task.getResult().getValue().toString();
+                }
+            }
+        });
     }
 
     @Override
@@ -93,6 +104,7 @@ public class HawkerCommentAdapter extends RecyclerView.Adapter<CommentViewholder
     @NonNull
     @Override
     public CommentViewholder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View item;
         if (viewType == 0) {
             item = LayoutInflater.from(parent.getContext()).inflate(R.layout.activity_hcchosen_stall, null, false);
 
@@ -305,6 +317,16 @@ public class HawkerCommentAdapter extends RecyclerView.Adapter<CommentViewholder
                     commentData.add(newComment);
                     notifyItemInserted(commentData.size()+1);
                     notifyItemRangeChanged(commentData.size(), commentData.size()+2);
+
+//                    Sending notification to post owner
+                    if (!userID.equals(CommentRetrieve.getHcOwner())){
+                        FirebaseMessagingSender.pushNotification(
+                                c,
+                                token,
+                                CommentRetrieve.hcstallname,
+                                userProfile.getUsername() + " has commented on your post!"
+                        );
+                    }
 
                     commentInput.getText().clear();
                     commentPost.setVisibility(View.GONE);

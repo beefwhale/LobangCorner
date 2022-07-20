@@ -24,10 +24,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
@@ -45,12 +48,11 @@ public class RecipeCommentAdapter extends RecyclerView.Adapter<CommentViewholder
     private ArrayList<Comments> commentData;
     private HomeMixData CommentRetrieve;
     private Boolean contentCheck;
-    private String postID, userID;
+    private String postID, userID, token;
     private PostsHolder postsHolder;
     private UserProfile userProfile;
     private FirebaseAuth firebaseAuth;
-    private DatabaseReference databaseReference;
-    private DatabaseReference databaseReference2;
+    private DatabaseReference databaseReference, databaseReference2, deviceTokenReference;
     private FirebaseDatabase firebaseDatabase;
     private HashMap<String, Object> rcplist = new HashMap<String, Object>();
     View item;
@@ -68,6 +70,16 @@ public class RecipeCommentAdapter extends RecyclerView.Adapter<CommentViewholder
         userProfile = postsHolder.getUserProfile();
         databaseReference = firebaseDatabase.getReference().child("Comments").child(postID);
         databaseReference2 = firebaseDatabase.getReference();
+        deviceTokenReference = firebaseDatabase.getReference().child("Device Registration Tokens").child(CommentRetrieve.getHcOwner());
+
+        deviceTokenReference.get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DataSnapshot> task) {
+                if (task.isSuccessful()){
+                    token = task.getResult().getValue().toString();
+                }
+            }
+        });
     }
 
     @Override
@@ -290,6 +302,16 @@ public class RecipeCommentAdapter extends RecyclerView.Adapter<CommentViewholder
                     commentData.add(newComment);
                     notifyItemInserted(commentData.size()+1);
                     notifyItemRangeChanged(commentData.size(), commentData.size()+2);
+
+//                    Sending notification to post owner
+                    if (!userID.equals(CommentRetrieve.getOwner())){
+                        FirebaseMessagingSender.pushNotification(
+                                c,
+                                token,
+                                CommentRetrieve.recipeName,
+                                userProfile.getUsername() + " has commented on your post!"
+                        );
+                    }
 
                     commentInput.getText().clear();
                     commentPost.setVisibility(View.GONE);

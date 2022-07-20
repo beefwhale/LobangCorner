@@ -152,21 +152,6 @@ public class RecipeCornerPosts extends Fragment {
             });
 
         }
-//        Commented out because its not working? if you wanna work on it please either inform me once its done and i'll put
-//        it where it should be or you can go to RecipeCommentAdapter and work on it there. --Celsius
-
-//        i2.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Toast.makeText(getContext(), "Recipe saved!", Toast.LENGTH_SHORT).show();
-//                ArrayList<RecipeCorner> recipeList = new ArrayList<>();
-//                recipeList = Parcels.unwrap(b.getParcelable("list"));
-//                RecipeCorner recipePost;
-//                recipePost = recipeList.get(rcNo);
-//                rcbookmarklist.add(recipePost);
-//                //hvent add to firebase
-//            }
-//        });
     }
 
     private void touchEvent(RecyclerView recyclerView) {

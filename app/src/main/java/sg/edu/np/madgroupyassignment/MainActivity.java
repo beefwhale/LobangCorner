@@ -17,6 +17,8 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.Observer;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationBarView;
@@ -26,6 +28,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 import android.os.Handler;
 import android.preference.PreferenceManager;
@@ -289,6 +292,26 @@ public class MainActivity extends AppCompatActivity{
             public void onCancelled(@NonNull DatabaseError error) {
             }
         });
+
+
+//        Getting device registration token for notifications
+        FirebaseMessaging.getInstance().getToken()
+                .addOnCompleteListener(new OnCompleteListener<String>() {
+                    @Override
+                    public void onComplete(@NonNull Task<String> task) {
+                        if (!task.isSuccessful()) {
+                            Log.w("Test", "Fetching FCM registration token failed", task.getException());
+                            return;
+                        }
+
+                        //Get new FCM registration token
+                        String token = task.getResult();
+
+                        //Log and Toast
+                        Log.d("Token", token);
+                        databaseReference.child("Device Registration Tokens").child(mAuth.getUid()).setValue(token);
+                    }
+                });
 
         //Calling classes to replace upon nav bar click
 //        SplashPage splashPage = new SplashPage();
