@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
+import android.graphics.Paint;
 import android.media.Image;
 import android.os.Bundle;
 import android.text.Editable;
@@ -116,6 +117,7 @@ public class HawkerCommentAdapter extends RecyclerView.Adapter<CommentViewholder
             ImageView hcbookmark = item.findViewById(R.id.hcbookmark);
             TextView chosenstallname = item.findViewById(R.id.chosenstallname);
             hccusername = item.findViewById(R.id.hccusername);
+            hccusername.setPaintFlags(hccusername.getPaintFlags() |   Paint.UNDERLINE_TEXT_FLAG);
             TextView hccaddress = item.findViewById(R.id.hccaddress);
             TextView hccparagraph = item.findViewById(R.id.hccparagraph);
             TextView descriptionheader = item.findViewById(R.id.descriptiontv);

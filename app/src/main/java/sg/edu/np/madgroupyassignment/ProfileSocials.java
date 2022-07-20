@@ -13,6 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -73,12 +74,26 @@ public class ProfileSocials extends Fragment {
                 facebook = social_fb_input.getText().toString();
                 twitter = social_twt_input.getText().toString();
 
+                if (instagram == null){
+                    instagram="";
+                }
+                if (twitter == null){
+                    twitter="";
+                }
+                if (facebook == null){
+                    facebook="";
+                }
                 data.put("instagram", instagram);
                 data.put("facebook", facebook);
                 data.put("twitter", twitter);
-                databaseReference.child("UserProfile").child(usernameID).updateChildren(data);
+                databaseReference.child("UserProfile").child(usernameID).updateChildren(data).addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void unused) {
+                        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, new Profile(true)).commit();
+                    }
+                });
 
-                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, new Profile(true)).addToBackStack(null).commit();
+
 
                 Toast.makeText(getActivity(), "Changes Saved", Toast.LENGTH_SHORT).show();
             }
