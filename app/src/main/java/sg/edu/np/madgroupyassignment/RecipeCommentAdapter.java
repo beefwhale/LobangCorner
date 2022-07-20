@@ -75,8 +75,8 @@ public class RecipeCommentAdapter extends RecyclerView.Adapter<CommentViewholder
         deviceTokenReference.get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DataSnapshot> task) {
-                if (task.isSuccessful()){
-                    if (task.getResult().getValue().toString() != null) {
+                if (task.isSuccessful()) {
+                    if (task.getResult().exists()) {
                         token = task.getResult().getValue().toString();
                     }
                 }
@@ -138,7 +138,7 @@ public class RecipeCommentAdapter extends RecyclerView.Adapter<CommentViewholder
             dr.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    if (snapshot.hasChild(postID)){                             //if post alr exist in bookmark rcp list,
+                    if (snapshot.hasChild(postID)) {                             //if post alr exist in bookmark rcp list,
                         i2.setImageResource(R.drawable.ic_bookmark_filled);     // replace image with a filled icon
                         i2.setOnClickListener(new View.OnClickListener() {
                             @Override
@@ -146,8 +146,7 @@ public class RecipeCommentAdapter extends RecyclerView.Adapter<CommentViewholder
                                 Toast.makeText(c, "Recipe already saved", Toast.LENGTH_SHORT).show();   //when icon is clicked, toast message displayed
                             }
                         });
-                    }
-                    else{                                                       //if post do not exist, when icon is clicked
+                    } else {                                                       //if post do not exist, when icon is clicked
                         i2.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
@@ -192,8 +191,7 @@ public class RecipeCommentAdapter extends RecyclerView.Adapter<CommentViewholder
                 commentPic.setVisibility(View.GONE);
                 commentMore.setVisibility(View.GONE);
                 commentSince.setVisibility(View.GONE);
-            }
-            else{
+            } else {
                 commentPic.setVisibility(View.VISIBLE);
                 commentMore.setVisibility(View.VISIBLE);
                 commentSince.setVisibility(View.VISIBLE);
@@ -239,7 +237,7 @@ public class RecipeCommentAdapter extends RecyclerView.Adapter<CommentViewholder
                     popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                         @Override
                         public boolean onMenuItemClick(MenuItem menuItem) {
-                            switch (""+menuItem.getTitle()) {
+                            switch ("" + menuItem.getTitle()) {
                                 case "Copy comment text":
                                     Toast.makeText(c, "Copied... ", Toast.LENGTH_SHORT).show();
                                     ClipboardManager clipboard = (ClipboardManager) c.getSystemService(Context.CLIPBOARD_SERVICE);
@@ -250,10 +248,10 @@ public class RecipeCommentAdapter extends RecyclerView.Adapter<CommentViewholder
                                 case "Delete":
                                     databaseReference.child(recyclerCurrentComment.getCommentUID()).setValue(null);
                                     Toast.makeText(c, "Deleted...", Toast.LENGTH_SHORT).show();
-                                    commentData.remove(holder.getAdapterPosition()-1);
-                                    Log.e("commentdelete", false+"");
+                                    commentData.remove(holder.getAdapterPosition() - 1);
+                                    Log.e("commentdelete", false + "");
                                     if (commentData.size() == 0) {
-                                        Log.e("commentdelete", true+"");
+                                        Log.e("commentdelete", true + "");
                                         Comments comment = new Comments();
                                         commentPic.setVisibility(View.GONE);
                                         commentMore.setVisibility(View.GONE);
@@ -264,7 +262,7 @@ public class RecipeCommentAdapter extends RecyclerView.Adapter<CommentViewholder
                                         contentCheck = true;
                                     }
                                     notifyItemRemoved(holder.getAdapterPosition());
-                                    notifyItemRangeChanged(holder.getAdapterPosition(), commentData.size()+2);
+                                    notifyItemRangeChanged(holder.getAdapterPosition(), commentData.size() + 2);
                                     break;
                             }
                             return true;
@@ -296,17 +294,17 @@ public class RecipeCommentAdapter extends RecyclerView.Adapter<CommentViewholder
                     Comments newComment = new Comments(postID, commentUID, userID, userProfile.getProfileImg(), userProfile.getUsername(), commentInput.getText().toString(), System.currentTimeMillis());
                     databaseReference.child(commentUID).setValue(newComment);
                     for (Comments comments : commentData) {
-                        if (comments.getCommentUsername() == "Be the first to write a Comment!"){
+                        if (comments.getCommentUsername() == "Be the first to write a Comment!") {
                             commentData.removeAll(commentData);
                             contentCheck = false;
                         }
                     }
                     commentData.add(newComment);
-                    notifyItemInserted(commentData.size()+1);
-                    notifyItemRangeChanged(commentData.size(), commentData.size()+2);
+                    notifyItemInserted(commentData.size() + 1);
+                    notifyItemRangeChanged(commentData.size(), commentData.size() + 2);
 
 //                    Sending notification to post owner
-                    if (!userID.equals(CommentRetrieve.getOwner()) && token != null){
+                    if (!userID.equals(CommentRetrieve.getOwner()) && token != null) {
                         FirebaseMessagingSender.pushNotification(
                                 c,
                                 token,
@@ -350,15 +348,14 @@ public class RecipeCommentAdapter extends RecyclerView.Adapter<CommentViewholder
     }
 
 
-    public void displayAuthorProfile(){
+    public void displayAuthorProfile() {
         AppCompatActivity activity = (AppCompatActivity) item.getContext();
-        if (CommentRetrieve.owner != null){
-            if (CommentRetrieve.owner.equals(userProfile.UID)){ // if its the user's own account
+        if (CommentRetrieve.owner != null) {
+            if (CommentRetrieve.owner.equals(userProfile.UID)) { // if its the user's own account
                 activity.getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, new Profile(true), "Profile")
                         .addToBackStack(null).commit();
                 MainActivity.bottomNavigationView.getMenu().findItem(R.id.profile).setChecked(true);
-            }
-            else{ // Not the user's wn account = author's account
+            } else { // Not the user's wn account = author's account
                 Fragment profileFragment = new Profile(false);
                 Bundle bundle = new Bundle();
                 bundle.putString("userID", CommentRetrieve.owner); // Passing username inside
@@ -366,11 +363,11 @@ public class RecipeCommentAdapter extends RecyclerView.Adapter<CommentViewholder
                 activity.getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, profileFragment)
                         .addToBackStack(null).commit();
             }
-        }
-        else{
+        } else {
             Toast.makeText(c, "An Error Occured", Toast.LENGTH_SHORT).show();
         }
     }
+
     @Override
     public int getItemCount() {
         return commentData.size() + 2;

@@ -37,7 +37,12 @@ public class RecipeCornerPosts extends Fragment {
 
     //variable for context
     Context c;
-    public RecipeCornerPosts(){this.c =c;};
+
+    public RecipeCornerPosts() {
+        this.c = c;
+    }
+
+    ;
 
     public ArrayList<RecipeCorner> rcbookmarklist = new ArrayList<>();
 
@@ -58,7 +63,7 @@ public class RecipeCornerPosts extends Fragment {
 
         ArrayList<Comments> CommentList = new ArrayList<>();
 
-        if (HomeDataCheck == 1){// If its Clicked from Home and Not Main Recipe Page
+        if (HomeDataCheck == 1) {// If its Clicked from Home and Not Main Recipe Page
             ArrayList<HomeMixData> recipeList;
             recipeList = Parcels.unwrap(b.getParcelable("list"));
             HomeMixData recipePost;
@@ -68,7 +73,7 @@ public class RecipeCornerPosts extends Fragment {
             databaseReference.get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
                 @Override
                 public void onComplete(@NonNull Task<DataSnapshot> task) {
-                    if (task.isSuccessful()){
+                    if (task.isSuccessful()) {
                         CommentList.removeAll(CommentList);
                         for (DataSnapshot objectEntry : task.getResult().getChildren()) {
                             Comments comment = objectEntry.getValue(Comments.class);
@@ -98,8 +103,7 @@ public class RecipeCornerPosts extends Fragment {
                 }
             });
 
-        }
-        else{ // Clicked from Main Recipe Page
+        } else { // Clicked from Main Recipe Page
             ArrayList<RecipeCorner> recipeList;
             recipeList = Parcels.unwrap(b.getParcelable("list"));
             RecipeCorner recipePost;
@@ -121,7 +125,7 @@ public class RecipeCornerPosts extends Fragment {
             databaseReference.get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
                 @Override
                 public void onComplete(@NonNull Task<DataSnapshot> task) {
-                    if (task.isSuccessful()){
+                    if (task.isSuccessful()) {
                         CommentList.removeAll(CommentList);
                         for (DataSnapshot objectEntry : task.getResult().getChildren()) {
                             Comments comment = objectEntry.getValue(Comments.class);
@@ -160,7 +164,9 @@ public class RecipeCornerPosts extends Fragment {
                 @Override
                 public boolean onTouch(View view, MotionEvent motionEvent) {
                     View current = getActivity().getCurrentFocus();
-                    if (current != null) { current.clearFocus();}
+                    if (current != null) {
+                        current.clearFocus();
+                    }
                     InputMethodManager imm = (InputMethodManager) getActivity().getSystemService((Context.INPUT_METHOD_SERVICE));
                     imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
 

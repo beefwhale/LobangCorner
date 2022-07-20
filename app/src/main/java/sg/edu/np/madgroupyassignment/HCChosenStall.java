@@ -39,7 +39,7 @@ public class HCChosenStall extends Fragment {
     private FirebaseDatabase firebaseDatabase;
     private DatabaseReference databaseReference;
 
-    public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState){
+    public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.chosenstall_comments, parent, false);
     }
 
@@ -56,7 +56,7 @@ public class HCChosenStall extends Fragment {
 
         ArrayList<Comments> CommentList = new ArrayList<>();
 
-        if (HomeDataCheck == 1){
+        if (HomeDataCheck == 1) {
             HomeMixData chosenstall;
             ArrayList<HomeMixData> stallsList = Parcels.unwrap(bundle.getParcelable("list"));
             chosenstall = stallsList.get(chosenstallno);
@@ -65,7 +65,7 @@ public class HCChosenStall extends Fragment {
             databaseReference.get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
                 @Override
                 public void onComplete(@NonNull Task<DataSnapshot> task) {
-                    if (task.isSuccessful()){
+                    if (task.isSuccessful()) {
                         CommentList.removeAll(CommentList);
                         for (DataSnapshot objectEntry : task.getResult().getChildren()) {
                             Comments comment = objectEntry.getValue(Comments.class);
@@ -107,7 +107,7 @@ public class HCChosenStall extends Fragment {
             commentSend.hcstallname = chosenstall.hcstallname;
             commentSend.hcauthor = chosenstall.hcauthor;
             commentSend.hccaddress = chosenstall.hccaddress;
-            commentSend.hccparagraph= chosenstall.hccparagraph;
+            commentSend.hccparagraph = chosenstall.hccparagraph;
             commentSend.hcstallname = chosenstall.hcstallname;
             commentSend.daysopen = chosenstall.daysopen;
             commentSend.hoursopen = chosenstall.hoursopen;
@@ -117,7 +117,7 @@ public class HCChosenStall extends Fragment {
             databaseReference.get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
                 @Override
                 public void onComplete(@NonNull Task<DataSnapshot> task) {
-                    if (task.isSuccessful()){
+                    if (task.isSuccessful()) {
                         CommentList.removeAll(CommentList);
                         for (DataSnapshot objectEntry : task.getResult().getChildren()) {
                             Comments comment = objectEntry.getValue(Comments.class);
@@ -157,7 +157,9 @@ public class HCChosenStall extends Fragment {
                 @Override
                 public boolean onTouch(View view, MotionEvent motionEvent) {
                     View current = getActivity().getCurrentFocus();
-                    if (current != null) { current.clearFocus();}
+                    if (current != null) {
+                        current.clearFocus();
+                    }
                     InputMethodManager imm = (InputMethodManager) getActivity().getSystemService((Context.INPUT_METHOD_SERVICE));
                     imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
 

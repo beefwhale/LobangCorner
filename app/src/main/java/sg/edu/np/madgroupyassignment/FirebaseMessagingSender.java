@@ -46,7 +46,7 @@ public class FirebaseMessagingSender {
                 public void onErrorResponse(VolleyError error) {
 
                 }
-            }){
+            }) {
                 @Override
                 public Map<String, String> getHeaders() throws AuthFailureError {
                     Map<String, String> params = new HashMap<>();

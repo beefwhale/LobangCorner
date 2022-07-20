@@ -83,8 +83,8 @@ public class HawkerCommentAdapter extends RecyclerView.Adapter<CommentViewholder
         deviceTokenReference.get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DataSnapshot> task) {
-                if (task.isSuccessful()){
-                    if (task.getResult().getValue().toString() != null) {
+                if (task.isSuccessful()) {
+                    if (task.getResult().exists()) {
                         token = task.getResult().getValue().toString();
                     }
                 }
@@ -152,7 +152,7 @@ public class HawkerCommentAdapter extends RecyclerView.Adapter<CommentViewholder
             //Leads to author's profile page
             hccusername.setOnClickListener(new View.OnClickListener() {
                 @Override
-                public void onClick(View v){
+                public void onClick(View v) {
                     displayAuthorProfile();
                 }
             });
@@ -161,7 +161,7 @@ public class HawkerCommentAdapter extends RecyclerView.Adapter<CommentViewholder
             dr.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    if (snapshot.hasChild(postID)){
+                    if (snapshot.hasChild(postID)) {
                         hcbookmark.setImageResource(R.drawable.ic_bookmark_filled);
                         hcbookmark.setOnClickListener(new View.OnClickListener() {
                             @Override
@@ -169,8 +169,7 @@ public class HawkerCommentAdapter extends RecyclerView.Adapter<CommentViewholder
                                 Toast.makeText(c, "Hawker stall already saved", Toast.LENGTH_SHORT).show();
                             }
                         });
-                    }
-                    else{
+                    } else {
                         hcbookmark.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
@@ -216,7 +215,7 @@ public class HawkerCommentAdapter extends RecyclerView.Adapter<CommentViewholder
                 commentPic.setVisibility(View.GONE);
                 commentMore.setVisibility(View.GONE);
                 commentSince.setVisibility(View.GONE);
-            }else{
+            } else {
                 commentPic.setVisibility(View.VISIBLE);
                 commentMore.setVisibility(View.VISIBLE);
                 commentSince.setVisibility(View.VISIBLE);
@@ -262,7 +261,7 @@ public class HawkerCommentAdapter extends RecyclerView.Adapter<CommentViewholder
                     popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                         @Override
                         public boolean onMenuItemClick(MenuItem menuItem) {
-                            switch (""+menuItem.getTitle()) {
+                            switch ("" + menuItem.getTitle()) {
                                 case "Copy comment text":
                                     Toast.makeText(c, "Copied... ", Toast.LENGTH_SHORT).show();
                                     ClipboardManager clipboard = (ClipboardManager) c.getSystemService(Context.CLIPBOARD_SERVICE);
@@ -279,9 +278,9 @@ public class HawkerCommentAdapter extends RecyclerView.Adapter<CommentViewholder
                                         commentData.add(comment);
                                         contentCheck = true;
                                     }
-                                    commentData.remove(holder.getAdapterPosition()-1);
+                                    commentData.remove(holder.getAdapterPosition() - 1);
                                     notifyItemRemoved(holder.getAdapterPosition());
-                                    notifyItemRangeChanged(holder.getAdapterPosition(), commentData.size()+2);
+                                    notifyItemRangeChanged(holder.getAdapterPosition(), commentData.size() + 2);
                                     break;
                             }
                             return true;
@@ -317,11 +316,11 @@ public class HawkerCommentAdapter extends RecyclerView.Adapter<CommentViewholder
                         contentCheck = false;
                     }
                     commentData.add(newComment);
-                    notifyItemInserted(commentData.size()+1);
-                    notifyItemRangeChanged(commentData.size(), commentData.size()+2);
+                    notifyItemInserted(commentData.size() + 1);
+                    notifyItemRangeChanged(commentData.size(), commentData.size() + 2);
 
 //                    Sending notification to post owner
-                    if (!userID.equals(CommentRetrieve.getHcOwner()) && token != null){
+                    if (!userID.equals(CommentRetrieve.getHcOwner()) && token != null) {
                         FirebaseMessagingSender.pushNotification(
                                 c,
                                 token,
@@ -365,15 +364,14 @@ public class HawkerCommentAdapter extends RecyclerView.Adapter<CommentViewholder
         }
     }
 
-    public void displayAuthorProfile(){
+    public void displayAuthorProfile() {
         AppCompatActivity activity = (AppCompatActivity) item.getContext();
-        if (CommentRetrieve.hcOwner != null){
-            if (CommentRetrieve.hcOwner.equals(userProfile.UID)){ // if its the user's own account
+        if (CommentRetrieve.hcOwner != null) {
+            if (CommentRetrieve.hcOwner.equals(userProfile.UID)) { // if its the user's own account
                 activity.getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, new Profile(true), "Profile")
                         .addToBackStack(null).commit();
                 MainActivity.bottomNavigationView.getMenu().findItem(R.id.profile).setChecked(true);
-            }
-            else{ // Not the user's wn account = author's account
+            } else { // Not the user's wn account = author's account
                 Fragment profileFragment = new Profile(false);
                 Bundle bundle = new Bundle();
                 bundle.putString("userID", CommentRetrieve.hcOwner); // Passing username inside
@@ -381,11 +379,11 @@ public class HawkerCommentAdapter extends RecyclerView.Adapter<CommentViewholder
                 activity.getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, profileFragment)
                         .addToBackStack(null).commit();
             }
-        }
-        else{
+        } else {
             Toast.makeText(c, "An Error Occured", Toast.LENGTH_SHORT).show();
         }
     }
+
     @Override
     public int getItemCount() {
         return commentData.size() + 2;
