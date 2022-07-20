@@ -16,6 +16,19 @@
         android:background="@color/Background_Cream"
         tools:context=".RecipeCornerPosts">
         <!-- recipe name -->
+
+        <TextView
+            android:id="@+id/By"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="12dp"
+            android:fontFamily="@font/montserrat_italic"
+            android:text="By: "
+            android:textSize="13sp"
+            app:layout_constraintStart_toEndOf="@+id/ratingBar"
+            app:layout_constraintTop_toBottomOf="@+id/idRecipeName" />
+
         <TextView
             android:id="@+id/idRecipeName"
             android:layout_width="300dp"
@@ -138,14 +151,14 @@
         <!-- username -->
         <TextView
             android:id="@+id/idUser"
-            android:layout_width="120dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="28dp"
             android:layout_marginTop="12dp"
             android:fontFamily="@font/montserrat_italic"
             android:text="TextView"
+            android:textColor="#007bff"
             android:textSize="13sp"
-            app:layout_constraintStart_toEndOf="@+id/ratingBar"
+            app:layout_constraintStart_toEndOf="@+id/By"
             app:layout_constraintTop_toBottomOf="@+id/idRecipeName" />
         <!-- duration -->
         <TextView

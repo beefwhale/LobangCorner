@@ -3,6 +3,7 @@ package sg.edu.np.madgroupyassignment;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -105,6 +106,7 @@ public class RecipeCommentAdapter extends RecyclerView.Adapter<CommentViewholder
             TextView n = item.findViewById(R.id.idRecipeName);
             TextView d = item.findViewById(R.id.idRecipeDescription);
             TextView id = item.findViewById(R.id.idUser);
+            id.setPaintFlags(id.getPaintFlags() |   Paint.UNDERLINE_TEXT_FLAG);
             RatingBar rb = item.findViewById(R.id.ratingBar);
             ImageView i = item.findViewById(R.id.imageView);
             ImageView i2 = item.findViewById(R.id.rcbookmark);
@@ -115,7 +117,7 @@ public class RecipeCommentAdapter extends RecyclerView.Adapter<CommentViewholder
             //set the textview, ratingbar and image view accordingly
             n.setText(CommentRetrieve.recipeName);
             d.setText(CommentRetrieve.recipeDescription);
-            id.setText("By: " + CommentRetrieve.userName);
+            id.setText(CommentRetrieve.userName);
             rb.setRating(CommentRetrieve.recipeRating);
             duration.setText("Duration: " + CommentRetrieve.duration + " mins");
             steps.setText(CommentRetrieve.steps);

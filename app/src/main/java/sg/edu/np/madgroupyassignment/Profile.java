@@ -105,6 +105,8 @@ public class Profile extends Fragment {
         firebaseDatabase = FirebaseDatabase.getInstance();
         databaseReference = firebaseDatabase.getReference();
 
+//        Updating page
+        updatePage();
         // Users own profile page or not (true = user, false = author)
         if (status == false){
             // Getting Username ID (that needs to be shown)
@@ -123,8 +125,7 @@ public class Profile extends Fragment {
             aboutbtn.setVisibility(View.GONE);
             logout.setVisibility(View.GONE);
         }
-//        Updating page
-        updatePage();
+
 
 //        Getting image
         getPhoto = registerForActivityResult(
@@ -228,17 +229,26 @@ public class Profile extends Fragment {
         });
 
 //      Making Social Buttons GONE if no info added
+        Log.e("beef", insta_username);
         if (insta_username.equals("") || insta_username == null){
             social_insta.setVisibility(View.GONE);
+            Log.e("beef", "gone");
+        }
+        else{
+            social_insta.setVisibility(View.VISIBLE);
+            Log.e("beef", "visible");
         }
         if (fb_username.equals("") || fb_username == null){
             social_fb.setVisibility(View.GONE);
         }
         else{
-            Log.e("fb",fb_username);
+            social_fb.setVisibility(View.VISIBLE);
         }
         if (twt_username.equals("") || twt_username == null){
             social_twt.setVisibility(View.GONE);
+        }
+        else{
+            social_twt.setVisibility(View.VISIBLE);
         }
 
 //        Instagram Button
@@ -338,8 +348,23 @@ public class Profile extends Fragment {
             hwkObj.setText("" + (userProfile.getHawkList().size() - 1) + "\n\nHawker Posts");
             rcpObj.setText("" + (userProfile.getRcpList().size() - 1) + "\n\nRecipe Post");
         }
+        getUserPost();
+        getSocials();
+    }
 
+    //    Removes all non-user posts
+    private void getUserPost() {
+        ProfileHawkerRV profileHawkerRV = new ProfileHawkerRV(status);
+        if (profileHawkerRV.hcadapter != null) {
+            profileHawkerRV.hcadapter.notifyDataSetChanged();
+        }
 
+        ProfileRecipeRV profileRecipeRV = new ProfileRecipeRV(status);
+        if (profileRecipeRV.rcadapter != null) {
+            profileRecipeRV.rcadapter.notifyDataSetChanged();
+        }
+    }
+    private void getSocials(){
         //Socials
         //If there no accounts inside yet
         //INSTAGRAM
@@ -362,21 +387,9 @@ public class Profile extends Fragment {
         else{
             twt_username = userProfile.getTwitter();
         }
-        getUserPost();
+        Log.e("beefupdate", insta_username);
     }
 
-    //    Removes all non-user posts
-    private void getUserPost() {
-        ProfileHawkerRV profileHawkerRV = new ProfileHawkerRV(status);
-        if (profileHawkerRV.hcadapter != null) {
-            profileHawkerRV.hcadapter.notifyDataSetChanged();
-        }
-
-        ProfileRecipeRV profileRecipeRV = new ProfileRecipeRV(status);
-        if (profileRecipeRV.rcadapter != null) {
-            profileRecipeRV.rcadapter.notifyDataSetChanged();
-        }
-    }
 
     //    Getting file extension
     private String getFileExt(Uri uri) {
