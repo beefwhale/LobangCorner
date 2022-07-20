@@ -70,13 +70,15 @@ public class RecipeCommentAdapter extends RecyclerView.Adapter<CommentViewholder
         userProfile = postsHolder.getUserProfile();
         databaseReference = firebaseDatabase.getReference().child("Comments").child(postID);
         databaseReference2 = firebaseDatabase.getReference();
-        deviceTokenReference = firebaseDatabase.getReference().child("Device Registration Tokens").child(CommentRetrieve.getHcOwner());
+        deviceTokenReference = firebaseDatabase.getReference().child("Device Registration Tokens").child(CommentRetrieve.getOwner());
 
         deviceTokenReference.get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DataSnapshot> task) {
                 if (task.isSuccessful()){
-                    token = task.getResult().getValue().toString();
+                    if (task.getResult().getValue().toString() != null) {
+                        token = task.getResult().getValue().toString();
+                    }
                 }
             }
         });
@@ -304,7 +306,7 @@ public class RecipeCommentAdapter extends RecyclerView.Adapter<CommentViewholder
                     notifyItemRangeChanged(commentData.size(), commentData.size()+2);
 
 //                    Sending notification to post owner
-                    if (!userID.equals(CommentRetrieve.getOwner())){
+                    if (!userID.equals(CommentRetrieve.getOwner()) && token != null){
                         FirebaseMessagingSender.pushNotification(
                                 c,
                                 token,

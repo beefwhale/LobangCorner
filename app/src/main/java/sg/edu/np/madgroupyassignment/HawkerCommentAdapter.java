@@ -84,7 +84,9 @@ public class HawkerCommentAdapter extends RecyclerView.Adapter<CommentViewholder
             @Override
             public void onComplete(@NonNull Task<DataSnapshot> task) {
                 if (task.isSuccessful()){
-                    token = task.getResult().getValue().toString();
+                    if (task.getResult().getValue().toString() != null) {
+                        token = task.getResult().getValue().toString();
+                    }
                 }
             }
         });
@@ -319,7 +321,7 @@ public class HawkerCommentAdapter extends RecyclerView.Adapter<CommentViewholder
                     notifyItemRangeChanged(commentData.size(), commentData.size()+2);
 
 //                    Sending notification to post owner
-                    if (!userID.equals(CommentRetrieve.getHcOwner())){
+                    if (!userID.equals(CommentRetrieve.getHcOwner()) && token != null){
                         FirebaseMessagingSender.pushNotification(
                                 c,
                                 token,
