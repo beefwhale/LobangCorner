@@ -113,21 +113,29 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeViewHolder>{
 
         // for bookmark page
         if (status==1){
+            BookmarkActivity bookmarkActivity= new BookmarkActivity();
             holder.checkbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                    Log.e("beefadapter",del_rcplist.size()+"");
                     if (del_rcplist.contains(item)){
                         //holder.checkbox.setChecked(false);
-                        aBoolean = false;
                         del_rcplist.remove(item);
                     }
                     else{
                         //holder.checkbox.setChecked(true);
-                        aBoolean = true;
+
                         del_rcplist.add(item);
+                    }
+                    if (del_rcplist.size() == 0 ){
+                        bookmarkActivity.aBoolean = false;
+                    }
+                    else{
+                        bookmarkActivity.aBoolean = true;
                     }
                 }
             });
+
         }
         else if (status == 2){
             //Setting all as default unselected

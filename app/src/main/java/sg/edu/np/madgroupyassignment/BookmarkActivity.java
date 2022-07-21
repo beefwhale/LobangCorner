@@ -7,6 +7,7 @@ import androidx.viewpager2.widget.ViewPager2;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,7 +39,7 @@ public class BookmarkActivity extends Fragment {
     //    public ArrayList<RecipeCorner> dellist = new ArrayList<>();
 //    DatabaseReference reference;
 //    FirebaseAuth mAuth;
-    Boolean aBoolean = true;
+    public Boolean aBoolean = false;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -99,12 +100,11 @@ public class BookmarkActivity extends Fragment {
 //        });
         RecipeAdapter recipeAdapter = new RecipeAdapter(rcplist, c, 1);
 //
-
-        if (recipeAdapter.aBoolean == false){
-            b.setVisibility(View.VISIBLE);
+        if (aBoolean == false){
+            b.setVisibility(View.GONE);
         }
         else{
-            b.setVisibility(View.INVISIBLE);
+            b.setVisibility(View.VISIBLE);
         }
 
         return view;
