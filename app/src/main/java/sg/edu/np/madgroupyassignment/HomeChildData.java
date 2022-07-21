@@ -1,9 +1,6 @@
 package sg.edu.np.madgroupyassignment;
 
 import android.widget.ImageView;
-import android.widget.TextView;
-
-import androidx.recyclerview.widget.RecyclerView;
 
 public class HomeChildData {
     // Data of LP layout file

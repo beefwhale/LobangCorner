@@ -67,7 +67,7 @@ public class RecipeDraftsPage extends Fragment {
 
         //        Setting drafts list to list in firebase
         draftsList.removeAll(draftsList);
-        for (RecipeCorner obj : postsHolder.getRecipeDrafts()){
+        for (RecipeCorner obj : postsHolder.getRecipeDrafts()) {
             draftsList.add(obj);
         }
         rcdadapter = new RecipeDraftsPage.RecipeDraftsAdapter(draftsList);
@@ -83,10 +83,10 @@ public class RecipeDraftsPage extends Fragment {
             public void onClick(View v) {
                 builder = new AlertDialog.Builder(getContext());
                 //At least one post selected
-                if (rcdadapter.cbCount > 0){
+                if (rcdadapter.cbCount > 0) {
                     //Setting message manually and performing action on button click
                     builder.setTitle("Confirm Delete ?")
-                            .setMessage("You sure you want to permanently delete ("+rcdadapter.cbCount+") posts?")
+                            .setMessage("You sure you want to permanently delete (" + rcdadapter.cbCount + ") posts?")
                             .setCancelable(false)
                             .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int id) {
@@ -101,29 +101,28 @@ public class RecipeDraftsPage extends Fragment {
                                     listPos = rcdadapter.adapterListPos;
                                     //Sort list in descending order to avoid Array Out of Bounds
                                     Collections.sort(listPos, Collections.reverseOrder());
-                                    for (int i: listPos) {
-                                        RecipeCorner deleteItem = draftsList.get(i-1);
+                                    for (int i : listPos) {
+                                        RecipeCorner deleteItem = draftsList.get(i - 1);
                                         //removing from database
                                         databaseReference.child("Drafts").child("Recipes").child(mAuth.getUid()).child(deleteItem.getPostID()).removeValue();
 //                                        StorageReference storageLocationCheck = FirebaseStorage.getInstance().getReferenceFromUrl(deleteItem.foodImage);
 //                                        storageLocationCheck.delete();
 
                                         //Updating List
-                                        draftsList.remove(i-1);
-                                        rcdadapter.notifyItemRemoved(i-1);
-                                        rcdadapter.notifyItemRangeChanged(0,listPos.size()-1);
+                                        draftsList.remove(i - 1);
+                                        rcdadapter.notifyItemRemoved(i - 1);
+                                        rcdadapter.notifyItemRangeChanged(0, listPos.size() - 1);
                                     }
                                     rcdadapter.adapterListPos.clear();
-                                    Toast.makeText(getActivity(),rcdadapter.cbCount+" Post(s) Deleted",
+                                    Toast.makeText(getActivity(), rcdadapter.cbCount + " Post(s) Deleted",
                                             Toast.LENGTH_SHORT).show();
                                 }
                             });
                     //Creating dialog box
                     AlertDialog alert = builder.create();
                     alert.show();
-                }
-                else{
-                    Toast.makeText(getActivity(),"No Post Selected",
+                } else {
+                    Toast.makeText(getActivity(), "No Post Selected",
                             Toast.LENGTH_SHORT).show();
                 }
             }
@@ -131,17 +130,18 @@ public class RecipeDraftsPage extends Fragment {
         return recipeDraftPage;
     }
 
-    class RecipeDraftsAddViewHolder extends RecyclerView.ViewHolder{
+    class RecipeDraftsAddViewHolder extends RecyclerView.ViewHolder {
         public RecipeDraftsAddViewHolder(@NonNull View itemView) {
             super(itemView);
         }
     }
 
-    public class RecipeDraftsViewHolder extends RecyclerView.ViewHolder{
+    public class RecipeDraftsViewHolder extends RecyclerView.ViewHolder {
         TextView recipeName, recipeDesc, userName;
         ImageView foodImage;
         RatingBar ratingBar;
         CheckBox checkbox;
+
         public RecipeDraftsViewHolder(@NonNull View itemView) {
             super(itemView);
 
@@ -155,24 +155,23 @@ public class RecipeDraftsPage extends Fragment {
         }
     }
 
-    class RecipeDraftsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
+    class RecipeDraftsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         ArrayList<RecipeCorner> recipeDraftsList;
-        public Integer cbCount = 0 ;
+        public Integer cbCount = 0;
         public ArrayList<Integer> adapterListPos = new ArrayList<>();
         Integer toRemove;
 
-        public RecipeDraftsAdapter(ArrayList<RecipeCorner> recipeDraftsList){
+        public RecipeDraftsAdapter(ArrayList<RecipeCorner> recipeDraftsList) {
             this.recipeDraftsList = recipeDraftsList;
         }
 
         @NonNull
         @Override
         public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-            if (viewType == 0){
+            if (viewType == 0) {
                 View addDraftView = LayoutInflater.from(parent.getContext()).inflate(R.layout.add_draft, parent, false);
                 return new RecipeDraftsPage.RecipeDraftsAddViewHolder(addDraftView);
-            }
-            else{
+            } else {
                 View draftView = LayoutInflater.from(parent.getContext()).inflate(R.layout.activity_profile_rc_card, parent, false);
                 return new RecipeDraftsPage.RecipeDraftsViewHolder(draftView);
             }
@@ -180,11 +179,11 @@ public class RecipeDraftsPage extends Fragment {
 
         @Override
         public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-            if (this.getItemViewType(position) == 0){
+            if (this.getItemViewType(position) == 0) {
                 holder.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        if (MainActivity.checkFormsNum == 1){
+                        if (MainActivity.checkFormsNum == 1) {
                             MainActivity.recipeForm.status = 0;
                             MainActivity.checkFormsNum = 0; //changes to 0 when click into forms
                             MainActivity.whichForm = 2;
@@ -199,14 +198,12 @@ public class RecipeDraftsPage extends Fragment {
                         }
                     }
                 });
-            }
-            else{
+            } else {
                 RecipeDraftsPage.RecipeDraftsViewHolder recipeDraftsViewHolder = (RecipeDraftsPage.RecipeDraftsViewHolder) holder;
-                RecipeCorner item = recipeDraftsList.get(position-1);
+                RecipeCorner item = recipeDraftsList.get(position - 1);
                 //If no image, do nothing. If there's image, load image.
-                if (item.getFoodImage() == "" | item.getFoodImage().isEmpty() | item.getFoodImage() == null){
-                }
-                else{
+                if (item.getFoodImage() == "" | item.getFoodImage().isEmpty() | item.getFoodImage() == null) {
+                } else {
                     Picasso.get().load(item.getFoodImage()).into(recipeDraftsViewHolder.foodImage); //load image from database to imageview
                 }
                 recipeDraftsViewHolder.recipeName.setText(item.recipeName);         //set textview to recipename
@@ -217,10 +214,9 @@ public class RecipeDraftsPage extends Fragment {
                 //Setting all as default unselected
                 item.setChecked(false);
                 //DESELECTION : if removed from listPos, updating checkbox for every card
-                if (adapterListPos.contains(holder.getAdapterPosition()) == false){
+                if (adapterListPos.contains(holder.getAdapterPosition()) == false) {
                     recipeDraftsViewHolder.checkbox.setChecked(false);
-                }
-                else{
+                } else {
                     recipeDraftsViewHolder.checkbox.setChecked(true);
                 }
                 recipeDraftsViewHolder.checkbox.setOnClickListener(new View.OnClickListener() {
@@ -229,21 +225,20 @@ public class RecipeDraftsPage extends Fragment {
                         if (item.getChecked() == true) {
                             item.setChecked(false);
                             cbCount = cbCount - 1;
-                            for (Integer i:adapterListPos){ //finding integer within list
-                                if (i.equals(holder.getAdapterPosition())){
+                            for (Integer i : adapterListPos) { //finding integer within list
+                                if (i.equals(holder.getAdapterPosition())) {
                                     toRemove = i; // getting integer position
                                 }
                             }
                             //Remove integer from list using integer position
                             adapterListPos.remove(toRemove);
-                        }
-                        else {
+                        } else {
                             item.setChecked(true);
                             cbCount = cbCount + 1;
                             //Add to list of checked using adapter position
                             adapterListPos.add(holder.getAdapterPosition());
                         }
-                        if (cbCount == 0){
+                        if (cbCount == 0) {
                             listPos.clear();
                         }
                     }

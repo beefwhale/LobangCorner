@@ -20,14 +20,14 @@ public class RecipeCorner {
     public Boolean isChecked;          // Checks checkbox
 
     //Empty constructor
-    public RecipeCorner(){
+    public RecipeCorner() {
 
     }
 
     // creating constructor for our variables.
     public RecipeCorner(String postID, String owner, String recipeName, String recipeDescription, int recipeRating,
                         String userName, String duration,
-                         String steps, String ingredients, Long postTimeStamp, String foodImage, Boolean isChecked) {
+                        String steps, String ingredients, Long postTimeStamp, String foodImage, Boolean isChecked) {
         this.postID = postID;                       //postID for database use
         this.owner = owner;                         //post owner for rc form and profile
         this.recipeName = recipeName;               //recipe name
@@ -72,27 +72,33 @@ public class RecipeCorner {
         return recipeDescription;
     }
 
-    public void setRecipeDescription(String recipeDescription) { this.recipeDescription = recipeDescription; }
+    public void setRecipeDescription(String recipeDescription) {
+        this.recipeDescription = recipeDescription;
+    }
 
-    public Integer getRecipeRating(){
+    public Integer getRecipeRating() {
         return recipeRating;
     }
 
-    public void setRecipeRating(int recipeRating){
+    public void setRecipeRating(int recipeRating) {
         this.recipeRating = recipeRating;
     }
 
-    public String getUserName(){
+    public String getUserName() {
         return userName;
     }
 
-    public void setUserName(String userName){
+    public void setUserName(String userName) {
         this.userName = userName;
     }
 
-    public String getDuration(){return duration;}
+    public String getDuration() {
+        return duration;
+    }
 
-    public void setDuration(String duration){this.duration = duration; }
+    public void setDuration(String duration) {
+        this.duration = duration;
+    }
 
     public String getIngredients() {
         return ingredients;
@@ -102,9 +108,13 @@ public class RecipeCorner {
         this.ingredients = ingredients;
     }
 
-    public String getSteps(){return steps; }
+    public String getSteps() {
+        return steps;
+    }
 
-    public void setSteps(String steps){this.steps = steps; }
+    public void setSteps(String steps) {
+        this.steps = steps;
+    }
 
     public Long getPostTimeStamp() {
         return postTimeStamp;
@@ -122,6 +132,11 @@ public class RecipeCorner {
         this.foodImage = foodImage;
     }
 
-    public Boolean getChecked() {return isChecked; }
-    public void setChecked(Boolean isChecked) { this.isChecked = isChecked; }
+    public Boolean getChecked() {
+        return isChecked;
+    }
+
+    public void setChecked(Boolean isChecked) {
+        this.isChecked = isChecked;
+    }
 }

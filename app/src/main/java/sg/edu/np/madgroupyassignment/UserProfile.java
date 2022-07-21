@@ -1,10 +1,7 @@
 package sg.edu.np.madgroupyassignment;
 
-import android.os.Parcelable;
-
 import org.parceler.Parcel;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 
 @Parcel
@@ -73,9 +70,13 @@ public class UserProfile {
         this.profileImg = profileImg;
     }
 
-    public String getAboutMe() {return aboutMe;}
+    public String getAboutMe() {
+        return aboutMe;
+    }
 
-    public void setAboutMe(String aboutMe) {this.aboutMe = aboutMe;}
+    public void setAboutMe(String aboutMe) {
+        this.aboutMe = aboutMe;
+    }
 
     public HashMap<String, Object> getHawkList() {
         return HawkList;
@@ -93,7 +94,9 @@ public class UserProfile {
         RcpList = rcpList;
     }
 
-    public String getInstagram() { return instagram; }
+    public String getInstagram() {
+        return instagram;
+    }
 
     public void setInstagram(String instagram) {
         this.instagram = instagram;

@@ -66,15 +66,12 @@ public class BHCFragment extends Fragment {
                 dellist = adapter.getDel_hcslist();
                 if (hwklist.isEmpty()) {
                     Toast.makeText(getContext(), "No stalls found", Toast.LENGTH_SHORT).show();
-                }
-                else if (dellist.isEmpty()){
+                } else if (dellist.isEmpty()) {
                     Toast.makeText(getContext(), "No stalls selected", Toast.LENGTH_SHORT).show();
-                }
-                else{
+                } else {
                     Toast.makeText(getContext(), Integer.toString(dellist.size()) + " stall(s) deleted", Toast.LENGTH_SHORT).show();
                     List<HawkerCornerStalls> toRemove = new ArrayList<>();
-                    for (HawkerCornerStalls dhwkObject : dellist)
-                    {
+                    for (HawkerCornerStalls dhwkObject : dellist) {
                         toRemove.add(dhwkObject);
 //                        hwklist.remove(dhwkObject);
 //                        dellist.remove(dhwkObject);

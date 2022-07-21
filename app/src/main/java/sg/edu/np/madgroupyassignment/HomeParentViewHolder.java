@@ -23,14 +23,15 @@ public class HomeParentViewHolder extends RecyclerView.ViewHolder {
     RecyclerView parent_rv;
 
     View viewItem;
-    public HomeParentViewHolder(View item){
+
+    public HomeParentViewHolder(View item) {
         super(item);
         viewItem = item;
         parent_rv = item.findViewById(R.id.home_main_rv);
 
         // LP and Feed elements use the same id
-        post_img= item.findViewById(R.id.feed_img);
-        post_header= item.findViewById(R.id.feed_header);
+        post_img = item.findViewById(R.id.feed_img);
+        post_header = item.findViewById(R.id.feed_header);
         post_desc = item.findViewById(R.id.feed_desc);
         post_author = item.findViewById(R.id.feed_author);
         post_line = item.findViewById(R.id.feed_line);

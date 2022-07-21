@@ -36,7 +36,6 @@ import com.squareup.picasso.Picasso;
 
 import java.lang.reflect.Array;
 
-
 public class RecipePostMain extends Fragment {
 
     EditText durInput;
@@ -62,6 +61,7 @@ public class RecipePostMain extends Fragment {
 
     Array[] returnArray;
     private FormsViewModel viewModel;
+
     public RecipePostMain() {
 
     }
@@ -83,7 +83,7 @@ public class RecipePostMain extends Fragment {
         viewModel.getStatus().observe(getViewLifecycleOwner(), new Observer<Integer>() {
             @Override
             public void onChanged(Integer i) {
-                if (i == 1){ // if editing
+                if (i == 1) { // if editing
                     TextView formsTitle = f1.findViewById(R.id.title);
                     formsTitle.setText("Edit Recipe Corner"); //Changing forms title to EDIT
                 }
@@ -91,13 +91,12 @@ public class RecipePostMain extends Fragment {
         });
         viewModel.getRecipePost().observe(getViewLifecycleOwner(), new Observer<RecipeCorner>() {
             public void onChanged(RecipeCorner i) {
-                if (i.recipeName != null || i.recipeName != ""){
-                     recipeStall = i;
+                if (i.recipeName != null || i.recipeName != "") {
+                    recipeStall = i;
                     //Setting image
                     downUrl = recipeStall.foodImage;
-                    if (recipeStall.getFoodImage() == "" | recipeStall.getFoodImage().isEmpty() | recipeStall.getFoodImage() == null){
-                    }
-                    else{
+                    if (recipeStall.getFoodImage() == "" | recipeStall.getFoodImage().isEmpty() | recipeStall.getFoodImage() == null) {
+                    } else {
                         Picasso.get().load(downUrl).into(displayPicButtonRecipe);
                     }
                     viewModel.selectImg(downUrl);

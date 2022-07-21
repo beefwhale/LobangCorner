@@ -1,16 +1,11 @@
 package sg.edu.np.madgroupyassignment;
 
-import android.content.Intent;
+
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CheckBox;
 import android.widget.CompoundButton;
-import android.widget.Filter;
-import android.widget.Filterable;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -19,10 +14,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.squareup.picasso.Picasso;
 
-import org.parceler.Parcel;
 import org.parceler.Parcels;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class HCMainsAdapter extends RecyclerView.Adapter<HCMainViewHolder> {
@@ -30,16 +23,16 @@ public class HCMainsAdapter extends RecyclerView.Adapter<HCMainViewHolder> {
 
     ArrayList<HawkerCornerStalls> stallsList;
     Boolean status;
-    public Integer cbCount = 0 ;
+    public Integer cbCount = 0;
     public ArrayList<Integer> listPos = new ArrayList<>();
     Integer toRemove;
     View stall;
     public ArrayList<HawkerCornerStalls> del_hcslist = new ArrayList<>();
 
     //Constructor for Adapter.
-    public HCMainsAdapter (ArrayList<HawkerCornerStalls> stallsList, Boolean status){
+    public HCMainsAdapter(ArrayList<HawkerCornerStalls> stallsList, Boolean status) {
         this.stallsList = stallsList;
-        this.status =  status;
+        this.status = status;
     }
 
     //Create View holder, parent as Stalls are centered.
@@ -47,10 +40,9 @@ public class HCMainsAdapter extends RecyclerView.Adapter<HCMainViewHolder> {
     @Override
     public HCMainViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         // Checks which layout u want (checkbox = false, no checkbox = true)
-        if (status == true){
+        if (status == true) {
             stall = LayoutInflater.from(parent.getContext()).inflate(R.layout.hawker_corner_stalls, parent, false);
-        }
-        else{
+        } else {
             stall = LayoutInflater.from(parent.getContext()).inflate(R.layout.activity_profile_hc_card, parent, false);
         }
 
@@ -83,14 +75,13 @@ public class HCMainsAdapter extends RecyclerView.Adapter<HCMainViewHolder> {
             }
         });
         // If layout has checkbox
-        if (status == false){
+        if (status == false) {
             //Setting all as default unselected
             newstall.setChecked(false);
             //DESELECTION : if removed from listPos, updating checkbox for every card
-            if (listPos.contains(holder.getAdapterPosition()) == false){
+            if (listPos.contains(holder.getAdapterPosition()) == false) {
                 holder.hcCheckbox.setChecked(false);
-            }
-            else{
+            } else {
                 holder.hcCheckbox.setChecked(true);
             }
             holder.hcCheckbox.setOnClickListener(new View.OnClickListener() {
@@ -99,21 +90,20 @@ public class HCMainsAdapter extends RecyclerView.Adapter<HCMainViewHolder> {
                     if (newstall.getChecked() == true) {
                         newstall.setChecked(false);
                         cbCount = cbCount - 1;
-                        for (Integer i:listPos){ //finding integer within list
-                            if (i.equals(holder.getAdapterPosition())){
+                        for (Integer i : listPos) { //finding integer within list
+                            if (i.equals(holder.getAdapterPosition())) {
                                 toRemove = i; // getting integer position
                             }
                         }
                         //Remove integer from list using integer position
                         listPos.remove(toRemove);
-                }
-                    else {
+                    } else {
                         newstall.setChecked(true);
                         cbCount = cbCount + 1;
                         //Add to list of checked using adapter position
                         listPos.add(holder.getAdapterPosition());
                     }
-                    if (cbCount == 0){
+                    if (cbCount == 0) {
                         listPos.clear();
                     }
                 }
@@ -122,10 +112,9 @@ public class HCMainsAdapter extends RecyclerView.Adapter<HCMainViewHolder> {
             holder.hcCheckbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                    if (del_hcslist.contains(newstall)){
+                    if (del_hcslist.contains(newstall)) {
                         del_hcslist.remove(newstall);
-                    }
-                    else{
+                    } else {
                         del_hcslist.add(newstall);
                     }
                 }
@@ -138,7 +127,7 @@ public class HCMainsAdapter extends RecyclerView.Adapter<HCMainViewHolder> {
         return del_hcslist;
     }
 
-    public void delete(ArrayList<HawkerCornerStalls> deletelist){
+    public void delete(ArrayList<HawkerCornerStalls> deletelist) {
         stallsList = deletelist;
         notifyDataSetChanged();
     }
@@ -149,7 +138,7 @@ public class HCMainsAdapter extends RecyclerView.Adapter<HCMainViewHolder> {
     }
 
     //Method to notify change from filter
-    public void sortChange(ArrayList<HawkerCornerStalls> newList){
+    public void sortChange(ArrayList<HawkerCornerStalls> newList) {
         this.stallsList = newList;
         notifyDataSetChanged();
     }

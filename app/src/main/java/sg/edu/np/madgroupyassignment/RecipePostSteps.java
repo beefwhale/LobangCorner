@@ -2,27 +2,21 @@ package sg.edu.np.madgroupyassignment;
 
 import android.os.Bundle;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import com.squareup.picasso.Picasso;
-
 import java.util.ArrayList;
-
 
 public class RecipePostSteps extends Fragment {
 
@@ -49,7 +43,7 @@ public class RecipePostSteps extends Fragment {
         items = new ArrayList<>();
 
         recyclerView = f3.findViewById(R.id.f2recyclerView);
-        adapter = new RVAdapterSteps(getActivity().getApplicationContext(),items,requireParentFragment());
+        adapter = new RVAdapterSteps(getActivity().getApplicationContext(), items, requireParentFragment());
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity().getApplicationContext()));
 
@@ -65,26 +59,25 @@ public class RecipePostSteps extends Fragment {
         viewModel.getStatus().observe(getViewLifecycleOwner(), new Observer<Integer>() {
             @Override
             public void onChanged(Integer i) {
-                if (i == 1){ // if editing
+                if (i == 1) { // if editing
                     submitBtn.setText("Submit Changes"); //Changing forms title to EDIT
                 }
             }
         });
         viewModel.getRecipePost().observe(getViewLifecycleOwner(), new Observer<RecipeCorner>() {
             public void onChanged(RecipeCorner i) {
-                if (i.recipeName != null || i.recipeName != ""){
+                if (i.recipeName != null || i.recipeName != "") {
                     recipeStall = i;
                     finalSteps = recipeStall.getSteps();
-                    if (finalSteps == "" || finalSteps.isEmpty()){
+                    if (finalSteps == "" || finalSteps.isEmpty()) {
                         String[] stepArray1 = recipeStall.getSteps().split("\n\n");
-                        for (String s:stepArray1) {
+                        for (String s : stepArray1) {
                             String[] stepArray2 = s.split(": "); // Removing the "Step: "
                             items.add(stepArray2[0]);
                         }
-                    }
-                    else{
+                    } else {
                         String[] stepArray1 = recipeStall.getSteps().split("\n\n");
-                        for (String s:stepArray1) {
+                        for (String s : stepArray1) {
                             String[] stepArray2 = s.split(": "); // Removing the "Step: "
                             items.add(stepArray2[1]);
                         }
@@ -99,20 +92,18 @@ public class RecipePostSteps extends Fragment {
             @Override
             public void onClick(View view) {
                 String text = input.getText().toString();
-                if(text == null || text.length() == 0){//if input is empty, show a toast
+                if (text == null || text.length() == 0) {//if input is empty, show a toast
                     Toast.makeText(getActivity(), "There is no input.", Toast.LENGTH_SHORT).show();
-                }
-                else{
+                } else {
                     addItem(text); //add input string to list
                     input.setText(""); //set text back to empty after entering
                     finalSteps = ""; //STEPS parameter
-                    for (int i=0; i<items.size(); i++){
-                        if (i==(items.size()-1)){
-                            finalSteps = finalSteps + "Step " + (i+1) + ": " +
+                    for (int i = 0; i < items.size(); i++) {
+                        if (i == (items.size() - 1)) {
+                            finalSteps = finalSteps + "Step " + (i + 1) + ": " +
                                     items.get(i);
-                        }
-                        else if (i!=(items.size()-1)){
-                            finalSteps = finalSteps + "Step " + (i+1) + ": " +
+                        } else if (i != (items.size() - 1)) {
+                            finalSteps = finalSteps + "Step " + (i + 1) + ": " +
                                     items.get(i) + "\n" + "\n"; //String formatting for steps
                         }
                     }
@@ -138,14 +129,15 @@ public class RecipePostSteps extends Fragment {
 
         return f3;
     }
+
     //function to add onto list
-    public static void addItem(String item){
+    public static void addItem(String item) {
         items.add(item);
         recyclerView.setAdapter(adapter); //update the listview
     }
 
     //function to remove from list
-    public static void removeItem(int remove){
+    public static void removeItem(int remove) {
         items.remove(remove);
         recyclerView.setAdapter(adapter); //update the listview
     }

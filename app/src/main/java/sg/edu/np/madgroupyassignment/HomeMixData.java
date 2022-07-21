@@ -1,7 +1,5 @@
 package sg.edu.np.madgroupyassignment;
 
-import android.widget.Button;
-
 import org.parceler.Parcel;
 
 @Parcel
@@ -38,10 +36,10 @@ public class HomeMixData {
     String ingredients;
     String foodImage;
 
-//    public HomeMixData(){
+    //    public HomeMixData(){
 //
 //    }
-    public HomeMixData(){
+    public HomeMixData() {
         this.identifier = identifier;
         this.postID = postID;
 
@@ -78,15 +76,19 @@ public class HomeMixData {
         this.foodImage = foodImage;
 
     }
+
     public long getPostTimeStamp() {
         return postTimeStamp;
     }
+
     public void setPostTimeStamp(long postTimeStamp) {
         this.postTimeStamp = postTimeStamp;
     }
+
     public boolean getIdentifier() {
         return identifier;
     }
+
     public void setIdentifier(boolean identifier) {
         this.identifier = identifier;
     }
@@ -198,33 +200,37 @@ public class HomeMixData {
         this.recipeDescription = recipeDescription;
     }
 
-    public Integer getRecipeRating(){
+    public Integer getRecipeRating() {
         return recipeRating;
     }
 
-    public void setRecipeRating(int recipeRating){
+    public void setRecipeRating(int recipeRating) {
         this.recipeRating = recipeRating;
     }
 
-    public Integer getNoOfRaters(){
+    public Integer getNoOfRaters() {
         return this.noOfRaters;
     }
 
-    public void setNoOfRaters(int noOfRaters){
+    public void setNoOfRaters(int noOfRaters) {
         this.noOfRaters = noOfRaters;
     }
 
-    public String getUserName(){
+    public String getUserName() {
         return userName;
     }
 
-    public void setUserName(String userName){
+    public void setUserName(String userName) {
         this.userName = userName;
     }
 
-    public String getDuration(){return duration;}
+    public String getDuration() {
+        return duration;
+    }
 
-    public void setDuration(String duration){this.duration = duration; }
+    public void setDuration(String duration) {
+        this.duration = duration;
+    }
 
     public String getIngredients() {
         return ingredients;
@@ -234,9 +240,13 @@ public class HomeMixData {
         this.ingredients = ingredients;
     }
 
-    public String getSteps(){return steps; }
+    public String getSteps() {
+        return steps;
+    }
 
-    public void setSteps(String steps){this.steps = steps; }
+    public void setSteps(String steps) {
+        this.steps = steps;
+    }
 
     public String getFoodImage() {
         return foodImage;

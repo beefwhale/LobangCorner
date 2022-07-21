@@ -1,16 +1,12 @@
 package sg.edu.np.madgroupyassignment;
 
 import android.content.Context;
-import android.content.Intent;
-import android.media.Rating;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CompoundButton;
-import android.widget.RatingBar;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -22,10 +18,8 @@ import com.squareup.picasso.Picasso;
 import org.parceler.Parcels;
 
 import java.util.ArrayList;
-import java.util.Random;
 
-
-public class RecipeAdapter extends RecyclerView.Adapter<RecipeViewHolder>{
+public class RecipeAdapter extends RecyclerView.Adapter<RecipeViewHolder> {
 
     // creating a variable for array list and context.
     private ArrayList<RecipeCorner> recipeArrayList;
@@ -35,7 +29,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeViewHolder>{
     Boolean aBoolean = false;
 
     //For editing
-    public Integer cbCount = 0 ;
+    public Integer cbCount = 0;
     public ArrayList<Integer> listPos = new ArrayList<>();
     Integer toRemove;
 
@@ -48,7 +42,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeViewHolder>{
     }
 
     // method called from recipeCornerMain to sort list and update the data
-    public void sort(ArrayList<RecipeCorner> sortllist){
+    public void sort(ArrayList<RecipeCorner> sortllist) {
         recipeArrayList = sortllist;
         notifyDataSetChanged();
     }
@@ -64,7 +58,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeViewHolder>{
     }
 
     //method called from recipeCornerMain to 'unsort' list when "sort by" is clicked
-    public void unsort(ArrayList<RecipeCorner> recipeList){
+    public void unsort(ArrayList<RecipeCorner> recipeList) {
         recipeArrayList = recipeList;
         notifyDataSetChanged();
     }
@@ -112,39 +106,35 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeViewHolder>{
         });
 
         // for bookmark page
-        if (status==1){
-            BookmarkActivity bookmarkActivity= new BookmarkActivity();
+        if (status == 1) {
+            BookmarkActivity bookmarkActivity = new BookmarkActivity();
             holder.checkbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                    Log.e("beefadapter",del_rcplist.size()+"");
-                    if (del_rcplist.contains(item)){
+                    Log.e("beefadapter", del_rcplist.size() + "");
+                    if (del_rcplist.contains(item)) {
                         //holder.checkbox.setChecked(false);
                         del_rcplist.remove(item);
-                    }
-                    else{
+                    } else {
                         //holder.checkbox.setChecked(true);
 
                         del_rcplist.add(item);
                     }
-                    if (del_rcplist.size() == 0 ){
+                    if (del_rcplist.size() == 0) {
                         bookmarkActivity.aBoolean = false;
-                    }
-                    else{
+                    } else {
                         bookmarkActivity.aBoolean = true;
                     }
                 }
             });
 
-        }
-        else if (status == 2){
+        } else if (status == 2) {
             //Setting all as default unselected
             item.setChecked(false);
             //DESELECTION : if removed from listPos, updating checkbox for every card
-            if (listPos.contains(holder.getAdapterPosition()) == false){
+            if (listPos.contains(holder.getAdapterPosition()) == false) {
                 holder.checkbox.setChecked(false);
-            }
-            else{
+            } else {
                 holder.checkbox.setChecked(true);
             }
             holder.checkbox.setOnClickListener(new View.OnClickListener() {
@@ -153,15 +143,14 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeViewHolder>{
                     if (item.getChecked() == true) {
                         item.setChecked(false);
                         cbCount = cbCount - 1;
-                        for (Integer i:listPos){ //finding integer within list
-                            if (i.equals(holder.getAdapterPosition())){
+                        for (Integer i : listPos) { //finding integer within list
+                            if (i.equals(holder.getAdapterPosition())) {
                                 toRemove = i; // getting interger position
                             }
                         }
                         //Remove integer from list using integer position
                         listPos.remove(toRemove);
-                    }
-                    else {
+                    } else {
                         item.setChecked(true);
                         cbCount = cbCount + 1;
                         //Add to list of checked using adapter position
@@ -176,7 +165,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeViewHolder>{
         return del_rcplist;
     }
 
-    public void delete(ArrayList<RecipeCorner> deletelist){
+    public void delete(ArrayList<RecipeCorner> deletelist) {
         recipeArrayList = deletelist;
         notifyDataSetChanged();
     }

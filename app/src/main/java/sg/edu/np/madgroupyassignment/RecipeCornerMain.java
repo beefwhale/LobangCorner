@@ -1,13 +1,11 @@
 package sg.edu.np.madgroupyassignment;
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
+
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,21 +14,13 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.SearchView;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 
-public class RecipeCornerMain extends Fragment implements AdapterView.OnItemSelectedListener{
+public class RecipeCornerMain extends Fragment implements AdapterView.OnItemSelectedListener {
 
     //creating variables for context, recyclerview, adapter, postsholder and arraylist
     Context c;
@@ -40,7 +30,7 @@ public class RecipeCornerMain extends Fragment implements AdapterView.OnItemSele
     public ArrayList<RecipeCorner> recipeModalArrayList = new ArrayList<>();
 
     //create constructor
-    public RecipeCornerMain(){
+    public RecipeCornerMain() {
         this.c = c;
     }
 
@@ -95,7 +85,7 @@ public class RecipeCornerMain extends Fragment implements AdapterView.OnItemSele
                     recipeModalArrayList.add(obj);
                 }
                 Collections.reverse(recipeModalArrayList);
-                adapter = new RecipeAdapter(recipeModalArrayList, getActivity(),0);
+                adapter = new RecipeAdapter(recipeModalArrayList, getActivity(), 0);
                 searchView.setQuery("", false);
                 sortSpinner.setSelection(0);
                 recipeRV.setAdapter(adapter);
@@ -105,7 +95,7 @@ public class RecipeCornerMain extends Fragment implements AdapterView.OnItemSele
 
         // initializing our adapter class.
         Collections.reverse(recipeModalArrayList); //default displays newest post first
-        adapter = new RecipeAdapter(recipeModalArrayList, getActivity(),0);
+        adapter = new RecipeAdapter(recipeModalArrayList, getActivity(), 0);
 
         // adding layout manager to our recycler view.
         LinearLayoutManager manager = new LinearLayoutManager(getActivity());
@@ -123,7 +113,7 @@ public class RecipeCornerMain extends Fragment implements AdapterView.OnItemSele
     }
 
     //method to sort by the ratings(level of difficulty)
-    private void sortrating(boolean b1){
+    private void sortrating(boolean b1) {
         ArrayList<RecipeCorner> sortlist = new ArrayList<>();
         for (RecipeCorner item : recipeModalArrayList) {
             sortlist.add(item);
@@ -140,7 +130,7 @@ public class RecipeCornerMain extends Fragment implements AdapterView.OnItemSele
     }
 
     //method to sort by stall name alphabetically
-    private void sortAlphabet(boolean b2){
+    private void sortAlphabet(boolean b2) {
         ArrayList<RecipeCorner> sortlist2 = new ArrayList<>();
         for (RecipeCorner item : recipeModalArrayList) {
             sortlist2.add(item);
@@ -157,7 +147,7 @@ public class RecipeCornerMain extends Fragment implements AdapterView.OnItemSele
     }
 
     //method to sort by oldest or most recent posts
-    private void sortdate(boolean b3){
+    private void sortdate(boolean b3) {
         ArrayList<RecipeCorner> sortlist3 = new ArrayList<>();
         for (RecipeCorner item : recipeModalArrayList) {
             sortlist3.add(item);
@@ -195,7 +185,7 @@ public class RecipeCornerMain extends Fragment implements AdapterView.OnItemSele
     //method to select each item in the spinner
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-        switch(i){
+        switch (i) {
             case 0:
                 adapter.unsort(recipeModalArrayList); //when clicked, goes back to default order of list
                 break;

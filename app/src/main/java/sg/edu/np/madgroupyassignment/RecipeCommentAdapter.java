@@ -7,7 +7,6 @@ import android.graphics.Paint;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -31,13 +30,10 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
-
-import org.parceler.Parcels;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -106,7 +102,7 @@ public class RecipeCommentAdapter extends RecyclerView.Adapter<CommentViewholder
             TextView n = item.findViewById(R.id.idRecipeName);
             TextView d = item.findViewById(R.id.idRecipeDescription);
             TextView id = item.findViewById(R.id.idUser);
-            id.setPaintFlags(id.getPaintFlags() |   Paint.UNDERLINE_TEXT_FLAG);
+            id.setPaintFlags(id.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
             RatingBar rb = item.findViewById(R.id.ratingBar);
             ImageView i = item.findViewById(R.id.imageView);
             ImageView i2 = item.findViewById(R.id.rcbookmark);
@@ -251,9 +247,7 @@ public class RecipeCommentAdapter extends RecyclerView.Adapter<CommentViewholder
                                     databaseReference.child(recyclerCurrentComment.getCommentUID()).setValue(null);
                                     Toast.makeText(c, "Deleted...", Toast.LENGTH_SHORT).show();
                                     commentData.remove(holder.getAdapterPosition() - 1);
-                                    Log.e("commentdelete", false + "");
                                     if (commentData.size() == 0) {
-                                        Log.e("commentdelete", true + "");
                                         Comments comment = new Comments();
                                         commentPic.setVisibility(View.GONE);
                                         commentMore.setVisibility(View.GONE);

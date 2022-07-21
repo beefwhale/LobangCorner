@@ -1,30 +1,27 @@
 package sg.edu.np.madgroupyassignment;
 
-import android.app.Activity;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelStoreOwner;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
-public class RVAdapterSteps extends RecyclerView.Adapter<RVAdapterSteps.ViewHolder>{
+public class RVAdapterSteps extends RecyclerView.Adapter<RVAdapterSteps.ViewHolder> {
     ArrayList<String> list;
     Context context;
     ViewModelStoreOwner VMSO;
     String finalSteps;
     FormsViewModel viewModel;
 
-    public RVAdapterSteps(Context context, ArrayList<String> items, ViewModelStoreOwner vmso){
+    public RVAdapterSteps(Context context, ArrayList<String> items, ViewModelStoreOwner vmso) {
         this.context = context;
         list = items;
         VMSO = vmso;
@@ -33,15 +30,15 @@ public class RVAdapterSteps extends RecyclerView.Adapter<RVAdapterSteps.ViewHold
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.steps_list_row,parent,false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.steps_list_row, parent, false);
         ViewHolder holder = new ViewHolder(view);
         return holder;
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        TextView number =holder.stepNo;
-        number.setText("Step "+ (holder.getAdapterPosition()+1)); //set text in custom layout to according to position in list
+        TextView number = holder.stepNo;
+        number.setText("Step " + (holder.getAdapterPosition() + 1)); //set text in custom layout to according to position in list
 
         TextView name = holder.stepName;
         name.setText(list.get(holder.getAdapterPosition()));//set text in custom layout to name
@@ -52,13 +49,12 @@ public class RVAdapterSteps extends RecyclerView.Adapter<RVAdapterSteps.ViewHold
             public void onClick(View view) {
                 RecipePostSteps.removeItem(holder.getAdapterPosition());//allow remove of step using imageview
                 finalSteps = ""; //STEPS parameter
-                for (int i=0; i<list.size(); i++){
-                    if (i==(list.size()-1)){
-                        finalSteps = finalSteps + "Step " + (i+1) + ": " +
+                for (int i = 0; i < list.size(); i++) {
+                    if (i == (list.size() - 1)) {
+                        finalSteps = finalSteps + "Step " + (i + 1) + ": " +
                                 list.get(i);
-                    }
-                    else if (i!=(list.size()-1)){
-                        finalSteps = finalSteps + "Step " + (i+1) + ": " +
+                    } else if (i != (list.size() - 1)) {
+                        finalSteps = finalSteps + "Step " + (i + 1) + ": " +
                                 list.get(i) + "\n";
                     }
                 }
@@ -74,7 +70,7 @@ public class RVAdapterSteps extends RecyclerView.Adapter<RVAdapterSteps.ViewHold
         return list.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder{
+    public class ViewHolder extends RecyclerView.ViewHolder {
 
         TextView stepNo;
         TextView stepName;

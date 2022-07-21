@@ -2,7 +2,6 @@ package sg.edu.np.madgroupyassignment;
 
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -14,11 +13,8 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -71,15 +67,12 @@ public class BRCFragment extends Fragment {
                 dellist = adapter.getDel_rcplist();
                 if (rcplist.isEmpty()) {
                     Toast.makeText(getContext(), "No recipes found", Toast.LENGTH_SHORT).show();
-                }
-                else if (dellist.isEmpty()){
+                } else if (dellist.isEmpty()) {
                     Toast.makeText(getContext(), "No recipes selected", Toast.LENGTH_SHORT).show();
-                }
-                else{
+                } else {
                     Toast.makeText(getContext(), Integer.toString(dellist.size()) + " recipe(s) deleted", Toast.LENGTH_SHORT).show();
                     List<RecipeCorner> toRemove = new ArrayList<>();
-                    for (RecipeCorner drcpObject : dellist)
-                    {
+                    for (RecipeCorner drcpObject : dellist) {
                         toRemove.add(drcpObject);
                         //rcplist.remove(drcpObject);
                         //dellist.remove(drcpObject);

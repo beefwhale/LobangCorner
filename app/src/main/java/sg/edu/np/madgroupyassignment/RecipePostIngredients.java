@@ -1,6 +1,5 @@
 package sg.edu.np.madgroupyassignment;
 
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -9,7 +8,6 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,10 +16,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.squareup.picasso.Picasso;
-
 import java.util.ArrayList;
-import java.util.HashMap;
 
 public class RecipePostIngredients extends Fragment {
 
@@ -53,7 +48,7 @@ public class RecipePostIngredients extends Fragment {
         ingredList = new ArrayList<>();
 
         recyclerView = f2.findViewById(R.id.f3recyclerView); //Defining listView
-        adapter = new RVAdapterIngred(getActivity().getApplicationContext(),ingredList,requireParentFragment());
+        adapter = new RVAdapterIngred(getActivity().getApplicationContext(), ingredList, requireParentFragment());
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity().getApplicationContext()));
 
@@ -71,7 +66,7 @@ public class RecipePostIngredients extends Fragment {
         //If EDITING
         viewModel.getRecipePost().observe(getViewLifecycleOwner(), new Observer<RecipeCorner>() {
             public void onChanged(RecipeCorner i) {
-                if (i.recipeName != null || i.recipeName != ""){
+                if (i.recipeName != null || i.recipeName != "") {
                     recipeStall = i;
                     String symbol1 = (String) "#-#";
                     String symbol2 = (String) "#=#";
@@ -80,11 +75,10 @@ public class RecipePostIngredients extends Fragment {
                     for (String s : ingredSplit1) {
                         String[] ingredSplit2 = {}; //Resetting Array
                         ingredSplit2 = s.split(symbol2); //Splitting every set of ingredient by its unit, qty and ingredient name
-                        if (ingredSplit2.length == 2){ //Doesn't have unit within
+                        if (ingredSplit2.length == 2) { //Doesn't have unit within
                             // Name, Qty, Empty Unit
                             ingredList.add(new Ingredient(ingredSplit2[1], Integer.parseInt(ingredSplit2[0]), ""));
-                        }
-                        else if ((ingredSplit2.length == 3)){ // Has a Unit within
+                        } else if ((ingredSplit2.length == 3)) { // Has a Unit within
                             // Name, Qty,  Unit
                             ingredList.add(new Ingredient(ingredSplit2[2], Integer.parseInt(ingredSplit2[0]), ingredSplit2[1]));
                         }
@@ -100,44 +94,40 @@ public class RecipePostIngredients extends Fragment {
             @Override
             public void onClick(View view) {
                 String ingred = ingredientName.getText().toString();
-                totalIngred ="";
+                totalIngred = "";
                 String qtyString = qty.getText().toString();
-                if (unit == null || unit.length() == 0 || unit.getText().toString() == ""){
+                if (unit == null || unit.length() == 0 || unit.getText().toString() == "") {
                     unt = "";
-                }
-                else{
+                } else {
                     unt = unit.getText().toString();
                 }
 
-                if(ingred == null || ingred.length() == 0 || qtyString == null
-                        || qtyString.length() == 0){
+                if (ingred == null || ingred.length() == 0 || qtyString == null
+                        || qtyString.length() == 0) {
                     //if input is empty, show a toast
                     Toast.makeText(getActivity(), "There is no input.", Toast.LENGTH_SHORT).show();
-                }
-                else{
+                } else {
                     int quantity = Integer.parseInt(qtyString);
-                    Ingredient ingredient = new Ingredient(ingred,quantity,unt);
+                    Ingredient ingredient = new Ingredient(ingred, quantity, unt);
                     addItem(ingredient); //add input string to list
                     ingredientName.setText(""); //set text back to empty after entering
                     qty.setText(""); //set text back to empty after entering
                     unit.setText(""); //set text back to empty after entering
 
-                    for (int i=0; i<ingredList.size(); i++){
-                        if (ingredList.get(i).unit == "" || ingredList.get(i).unit == null || ingredList.get(i).unit.length() == 0){
+                    for (int i = 0; i < ingredList.size(); i++) {
+                        if (ingredList.get(i).unit == "" || ingredList.get(i).unit == null || ingredList.get(i).unit.length() == 0) {
                             ingredString = ingredList.get(i).qty + "#=#" + ingredList.get(i).name; //String formatting for ingredients (w/o unit)
-                        }
-                        else{
+                        } else {
                             ingredString = ingredList.get(i).qty + "#=#" + ingredList.get(i).unit + "#=#" + ingredList.get(i).name; //String formatting for ingredients
                         }
                         totalIngredList.add(ingredString);
 
                     }
 
-                    for (int i=0; i<totalIngredList.size(); i++){
-                        if (i==(totalIngredList.size()-1)){ // If last in List
+                    for (int i = 0; i < totalIngredList.size(); i++) {
+                        if (i == (totalIngredList.size() - 1)) { // If last in List
                             totalIngred = totalIngred + totalIngredList.get(i);
-                        }
-                        else if (i!=(totalIngredList.size()-1)){ // If not the last in list
+                        } else if (i != (totalIngredList.size() - 1)) { // If not the last in list
                             totalIngred = totalIngred + totalIngredList.get(i) + "#-#";
                         }
                     }
@@ -162,14 +152,15 @@ public class RecipePostIngredients extends Fragment {
         });
         return f2;
     }
+
     //function to add onto list
-    public static void addItem(Ingredient item){
+    public static void addItem(Ingredient item) {
         ingredList.add(item);
         recyclerView.setAdapter(adapter); //update the listview
     }
 
     //function to remove from list
-    public static void removeItem(int remove){
+    public static void removeItem(int remove) {
         ingredList.remove(remove);
         recyclerView.setAdapter(adapter); //update the listview
     }

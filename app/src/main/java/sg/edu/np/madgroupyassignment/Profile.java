@@ -4,7 +4,6 @@ import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
@@ -14,7 +13,6 @@ import android.content.ContentResolver;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -39,8 +37,6 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
 
-import org.parceler.Parcels;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -60,8 +56,8 @@ public class Profile extends Fragment {
     private LayoutInflater layoutInflater;
     private View fish;
 
-    private String sAppLink,sPackage,sWebLink;
-    private String insta_username,fb_username,twt_username;
+    private String sAppLink, sPackage, sWebLink;
+    private String insta_username, fb_username, twt_username;
 
     private Uri ImageUri;
     private FirebaseAuth mAuth;
@@ -73,7 +69,7 @@ public class Profile extends Fragment {
     public Boolean status = true;
     public String userID;
 
-    public Profile(Boolean status){
+    public Profile(Boolean status) {
         this.status = status; // true = the users own pfp, false = not the user's own pfp (clicked from a post)
     }
 
@@ -106,17 +102,15 @@ public class Profile extends Fragment {
         firebaseDatabase = FirebaseDatabase.getInstance();
         databaseReference = firebaseDatabase.getReference();
 
-//        Updating page
-        updatePage();
-        // Users own profile page or not (true = user, false = author)
-        if (status == false){
+//         Users own profile page or not (true = user, false = author)
+        if (status == false) {
             // Getting Username ID (that needs to be shown)
             Bundle bundle = this.getArguments();
-            if (bundle != null){
+            if (bundle != null) {
                 userProfileList = PostsHolder.getAuthorProfileList(); //Getting entire profile List
                 userID = bundle.getString("userID");
-                for (UserProfile i: userProfileList) {
-                    if (i.getUID().equals(userID)){
+                for (UserProfile i : userProfileList) {
+                    if (i.getUID().equals(userID)) {
                         userProfile = i;
                     }
                 }
@@ -127,21 +121,23 @@ public class Profile extends Fragment {
             logout.setVisibility(View.GONE);
         }
 
+//        Updating page
+        updatePage();
 
 //        Getting image
         getPhoto = registerForActivityResult(
-            new ActivityResultContracts.GetContent(),
-            new ActivityResultCallback<Uri>() {
-                @Override
-                public void onActivityResult(Uri result) {
-                    ImageUri = result;
-                    upPost();
+                new ActivityResultContracts.GetContent(),
+                new ActivityResultCallback<Uri>() {
+                    @Override
+                    public void onActivityResult(Uri result) {
+                        ImageUri = result;
+                        upPost();
+                    }
                 }
-            }
         );
 
 //        Getting image when profile pic is clicked
-        if (status == true){
+        if (status == true) {
             profP.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -230,25 +226,19 @@ public class Profile extends Fragment {
         });
 
 //      Making Social Buttons GONE if no info added
-        Log.e("beef", insta_username);
-        if (insta_username.equals("") || insta_username == null){
+        if (insta_username.equals("") || insta_username == null) {
             social_insta.setVisibility(View.GONE);
-            Log.e("beef", "gone");
-        }
-        else{
+        } else {
             social_insta.setVisibility(View.VISIBLE);
-            Log.e("beef", "visible");
         }
-        if (fb_username.equals("") || fb_username == null){
+        if (fb_username.equals("") || fb_username == null) {
             social_fb.setVisibility(View.GONE);
-        }
-        else{
+        } else {
             social_fb.setVisibility(View.VISIBLE);
         }
-        if (twt_username.equals("") || twt_username == null){
+        if (twt_username.equals("") || twt_username == null) {
             social_twt.setVisibility(View.GONE);
-        }
-        else{
+        } else {
             social_twt.setVisibility(View.VISIBLE);
         }
 
@@ -256,10 +246,9 @@ public class Profile extends Fragment {
         social_insta.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                Log.e("Instagram", insta_username+"egg");
-                String sAppLink = "https://www.instagram.com/"+insta_username+"/";
+                String sAppLink = "https://www.instagram.com/" + insta_username + "/";
                 String sPackage = "com.instagram.android";
-                String sWebLink = "https://www.instagram.com/"+insta_username+"/";
+                String sWebLink = "https://www.instagram.com/" + insta_username + "/";
                 openLink(sAppLink, sPackage, sWebLink);
             }
         });
@@ -279,9 +268,9 @@ public class Profile extends Fragment {
         social_twt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String sAppLink = "twitter://user?screen_name="+twt_username;
+                String sAppLink = "twitter://user?screen_name=" + twt_username;
                 String sPackage = "com.twitter.android";
-                String sWebLink = "https://twitter.com/"+twt_username;
+                String sWebLink = "https://twitter.com/" + twt_username;
                 openLink(sAppLink, sPackage, sWebLink);
             }
         });
@@ -323,15 +312,14 @@ public class Profile extends Fragment {
 
     // Opening social media links
     private void openLink(String sAppLink, String sPackage, String sWebLink) {
-        try{
+        try {
             Uri uri = Uri.parse(sAppLink);
             Intent intent = new Intent(Intent.ACTION_VIEW);
             intent.setData(uri);
             intent.setPackage(sPackage);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
-        }
-        catch(ActivityNotFoundException activityNotFoundException){
+        } catch (ActivityNotFoundException activityNotFoundException) {
             Uri uri = Uri.parse(sWebLink);
             Intent intent = new Intent(Intent.ACTION_VIEW);
             intent.setData(uri);
@@ -346,7 +334,7 @@ public class Profile extends Fragment {
         MainActivity mainActivity = new MainActivity();
         mainActivity.profileFirstUpdate = false;
 
-        if (status == true){ // users own profile
+        if (status == true) { // users own profile
             userProfile = postsHolder.getUserProfile();
         }
 
@@ -355,7 +343,7 @@ public class Profile extends Fragment {
         if (aboutme != null) {
             aboutme.setText(userProfile.getAboutMe());
         }
-        if (userProfile.getHawkList()!= null && userProfile.getRcpList()!= null ){
+        if (userProfile.getHawkList() != null && userProfile.getRcpList() != null) {
             hwkObj.setText("" + (userProfile.getHawkList().size() - 1) + "\n\nHawker Posts");
             rcpObj.setText("" + (userProfile.getRcpList().size() - 1) + "\n\nRecipe Post");
         }
@@ -375,30 +363,27 @@ public class Profile extends Fragment {
             profileRecipeRV.rcadapter.notifyDataSetChanged();
         }
     }
-    private void getSocials(){
+
+    private void getSocials() {
         //Socials
         //If there no accounts inside yet
         //INSTAGRAM
-        if (userProfile.getInstagram() == null || userProfile.getInstagram().equals("")){
+        if (userProfile.getInstagram() == null || userProfile.getInstagram().equals("")) {
             insta_username = "";
-        }
-        else{
+        } else {
             insta_username = userProfile.getInstagram();
         }
         //FACEBOOK
-        if (userProfile.getFacebook() == null || userProfile.getFacebook().equals("")){
+        if (userProfile.getFacebook() == null || userProfile.getFacebook().equals("")) {
             fb_username = "";
-        }
-        else{
+        } else {
             fb_username = userProfile.getFacebook();
         }
-        if (userProfile.getTwitter() == null || userProfile.getTwitter().equals("")){
+        if (userProfile.getTwitter() == null || userProfile.getTwitter().equals("")) {
             twt_username = "";
-        }
-        else{
+        } else {
             twt_username = userProfile.getTwitter();
         }
-        Log.e("beefupdate", insta_username);
     }
 
 

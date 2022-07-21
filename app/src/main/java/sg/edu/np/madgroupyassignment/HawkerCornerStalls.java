@@ -1,14 +1,7 @@
 package sg.edu.np.madgroupyassignment;
 
-import android.widget.Button;
-import android.widget.ImageButton;
-import android.widget.ImageView;
-import android.widget.TextView;
-
-import com.squareup.picasso.Picasso;
-
 import org.parceler.Parcel;
-import org.w3c.dom.Text;
+
 
 @Parcel
 public class HawkerCornerStalls {
@@ -30,10 +23,11 @@ public class HawkerCornerStalls {
     public Boolean isChecked;          // Checks checkbox
 
     //Constructors
-    public HawkerCornerStalls (){ }
+    public HawkerCornerStalls() {
+    }
 
-    public HawkerCornerStalls(String postid, String hccoverimg,String hcOwner, String hcstallname, String hcauthor, String hccparagraph, String hccaddress,
-                              String daysopen, String hoursopen, String hccuserpfp,String shortdesc, long postTimeStamp, Boolean isChecked){
+    public HawkerCornerStalls(String postid, String hccoverimg, String hcOwner, String hcstallname, String hcauthor, String hccparagraph, String hccaddress,
+                              String daysopen, String hoursopen, String hccuserpfp, String shortdesc, long postTimeStamp, Boolean isChecked) {
         this.postid = postid;
         this.hccoverimg = hccoverimg;
         this.hcOwner = hcOwner;
@@ -51,13 +45,21 @@ public class HawkerCornerStalls {
 
     //Getters and setters
 
-    public String getPostid() { return postid; }
+    public String getPostid() {
+        return postid;
+    }
 
-    public void setPostid(String postid) { this.postid = postid; }
+    public void setPostid(String postid) {
+        this.postid = postid;
+    }
 
-    public String getHccoverimg() { return hccoverimg; }
+    public String getHccoverimg() {
+        return hccoverimg;
+    }
 
-    public void setHccoverimg(String hccoverimg) { this.hccoverimg = hccoverimg; }
+    public void setHccoverimg(String hccoverimg) {
+        this.hccoverimg = hccoverimg;
+    }
 
     public String getHcstallname() {
         return hcstallname;
@@ -83,9 +85,13 @@ public class HawkerCornerStalls {
         this.hcauthor = hcauthor;
     }
 
-    public String getHccuserpfp() { return hccuserpfp; }
+    public String getHccuserpfp() {
+        return hccuserpfp;
+    }
 
-    public void setHccuserpfp(String hccuserpfp) { this.hccuserpfp = hccuserpfp; }
+    public void setHccuserpfp(String hccuserpfp) {
+        this.hccuserpfp = hccuserpfp;
+    }
 
     public String getHccparagraph() {
         return hccparagraph;
@@ -135,6 +141,11 @@ public class HawkerCornerStalls {
         this.postTimeStamp = postTimeStamp;
     }
 
-    public Boolean getChecked() {return isChecked; }
-    public void setChecked(Boolean isChecked) { this.isChecked = isChecked; }
+    public Boolean getChecked() {
+        return isChecked;
+    }
+
+    public void setChecked(Boolean isChecked) {
+        this.isChecked = isChecked;
+    }
 }

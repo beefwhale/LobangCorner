@@ -7,8 +7,6 @@ import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentActivity;
-import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.viewpager2.widget.ViewPager2;
@@ -17,7 +15,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.Toast;
 
 import com.google.android.material.tabs.TabLayout;
@@ -49,7 +46,8 @@ public class RecipeForm extends Fragment {
 
     public Integer status;
     OnBackPressedCallback callback;
-    public RecipeForm(Integer status ) {
+
+    public RecipeForm(Integer status) {
         // Required empty public constructor
         //Creating Post = 0, Editing Post = 1, Editing Draft  = 2
         this.status = status;
@@ -89,10 +87,9 @@ public class RecipeForm extends Fragment {
         recipeName = "";
 
         //Setting this so it can be referenced in the Main/Ingredients/steps fragment
-        if (status.equals(0)){ // If Posting
+        if (status.equals(0)) { // If Posting
             viewModel.status(0);
-        }
-        else if(status.equals(1)){ // If Editing Post
+        } else if (status.equals(1)) { // If Editing Post
             viewModel.status(1);
 
             Bundle bundle = this.getArguments();
@@ -101,8 +98,7 @@ public class RecipeForm extends Fragment {
             ArrayList<RecipeCorner> recipeList = Parcels.unwrap(bundle.getParcelable("list"));
             recipeDrafts = recipeList.get(chosenrecipeno);
             viewModel.recipePost(recipeDrafts);
-        }
-        else{
+        } else {
             viewModel.status(1);
 
             Bundle bundle = this.getArguments();
@@ -116,19 +112,16 @@ public class RecipeForm extends Fragment {
         viewModel.getchangeFragment().observe(getViewLifecycleOwner(), new Observer<Integer>() {
             @Override
             public void onChanged(Integer i) {
-                if (i == 1){ // Change to Ingredients page
+                if (i == 1) { // Change to Ingredients page
                     TabLayout.Tab tab = tabLayout.getTabAt(i);
                     tab.select();
-                }
-                else if (i == 2){ // Steps Page
+                } else if (i == 2) { // Steps Page
                     TabLayout.Tab tab = tabLayout.getTabAt(i);
                     tab.select();
-                }
-                else if (i == 0){ // Main Page
+                } else if (i == 0) { // Main Page
                     TabLayout.Tab tab = tabLayout.getTabAt(i);
                     tab.select();
-                }
-                else if( i == 3){ // Submit Button is pressed
+                } else if (i == 3) { // Submit Button is pressed
                     username = userProfile.getUsername(); //USERNAME parameter
 
                     viewModel.getSelectedRecipeName().observe(getViewLifecycleOwner(), new Observer<String>() {
@@ -174,33 +167,32 @@ public class RecipeForm extends Fragment {
                         }
                     });
 
-                    if(recipeName == null || recipeName.length() == 0 || recipeName.isEmpty() || recipeName == "" ||
+                    if (recipeName == null || recipeName.length() == 0 || recipeName.isEmpty() || recipeName == "" ||
                             recipeDesc == null || recipeDesc.length() == 0 || recipeDesc.isEmpty() ||
                             totalIngred == null || totalIngred.length() == 0 || totalIngred.isEmpty() ||
                             steps == null || steps.length() == 0 || steps.isEmpty() ||
-                            selectedImg.isEmpty() || selectedImg.length() == 0 || selectedImg == ""){
+                            selectedImg.isEmpty() || selectedImg.length() == 0 || selectedImg == "") {
                         Log.e("ingred", totalIngred);
                         Log.e("steps", steps);
                         Toast.makeText(getActivity(), "Please input recipe title, description, image, ingredients and steps", Toast.LENGTH_SHORT).show();
-                    }
-                    else{
+                    } else {
                         //POSTING:
                         MainActivity.checkFormsNum = 1;
                         MainActivity.mainFAB.show();
                         ownerUID = userProfile.getUID();
                         Long timeStamp;
-                        String PostID ="";
-                        if (status == 0){
+                        String PostID = "";
+                        if (status == 0) {
                             timeStamp = System.currentTimeMillis();
                             PostID = databaseReferencetest.push().getKey();
-                            recipeCorner = new RecipeCorner(PostID, ownerUID, recipeName, recipeDesc, difficulty, username, duration, steps,totalIngred, timeStamp, selectedImg, false);
+                            recipeCorner = new RecipeCorner(PostID, ownerUID, recipeName, recipeDesc, difficulty, username, duration, steps, totalIngred, timeStamp, selectedImg, false);
                             userCurrentRcp = userProfile.getRcpList();
                         }
                         //EDITING: POST
-                        else if (status == 1){
+                        else if (status == 1) {
                             timeStamp = recipeDrafts.getPostTimeStamp();
                             PostID = recipeDrafts.getPostID();
-                            recipeCorner = new RecipeCorner(PostID, ownerUID, recipeName, recipeDesc, difficulty, username, duration, steps,totalIngred, timeStamp, selectedImg, false);
+                            recipeCorner = new RecipeCorner(PostID, ownerUID, recipeName, recipeDesc, difficulty, username, duration, steps, totalIngred, timeStamp, selectedImg, false);
                             userCurrentRcp = userProfile.getRcpList();
                         }
                         RcpUp(userCurrentRcp, recipeCorner, PostID, status);
@@ -210,8 +202,7 @@ public class RecipeForm extends Fragment {
 
                     }
                     //Toast.makeText(getActivity(), totalIngred, Toast.LENGTH_SHORT).show();
-                }
-                else{
+                } else {
                     viewModel.changeFragment(0); // Default Zero: forms main page
                 }
             }
@@ -226,17 +217,16 @@ public class RecipeForm extends Fragment {
         databaseReferencetest.child("Posts").child("Recipes").child(PostID).setValue(RcpObj);
         viewModel.changeFragment(0);
         //POSTING:
-        if (status == 0){
+        if (status == 0) {
             userRcpList.put(PostID, PostID);
             databaseReferencetest.child("UserProfile").child(mAuth.getUid()).child("rcpList").updateChildren(userRcpList);
             Toast.makeText(getActivity(), "Recipe Uploaded Successfully!", Toast.LENGTH_SHORT).show();
 
         }
         //EDITING: POST
-        else if(status == 1){
+        else if (status == 1) {
             Toast.makeText(getActivity(), "Recipe Edited Successfully!", Toast.LENGTH_SHORT).show();
-        }
-        else if (status == 2){
+        } else if (status == 2) {
             userRcpList.put(PostID, PostID);
             databaseReferencetest.child("UserProfile").child(mAuth.getUid()).child("rcpList").updateChildren(userRcpList);
             Toast.makeText(getActivity(), "Recipe Uploaded Successfully!", Toast.LENGTH_SHORT).show();
@@ -254,11 +244,11 @@ public class RecipeForm extends Fragment {
         Toast.makeText(getActivity(), "Recipe saved to drafts", Toast.LENGTH_SHORT).show();
     }
 
-    public void retrieveUserProfile(){
+    public void retrieveUserProfile() {
         this.userProfile = postsHolder.getUserProfile();
     }
 
-    private void leaveAlert(){
+    private void leaveAlert() {
         AlertDialog.Builder builder1 = new AlertDialog.Builder(getActivity()); //Context is getActivity
 
         //Set title
@@ -312,7 +302,7 @@ public class RecipeForm extends Fragment {
                     }
                 });
 
-                if (status == 2){
+                if (status == 2) {
                     recipeDrafts.recipeName = recipeName;
                     recipeDrafts.owner = userProfile.getUID();
                     recipeDrafts.recipeDescription = recipeDesc;
@@ -322,8 +312,7 @@ public class RecipeForm extends Fragment {
                     recipeDrafts.steps = steps;
                     recipeDrafts.ingredients = totalIngred;
                     recipeDrafts.foodImage = selectedImg;
-                }
-                else{
+                } else {
                     recipeDrafts.recipeName = recipeName;
                     recipeDrafts.postID = databaseReferencetest.push().getKey();
                     recipeDrafts.owner = userProfile.getUID();
@@ -336,7 +325,7 @@ public class RecipeForm extends Fragment {
                     recipeDrafts.foodImage = selectedImg;
                 }
 
-                RcpDraftUp(recipeDrafts,recipeDrafts.postID);
+                RcpDraftUp(recipeDrafts, recipeDrafts.postID);
 //                Toast.makeText(getActivity(), recipeDrafts.steps, Toast.LENGTH_SHORT).show();
                 getParentFragmentManager().popBackStack();
             }
@@ -385,10 +374,9 @@ public class RecipeForm extends Fragment {
                         recipeName = s; //RECIPE TITLE parameter
                     }
                 });
-                if (recipeName == "" || recipeName.isEmpty() || recipeName == null){
+                if (recipeName == "" || recipeName.isEmpty() || recipeName == null) {
                     getParentFragmentManager().popBackStack();
-                }
-                else{
+                } else {
                     leaveAlert();
                     //Ensure it doesnt affect when not in forms
                     setEnabled(false);

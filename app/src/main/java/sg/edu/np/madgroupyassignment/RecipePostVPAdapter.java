@@ -3,9 +3,7 @@ package sg.edu.np.madgroupyassignment;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.lifecycle.Lifecycle;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
@@ -30,7 +28,7 @@ public class RecipePostVPAdapter extends FragmentStateAdapter {
         return fArrayList.size();
     }
 
-    public void addFragment(Fragment fragment, String title){
+    public void addFragment(Fragment fragment, String title) {
         fArrayList.add(fragment);
         fTitle.add(title);
 

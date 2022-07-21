@@ -1,23 +1,18 @@
 package sg.edu.np.madgroupyassignment;
 
-import android.app.Activity;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelStoreOwner;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 public class RVAdapterIngred extends RecyclerView.Adapter<RVAdapterIngred.ViewHolder> {
     ArrayList<Ingredient> list;
@@ -28,7 +23,7 @@ public class RVAdapterIngred extends RecyclerView.Adapter<RVAdapterIngred.ViewHo
     String ingredString;
     ArrayList<String> totalIngredList;
 
-    public RVAdapterIngred(Context context, ArrayList<Ingredient> ingreds, ViewModelStoreOwner vmso){
+    public RVAdapterIngred(Context context, ArrayList<Ingredient> ingreds, ViewModelStoreOwner vmso) {
         this.context = context;
         list = ingreds;
         VMSO = vmso;
@@ -39,7 +34,7 @@ public class RVAdapterIngred extends RecyclerView.Adapter<RVAdapterIngred.ViewHo
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.ingredient_list_row,parent,false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.ingredient_list_row, parent, false);
         ViewHolder holder = new ViewHolder(view);
         return holder;
     }
@@ -50,7 +45,7 @@ public class RVAdapterIngred extends RecyclerView.Adapter<RVAdapterIngred.ViewHo
         ingredName.setText(list.get(holder.getAdapterPosition()).name);
 
         TextView qty = holder.quantity;
-        qty.setText(""+list.get(holder.getAdapterPosition()).qty);
+        qty.setText("" + list.get(holder.getAdapterPosition()).qty);
 
         TextView unit = holder.unit;
         unit.setText(list.get(holder.getAdapterPosition()).unit);
@@ -62,22 +57,20 @@ public class RVAdapterIngred extends RecyclerView.Adapter<RVAdapterIngred.ViewHo
                 totalIngredList = new ArrayList<>();
                 totalIngred = "";
                 RecipePostIngredients.removeItem(holder.getAdapterPosition());//allow remove of ingredient using imageview
-                for (int i=0; i<list.size(); i++){
-                    if (list.get(i).unit == "" || list.get(i).unit == null || list.get(i).unit.length() == 0){
+                for (int i = 0; i < list.size(); i++) {
+                    if (list.get(i).unit == "" || list.get(i).unit == null || list.get(i).unit.length() == 0) {
                         ingredString = list.get(i).qty + " " + list.get(i).name;
-                    }
-                    else{
+                    } else {
                         ingredString = list.get(i).qty + " " + list.get(i).unit + " " + list.get(i).name;
                     }
                     totalIngredList.add(ingredString);
 
                 }
 
-                for (int i=0; i<totalIngredList.size(); i++){
-                    if (i==(totalIngredList.size()-1)){
+                for (int i = 0; i < totalIngredList.size(); i++) {
+                    if (i == (totalIngredList.size() - 1)) {
                         totalIngred = totalIngred + totalIngredList.get(i);
-                    }
-                    else if (i!=(totalIngredList.size()-1)){
+                    } else if (i != (totalIngredList.size() - 1)) {
                         totalIngred = totalIngred + totalIngredList.get(i) + "\n";
                     }
                 }
@@ -90,10 +83,10 @@ public class RVAdapterIngred extends RecyclerView.Adapter<RVAdapterIngred.ViewHo
 
     @Override
     public int getItemCount() {
-        return list.size()  ;
+        return list.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder{
+    public class ViewHolder extends RecyclerView.ViewHolder {
 
         TextView ingredName;
         TextView quantity;

@@ -1,7 +1,5 @@
 package sg.edu.np.madgroupyassignment;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -9,7 +7,6 @@ import androidx.fragment.app.Fragment;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,13 +14,6 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.Toast;
-
-import com.google.android.material.navigation.NavigationBarView;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -40,11 +30,11 @@ public class HawkerCornerMain extends Fragment implements AdapterView.OnItemSele
     RecyclerView hcmainrv;
     HCMainsAdapter hcadapter;
 
-    public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState){
+    public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_hawker_corner_main, parent, false);
 
         stallsList.removeAll(stallsList);
-        for (HawkerCornerStalls obj : postsHolder.getHawkerPosts()){
+        for (HawkerCornerStalls obj : postsHolder.getHawkerPosts()) {
             stallsList.add(obj);
         }
 
@@ -64,7 +54,7 @@ public class HawkerCornerMain extends Fragment implements AdapterView.OnItemSele
         hcmainsearch.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                if (filterList(query, view).isEmpty()){
+                if (filterList(query, view).isEmpty()) {
                     Toast.makeText(view.getContext(), "No Matching Stalls or Users", Toast.LENGTH_SHORT).show();
                 }
                 return true;
@@ -93,7 +83,7 @@ public class HawkerCornerMain extends Fragment implements AdapterView.OnItemSele
             @Override
             public void onRefresh() {
                 stallsList.removeAll(stallsList);
-                for (HawkerCornerStalls obj : postsHolder.getHawkerPosts()){
+                for (HawkerCornerStalls obj : postsHolder.getHawkerPosts()) {
                     stallsList.add(obj);
                 }
                 Collections.reverse(stallsList);
@@ -112,8 +102,8 @@ public class HawkerCornerMain extends Fragment implements AdapterView.OnItemSele
     public ArrayList<HawkerCornerStalls> filterList(String text, View view) {
         ArrayList<HawkerCornerStalls> filteredList = new ArrayList<>();
         //Checks if the user enters anything that matches stall name or user name, match will be added to filter
-        for (HawkerCornerStalls hcs : stallsList){
-            if (hcs.hcstallname.toLowerCase().contains(text.toLowerCase()) || hcs.hcauthor.toLowerCase().contains(text.toLowerCase())){
+        for (HawkerCornerStalls hcs : stallsList) {
+            if (hcs.hcstallname.toLowerCase().contains(text.toLowerCase()) || hcs.hcauthor.toLowerCase().contains(text.toLowerCase())) {
                 filteredList.add(hcs);
             }
         }
@@ -158,7 +148,7 @@ public class HawkerCornerMain extends Fragment implements AdapterView.OnItemSele
     }
 
     //Methods to be used in spinner switch-case, can be reused if adding more filters
-    public ArrayList<HawkerCornerStalls> sortListByStall(){
+    public ArrayList<HawkerCornerStalls> sortListByStall() {
         Collections.sort(stallsList, new Comparator<HawkerCornerStalls>() {
             @Override
             public int compare(HawkerCornerStalls stall1, HawkerCornerStalls stall2) {
@@ -168,7 +158,7 @@ public class HawkerCornerMain extends Fragment implements AdapterView.OnItemSele
         return stallsList;
     }
 
-    public ArrayList<HawkerCornerStalls> sortListByAuthor(){
+    public ArrayList<HawkerCornerStalls> sortListByAuthor() {
         Collections.sort(stallsList, new Comparator<HawkerCornerStalls>() {
             @Override
             public int compare(HawkerCornerStalls stall1, HawkerCornerStalls stall2) {

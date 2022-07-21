@@ -20,15 +20,15 @@ public class HomeChildViewHolder extends RecyclerView.ViewHolder {
     ImageView hc_btn;
     ImageView rc_btn;
 
-    public HomeChildViewHolder(View item){
+    public HomeChildViewHolder(View item) {
         super(item);
 
         // Getting values of actual items in LP layout file
         post_img = item.findViewById(R.id.feed_img);
-        post_header= item.findViewById(R.id.feed_header);
-        post_desc= item.findViewById(R.id.feed_desc);
-        post_author= item.findViewById(R.id.feed_author);
-        post_line= item.findViewById(R.id.feed_line);
+        post_header = item.findViewById(R.id.feed_header);
+        post_desc = item.findViewById(R.id.feed_desc);
+        post_author = item.findViewById(R.id.feed_author);
+        post_line = item.findViewById(R.id.feed_line);
 
         // For Weekly Feature items
         weekly_img = item.findViewById(R.id.weekly_img);

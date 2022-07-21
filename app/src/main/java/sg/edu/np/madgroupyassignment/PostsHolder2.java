@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class PostsHolder2 {
     public static ArrayList<HawkerCornerStalls> hawkerPosts;
-    public static ArrayList<RecipeCorner>  recipePosts;
+    public static ArrayList<RecipeCorner> recipePosts;
 
     public PostsHolder2() {
         this.hawkerPosts = new ArrayList<>();
@@ -27,11 +27,11 @@ public class PostsHolder2 {
         PostsHolder2.recipePosts.add(recipePosts);
     }
 
-    public void removeHawkerPosts(){
+    public void removeHawkerPosts() {
         this.hawkerPosts.removeAll(hawkerPosts);
     }
 
-    public void removeRecipePosts(){
+    public void removeRecipePosts() {
         this.recipePosts.removeAll(recipePosts);
     }
 }

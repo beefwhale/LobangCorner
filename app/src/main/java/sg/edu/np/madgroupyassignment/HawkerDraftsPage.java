@@ -15,7 +15,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -50,7 +49,6 @@ public class HawkerDraftsPage extends Fragment {
     AlertDialog.Builder builder;
 
 
-
     public HawkerDraftsPage() {
 
     }
@@ -68,7 +66,7 @@ public class HawkerDraftsPage extends Fragment {
 
 //        Setting drafts list to list in firebase
         draftsList.removeAll(draftsList);
-        for (HawkerCornerStalls obj : postsHolder.getHawkerDrafts()){
+        for (HawkerCornerStalls obj : postsHolder.getHawkerDrafts()) {
             draftsList.add(obj);
         }
         hcdadapter = new HawkerDraftsAdapter(draftsList);
@@ -84,10 +82,10 @@ public class HawkerDraftsPage extends Fragment {
             public void onClick(View v) {
                 builder = new AlertDialog.Builder(getContext());
                 //At least one post selected
-                if (hcdadapter.cbCount > 0){
+                if (hcdadapter.cbCount > 0) {
                     //Setting message manually and performing action on button click
                     builder.setTitle("Confirm Delete ?")
-                            .setMessage("You sure you want to permanently delete ("+hcdadapter.cbCount+") posts?")
+                            .setMessage("You sure you want to permanently delete (" + hcdadapter.cbCount + ") posts?")
                             .setCancelable(false)
                             .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int id) {
@@ -102,29 +100,28 @@ public class HawkerDraftsPage extends Fragment {
                                     listPos = hcdadapter.adapterListPos;
                                     //Sort list in descending order to avoid Array Out of Bounds
                                     Collections.sort(listPos, Collections.reverseOrder());
-                                    for (int i: listPos) {
-                                        HawkerCornerStalls deleteItem = draftsList.get(i-1);
+                                    for (int i : listPos) {
+                                        HawkerCornerStalls deleteItem = draftsList.get(i - 1);
                                         //removing from database
                                         databaseReference.child("Drafts").child("Hawkers").child(mAuth.getUid()).child(deleteItem.getPostid()).removeValue();
 //                                        StorageReference storageLocationCheck = FirebaseStorage.getInstance().getReferenceFromUrl(deleteItem.hccoverimg);
 //                                        storageLocationCheck.delete();
 
                                         //Updating List
-                                        draftsList.remove(i-1);
-                                        hcdadapter.notifyItemRemoved(i-1);
-                                        hcdadapter.notifyItemRangeChanged(0,listPos.size()-1);
+                                        draftsList.remove(i - 1);
+                                        hcdadapter.notifyItemRemoved(i - 1);
+                                        hcdadapter.notifyItemRangeChanged(0, listPos.size() - 1);
                                     }
                                     hcdadapter.adapterListPos.clear();
-                                    Toast.makeText(getActivity(),hcdadapter.cbCount+" Post(s) Deleted",
+                                    Toast.makeText(getActivity(), hcdadapter.cbCount + " Post(s) Deleted",
                                             Toast.LENGTH_SHORT).show();
                                 }
                             });
                     //Creating dialog box
                     AlertDialog alert = builder.create();
                     alert.show();
-                }
-                else{
-                    Toast.makeText(getActivity(),"No Post Selected",
+                } else {
+                    Toast.makeText(getActivity(), "No Post Selected",
                             Toast.LENGTH_SHORT).show();
                 }
             }
@@ -132,18 +129,19 @@ public class HawkerDraftsPage extends Fragment {
         return hawkerDraftPage;
     }
 
-    class HawkerDraftsAddViewHolder extends RecyclerView.ViewHolder{
+    class HawkerDraftsAddViewHolder extends RecyclerView.ViewHolder {
         public HawkerDraftsAddViewHolder(@NonNull View itemView) {
             super(itemView);
         }
     }
 
-    public class HawkerDraftsViewHolder extends RecyclerView.ViewHolder{
+    public class HawkerDraftsViewHolder extends RecyclerView.ViewHolder {
         ImageView hccoverimg;
         TextView hcstallname;
         TextView hcauthor;
         TextView hcshortdesc;
         CheckBox hcCheckbox;
+
         public HawkerDraftsViewHolder(@NonNull View item) {
             super(item);
             hccoverimg = item.findViewById(R.id.hccoverimg);
@@ -154,25 +152,24 @@ public class HawkerDraftsPage extends Fragment {
         }
     }
 
-    class HawkerDraftsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
+    class HawkerDraftsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         ArrayList<HawkerCornerStalls> stallsList;
         public ArrayList<Integer> adapterListPos = new ArrayList<>();
-        public Integer cbCount = 0 ;
+        public Integer cbCount = 0;
         Integer toRemove;
         public Fragment HawkerForm;
 
-        public HawkerDraftsAdapter(ArrayList<HawkerCornerStalls> stallsList){
+        public HawkerDraftsAdapter(ArrayList<HawkerCornerStalls> stallsList) {
             this.stallsList = stallsList;
         }
 
         @NonNull
         @Override
         public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-            if (viewType == 0){
+            if (viewType == 0) {
                 View addDraftView = LayoutInflater.from(parent.getContext()).inflate(R.layout.add_draft, parent, false);
                 return new HawkerDraftsPage.HawkerDraftsAddViewHolder(addDraftView);
-            }
-            else{
+            } else {
                 View draftView = LayoutInflater.from(parent.getContext()).inflate(R.layout.activity_profile_hc_card, parent, false);
                 return new HawkerDraftsPage.HawkerDraftsViewHolder(draftView);
             }
@@ -182,11 +179,11 @@ public class HawkerDraftsPage extends Fragment {
         public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
             HawkerForm hawkerForm = new HawkerForm(0); //Posting = 0
             //When click into first item (plus) go into forms
-            if (this.getItemViewType(position) == 0){
+            if (this.getItemViewType(position) == 0) {
                 holder.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        if (MainActivity.checkFormsNum == 1){
+                        if (MainActivity.checkFormsNum == 1) {
                             MainActivity.checkFormsNum = 0; //changes to 0 when click into forms
                             MainActivity.whichForm = 1;
                             AppCompatActivity activity = (AppCompatActivity) view.getContext();
@@ -202,13 +199,12 @@ public class HawkerDraftsPage extends Fragment {
                 });
             }
             //When click into something else (drafts) go into forms with data
-            else{
+            else {
                 HawkerDraftsViewHolder hawkerDraftsViewHolder = (HawkerDraftsViewHolder) holder;
-                HawkerCornerStalls newstall = stallsList.get(position-1);
+                HawkerCornerStalls newstall = stallsList.get(position - 1);
                 //If no image, do nothing. If there's image, load image.
-                if (newstall.getHccoverimg() == "" | newstall.getHccoverimg().isEmpty() | newstall.getHccoverimg() == null){
-                }
-                else{
+                if (newstall.getHccoverimg() == "" | newstall.getHccoverimg().isEmpty() | newstall.getHccoverimg() == null) {
+                } else {
                     Picasso.get().load(newstall.getHccoverimg()).into(hawkerDraftsViewHolder.hccoverimg);
                 }
                 hawkerDraftsViewHolder.hcstallname.setText(newstall.hcstallname);
@@ -217,10 +213,9 @@ public class HawkerDraftsPage extends Fragment {
                 //Setting all as default unselected
                 newstall.setChecked(false);
                 //DESELECTION : if removed from listPos, updating checkbox for every card
-                if (adapterListPos.contains(holder.getAdapterPosition()) == false){
+                if (adapterListPos.contains(holder.getAdapterPosition()) == false) {
                     hawkerDraftsViewHolder.hcCheckbox.setChecked(false);
-                }
-                else{
+                } else {
                     hawkerDraftsViewHolder.hcCheckbox.setChecked(true);
                 }
                 hawkerDraftsViewHolder.hcCheckbox.setOnClickListener(new View.OnClickListener() {
@@ -229,21 +224,20 @@ public class HawkerDraftsPage extends Fragment {
                         if (newstall.getChecked() == true) {
                             newstall.setChecked(false);
                             cbCount = cbCount - 1;
-                            for (Integer i:adapterListPos){ //finding integer within list
-                                if (i.equals(holder.getAdapterPosition())){
+                            for (Integer i : adapterListPos) { //finding integer within list
+                                if (i.equals(holder.getAdapterPosition())) {
                                     toRemove = i; // getting integer position
                                 }
                             }
                             //Remove integer from list using integer position
                             adapterListPos.remove(toRemove);
-                        }
-                        else {
+                        } else {
                             newstall.setChecked(true);
                             cbCount = cbCount + 1;
                             //Add to list of checked using adapter position
                             adapterListPos.add(holder.getAdapterPosition());
                         }
-                        if (cbCount == 0){
+                        if (cbCount == 0) {
                             listPos.clear();
                         }
                     }
@@ -279,10 +273,10 @@ public class HawkerDraftsPage extends Fragment {
 
         @Override
         public int getItemCount() {
-            return (1+stallsList.size());
+            return (1 + stallsList.size());
         }
 
-        public void sortChange(ArrayList<HawkerCornerStalls> newList){
+        public void sortChange(ArrayList<HawkerCornerStalls> newList) {
             this.stallsList = newList;
             notifyDataSetChanged();
         }

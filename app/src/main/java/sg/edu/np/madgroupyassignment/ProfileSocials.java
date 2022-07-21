@@ -1,7 +1,6 @@
 package sg.edu.np.madgroupyassignment;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,7 +24,7 @@ public class ProfileSocials extends Fragment {
     EditText social_insta_input, social_fb_input, social_twt_input;
     String usernameID;
     String instagram, facebook, twitter;
-    String insta,fb,twt;
+    String insta, fb, twt;
 
     private DatabaseReference databaseReference;
     private FirebaseDatabase firebaseDatabase;
@@ -52,13 +51,13 @@ public class ProfileSocials extends Fragment {
         social_fb_input = view.findViewById(R.id.social_fb_input);
         social_twt_input = view.findViewById(R.id.social_twt_input);
 
-        if (insta.equals("") == false){
+        if (insta.equals("") == false) {
             social_insta_input.setText(insta);
         }
-        if (fb.equals("") == false){
+        if (fb.equals("") == false) {
             social_fb_input.setText(fb);
         }
-        if (twt.equals("") == false){
+        if (twt.equals("") == false) {
             social_twt_input.setText(twt);
         }
 
@@ -74,14 +73,14 @@ public class ProfileSocials extends Fragment {
                 facebook = social_fb_input.getText().toString();
                 twitter = social_twt_input.getText().toString();
 
-                if (instagram == null){
-                    instagram="";
+                if (instagram == null) {
+                    instagram = "";
                 }
-                if (twitter == null){
-                    twitter="";
+                if (twitter == null) {
+                    twitter = "";
                 }
-                if (facebook == null){
-                    facebook="";
+                if (facebook == null) {
+                    facebook = "";
                 }
                 data.put("instagram", instagram);
                 data.put("facebook", facebook);
@@ -92,7 +91,6 @@ public class ProfileSocials extends Fragment {
                         getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, new Profile(true)).commit();
                     }
                 });
-
 
 
                 Toast.makeText(getActivity(), "Changes Saved", Toast.LENGTH_SHORT).show();

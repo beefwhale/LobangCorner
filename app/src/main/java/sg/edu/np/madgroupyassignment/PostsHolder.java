@@ -1,19 +1,16 @@
 package sg.edu.np.madgroupyassignment;
 
-import android.util.Log;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.Random;
-import java.util.concurrent.ThreadLocalRandom;
 
 public class PostsHolder {
-    private static int fishRandom  = new Random().nextInt(888889) + 111111;
+    private static int fishRandom = new Random().nextInt(888889) + 111111;
     private static UserProfile userProfile;
     private static ArrayList<UserProfile> authorProfileList;
     private static ArrayList<HawkerCornerStalls> hawkerPosts;
-    private static ArrayList<RecipeCorner>  recipePosts;
+    private static ArrayList<RecipeCorner> recipePosts;
 
     private static ArrayList<HawkerCornerStalls> userHawkerPosts;
     private static ArrayList<RecipeCorner> userRecipePosts;
@@ -23,7 +20,7 @@ public class PostsHolder {
     private static RecipeCorner[] recentRecipePosts = new RecipeCorner[5];
 
     private static ArrayList<HawkerCornerStalls> hawkerDrafts;
-    private static ArrayList<RecipeCorner>  recipeDrafts;
+    private static ArrayList<RecipeCorner> recipeDrafts;
 
     public PostsHolder() {
         this.userProfile = new UserProfile();
@@ -34,7 +31,6 @@ public class PostsHolder {
         this.userRecipePosts = new ArrayList<>();
         this.hawkerDrafts = new ArrayList<>();
         this.recipeDrafts = new ArrayList<>();
-
 
 
     }
@@ -50,6 +46,7 @@ public class PostsHolder {
     public static void setHawkerPosts(HawkerCornerStalls hawkerPosts) {
         PostsHolder.hawkerPosts.add(hawkerPosts);
     }
+
     public static ArrayList<RecipeCorner> getRecipePosts() {
         return recipePosts;
     }
@@ -123,38 +120,47 @@ public class PostsHolder {
     }
 
 
-    public void removeHawkerPosts(){
+    public void removeHawkerPosts() {
         this.hawkerPosts.removeAll(hawkerPosts);
     }
 
-    public void removeRecipePosts(){
+    public void removeRecipePosts() {
         this.recipePosts.removeAll(recipePosts);
     }
-    public void removeAuthorProfileList(){
+
+    public void removeAuthorProfileList() {
         this.authorProfileList.removeAll(authorProfileList);
     }
 
-    public void removeUserHawkerPosts(){
+    public void removeUserHawkerPosts() {
         this.userHawkerPosts.removeAll(userHawkerPosts);
     }
 
-    public void removeUserRecipePosts(){
+    public void removeUserRecipePosts() {
         this.userRecipePosts.removeAll(userRecipePosts);
     }
 
-    public void removeHawkerDrafts() { this.hawkerDrafts.removeAll(hawkerDrafts);}
+    public void removeHawkerDrafts() {
+        this.hawkerDrafts.removeAll(hawkerDrafts);
+    }
 
-    public void removeRecipeDrafts() { this.recipeDrafts.removeAll(recipeDrafts);}
+    public void removeRecipeDrafts() {
+        this.recipeDrafts.removeAll(recipeDrafts);
+    }
 
-    public void removeRecentHawkerPosts() { Arrays.fill(this.recentHawkerPosts, null); }
+    public void removeRecentHawkerPosts() {
+        Arrays.fill(this.recentHawkerPosts, null);
+    }
 
-    public void removeRecentRecipePosts() { Arrays.fill(this.recentRecipePosts, null); }
+    public void removeRecentRecipePosts() {
+        Arrays.fill(this.recentRecipePosts, null);
+    }
 
     public void updateRecentHawkerPosts(HawkerCornerStalls hawkerCornerStalls) {
         sortEntries();
 
-        for (int i = 0 ; i < recentHawkerPosts.length ; i++) {
-            if(recentHawkerPosts[i] == null || recentHawkerPosts[i].postTimeStamp < hawkerCornerStalls.postTimeStamp) {
+        for (int i = 0; i < recentHawkerPosts.length; i++) {
+            if (recentHawkerPosts[i] == null || recentHawkerPosts[i].postTimeStamp < hawkerCornerStalls.postTimeStamp) {
                 recentHawkerPosts[i] = hawkerCornerStalls;
                 break;
             }
@@ -165,8 +171,8 @@ public class PostsHolder {
     public void updateRecentRecipePosts(RecipeCorner recipeCorner) {
         sortEntries();
 
-        for (int i = 0 ; i < recentRecipePosts.length ; i++) {
-            if(recentRecipePosts[i] == null || recentRecipePosts[i].postTimeStamp < recipeCorner.postTimeStamp) {
+        for (int i = 0; i < recentRecipePosts.length; i++) {
+            if (recentRecipePosts[i] == null || recentRecipePosts[i].postTimeStamp < recipeCorner.postTimeStamp) {
                 recentRecipePosts[i] = recipeCorner;
                 break;
             }
@@ -174,11 +180,11 @@ public class PostsHolder {
         sortEntries();
     }
 
-    private void sortEntries(){
+    private void sortEntries() {
         Arrays.sort(recentHawkerPosts, new Comparator<HawkerCornerStalls>() {
             @Override
             public int compare(HawkerCornerStalls stall1, HawkerCornerStalls stall2) {
-                if (stall1 == null && stall2 == null){
+                if (stall1 == null && stall2 == null) {
                     return 0;
                 }
 
@@ -189,7 +195,7 @@ public class PostsHolder {
                 if (stall2 == null) {
                     return 1;
                 }
-                return (int)(stall1.postTimeStamp - stall2.postTimeStamp);
+                return (int) (stall1.postTimeStamp - stall2.postTimeStamp);
             }
         });
     }

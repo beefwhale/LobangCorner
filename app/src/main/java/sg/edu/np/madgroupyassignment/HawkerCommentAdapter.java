@@ -1,22 +1,18 @@
 package sg.edu.np.madgroupyassignment;
 
-import android.annotation.SuppressLint;
+
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.graphics.Paint;
-import android.media.Image;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
@@ -25,8 +21,6 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.view.menu.MenuBuilder;
-import androidx.appcompat.view.menu.MenuPopupHelper;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -36,15 +30,10 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
-
-import org.parceler.Parcel;
-import org.parceler.Parcels;
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -107,7 +96,6 @@ public class HawkerCommentAdapter extends RecyclerView.Adapter<CommentViewholder
     @NonNull
     @Override
     public CommentViewholder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View item;
         if (viewType == 0) {
             item = LayoutInflater.from(parent.getContext()).inflate(R.layout.activity_hcchosen_stall, null, false);
 
@@ -117,7 +105,7 @@ public class HawkerCommentAdapter extends RecyclerView.Adapter<CommentViewholder
             ImageView hcbookmark = item.findViewById(R.id.hcbookmark);
             TextView chosenstallname = item.findViewById(R.id.chosenstallname);
             hccusername = item.findViewById(R.id.hccusername);
-            hccusername.setPaintFlags(hccusername.getPaintFlags() |   Paint.UNDERLINE_TEXT_FLAG);
+            hccusername.setPaintFlags(hccusername.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
             TextView hccaddress = item.findViewById(R.id.hccaddress);
             TextView hccparagraph = item.findViewById(R.id.hccparagraph);
             TextView descriptionheader = item.findViewById(R.id.descriptiontv);

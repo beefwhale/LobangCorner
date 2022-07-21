@@ -12,8 +12,6 @@ import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatDelegate;
-import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.Observer;
 
@@ -44,14 +42,14 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 
-public class MainActivity extends AppCompatActivity{
+public class MainActivity extends AppCompatActivity {
 
     private String UID;
     public static Boolean profileFirstUpdate;
     private UserProfile userProfile;
     private ArrayList<UserProfile> authorProfileList;
     private PostsHolder postsHolder;
-    private  PostsHolder2 postsHolder2;
+    private PostsHolder2 postsHolder2;
     private Handler handler;
     private FirebaseAuth mAuth;
     private FirebaseDatabase firebaseDatabase;
@@ -86,8 +84,8 @@ public class MainActivity extends AppCompatActivity{
 
     public static BottomNavigationView bottomNavigationView;
 
-    public MainActivity(){
-        this.c =c;
+    public MainActivity() {
+        this.c = c;
         this.FABVisible = FABVisible;
     }
 
@@ -155,7 +153,6 @@ public class MainActivity extends AppCompatActivity{
         hcFABText = findViewById(R.id.floating_hc_nav_button_text);
 
 
-
         //Makes boolean false again on app startup
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(MainActivity.this);
         preferences.edit().remove("onlyonce").commit();
@@ -182,7 +179,7 @@ public class MainActivity extends AppCompatActivity{
 //                Getting Hawker Drafts
                 hawkerDraftsList = new ArrayList<HawkerCornerStalls>();
                 postsHolder.removeHawkerDrafts();
-                for (DataSnapshot objectEntry : snapshot.child("Drafts").child("Hawkers").child(mAuth.getUid()).getChildren()){
+                for (DataSnapshot objectEntry : snapshot.child("Drafts").child("Hawkers").child(mAuth.getUid()).getChildren()) {
                     HawkerCornerStalls eachHawkerObj = objectEntry.getValue(HawkerCornerStalls.class);
                     hawkerDraftsList.add(eachHawkerObj);
                     postsHolder.setHawkerDrafts(hawkerDraftsList);
@@ -192,7 +189,7 @@ public class MainActivity extends AppCompatActivity{
 //                Getting Recipe Drafts
                 recipeDraftsList = new ArrayList<RecipeCorner>();
                 postsHolder.removeRecipeDrafts();
-                for (DataSnapshot objectEntry : snapshot.child("Drafts").child("Recipes").child(mAuth.getUid()).getChildren()){
+                for (DataSnapshot objectEntry : snapshot.child("Drafts").child("Recipes").child(mAuth.getUid()).getChildren()) {
                     RecipeCorner eachRecipeObj = objectEntry.getValue(RecipeCorner.class);
                     recipeDraftsList.add(eachRecipeObj);
                     postsHolder.setRecipeDrafts(recipeDraftsList);
@@ -206,7 +203,7 @@ public class MainActivity extends AppCompatActivity{
                 for (DataSnapshot objectEntry : snapshot.child("Posts").child("Recipes").getChildren()) {
                     RecipeCorner rcpObject = objectEntry.getValue(RecipeCorner.class);
                     postsHolder.setRecipePosts(rcpObject);
-                    if (rcpObject.getOwner().equals(mAuth.getUid())){
+                    if (rcpObject.getOwner().equals(mAuth.getUid())) {
                         postsHolder.setUserRecipePosts(rcpObject);
                     }
                     postsHolder.updateRecentRecipePosts(rcpObject);
@@ -219,7 +216,7 @@ public class MainActivity extends AppCompatActivity{
                 for (DataSnapshot objectEntry : snapshot.child("Posts").child("Hawkers").getChildren()) {
                     HawkerCornerStalls hwkObject = objectEntry.getValue(HawkerCornerStalls.class);
                     postsHolder.setHawkerPosts(hwkObject);
-                    if (hwkObject.getHcOwner().equals(mAuth.getUid())){
+                    if (hwkObject.getHcOwner().equals(mAuth.getUid())) {
                         postsHolder.setUserHawkerPosts(hwkObject);
                     }
                     postsHolder.updateRecentHawkerPosts(hwkObject);
@@ -227,11 +224,11 @@ public class MainActivity extends AppCompatActivity{
 
                 //                Getting bookmarked recipe posts
                 postsHolder2.removeRecipePosts();
-                for (DataSnapshot objectEntry : snapshot.child("UserProfile").child(mAuth.getUid()).child("bmrcplist").getChildren()){
+                for (DataSnapshot objectEntry : snapshot.child("UserProfile").child(mAuth.getUid()).child("bmrcplist").getChildren()) {
                     String PostID = objectEntry.getValue(String.class);
                     for (DataSnapshot objectEntry2 : snapshot.child("Posts").child("Recipes").getChildren()) {
                         RecipeCorner rcpObject2 = objectEntry2.getValue(RecipeCorner.class);
-                        if (rcpObject2.getPostID().equals(PostID)){
+                        if (rcpObject2.getPostID().equals(PostID)) {
                             postsHolder2.setRecipePosts(rcpObject2);
                         }
                     }
@@ -239,11 +236,11 @@ public class MainActivity extends AppCompatActivity{
 
 //                Getting bookmarked hawker posts
                 postsHolder2.removeHawkerPosts();
-                for (DataSnapshot objectEntry : snapshot.child("UserProfile").child(mAuth.getUid()).child("bmhawklist").getChildren()){
+                for (DataSnapshot objectEntry : snapshot.child("UserProfile").child(mAuth.getUid()).child("bmhawklist").getChildren()) {
                     String PostID = objectEntry.getValue(String.class);
                     for (DataSnapshot objectEntry2 : snapshot.child("Posts").child("Hawkers").getChildren()) {
                         HawkerCornerStalls hwkObject2 = objectEntry2.getValue(HawkerCornerStalls.class);
-                        if (hwkObject2.getPostid().equals(PostID)){
+                        if (hwkObject2.getPostid().equals(PostID)) {
                             postsHolder2.setHawkerposts(hwkObject2);
                         }
                     }
@@ -256,12 +253,12 @@ public class MainActivity extends AppCompatActivity{
                 }
 
                 //Updating hawker corner
-                if (hawkerCornerMain.hcadapter != null){
+                if (hawkerCornerMain.hcadapter != null) {
                     hawkerCornerMain.hcadapter.notifyDataSetChanged();
                 }
 
                 //Updating recipe corner
-                if (recipeCornerMain.adapter != null){
+                if (recipeCornerMain.adapter != null) {
                     recipeCornerMain.adapter.notifyDataSetChanged();
                 }
 
@@ -319,7 +316,7 @@ public class MainActivity extends AppCompatActivity{
         Profile profile = new Profile(true);
 
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(MainActivity.this);
-        if (prefs.getBoolean("onlyonce", false) != true){
+        if (prefs.getBoolean("onlyonce", false) != true) {
             //         Hiding Nav Bars and FAB and during splash page duration
             bottomNavigationView.setVisibility(View.GONE);
             findViewById(R.id.floating_main_nav_button).setVisibility(View.GONE);
@@ -340,35 +337,32 @@ public class MainActivity extends AppCompatActivity{
                 //When click on home
                 switch (item.getItemId()) {
                     case R.id.home:
-                        if (checkFormsNum == 1){ //If never enter forms
+                        if (checkFormsNum == 1) { //If never enter forms
 //                            getSupportFragmentManager().popBackStack();
                             mainFAB.show();
                             getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, homeFragment, "Home")
                                     .addToBackStack(null).commit();
 
-                        }
-                        else if ( whichForm == 1 && HawkerForm.stallName == "" || whichForm == 1 && HawkerForm.stallName.isEmpty() || whichForm == 1 && HawkerForm.stallName == null){
+                        } else if (whichForm == 1 && HawkerForm.stallName == "" || whichForm == 1 && HawkerForm.stallName.isEmpty() || whichForm == 1 && HawkerForm.stallName == null) {
                             mainFAB.show();
                             checkFormsNum = 1;
 //                            getSupportFragmentManager().popBackStack();
                             getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, homeFragment, "Home")
                                     .addToBackStack(null).commit();
-                        }
-                        else if ( whichForm == 2){
+                        } else if (whichForm == 2) {
                             RecipeForm.viewModel.getSelectedRecipeName().observe(recipeForm.getViewLifecycleOwner(), new Observer<String>() {
                                 @Override
                                 public void onChanged(String s) {
                                     RecipeForm.recipeName = s;
                                 }
                             });
-                            if (RecipeForm.recipeName == "" || RecipeForm.recipeName.isEmpty() || RecipeForm.recipeName == null){
+                            if (RecipeForm.recipeName == "" || RecipeForm.recipeName.isEmpty() || RecipeForm.recipeName == null) {
                                 mainFAB.show();
                                 checkFormsNum = 1;
                                 getSupportFragmentManager().popBackStack();
                                 getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, homeFragment, "Home")
                                         .addToBackStack(null).commit();
-                            }
-                            else{
+                            } else {
                                 AlertDialog.Builder builder1 = new AlertDialog.Builder(MainActivity.this); //Context is getActivity
 
                                 //Set title
@@ -408,8 +402,7 @@ public class MainActivity extends AppCompatActivity{
 
                                 builder1.show();
                             }
-                        }
-                        else{ //If enter forms
+                        } else { //If enter forms
                             AlertDialog.Builder builder1 = new AlertDialog.Builder(MainActivity.this); //Context is getActivity
 
                             //Set title
@@ -453,39 +446,34 @@ public class MainActivity extends AppCompatActivity{
                 }
 
 
-
-
                 //When click on hc
                 switch (item.getItemId()) {
                     case R.id.hc:
-                        if (checkFormsNum == 1){ //If never enter forms
+                        if (checkFormsNum == 1) { //If never enter forms
                             mainFAB.show();
                             //getSupportFragmentManager().popBackStack();
                             getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, hawkerCornerMain, "HC")
                                     .addToBackStack(null).commit();
-                        }
-                        else if ( whichForm == 1 && HawkerForm.stallName == "" || whichForm == 1 && HawkerForm.stallName.isEmpty() || whichForm == 1 && HawkerForm.stallName == null){
+                        } else if (whichForm == 1 && HawkerForm.stallName == "" || whichForm == 1 && HawkerForm.stallName.isEmpty() || whichForm == 1 && HawkerForm.stallName == null) {
                             mainFAB.show();
                             checkFormsNum = 1;
                             getSupportFragmentManager().popBackStack();
                             getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, hawkerCornerMain, "HC")
                                     .addToBackStack(null).commit();
-                        }
-                        else if ( whichForm == 2){
+                        } else if (whichForm == 2) {
                             RecipeForm.viewModel.getSelectedRecipeName().observe(recipeForm.getViewLifecycleOwner(), new Observer<String>() {
                                 @Override
                                 public void onChanged(String s) {
                                     RecipeForm.recipeName = s; //RECIPE TITLE parameter
                                 }
                             });
-                            if (RecipeForm.recipeName == "" || RecipeForm.recipeName.isEmpty() || RecipeForm.recipeName == null){
+                            if (RecipeForm.recipeName == "" || RecipeForm.recipeName.isEmpty() || RecipeForm.recipeName == null) {
                                 mainFAB.show();
                                 checkFormsNum = 1;
                                 getSupportFragmentManager().popBackStack();
                                 getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, hawkerCornerMain, "HC")
                                         .addToBackStack(null).commit();
-                            }
-                            else{
+                            } else {
                                 AlertDialog.Builder builder1 = new AlertDialog.Builder(MainActivity.this); //Context is getActivity
 
                                 //Set title
@@ -525,8 +513,7 @@ public class MainActivity extends AppCompatActivity{
 
                                 builder1.show();
                             }
-                        }
-                        else { //If enter forms
+                        } else { //If enter forms
                             AlertDialog.Builder builder1 = new AlertDialog.Builder(MainActivity.this); //Context is getActivity
 
                             //Set title
@@ -570,8 +557,6 @@ public class MainActivity extends AppCompatActivity{
 
                         return true;
                 }
-
-
 
 
                 //When click on rc
@@ -582,29 +567,26 @@ public class MainActivity extends AppCompatActivity{
 //                            getSupportFragmentManager().popBackStack();
                             getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, recipeCornerMain, "RC")
                                     .addToBackStack(null).commit();
-                        }
-                        else if ( whichForm == 1 && HawkerForm.stallName == "" || whichForm == 1 && HawkerForm.stallName.isEmpty() || whichForm == 1 && HawkerForm.stallName == null){
+                        } else if (whichForm == 1 && HawkerForm.stallName == "" || whichForm == 1 && HawkerForm.stallName.isEmpty() || whichForm == 1 && HawkerForm.stallName == null) {
                             mainFAB.show();
                             checkFormsNum = 1;
                             getSupportFragmentManager().popBackStack();
                             getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, recipeCornerMain, "RC")
                                     .addToBackStack(null).commit();
-                        }
-                        else if ( whichForm == 2){
+                        } else if (whichForm == 2) {
                             RecipeForm.viewModel.getSelectedRecipeName().observe(recipeForm.getViewLifecycleOwner(), new Observer<String>() {
                                 @Override
                                 public void onChanged(String s) {
                                     RecipeForm.recipeName = s; //RECIPE TITLE parameter
                                 }
                             });
-                            if (RecipeForm.recipeName == "" || RecipeForm.recipeName.isEmpty() || RecipeForm.recipeName == null){
+                            if (RecipeForm.recipeName == "" || RecipeForm.recipeName.isEmpty() || RecipeForm.recipeName == null) {
                                 mainFAB.show();
                                 checkFormsNum = 1;
                                 getSupportFragmentManager().popBackStack();
                                 getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, recipeCornerMain, "RC")
                                         .addToBackStack(null).commit();
-                            }
-                            else{
+                            } else {
                                 AlertDialog.Builder builder1 = new AlertDialog.Builder(MainActivity.this); //Context is getActivity
 
                                 //Set title
@@ -644,8 +626,7 @@ public class MainActivity extends AppCompatActivity{
 
                                 builder1.show();
                             }
-                        }
-                        else{ //If enter forms
+                        } else { //If enter forms
                             AlertDialog.Builder builder1 = new AlertDialog.Builder(MainActivity.this); //Context is getActivity
 
                             //Set title
@@ -690,39 +671,34 @@ public class MainActivity extends AppCompatActivity{
                 }
 
 
-
-
                 //When click on profile
                 switch (item.getItemId()) {
                     case R.id.profile:
-                        if (checkFormsNum == 1){ //If never enter forms
+                        if (checkFormsNum == 1) { //If never enter forms
                             mainFAB.show();
 //                            getSupportFragmentManager().popBackStack();
                             getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, profile, "Profile")
                                     .addToBackStack(null).commit();
-                        }
-                        else if ( whichForm == 1 && HawkerForm.stallName == "" || whichForm == 1 &&  HawkerForm.stallName.isEmpty() || whichForm == 1 && HawkerForm.stallName == null){
+                        } else if (whichForm == 1 && HawkerForm.stallName == "" || whichForm == 1 && HawkerForm.stallName.isEmpty() || whichForm == 1 && HawkerForm.stallName == null) {
                             mainFAB.show();
                             checkFormsNum = 1;
                             getSupportFragmentManager().popBackStack();
                             getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, profile, "Profile")
                                     .addToBackStack(null).commit();
-                        }
-                        else if ( whichForm == 2){
+                        } else if (whichForm == 2) {
                             RecipeForm.viewModel.getSelectedRecipeName().observe(recipeForm.getViewLifecycleOwner(), new Observer<String>() {
                                 @Override
                                 public void onChanged(String s) {
                                     RecipeForm.recipeName = s; //RECIPE TITLE parameter
                                 }
                             });
-                            if (RecipeForm.recipeName == "" || RecipeForm.recipeName.isEmpty() || RecipeForm.recipeName == null){
+                            if (RecipeForm.recipeName == "" || RecipeForm.recipeName.isEmpty() || RecipeForm.recipeName == null) {
                                 mainFAB.show();
                                 checkFormsNum = 1;
                                 getSupportFragmentManager().popBackStack();
                                 getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, profile, "Profile")
                                         .addToBackStack(null).commit();
-                            }
-                            else{
+                            } else {
                                 AlertDialog.Builder builder1 = new AlertDialog.Builder(MainActivity.this); //Context is getActivity
 
                                 //Set title
@@ -762,8 +738,7 @@ public class MainActivity extends AppCompatActivity{
 
                                 builder1.show();
                             }
-                        }
-                        else{ //If enter forms
+                        } else { //If enter forms
                             AlertDialog.Builder builder1 = new AlertDialog.Builder(MainActivity.this); //Context is getActivity
 
                             //Set title
@@ -810,8 +785,6 @@ public class MainActivity extends AppCompatActivity{
         });
 
 
-
-
         //set all as invisible when loaded
         rcFAB.setVisibility(View.GONE);
         hcFAB.setVisibility(View.GONE);
@@ -822,14 +795,13 @@ public class MainActivity extends AppCompatActivity{
         mainFAB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(!FABVisible){ // if false
+                if (!FABVisible) { // if false
                     rcFAB.show();
                     hcFAB.show();
                     rcFABText.setVisibility(View.VISIBLE);
                     hcFABText.setVisibility(View.VISIBLE);
                     FABVisible = true;
-                }
-                else{
+                } else {
                     rcFAB.hide();
                     hcFAB.hide();
                     rcFABText.setVisibility(View.GONE);
@@ -844,15 +816,15 @@ public class MainActivity extends AppCompatActivity{
             public void onClick(View v) {
 //                if (checkFormsNum == 1){
 //                    checkFormsNum = 0; //changes to 0 when click the floating button
-                    whichForm = 1;
-                    AppCompatActivity activity = (AppCompatActivity) v.getContext();
-                    activity.getSupportFragmentManager().beginTransaction()
-                            .replace(R.id.MainFragment, hawkerDraftsPage).addToBackStack(null).commit();
-                    mainFAB.hide();
-                    rcFAB.hide();
-                    hcFAB.hide();
-                    rcFABText.setVisibility(View.GONE);
-                    hcFABText.setVisibility(View.GONE);
+                whichForm = 1;
+                AppCompatActivity activity = (AppCompatActivity) v.getContext();
+                activity.getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.MainFragment, hawkerDraftsPage).addToBackStack(null).commit();
+                mainFAB.hide();
+                rcFAB.hide();
+                hcFAB.hide();
+                rcFABText.setVisibility(View.GONE);
+                hcFABText.setVisibility(View.GONE);
 //                }
             }
         });
@@ -862,15 +834,15 @@ public class MainActivity extends AppCompatActivity{
             public void onClick(View v) {
 //                if (checkFormsNum == 1){
 //                    checkFormsNum = 0; //changes to 0 when click the floating button
-                    whichForm = 2;
-                    AppCompatActivity activity = (AppCompatActivity) v.getContext();
-                    activity.getSupportFragmentManager().beginTransaction()
-                            .replace(R.id.MainFragment, recipeDraftsPage).addToBackStack(null).commit();
-                    mainFAB.hide();
-                    rcFAB.hide();
-                    hcFAB.hide();
-                    rcFABText.setVisibility(View.GONE);
-                    hcFABText.setVisibility(View.GONE);
+                whichForm = 2;
+                AppCompatActivity activity = (AppCompatActivity) v.getContext();
+                activity.getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.MainFragment, recipeDraftsPage).addToBackStack(null).commit();
+                mainFAB.hide();
+                rcFAB.hide();
+                hcFAB.hide();
+                rcFABText.setVisibility(View.GONE);
+                hcFABText.setVisibility(View.GONE);
 //                }
             }
         });
@@ -885,27 +857,27 @@ public class MainActivity extends AppCompatActivity{
     public void onBackPressed() {
         checkFormsNum = 1;
         super.onBackPressed();
-        Home homeFragment = (Home)getSupportFragmentManager().findFragmentByTag("Home");
+        Home homeFragment = (Home) getSupportFragmentManager().findFragmentByTag("Home");
         if (homeFragment != null && homeFragment.isVisible()) {
             MainActivity.bottomNavigationView.getMenu().findItem(R.id.home).setChecked(true);
         }
-        HawkerCornerMain hcFragment = (HawkerCornerMain)getSupportFragmentManager().findFragmentByTag("HC");
+        HawkerCornerMain hcFragment = (HawkerCornerMain) getSupportFragmentManager().findFragmentByTag("HC");
         if (hcFragment != null && hcFragment.isVisible()) {
             MainActivity.bottomNavigationView.getMenu().findItem(R.id.hc).setChecked(true);
         }
-        RecipeCornerMain rcFragment = (RecipeCornerMain)getSupportFragmentManager().findFragmentByTag("RC");
+        RecipeCornerMain rcFragment = (RecipeCornerMain) getSupportFragmentManager().findFragmentByTag("RC");
         if (rcFragment != null && rcFragment.isVisible()) {
             MainActivity.bottomNavigationView.getMenu().findItem(R.id.rc).setChecked(true);
         }
-        Profile profileFragment = (Profile)getSupportFragmentManager().findFragmentByTag("Profile");
+        Profile profileFragment = (Profile) getSupportFragmentManager().findFragmentByTag("Profile");
         if (profileFragment != null && profileFragment.isVisible()) {
             MainActivity.bottomNavigationView.getMenu().findItem(R.id.profile).setChecked(true);
         }
     }
 
-    public void saveToHawkerDrafts(){
+    public void saveToHawkerDrafts() {
 
-        if(HawkerForm.chosenstall != null){
+        if (HawkerForm.chosenstall != null) {
             hawkerDrafts.hcauthor = userProfile.getUsername();
             hawkerDrafts.hccuserpfp = userProfile.getProfileImg();
             hawkerDrafts.hcOwner = userProfile.getUID();
@@ -918,8 +890,7 @@ public class MainActivity extends AppCompatActivity{
             hawkerDrafts.postid = HawkerForm.chosenstall.postid;
             hawkerDrafts.daysopen = HawkerForm.daysOpen;
             hawkerDrafts.hoursopen = HawkerForm.finalTime;
-        }
-        else{
+        } else {
             hawkerDrafts.hcauthor = userProfile.getUsername();
             hawkerDrafts.hccuserpfp = userProfile.getProfileImg();
             hawkerDrafts.hcOwner = userProfile.getUID();
@@ -938,7 +909,7 @@ public class MainActivity extends AppCompatActivity{
         HwkDraftUp(hawkerDrafts, hawkerDrafts.postid);
     }
 
-    public void saveToRecipeDrafts(){
+    public void saveToRecipeDrafts() {
         RecipeForm.viewModel.getSelectedRecipeName().observe(recipeForm.getViewLifecycleOwner(), new Observer<String>() {
             @Override
             public void onChanged(String s) {
@@ -981,7 +952,7 @@ public class MainActivity extends AppCompatActivity{
                 RecipeForm.selectedImg = s;//Image parameter
             }
         });
-        if (recipeForm.status == 2){
+        if (recipeForm.status == 2) {
             recipeDrafts.recipeName = RecipeForm.recipeName;
             recipeDrafts.postID = RecipeForm.recipePostID;
             recipeDrafts.owner = userProfile.getUID();
@@ -992,8 +963,7 @@ public class MainActivity extends AppCompatActivity{
             recipeDrafts.steps = RecipeForm.steps;
             recipeDrafts.ingredients = RecipeForm.totalIngred;
             recipeDrafts.foodImage = RecipeForm.selectedImg;
-        }
-        else{
+        } else {
             recipeDrafts.recipeName = RecipeForm.recipeName;
             recipeDrafts.postID = databaseReference.push().getKey();
             recipeDrafts.owner = userProfile.getUID();
@@ -1007,7 +977,7 @@ public class MainActivity extends AppCompatActivity{
         }
 
 //        Toast.makeText(this, RecipeForm.recipePostID, Toast.LENGTH_SHORT).show();
-        RcpDraftUp(recipeDrafts,recipeDrafts.postID);
+        RcpDraftUp(recipeDrafts, recipeDrafts.postID);
     }
 
     public void HwkDraftUp(/*HashMap<String, Object> userHwkDraftList,*/ HawkerCornerStalls HwkDraftObj, String DraftID) {

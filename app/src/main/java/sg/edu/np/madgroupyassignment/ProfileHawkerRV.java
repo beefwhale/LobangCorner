@@ -56,14 +56,14 @@ public class ProfileHawkerRV extends Fragment {
     Boolean status;
     Context c;
 
-    public ProfileHawkerRV(Boolean status){ // User;s own profile = true, Author's profile = false
+    public ProfileHawkerRV(Boolean status) { // User;s own profile = true, Author's profile = false
         this.c = c;
         this.status = status;
     }
 
-    public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState){
+    public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState) {
         View view;
-        view= inflater.inflate(R.layout.activity_profile_hawkerrv, parent, false);
+        view = inflater.inflate(R.layout.activity_profile_hawkerrv, parent, false);
         Bundle bundle = this.getArguments();
 
         storageReference = FirebaseStorage.getInstance().getReference();
@@ -83,11 +83,10 @@ public class ProfileHawkerRV extends Fragment {
         hcadapter = new HCMainsAdapter(hawkerCornersList, status);
         deleteBtn = view.findViewById(R.id.deleteBtn);
         editBtn = view.findViewById(R.id.editBtn);
-        if (status == false){
+        if (status == false) {
             deleteBtn.setVisibility(View.GONE);
             editBtn.setVisibility(View.GONE);
-        }
-        else{
+        } else {
             deleteBtn.setVisibility(View.VISIBLE);
             editBtn.setVisibility(View.VISIBLE);
         }
@@ -99,10 +98,10 @@ public class ProfileHawkerRV extends Fragment {
             public void onClick(View v) {
                 builder = new AlertDialog.Builder(getContext());
                 //At least one post selected
-                if (hcadapter.cbCount > 0){
+                if (hcadapter.cbCount > 0) {
                     //Setting message manually and performing action on button click
                     builder.setTitle("Confirm Delete ?")
-                            .setMessage("You sure you want to permanently delete ("+hcadapter.cbCount+") posts?")
+                            .setMessage("You sure you want to permanently delete (" + hcadapter.cbCount + ") posts?")
                             .setCancelable(false)
                             .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int id) {
@@ -119,10 +118,10 @@ public class ProfileHawkerRV extends Fragment {
                                     listPos = hcadapter.listPos;
                                     //Sort list in descending order to avoid Array Out of Bounds
                                     Collections.sort(listPos, Collections.reverseOrder());
-                                    for (int i: listPos) {
-                                        Log.e("beef",i+"");
-                                        Log.e("beef2",listPos.size()+"");
-                                        Log.e("beef2",hawkerCornersList.size()+"");
+                                    for (int i : listPos) {
+                                        Log.e("beef", i + "");
+                                        Log.e("beef2", listPos.size() + "");
+                                        Log.e("beef2", hawkerCornersList.size() + "");
                                         HawkerCornerStalls deleteItem = hawkerCornersList.get(i);
                                         //removing from database
                                         databaseReference.child("UserProfile").child(usernameID).child("hawkList").child(deleteItem.getPostid()).removeValue();
@@ -134,19 +133,18 @@ public class ProfileHawkerRV extends Fragment {
                                         //Updating List
                                         hawkerCornersList.remove(i);
                                         hcadapter.notifyItemRemoved(i);
-                                        hcadapter.notifyItemRangeChanged(0,listPos.size());
+                                        hcadapter.notifyItemRangeChanged(0, listPos.size());
                                     }
                                     hcadapter.listPos.clear();
-                                    Toast.makeText(getActivity(),hcadapter.cbCount+" Post(s) Deleted",
+                                    Toast.makeText(getActivity(), hcadapter.cbCount + " Post(s) Deleted",
                                             Toast.LENGTH_SHORT).show();
                                 }
                             });
                     //Creating dialog box
                     AlertDialog alert = builder.create();
                     alert.show();
-                }
-                else{
-                    Toast.makeText(getActivity(),"No Post Selected",
+                } else {
+                    Toast.makeText(getActivity(), "No Post Selected",
                             Toast.LENGTH_SHORT).show();
                 }
             }
@@ -157,7 +155,7 @@ public class ProfileHawkerRV extends Fragment {
             public void onClick(View v) {
                 builder = new AlertDialog.Builder(getContext());
                 //Only one post selected
-                if (hcadapter.cbCount == 1 && hcadapter.listPos.size() == 1){
+                if (hcadapter.cbCount == 1 && hcadapter.listPos.size() == 1) {
                     //Getting Chosen Post to Edit
                     Integer pos = hcadapter.listPos.get(0);
 
@@ -174,12 +172,12 @@ public class ProfileHawkerRV extends Fragment {
                     activity.getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, HawkerForm).addToBackStack(null).commit();
                 }
                 // No post selected
-                else if(hcadapter.cbCount.equals(0)){
-                    Toast.makeText(getActivity(),"Please select a post to edit",
+                else if (hcadapter.cbCount.equals(0)) {
+                    Toast.makeText(getActivity(), "Please select a post to edit",
                             Toast.LENGTH_SHORT).show();
                 }
                 // More than 1 post selected
-                else{
+                else {
                     //Setting message manually and performing action on button click
                     builder.setTitle("Deselect ALL posts?")
                             .setMessage("You can only edit 1 post at a time.")
@@ -196,7 +194,7 @@ public class ProfileHawkerRV extends Fragment {
                                 public void onClick(DialogInterface dialog, int id) {
                                     dialog.cancel();
                                     //Deselect all Posts
-                                    for (HawkerCornerStalls i: hawkerCornersList) {
+                                    for (HawkerCornerStalls i : hawkerCornersList) {
                                         i.setChecked(false);
 
                                     }
@@ -204,7 +202,7 @@ public class ProfileHawkerRV extends Fragment {
                                     hcadapter.listPos.clear();
                                     hcadapter.notifyDataSetChanged();
 
-                                    Toast.makeText(getActivity(),"All posts unselected.",
+                                    Toast.makeText(getActivity(), "All posts unselected.",
                                             Toast.LENGTH_SHORT).show();
 
                                 }
@@ -216,15 +214,14 @@ public class ProfileHawkerRV extends Fragment {
             }
         });
         hawkerCornersList.removeAll(hawkerCornersList);
-        if (status == true){
+        if (status == true) {
             for (HawkerCornerStalls obj : postsHolder.getUserHawkerPosts()) {
                 hawkerCornersList.add(obj);
             }
             hcadapter = new HCMainsAdapter(hawkerCornersList, false);
-        }
-        else{
+        } else {
             for (HawkerCornerStalls obj : postsHolder.getHawkerPosts()) {
-                if (obj.hcOwner.equals(usernameID)){
+                if (obj.hcOwner.equals(usernameID)) {
                     hawkerCornersList.add(obj);
                 }
             }

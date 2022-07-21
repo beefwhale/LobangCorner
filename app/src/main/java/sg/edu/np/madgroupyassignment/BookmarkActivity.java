@@ -2,31 +2,28 @@ package sg.edu.np.madgroupyassignment;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.viewpager.widget.ViewPager;
 import androidx.viewpager2.widget.ViewPager2;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.Toast;
 
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DatabaseReference;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class BookmarkActivity extends Fragment {
     //variable for context
     Context c;
+
     //constructor
-    public BookmarkActivity(){this.c =c;};
+    public BookmarkActivity() {
+        this.c = c;
+    }
 
     //private RecipeCornerPosts rcpost;
 
@@ -36,7 +33,7 @@ public class BookmarkActivity extends Fragment {
     public PostsHolder2 postsHolder2;
     public RecipeAdapter adapter;
     public ArrayList<RecipeCorner> rcplist = new ArrayList<>();
-    //    public ArrayList<RecipeCorner> dellist = new ArrayList<>();
+//    public ArrayList<RecipeCorner> dellist = new ArrayList<>();
 //    DatabaseReference reference;
 //    FirebaseAuth mAuth;
     public Boolean aBoolean = false;
@@ -100,10 +97,9 @@ public class BookmarkActivity extends Fragment {
 //        });
         RecipeAdapter recipeAdapter = new RecipeAdapter(rcplist, c, 1);
 //
-        if (aBoolean == false){
+        if (aBoolean == false) {
             b.setVisibility(View.GONE);
-        }
-        else{
+        } else {
             b.setVisibility(View.VISIBLE);
         }
 
