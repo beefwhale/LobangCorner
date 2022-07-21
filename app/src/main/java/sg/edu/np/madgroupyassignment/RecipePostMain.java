@@ -95,7 +95,11 @@ public class RecipePostMain extends Fragment {
                      recipeStall = i;
                     //Setting image
                     downUrl = recipeStall.foodImage;
-                    Picasso.get().load(downUrl).into(displayPicButtonRecipe);
+                    if (recipeStall.getFoodImage() == "" | recipeStall.getFoodImage().isEmpty() | recipeStall.getFoodImage() == null){
+                    }
+                    else{
+                        Picasso.get().load(downUrl).into(displayPicButtonRecipe);
+                    }
                     viewModel.selectImg(downUrl);
                     //Setting Title Input
                     titleInput.setText(recipeStall.recipeName);

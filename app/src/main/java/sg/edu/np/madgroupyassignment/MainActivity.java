@@ -897,27 +897,44 @@ public class MainActivity extends AppCompatActivity{
         if (rcFragment != null && rcFragment.isVisible()) {
             MainActivity.bottomNavigationView.getMenu().findItem(R.id.rc).setChecked(true);
         }
-        Profile profileFragment = (Profile)getSupportFragmentManager().findFragmentByTag("Profil");
+        Profile profileFragment = (Profile)getSupportFragmentManager().findFragmentByTag("Profile");
         if (profileFragment != null && profileFragment.isVisible()) {
             MainActivity.bottomNavigationView.getMenu().findItem(R.id.profile).setChecked(true);
         }
     }
 
     public void saveToHawkerDrafts(){
-        hawkerDrafts.hcauthor = userProfile.getUsername();
-        hawkerDrafts.hccuserpfp = userProfile.getProfileImg();
-        hawkerDrafts.hcOwner = userProfile.getUID();
 
-        hawkerDrafts.hcstallname = HawkerForm.stallName;
-        hawkerDrafts.shortdesc = HawkerForm.shortDesc;
-        hawkerDrafts.hccoverimg = HawkerForm.downUrl;
-        hawkerDrafts.hccparagraph = HawkerForm.desc;
-        hawkerDrafts.hccaddress = HawkerForm.address;
-        hawkerDrafts.postid = databaseReference.push().getKey();
-        hawkerDrafts.daysopen = HawkerForm.daysOpen;
-        hawkerDrafts.hoursopen = HawkerForm.finalTime;
+        if(HawkerForm.chosenstall != null){
+            hawkerDrafts.hcauthor = userProfile.getUsername();
+            hawkerDrafts.hccuserpfp = userProfile.getProfileImg();
+            hawkerDrafts.hcOwner = userProfile.getUID();
 
-//        Toast.makeText(this, hawkerDrafts.postid, Toast.LENGTH_SHORT).show();
+            hawkerDrafts.hcstallname = HawkerForm.stallName;
+            hawkerDrafts.shortdesc = HawkerForm.shortDesc;
+            hawkerDrafts.hccoverimg = HawkerForm.downUrl;
+            hawkerDrafts.hccparagraph = HawkerForm.desc;
+            hawkerDrafts.hccaddress = HawkerForm.address;
+            hawkerDrafts.postid = HawkerForm.chosenstall.postid;
+            hawkerDrafts.daysopen = HawkerForm.daysOpen;
+            hawkerDrafts.hoursopen = HawkerForm.finalTime;
+        }
+        else{
+            hawkerDrafts.hcauthor = userProfile.getUsername();
+            hawkerDrafts.hccuserpfp = userProfile.getProfileImg();
+            hawkerDrafts.hcOwner = userProfile.getUID();
+
+            hawkerDrafts.hcstallname = HawkerForm.stallName;
+            hawkerDrafts.shortdesc = HawkerForm.shortDesc;
+            hawkerDrafts.hccoverimg = HawkerForm.downUrl;
+            hawkerDrafts.hccparagraph = HawkerForm.desc;
+            hawkerDrafts.hccaddress = HawkerForm.address;
+            hawkerDrafts.postid = databaseReference.push().getKey();
+            hawkerDrafts.daysopen = HawkerForm.daysOpen;
+            hawkerDrafts.hoursopen = HawkerForm.finalTime;
+        }
+
+//        Toast.makeText(this, HawkerForm.chosenstall.postid, Toast.LENGTH_SHORT).show();
         HwkDraftUp(hawkerDrafts, hawkerDrafts.postid);
     }
 
@@ -964,20 +981,33 @@ public class MainActivity extends AppCompatActivity{
                 RecipeForm.selectedImg = s;//Image parameter
             }
         });
+        if (recipeForm.status == 2){
+            recipeDrafts.recipeName = RecipeForm.recipeName;
+            recipeDrafts.postID = RecipeForm.recipePostID;
+            recipeDrafts.owner = userProfile.getUID();
+            recipeDrafts.recipeDescription = RecipeForm.recipeDesc;
+            recipeDrafts.duration = RecipeForm.duration;
+            recipeDrafts.recipeRating = RecipeForm.difficulty;
+            recipeDrafts.userName = userProfile.getUsername();
+            recipeDrafts.steps = RecipeForm.steps;
+            recipeDrafts.ingredients = RecipeForm.totalIngred;
+            recipeDrafts.foodImage = RecipeForm.selectedImg;
+        }
+        else{
+            recipeDrafts.recipeName = RecipeForm.recipeName;
+            recipeDrafts.postID = databaseReference.push().getKey();
+            recipeDrafts.owner = userProfile.getUID();
+            recipeDrafts.recipeDescription = RecipeForm.recipeDesc;
+            recipeDrafts.duration = RecipeForm.duration;
+            recipeDrafts.recipeRating = RecipeForm.difficulty;
+            recipeDrafts.userName = userProfile.getUsername();
+            recipeDrafts.steps = RecipeForm.steps;
+            recipeDrafts.ingredients = RecipeForm.totalIngred;
+            recipeDrafts.foodImage = RecipeForm.selectedImg;
+        }
 
-        recipeDrafts.recipeName = RecipeForm.recipeName;
-        recipeDrafts.postID = databaseReference.push().getKey();
-        recipeDrafts.owner = userProfile.getUID();
-        recipeDrafts.recipeDescription = RecipeForm.recipeDesc;
-        recipeDrafts.duration = RecipeForm.duration;
-        recipeDrafts.recipeRating = RecipeForm.difficulty;
-        recipeDrafts.userName = userProfile.getUsername();
-        recipeDrafts.steps = RecipeForm.steps;
-        recipeDrafts.ingredients = RecipeForm.totalIngred;
-        recipeDrafts.foodImage = RecipeForm.selectedImg;
-
+//        Toast.makeText(this, RecipeForm.recipePostID, Toast.LENGTH_SHORT).show();
         RcpDraftUp(recipeDrafts,recipeDrafts.postID);
-//        Toast.makeText(this, recipeDrafts.foodImage, Toast.LENGTH_SHORT).show();
     }
 
     public void HwkDraftUp(/*HashMap<String, Object> userHwkDraftList,*/ HawkerCornerStalls HwkDraftObj, String DraftID) {

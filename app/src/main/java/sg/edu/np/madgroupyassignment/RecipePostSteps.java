@@ -75,10 +75,19 @@ public class RecipePostSteps extends Fragment {
                 if (i.recipeName != null || i.recipeName != ""){
                     recipeStall = i;
                     finalSteps = recipeStall.getSteps();
-                    String[] stepArray1 = recipeStall.getSteps().split("\n\n");
-                    for (String s:stepArray1) {
-                        String[] stepArray2 = s.split(": "); // Removing the "Step: "
-                        items.add(stepArray2[1]);
+                    if (finalSteps == "" || finalSteps.isEmpty()){
+                        String[] stepArray1 = recipeStall.getSteps().split("\n\n");
+                        for (String s:stepArray1) {
+                            String[] stepArray2 = s.split(": "); // Removing the "Step: "
+                            items.add(stepArray2[0]);
+                        }
+                    }
+                    else{
+                        String[] stepArray1 = recipeStall.getSteps().split("\n\n");
+                        for (String s:stepArray1) {
+                            String[] stepArray2 = s.split(": "); // Removing the "Step: "
+                            items.add(stepArray2[1]);
+                        }
                     }
                     viewModel.selectRecipeSteps(finalSteps);
                 }

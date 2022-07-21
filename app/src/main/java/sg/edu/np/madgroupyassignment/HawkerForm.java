@@ -85,8 +85,8 @@ public class HawkerForm extends Fragment {
     HawkerCornerStalls hCS;
 
     // For editing forms
-    Integer check;
-    HawkerCornerStalls chosenstall;
+    public Integer check;
+    public static HawkerCornerStalls chosenstall;
 
     //For drafts
     public static HawkerCornerStalls hawkerDrafts;
@@ -104,13 +104,19 @@ public class HawkerForm extends Fragment {
         if (check == 0){
             hf = inflater.inflate(R.layout.fragment_hawker_form, container, false);
         }
-        else{
+        else if(check == 1){
             hf = inflater.inflate(R.layout.fragment_hawker_form_edit, container, false);
             Bundle bundle = this.getArguments();
             assert bundle != null;
             int chosenstallno = (int) bundle.getInt("stallposition");
             ArrayList<HawkerCornerStalls> stallsList = Parcels.unwrap(bundle.getParcelable("list"));
             chosenstall = stallsList.get(chosenstallno);
+        }
+        else{
+            hf = inflater.inflate(R.layout.fragment_hawker_form_edit, container, false);
+            Bundle bundle = this.getArguments();
+            assert bundle != null;
+            chosenstall = Parcels.unwrap(bundle.getParcelable("stall"));
         }
 
         //Assign variable
@@ -147,7 +153,7 @@ public class HawkerForm extends Fragment {
 
         }
         // EDITING : setting values
-        else if(check== 1){
+        else if(check== 1 || check == 2){
             if (chosenstall.hoursopen.equals("") == false){
                 openingTime = chosenstall.hoursopen.substring(0,5);
                 closingTime = chosenstall.hoursopen.substring(8,13);
@@ -181,7 +187,11 @@ public class HawkerForm extends Fragment {
 
             //Setting image
             downUrl = chosenstall.hccoverimg;
-            Picasso.get().load(downUrl).into(displayPicButtonHawker);
+            if (chosenstall.getHccoverimg() == "" | chosenstall.getHccoverimg().isEmpty() | chosenstall.getHccoverimg() == null){
+            }
+            else{
+                Picasso.get().load(downUrl).into(displayPicButtonHawker);
+            }
         }
 
 
@@ -333,7 +343,7 @@ public class HawkerForm extends Fragment {
         selectedDay = new boolean[dayArray.length];
 
         // EDIT FORMS : setting checked days
-        if (check == 1 && chosenstall.daysopen != null){
+        if (check == 1 && chosenstall.daysopen != null || check == 2 && chosenstall.daysopen != null){
             String daysOpen = chosenstall.daysopen;
             openDayBtn.setText(daysOpen);
             String[] daysSplit = daysOpen.split(",");
@@ -472,7 +482,7 @@ public class HawkerForm extends Fragment {
                         HwkUp(userCurrentHwk, hCS, PostID);
                     }
                     //Editing Form
-                    else if (check == 1){
+                    else if (check == 1 || check == 2){
                         username = userProfile.getUsername(); //Getting username
                         userPfpUrl = userProfile.getProfileImg(); //Getting profile picture
                         ownerUID = userProfile.getUID(); //Getting profile uid
@@ -519,7 +529,7 @@ public class HawkerForm extends Fragment {
                         getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, new Home()).commit();
                         MainActivity.bottomNavigationView.getMenu().findItem(R.id.home).setChecked(true);
                     }
-                    else if (check == 1){
+                    else if (check == 1 || check == 2){
                         getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, new Profile(true)).commit();
                         MainActivity.bottomNavigationView.getMenu().findItem(R.id.profile).setChecked(true);
                     }
@@ -557,8 +567,13 @@ public class HawkerForm extends Fragment {
             Toast.makeText(getActivity(), "HawkerPost Edited", Toast.LENGTH_SHORT).show();
         }
         else if (check == 2){
-            // delete draft from drafts
             // upload onto post
+            databaseReferencetest.child("Posts").child("Hawkers").child(PostID).setValue(HwkObj);
+            userHwkList.put(PostID, PostID);
+            databaseReferencetest.child("UserProfile").child(mAuth.getUid()).child("hawkList").updateChildren(userHwkList);
+            Toast.makeText(getActivity(), "HawkerPost Uploaded", Toast.LENGTH_SHORT).show();
+            // delete draft from drafts
+            databaseReferencetest.child("Drafts").child("Hawkers").child(mAuth.getUid()).child(chosenstall.getPostid()).removeValue();
         }
 
     }
@@ -610,35 +625,46 @@ public class HawkerForm extends Fragment {
         builder1.setPositiveButton("Save", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                hawkerDrafts.hcauthor = userProfile.getUsername();
-                hawkerDrafts.hccuserpfp = userProfile.getProfileImg();
-                hawkerDrafts.hcOwner = userProfile.getUID();
+                if (check == 2) {
+                    hawkerDrafts.hcauthor = userProfile.getUsername();
+                    hawkerDrafts.hccuserpfp = userProfile.getProfileImg();
+                    hawkerDrafts.hcOwner = userProfile.getUID();
 
-                hawkerDrafts.hcstallname = stallName;
-                hawkerDrafts.shortdesc = shortDesc;
-                hawkerDrafts.hccoverimg = downUrl;
-                hawkerDrafts.hccparagraph = desc;
-                hawkerDrafts.hccaddress = address;
-                hawkerDrafts.postid = databaseReferencetest.push().getKey();
-                hawkerDrafts.daysopen = daysOpen;
-                hawkerDrafts.hoursopen = finalTime;
+                    hawkerDrafts.hcstallname = stallName;
+                    hawkerDrafts.shortdesc = shortDesc;
+                    hawkerDrafts.hccoverimg = downUrl;
+                    hawkerDrafts.hccparagraph = desc;
+                    hawkerDrafts.hccaddress = address;
+                    hawkerDrafts.postid = chosenstall.postid;
+                    hawkerDrafts.daysopen = daysOpen;
+                    hawkerDrafts.hoursopen = finalTime;
 
+                } else {
+                    hawkerDrafts.hcauthor = userProfile.getUsername();
+                    hawkerDrafts.hccuserpfp = userProfile.getProfileImg();
+                    hawkerDrafts.hcOwner = userProfile.getUID();
 
+                    hawkerDrafts.hcstallname = stallName;
+                    hawkerDrafts.shortdesc = shortDesc;
+                    hawkerDrafts.hccoverimg = downUrl;
+                    hawkerDrafts.hccparagraph = desc;
+                    hawkerDrafts.hccaddress = address;
+                    hawkerDrafts.postid = databaseReferencetest.push().getKey();
+                    hawkerDrafts.daysopen = daysOpen;
+                    hawkerDrafts.hoursopen = finalTime;
+
+                }
                 HwkDraftUp(hawkerDrafts, hawkerDrafts.postid);
 
 //                Toast.makeText(getActivity(), hawkerDrafts.shortdesc, Toast.LENGTH_SHORT).show();
                 getParentFragmentManager().popBackStack();
             }
-        });
-
-        builder1.setNeutralButton("Don't Save", new DialogInterface.OnClickListener() {
+        }).setNeutralButton("Don't Save", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 getParentFragmentManager().popBackStack();
             }
-        });
-
-        builder1.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+        }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 //dismiss Dialog

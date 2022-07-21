@@ -28,6 +28,8 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
 
+import org.parceler.Parcels;
+
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -39,15 +41,15 @@ public class HawkerDraftsPage extends Fragment {
     ArrayList<HawkerCornerStalls> draftsList = new ArrayList<HawkerCornerStalls>();
 
     ImageButton deleteBtn;
-    ImageButton editBtn;
     HawkerDraftsAdapter hcdadapter;
     private StorageReference storageReference;
     private DatabaseReference databaseReference;
     private FirebaseDatabase firebaseDatabase;
-    ArrayList<Integer> listPos;
-
-    AlertDialog.Builder builder;
     private FirebaseAuth mAuth;
+    ArrayList<Integer> listPos;
+    AlertDialog.Builder builder;
+
+
 
     public HawkerDraftsPage() {
 
@@ -59,7 +61,6 @@ public class HawkerDraftsPage extends Fragment {
 //        Defining Items
         View hawkerDraftPage = inflater.inflate(R.layout.fragment_hawker_drafts_page, container, false);
         deleteBtn = hawkerDraftPage.findViewById(R.id.deleteBtnDrafts);
-        editBtn = hawkerDraftPage.findViewById(R.id.editBtnDrafts);
         mAuth = FirebaseAuth.getInstance();
         storageReference = FirebaseStorage.getInstance().getReference();
         firebaseDatabase = FirebaseDatabase.getInstance();
@@ -92,8 +93,6 @@ public class HawkerDraftsPage extends Fragment {
                                 public void onClick(DialogInterface dialog, int id) {
                                     //  Action for 'NO' Button
                                     dialog.cancel();
-//                                Toast.makeText(getApplicationContext(),"you choose no action for alertbox",
-//                                        Toast.LENGTH_SHORT).show();
                                 }
                             })
                             .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
@@ -160,7 +159,7 @@ public class HawkerDraftsPage extends Fragment {
         public ArrayList<Integer> adapterListPos = new ArrayList<>();
         public Integer cbCount = 0 ;
         Integer toRemove;
-        public ArrayList<HawkerCornerStalls> del_hcdlist = new ArrayList<>();
+        public Fragment HawkerForm;
 
         public HawkerDraftsAdapter(ArrayList<HawkerCornerStalls> stallsList){
             this.stallsList = stallsList;
@@ -182,6 +181,7 @@ public class HawkerDraftsPage extends Fragment {
         @Override
         public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
             HawkerForm hawkerForm = new HawkerForm(0); //Posting = 0
+            //When click into first item (plus) go into forms
             if (this.getItemViewType(position) == 0){
                 holder.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -201,9 +201,11 @@ public class HawkerDraftsPage extends Fragment {
                     }
                 });
             }
+            //When click into something else (drafts) go into forms with data
             else{
                 HawkerDraftsViewHolder hawkerDraftsViewHolder = (HawkerDraftsViewHolder) holder;
                 HawkerCornerStalls newstall = stallsList.get(position-1);
+                //If no image, do nothing. If there's image, load image.
                 if (newstall.getHccoverimg() == "" | newstall.getHccoverimg().isEmpty() | newstall.getHccoverimg() == null){
                 }
                 else{
@@ -212,12 +214,6 @@ public class HawkerDraftsPage extends Fragment {
                 hawkerDraftsViewHolder.hcstallname.setText(newstall.hcstallname);
                 hawkerDraftsViewHolder.hcshortdesc.setText(newstall.shortdesc);
                 hawkerDraftsViewHolder.hcauthor.setText("By: " + newstall.hcauthor);
-                holder.itemView.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        Toast.makeText(getActivity(), "rest", Toast.LENGTH_SHORT).show();
-                    }
-                });
                 //Setting all as default unselected
                 newstall.setChecked(false);
                 //DESELECTION : if removed from listPos, updating checkbox for every card
@@ -250,6 +246,25 @@ public class HawkerDraftsPage extends Fragment {
                         if (cbCount == 0){
                             listPos.clear();
                         }
+                    }
+                });
+                //When click into drafts
+                holder.itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+//                        Toast.makeText(getActivity(), "rest", Toast.LENGTH_SHORT).show();
+                        HawkerForm = new HawkerForm(2); //Editing draft = 2
+                        MainActivity.checkFormsNum = 0; //changes to 0 when click into forms
+                        MainActivity.whichForm = 1;
+
+                        //pass username
+                        Bundle bundle = new Bundle();
+                        bundle.putParcelable("stall", Parcels.wrap(newstall));
+                        HawkerForm.setArguments(bundle);
+
+                        //Creating activity context to for the view, starting new fragment when view is clicked
+                        AppCompatActivity activity = (AppCompatActivity) view.getContext();
+                        activity.getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, HawkerForm).addToBackStack(null).commit();
                     }
                 });
 

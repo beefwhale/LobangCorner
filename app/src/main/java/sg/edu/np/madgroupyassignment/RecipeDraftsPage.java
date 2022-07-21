@@ -28,6 +28,8 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
 
+import org.parceler.Parcels;
+
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -39,7 +41,6 @@ public class RecipeDraftsPage extends Fragment {
     ArrayList<RecipeCorner> draftsList = new ArrayList<RecipeCorner>();
 
     ImageButton deleteBtn;
-    ImageButton editBtn;
     RecipeDraftsAdapter rcdadapter;
     private StorageReference storageReference;
     private DatabaseReference databaseReference;
@@ -59,7 +60,6 @@ public class RecipeDraftsPage extends Fragment {
 //        Defining items
         View recipeDraftPage = inflater.inflate(R.layout.fragment_recipe_drafts_page, container, false);
         deleteBtn = recipeDraftPage.findViewById(R.id.deleteBtnDrafts);
-        editBtn = recipeDraftPage.findViewById(R.id.editBtnDrafts);
         mAuth = FirebaseAuth.getInstance();
         storageReference = FirebaseStorage.getInstance().getReference();
         firebaseDatabase = FirebaseDatabase.getInstance();
@@ -92,8 +92,6 @@ public class RecipeDraftsPage extends Fragment {
                                 public void onClick(DialogInterface dialog, int id) {
                                     //  Action for 'NO' Button
                                     dialog.cancel();
-//                                Toast.makeText(getApplicationContext(),"you choose no action for alertbox",
-//                                        Toast.LENGTH_SHORT).show();
                                 }
                             })
                             .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
@@ -187,6 +185,7 @@ public class RecipeDraftsPage extends Fragment {
                     @Override
                     public void onClick(View view) {
                         if (MainActivity.checkFormsNum == 1){
+                            MainActivity.recipeForm.status = 0;
                             MainActivity.checkFormsNum = 0; //changes to 0 when click into forms
                             MainActivity.whichForm = 2;
                             AppCompatActivity activity = (AppCompatActivity) view.getContext();
@@ -204,6 +203,7 @@ public class RecipeDraftsPage extends Fragment {
             else{
                 RecipeDraftsPage.RecipeDraftsViewHolder recipeDraftsViewHolder = (RecipeDraftsPage.RecipeDraftsViewHolder) holder;
                 RecipeCorner item = recipeDraftsList.get(position-1);
+                //If no image, do nothing. If there's image, load image.
                 if (item.getFoodImage() == "" | item.getFoodImage().isEmpty() | item.getFoodImage() == null){
                 }
                 else{
@@ -214,12 +214,6 @@ public class RecipeDraftsPage extends Fragment {
                 recipeDraftsViewHolder.ratingBar.setRating(item.getRecipeRating()); //set ratingbar to recipe difficulty level
                 recipeDraftsViewHolder.userName.setText("By: " + item.getUserName());   //set textview to username
 
-                holder.itemView.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        Toast.makeText(getActivity(), "rest", Toast.LENGTH_SHORT).show();
-                    }
-                });
                 //Setting all as default unselected
                 item.setChecked(false);
                 //DESELECTION : if removed from listPos, updating checkbox for every card
@@ -252,6 +246,25 @@ public class RecipeDraftsPage extends Fragment {
                         if (cbCount == 0){
                             listPos.clear();
                         }
+                    }
+                });
+                // When click into drafts
+                holder.itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+//                        Toast.makeText(getActivity(), "rest", Toast.LENGTH_SHORT).show();
+                        MainActivity.recipeForm.status = 2;
+                        MainActivity.checkFormsNum = 0; //changes to 0 when click into forms
+                        MainActivity.whichForm = 2;
+
+                        //pass username
+                        Bundle bundle = new Bundle();
+                        bundle.putParcelable("recipe", Parcels.wrap(item));
+                        MainActivity.recipeForm.setArguments(bundle);
+
+                        //Creating activity context to for the view, starting new fragment when view is clicked
+                        AppCompatActivity activity = (AppCompatActivity) view.getContext();
+                        activity.getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, MainActivity.recipeForm).addToBackStack(null).commit();
                     }
                 });
             }

@@ -40,6 +40,7 @@ public class RecipeForm extends Fragment {
     private DatabaseReference databaseReferencetest;
     private FirebaseAuth mAuth;
     public static RecipeCorner recipeDrafts;
+    public static String recipePostID;
 
     public static String ownerUID, username, totalIngred, recipeDesc, duration, steps, selectedImg, recipeName;
     public static Integer difficulty;
@@ -100,6 +101,15 @@ public class RecipeForm extends Fragment {
             ArrayList<RecipeCorner> recipeList = Parcels.unwrap(bundle.getParcelable("list"));
             recipeDrafts = recipeList.get(chosenrecipeno);
             viewModel.recipePost(recipeDrafts);
+        }
+        else{
+            viewModel.status(1);
+
+            Bundle bundle = this.getArguments();
+            assert bundle != null;
+            recipeDrafts = Parcels.unwrap(bundle.getParcelable("recipe"));
+            viewModel.recipePost(recipeDrafts);
+            recipePostID = recipeDrafts.postID;
         }
 
 
@@ -226,6 +236,13 @@ public class RecipeForm extends Fragment {
         else if(status == 1){
             Toast.makeText(getActivity(), "Recipe Edited Successfully!", Toast.LENGTH_SHORT).show();
         }
+        else if (status == 2){
+            userRcpList.put(PostID, PostID);
+            databaseReferencetest.child("UserProfile").child(mAuth.getUid()).child("rcpList").updateChildren(userRcpList);
+            Toast.makeText(getActivity(), "Recipe Uploaded Successfully!", Toast.LENGTH_SHORT).show();
+            //delete drafts from drafts
+            databaseReferencetest.child("Drafts").child("Recipes").child(mAuth.getUid()).child(recipeDrafts.getPostID()).removeValue();
+        }
 
     }
 
@@ -295,16 +312,29 @@ public class RecipeForm extends Fragment {
                     }
                 });
 
-                recipeDrafts.recipeName = recipeName;
-                recipeDrafts.postID = databaseReferencetest.push().getKey();
-                recipeDrafts.owner = userProfile.getUID();
-                recipeDrafts.recipeDescription = recipeDesc;
-                recipeDrafts.duration = duration;
-                recipeDrafts.recipeRating = difficulty;
-                recipeDrafts.userName = userProfile.getUsername();
-                recipeDrafts.steps = steps;
-                recipeDrafts.ingredients = totalIngred;
-                recipeDrafts.foodImage = selectedImg;
+                if (status == 2){
+                    recipeDrafts.recipeName = recipeName;
+                    recipeDrafts.owner = userProfile.getUID();
+                    recipeDrafts.recipeDescription = recipeDesc;
+                    recipeDrafts.duration = duration;
+                    recipeDrafts.recipeRating = difficulty;
+                    recipeDrafts.userName = userProfile.getUsername();
+                    recipeDrafts.steps = steps;
+                    recipeDrafts.ingredients = totalIngred;
+                    recipeDrafts.foodImage = selectedImg;
+                }
+                else{
+                    recipeDrafts.recipeName = recipeName;
+                    recipeDrafts.postID = databaseReferencetest.push().getKey();
+                    recipeDrafts.owner = userProfile.getUID();
+                    recipeDrafts.recipeDescription = recipeDesc;
+                    recipeDrafts.duration = duration;
+                    recipeDrafts.recipeRating = difficulty;
+                    recipeDrafts.userName = userProfile.getUsername();
+                    recipeDrafts.steps = steps;
+                    recipeDrafts.ingredients = totalIngred;
+                    recipeDrafts.foodImage = selectedImg;
+                }
 
                 RcpDraftUp(recipeDrafts,recipeDrafts.postID);
 //                Toast.makeText(getActivity(), recipeDrafts.steps, Toast.LENGTH_SHORT).show();

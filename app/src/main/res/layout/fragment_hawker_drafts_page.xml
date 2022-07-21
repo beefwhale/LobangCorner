@@ -35,22 +35,11 @@
         android:layout_height="30dp"
         android:layout_marginEnd="25dp"
         android:background="@android:color/transparent"
-        app:layout_constraintBottom_toBottomOf="@+id/editBtnDrafts"
+        app:layout_constraintBottom_toBottomOf="@+id/hawker_drafts_header"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/editBtnDrafts"
+        app:layout_constraintTop_toTopOf="@+id/hawker_drafts_header"
         app:tint="@color/Main_Primary"
         app:srcCompat="@drawable/ic_delete" />
 
-    <ImageButton
-        android:id="@+id/editBtnDrafts"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_marginEnd="8dp"
-        android:background="@android:color/transparent"
-        app:layout_constraintBottom_toBottomOf="@+id/hawker_drafts_header"
-        app:layout_constraintEnd_toStartOf="@+id/deleteBtnDrafts"
-        app:layout_constraintTop_toTopOf="@+id/hawker_drafts_header"
-        app:srcCompat="@drawable/ic_edit"
-        app:tint="@color/Main_Primary" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
