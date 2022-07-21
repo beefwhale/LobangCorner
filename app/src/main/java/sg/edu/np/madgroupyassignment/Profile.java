@@ -7,6 +7,7 @@ import androidx.annotation.NonNull;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.content.ActivityNotFoundException;
 import android.content.ContentResolver;
@@ -304,6 +305,16 @@ public class Profile extends Fragment {
                 toast.setView(fish);
                 toast.show();
                 return true;
+            }
+        });
+
+        SwipeRefreshLayout swipeRefreshLayout = view.findViewById(R.id.swipeRefreshLayout);
+        //swipe to refresh to refresh data
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                updatePage();
+                swipeRefreshLayout.setRefreshing(false);
             }
         });
 

@@ -6,6 +6,7 @@ import androidx.appcompat.widget.SearchView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.fragment.app.Fragment;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -85,6 +86,24 @@ public class HawkerCornerMain extends Fragment implements AdapterView.OnItemSele
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         hcmainSpinner.setAdapter(adapter);
         hcmainSpinner.setOnItemSelectedListener(this);
+
+        SwipeRefreshLayout swipeRefreshLayout = view.findViewById(R.id.swipeRefreshLayout);
+        //swipe to refresh to refresh data
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                stallsList.removeAll(stallsList);
+                for (HawkerCornerStalls obj : postsHolder.getHawkerPosts()){
+                    stallsList.add(obj);
+                }
+                Collections.reverse(stallsList);
+                hcadapter = new HCMainsAdapter(stallsList, true);
+                hcmainrv.setAdapter(hcadapter);
+                hcmainsearch.setQuery("", false);
+                hcmainSpinner.setSelection(0);
+                swipeRefreshLayout.setRefreshing(false);
+            }
+        });
 
         return view;
     }

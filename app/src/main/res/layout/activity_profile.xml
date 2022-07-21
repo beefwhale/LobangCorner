@@ -1,201 +1,207 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+    android:id="@+id/swipeRefreshLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:background="@color/Background_Cream"
     android:fillViewport="true"
     android:layout_gravity="bottom">
 
-    <RelativeLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:paddingBottom="16dp"
-        tools:context=".Profile">
+        android:layout_height="match_parent">
 
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/idProfP"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="176dp"
-            android:layout_marginTop="40dp"
-            android:scaleType="centerCrop"
-            app:civ_circle_background_color="@color/offwhite" />
+            android:layout_height="match_parent"
+            android:paddingBottom="16dp"
+            tools:context=".Profile">
 
-        <TextView
-            android:id="@+id/TestTitle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/idProfP"
-            android:layout_marginTop="30dp"
-            android:fontFamily="@font/montserrat_regular"
-            android:gravity="center"
-            android:text="Username"
-            android:textAlignment="center"
-            android:textAllCaps="false"
-            android:textColor="@color/Text_Grey"
-            android:textSize="25sp"
-            android:textStyle="bold" />
-
-        <LinearLayout
-            android:id="@+id/idLLView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/TestTitle"
-            android:layout_marginTop="15dp"
-            android:orientation="horizontal"
-            android:weightSum="2">
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/idProfP"
+                android:layout_width="match_parent"
+                android:layout_height="176dp"
+                android:layout_marginTop="40dp"
+                android:scaleType="centerCrop"
+                app:civ_circle_background_color="@color/offwhite" />
 
             <TextView
-                android:id="@+id/idHawkObj"
-                android:layout_width="0dp"
+                android:id="@+id/TestTitle"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="35dp"
-                android:layout_marginEnd="15dp"
-                android:layout_weight="1"
-                android:background="@drawable/text_shadow"
+                android:layout_below="@+id/idProfP"
+                android:layout_marginTop="30dp"
                 android:fontFamily="@font/montserrat_regular"
-                android:paddingVertical="35dp"
-                android:text="HawkList"
+                android:gravity="center"
+                android:text="Username"
                 android:textAlignment="center"
                 android:textAllCaps="false"
-                android:textColor="@color/Text_Grey" />
+                android:textColor="@color/Text_Grey"
+                android:textSize="25sp"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:id="@+id/idLLView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/TestTitle"
+                android:layout_marginTop="15dp"
+                android:orientation="horizontal"
+                android:weightSum="2">
+
+                <TextView
+                    android:id="@+id/idHawkObj"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="35dp"
+                    android:layout_marginEnd="15dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/text_shadow"
+                    android:fontFamily="@font/montserrat_regular"
+                    android:paddingVertical="35dp"
+                    android:text="HawkList"
+                    android:textAlignment="center"
+                    android:textAllCaps="false"
+                    android:textColor="@color/Text_Grey" />
+
+                <TextView
+                    android:id="@+id/idRcpObj"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginEnd="35dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/text_shadow"
+                    android:fontFamily="@font/montserrat_regular"
+                    android:paddingVertical="35dp"
+                    android:text="RecList"
+                    android:textAlignment="center"
+                    android:textAllCaps="false"
+                    android:textColor="@color/Text_Grey" />
+
+            </LinearLayout>
 
             <TextView
-                android:id="@+id/idRcpObj"
-                android:layout_width="0dp"
+                android:id="@+id/idAbtHead"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="15dp"
-                android:layout_marginEnd="35dp"
-                android:layout_weight="1"
-                android:background="@drawable/text_shadow"
-                android:fontFamily="@font/montserrat_regular"
-                android:paddingVertical="35dp"
-                android:text="RecList"
-                android:textAlignment="center"
+                android:layout_below="@+id/idLLView"
+                android:layout_marginTop="20dp"
+                android:paddingLeft="17dp"
+                android:text="About me:"
+                android:textAlignment="viewStart"
                 android:textAllCaps="false"
-                android:textColor="@color/Text_Grey" />
+                android:textColor="@color/Text_Grey"
+                android:textSize="20sp" />
 
-        </LinearLayout>
+            <EditText
+                android:id="@+id/idAbtme"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/idAbtHead"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/edit_text_round"
+                android:backgroundTint="@color/offwhite"
+                android:fontFamily="@font/montserrat_italic"
+                android:gravity="left"
+                android:hint="Click to add description..."
+                android:minHeight="130dp"
+                android:padding="15dp"
+                android:textAllCaps="false"
+                android:textColor="@color/Text_Grey"
+                android:textSize="15sp" />
 
-        <TextView
-            android:id="@+id/idAbtHead"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/idLLView"
-            android:layout_marginTop="20dp"
-            android:paddingLeft="17dp"
-            android:text="About me:"
-            android:textAlignment="viewStart"
-            android:textAllCaps="false"
-            android:textColor="@color/Text_Grey"
-            android:textSize="20sp" />
-
-        <EditText
-            android:id="@+id/idAbtme"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/idAbtHead"
-            android:layout_marginHorizontal="20dp"
-            android:layout_marginTop="8dp"
-            android:background="@drawable/edit_text_round"
-            android:backgroundTint="@color/offwhite"
-            android:fontFamily="@font/montserrat_italic"
-            android:gravity="left"
-            android:hint="Click to add description..."
-            android:minHeight="130dp"
-            android:padding="15dp"
-            android:textAllCaps="false"
-            android:textColor="@color/Text_Grey"
-            android:textSize="15sp" />
-
-        <Button
-            android:id="@+id/about_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/idAbtme"
-            android:layout_alignParentEnd="true"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="20dp"
-            android:background="@drawable/custom_button_back"
-            android:fontFamily="@font/montserrat_regular"
-            android:text="Submit"
-            android:textColor="@color/Text_Grey"
-            android:theme="@style/LG_Button_2" />
+            <Button
+                android:id="@+id/about_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/idAbtme"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="20dp"
+                android:background="@drawable/custom_button_back"
+                android:fontFamily="@font/montserrat_regular"
+                android:text="Submit"
+                android:textColor="@color/Text_Grey"
+                android:theme="@style/LG_Button_2" />
 
 
-        <LinearLayout
-            android:id="@+id/socialsLLView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/idAbtme"
-            android:layout_marginTop="16dp"
-            android:gravity="left"
-            android:orientation="horizontal">
+            <LinearLayout
+                android:id="@+id/socialsLLView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/idAbtme"
+                android:layout_marginTop="16dp"
+                android:gravity="left"
+                android:orientation="horizontal">
 
-            <ImageView
-                android:id="@+id/social_insta"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_below="@+id/idSocialsHead"
-                android:layout_marginLeft="20dp"
-                android:src="@drawable/instagram" />
+                <ImageView
+                    android:id="@+id/social_insta"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_below="@+id/idSocialsHead"
+                    android:layout_marginLeft="20dp"
+                    android:src="@drawable/instagram" />
 
-            <ImageView
-                android:id="@+id/social_fb"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_below="@+id/idSocialsHead"
-                android:layout_marginLeft="20dp"
-                android:src="@drawable/facebook" />
+                <ImageView
+                    android:id="@+id/social_fb"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_below="@+id/idSocialsHead"
+                    android:layout_marginLeft="20dp"
+                    android:src="@drawable/facebook" />
 
-            <ImageView
-                android:id="@+id/social_twt"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_below="@+id/idSocialsHead"
-                android:layout_marginLeft="20dp"
-                android:src="@drawable/twitter" />
+                <ImageView
+                    android:id="@+id/social_twt"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_below="@+id/idSocialsHead"
+                    android:layout_marginLeft="20dp"
+                    android:src="@drawable/twitter" />
 
-            <ImageButton
-                android:id="@+id/socialBtn"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_marginLeft="20dp"
-                android:background="@drawable/rounded_social"
-                android:backgroundTint="@color/cameragrey"
-                android:src="@drawable/add" />
-        </LinearLayout>
+                <ImageButton
+                    android:id="@+id/socialBtn"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginLeft="20dp"
+                    android:background="@drawable/rounded_social"
+                    android:backgroundTint="@color/cameragrey"
+                    android:src="@drawable/add" />
+            </LinearLayout>
 
-        <Button
-            android:id="@+id/idLogout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/socialsLLView"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentEnd="true"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="24dp"
-            android:layout_marginEnd="20dp"
-            android:background="@drawable/custom_button_back"
-            android:fontFamily="@font/montserrat_regular"
-            android:text="Logout"
-            android:textAllCaps="false"
-            android:textColor="@color/white"
-            android:theme="@style/LG_Button" />
+            <Button
+                android:id="@+id/idLogout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/socialsLLView"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="20dp"
+                android:background="@drawable/custom_button_back"
+                android:fontFamily="@font/montserrat_regular"
+                android:text="Logout"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:theme="@style/LG_Button" />
 
-        <ProgressBar
-            android:id="@+id/PBloading"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:indeterminate="true"
-            android:indeterminateDrawable="@drawable/prog_back"
-            android:visibility="gone" />
+            <ProgressBar
+                android:id="@+id/PBloading"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:indeterminate="true"
+                android:indeterminateDrawable="@drawable/prog_back"
+                android:visibility="gone" />
 
-    </RelativeLayout>
-</ScrollView>
+        </RelativeLayout>
+    </ScrollView>
+</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
 

@@ -4,6 +4,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -80,6 +81,18 @@ public class Home extends Fragment {
         // Giving RV adapter and layout
         home_main_rv.setAdapter(tp_adapter);
         home_main_rv.setLayoutManager(main_layout);
+
+        SwipeRefreshLayout swipeRefreshLayout = view.findViewById(R.id.swipeRefreshLayout);
+        //swipe to refresh to refresh data
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                HomeParentAdapter tp_adapter = new HomeParentAdapter(c,feed_data);
+                home_main_rv.setAdapter(tp_adapter);
+                swipeRefreshLayout.setRefreshing(false);
+            }
+        });
+
         return view;
     }
 }

@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.content.Context;
 import android.content.Intent;
@@ -67,6 +68,8 @@ public class RecipeCornerMain extends Fragment implements AdapterView.OnItemSele
         // getting search view of our item.
         SearchView searchView = view.findViewById(R.id.SearchID);
 
+        SwipeRefreshLayout swipeRefreshLayout = view.findViewById(R.id.swipeRefreshLayout);
+
         // below line is to call set on query text listener method for search bar
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -83,6 +86,22 @@ public class RecipeCornerMain extends Fragment implements AdapterView.OnItemSele
             }
         });
 
+        //swipe to refresh to refresh data
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                recipeModalArrayList.removeAll(recipeModalArrayList);
+                for (RecipeCorner obj : postsHolder.getRecipePosts()) {
+                    recipeModalArrayList.add(obj);
+                }
+                Collections.reverse(recipeModalArrayList);
+                adapter = new RecipeAdapter(recipeModalArrayList, getActivity(),0);
+                searchView.setQuery("", false);
+                sortSpinner.setSelection(0);
+                recipeRV.setAdapter(adapter);
+                swipeRefreshLayout.setRefreshing(false);
+            }
+        });
 
         // initializing our adapter class.
         Collections.reverse(recipeModalArrayList); //default displays newest post first
