@@ -32,6 +32,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeViewHolder>{
     private Context context;
     Integer status;
     ArrayList<RecipeCorner> del_rcplist = new ArrayList<>();
+    Boolean aBoolean = false;
 
     //For editing
     public Integer cbCount = 0 ;
@@ -117,10 +118,12 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeViewHolder>{
                 public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                     if (del_rcplist.contains(item)){
                         //holder.checkbox.setChecked(false);
+                        aBoolean = false;
                         del_rcplist.remove(item);
                     }
                     else{
                         //holder.checkbox.setChecked(true);
+                        aBoolean = true;
                         del_rcplist.add(item);
                     }
                 }
