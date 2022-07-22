@@ -11,6 +11,8 @@ import android.widget.CompoundButton;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.squareup.picasso.Picasso;
@@ -27,6 +29,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeViewHolder> {
     Integer status;
     ArrayList<RecipeCorner> del_rcplist = new ArrayList<>();
     Boolean aBoolean = false;
+    BookmarkViewModel viewModel;
 
     //For editing
     public Integer cbCount = 0;
@@ -39,6 +42,8 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeViewHolder> {
         this.recipeArrayList = recipeArrayList;
         this.context = context;
         this.status = status;
+        viewModel = new ViewModelProvider((FragmentActivity)context).get(BookmarkViewModel.class);
+
     }
 
     // method called from recipeCornerMain to sort list and update the data
@@ -114,10 +119,14 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeViewHolder> {
                     Log.e("beefadapter", del_rcplist.size() + "");
                     if (del_rcplist.contains(item)) {
                         //holder.checkbox.setChecked(false);
+                        viewModel.checkedBox(0);
+                        Log.d("Button", "not checked");
+
                         del_rcplist.remove(item);
                     } else {
                         //holder.checkbox.setChecked(true);
-
+                        viewModel.checkedBox(1);
+                        Log.d("Button", "checked");
                         del_rcplist.add(item);
                     }
                     if (del_rcplist.size() == 0) {
