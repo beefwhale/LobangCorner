@@ -85,7 +85,7 @@ public class RecipeCornerMain extends Fragment implements AdapterView.OnItemSele
                     recipeModalArrayList.add(obj);
                 }
                 Collections.reverse(recipeModalArrayList);
-                adapter = new RecipeAdapter(recipeModalArrayList, getActivity(), 0);
+                adapter = new RecipeAdapter(recipeModalArrayList, getActivity(), 0, requireParentFragment());
                 searchView.setQuery("", false);
                 sortSpinner.setSelection(0);
                 recipeRV.setAdapter(adapter);
@@ -95,7 +95,7 @@ public class RecipeCornerMain extends Fragment implements AdapterView.OnItemSele
 
         // initializing our adapter class.
         Collections.reverse(recipeModalArrayList); //default displays newest post first
-        adapter = new RecipeAdapter(recipeModalArrayList, getActivity(), 0);
+        adapter = new RecipeAdapter(recipeModalArrayList, getActivity(), 0, getActivity());
 
         // adding layout manager to our recycler view.
         LinearLayoutManager manager = new LinearLayoutManager(getActivity());

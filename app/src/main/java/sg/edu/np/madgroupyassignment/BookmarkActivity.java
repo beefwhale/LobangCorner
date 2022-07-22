@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 import androidx.viewpager2.widget.ViewPager2;
 
@@ -11,9 +12,11 @@ import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.google.android.material.tabs.TabLayout;
@@ -42,7 +45,7 @@ public class BookmarkActivity extends Fragment {
     public ArrayList<RecipeCorner> dellist = new ArrayList<>();
     DatabaseReference reference;
     FirebaseAuth mAuth;
-    Boolean aBoolean = true;
+    Integer int2=0;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -60,7 +63,7 @@ public class BookmarkActivity extends Fragment {
         vpAdapter.addFragment(new BHCFragment(), "Hawker Corner");
         vpAdapter.addFragment(new BRCFragment(), "Recipe Corner");
         viewPager2.setAdapter(vpAdapter);
-
+        viewPager2.setUserInputEnabled(false);
         new TabLayoutMediator(tabLayout, viewPager2, new TabLayoutMediator.TabConfigurationStrategy() {
             @Override
             public void onConfigureTab(@NonNull TabLayout.Tab tab, int position) {
@@ -74,21 +77,32 @@ public class BookmarkActivity extends Fragment {
         }
         reference = FirebaseDatabase.getInstance().getReference();
         mAuth = FirebaseAuth.getInstance();
+
+
         viewModel.getcheckedBox().observe(getViewLifecycleOwner(), new Observer<Integer>() {
             @Override
             public void onChanged(Integer integer) {
                 if (integer==0){
                     b.setVisibility(View.GONE);
+                    LinearLayout tabStrip = ((LinearLayout)tabLayout.getChildAt(0));
+                    tabStrip.setEnabled(false);
+                    for(int i = 0; i < tabStrip.getChildCount(); i++) {
+                        tabStrip.getChildAt(i).setClickable(true);
+                    }
                     Log.d("Button", "gone");
                 }
                 else{
                     b.setVisibility(View.VISIBLE);
+                    LinearLayout tabStrip = ((LinearLayout)tabLayout.getChildAt(0));
+                    tabStrip.setEnabled(false);
+                    for(int i = 0; i < tabStrip.getChildCount(); i++) {
+                        tabStrip.getChildAt(i).setClickable(false);
+                    }
                     Log.d("Button", integer.toString());
-
                 }
             }
         });
-        //adapter = new RecipeAdapter(rcplist, c, 1);
+        adapter = new RecipeAdapter(rcplist, c, 1, getParentFragment());
         //viewModel.RcpList(adapter.getDel_rcplist());
 //        viewModel.getrcplist().observe(getViewLifecycleOwner(), new Observer<List<RecipeCorner>>() {
 //            @Override
@@ -103,37 +117,39 @@ public class BookmarkActivity extends Fragment {
 //        });
 //
 //        adapter = new RecipeAdapter(rcplist, getActivity(), 1);
-//        b.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                viewModel.getrcplist().observe(getViewLifecycleOwner(), new Observer<List<RecipeCorner>>() {
-//                    @Override
-//                    public void onChanged(List<RecipeCorner> recipeCorners) {
-//                        if (rcplist.isEmpty()) {
-//                            Toast.makeText(getContext(), "No recipes found", Toast.LENGTH_SHORT).show();
-//                        }
-//                        else if (recipeCorners.isEmpty()){
-//                            Toast.makeText(getContext(), "No recipes selected", Toast.LENGTH_SHORT).show();
-//
-//                        }
-//                        else{
-//                            Toast.makeText(getContext(), Integer.toString(dellist.size()) + " recipe(s) deleted", Toast.LENGTH_SHORT).show();
-//                            List<RecipeCorner> toRemove = new ArrayList<>();
-//                            for (RecipeCorner drcpObject : dellist)
-//                            {
-//                                toRemove.add(drcpObject);
-//                                //rcplist.remove(drcpObject);
-//                                //dellist.remove(drcpObject);
-//                                reference.child("UserProfile").child(mAuth.getUid()).child("bmrcplist").child(drcpObject.postID).removeValue();
-//                            }
-//                            rcplist.removeAll(toRemove);
-//                            dellist.removeAll(toRemove);
-//                            adapter.delete(rcplist);
-//                        }
-//                    }
-//                });
-//            }
-//        });
+        b.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                viewModel.getrcplist().observe(getViewLifecycleOwner(), new Observer<ArrayList<RecipeCorner>>() {
+                    @Override
+                    public void onChanged(ArrayList<RecipeCorner> recipeCorners) {
+                        if (recipeCorners.size()!=0){
+                            dellist = recipeCorners;
+                            Toast.makeText(getContext(), Integer.toString(recipeCorners.size()) + " recipe(s) deleted", Toast.LENGTH_SHORT).show();
+                            List<RecipeCorner> toRemove = new ArrayList<>();
+                            for (RecipeCorner drcpObject : dellist)
+                            {
+                                toRemove.add(drcpObject);
+                                //rcplist.remove(drcpObject);
+                                //dellist.remove(drcpObject);
+                                reference.child("UserProfile").child(mAuth.getUid()).child("bmrcplist").child(drcpObject.postID).removeValue();
+                            }
+                            rcplist.removeAll(toRemove);
+                            dellist.removeAll(toRemove);
+                            adapter.delete(rcplist);
+                            viewModel.getRv().observe(getViewLifecycleOwner(), new Observer<RecyclerView>() {
+                                @Override
+                                public void onChanged(RecyclerView recyclerView) {
+                                    recyclerView.setAdapter(adapter);
+                                }
+                            });
+                            b.setVisibility(View.GONE);
+                        }
+                    }
+                });
+
+            }
+        });
 //        RecipeAdapter recipeAdapter = new RecipeAdapter(rcplist, c, 1);
 //
 

@@ -13,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.lifecycle.ViewModelStoreOwner;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.squareup.picasso.Picasso;
@@ -30,6 +31,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeViewHolder> {
     ArrayList<RecipeCorner> del_rcplist = new ArrayList<>();
     Boolean aBoolean = false;
     BookmarkViewModel viewModel;
+    ViewModelStoreOwner vmso;
 
     //For editing
     public Integer cbCount = 0;
@@ -38,11 +40,11 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeViewHolder> {
 
     // creating a constructor for our variables.
     // 0 = no check box, 1 = got checkbox, bookmark page , 2 = got checkbook, edit page
-    public RecipeAdapter(ArrayList<RecipeCorner> recipeArrayList, Context context, Integer status) {
+    public RecipeAdapter(ArrayList<RecipeCorner> recipeArrayList, Context context, Integer status, ViewModelStoreOwner viewModelStoreOwner) {
         this.recipeArrayList = recipeArrayList;
         this.context = context;
         this.status = status;
-        viewModel = new ViewModelProvider((FragmentActivity)context).get(BookmarkViewModel.class);
+        vmso = viewModelStoreOwner;
 
     }
 
@@ -117,23 +119,20 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeViewHolder> {
                 @Override
                 public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                     Log.e("beefadapter", del_rcplist.size() + "");
+                    viewModel = new ViewModelProvider(vmso).get(BookmarkViewModel.class);
                     if (del_rcplist.contains(item)) {
                         //holder.checkbox.setChecked(false);
-                        viewModel.checkedBox(0);
-                        Log.d("Button", "not checked");
-
                         del_rcplist.remove(item);
-                    } else {
+                        viewModel.checkedBox(del_rcplist.size());
+                        viewModel.RcpList(del_rcplist);
+                    }
+                    else {
                         //holder.checkbox.setChecked(true);
-                        viewModel.checkedBox(1);
-                        Log.d("Button", "checked");
                         del_rcplist.add(item);
+                        viewModel.checkedBox(del_rcplist.size());
+                        viewModel.RcpList(del_rcplist);
                     }
-                    if (del_rcplist.size() == 0) {
-                        bookmarkActivity.aBoolean = false;
-                    } else {
-                        bookmarkActivity.aBoolean = true;
-                    }
+
                 }
             });
 

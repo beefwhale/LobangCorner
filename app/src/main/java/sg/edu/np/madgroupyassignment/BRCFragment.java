@@ -3,6 +3,7 @@ package sg.edu.np.madgroupyassignment;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -29,6 +30,7 @@ public class BRCFragment extends Fragment {
     public ArrayList<RecipeCorner> dellist = new ArrayList<>();
     DatabaseReference reference;
     FirebaseAuth mAuth;
+    BookmarkViewModel bookmarkViewModel;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -37,7 +39,7 @@ public class BRCFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_brc, container, false);
         recyclerView = view.findViewById(R.id.brc_rv);
         delete = view.findViewById(R.id.imageView3);
-
+        bookmarkViewModel = new ViewModelProvider(requireParentFragment()).get(BookmarkViewModel.class);
         reference = FirebaseDatabase.getInstance().getReference();
         mAuth = FirebaseAuth.getInstance();
 
@@ -47,7 +49,7 @@ public class BRCFragment extends Fragment {
         }
 
         // initializing our adapter class.
-        adapter = new RecipeAdapter(rcplist, getActivity(), 1);
+        adapter = new RecipeAdapter(rcplist, getActivity(), 1, requireParentFragment());
 
         // adding layout manager to our recycler view.
         LinearLayoutManager manager = new LinearLayoutManager(getActivity());
@@ -60,7 +62,7 @@ public class BRCFragment extends Fragment {
         // setting adapter to
         // our recycler view.
         recyclerView.setAdapter(adapter);
-
+        bookmarkViewModel.Rv(recyclerView);
         delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

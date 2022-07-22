@@ -78,7 +78,7 @@ public class ProfileRecipeRV extends Fragment {
 
         deleteBtn = view.findViewById(R.id.deleteBtn);
         editBtn = view.findViewById(R.id.editBtn);
-        rcadapter = new RecipeAdapter(recipeCornersList, c, 2);
+        rcadapter = new RecipeAdapter(recipeCornersList, c, 2, getActivity());
         if (status == false) {
             deleteBtn.setVisibility(View.GONE);
             editBtn.setVisibility(View.GONE);
@@ -210,14 +210,14 @@ public class ProfileRecipeRV extends Fragment {
             for (RecipeCorner obj : postsHolder.getUserRecipePosts()) {
                 recipeCornersList.add(obj);
             }
-            rcadapter = new RecipeAdapter(recipeCornersList, c, 2);
+            rcadapter = new RecipeAdapter(recipeCornersList, c, 2, getActivity());
         } else {
             for (RecipeCorner obj : postsHolder.getRecipePosts()) {
                 if (obj.owner.equals(usernameID)) {
                     recipeCornersList.add(obj);
                 }
             }
-            rcadapter = new RecipeAdapter(recipeCornersList, c, 0);
+            rcadapter = new RecipeAdapter(recipeCornersList, c, 0, getActivity());
         }
         recipeRV = view.findViewById(R.id.idRVRecipe);
         LinearLayoutManager manager = new LinearLayoutManager(c);
