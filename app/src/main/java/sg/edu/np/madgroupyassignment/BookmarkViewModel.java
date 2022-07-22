@@ -21,8 +21,19 @@ public class BookmarkViewModel extends ViewModel {
 
     private final MutableLiveData<RecyclerView> rv = new MutableLiveData<>();
     public void Rv(RecyclerView recyclerView){rv.setValue(recyclerView);}
-
     public MutableLiveData<RecyclerView> getRv() {
         return rv;
     }
+
+    private final MutableLiveData<RecyclerView> hcRv = new MutableLiveData<>();
+    public void HcRv(RecyclerView recyclerView){hcRv.setValue(recyclerView);}
+    public MutableLiveData<RecyclerView> getHcRv() {
+        return hcRv;
+    }
+
+    private final MutableLiveData<ArrayList<HawkerCornerStalls>> hclist = new MutableLiveData<ArrayList<HawkerCornerStalls>>();
+    public void hcList(ArrayList list){hclist.setValue(list);}
+    public LiveData<ArrayList<HawkerCornerStalls>> gethclist(){return hclist;}
+
+
 }

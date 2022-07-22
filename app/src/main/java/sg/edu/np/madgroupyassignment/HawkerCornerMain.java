@@ -43,7 +43,7 @@ public class HawkerCornerMain extends Fragment implements AdapterView.OnItemSele
 
         //Defining Recycler View info & Setting Layout and Adapter.
         hcmainrv = view.findViewById(R.id.hawkercornerrv);
-        hcadapter = new HCMainsAdapter(stallsList, true);
+        hcadapter = new HCMainsAdapter(stallsList, true, getActivity());
         LinearLayoutManager hclayout = new LinearLayoutManager(view.getContext());
 
         hcmainrv.setAdapter(hcadapter);
@@ -87,7 +87,7 @@ public class HawkerCornerMain extends Fragment implements AdapterView.OnItemSele
                     stallsList.add(obj);
                 }
                 Collections.reverse(stallsList);
-                hcadapter = new HCMainsAdapter(stallsList, true);
+                hcadapter = new HCMainsAdapter(stallsList, true, getActivity());
                 hcmainrv.setAdapter(hcadapter);
                 hcmainsearch.setQuery("", false);
                 hcmainSpinner.setSelection(0);
@@ -109,7 +109,7 @@ public class HawkerCornerMain extends Fragment implements AdapterView.OnItemSele
         }
 
         hcmainrv = view.findViewById(R.id.hawkercornerrv);
-        hcadapter = new HCMainsAdapter(filteredList, true);
+        hcadapter = new HCMainsAdapter(filteredList, true, getActivity());
         hcmainrv.setAdapter(hcadapter);
 
         return filteredList;

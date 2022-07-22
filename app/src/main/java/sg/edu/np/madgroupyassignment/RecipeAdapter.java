@@ -118,18 +118,17 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeViewHolder> {
             holder.checkbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                    Log.e("beefadapter", del_rcplist.size() + "");
                     viewModel = new ViewModelProvider(vmso).get(BookmarkViewModel.class);
                     if (del_rcplist.contains(item)) {
                         //holder.checkbox.setChecked(false);
                         del_rcplist.remove(item);
-                        viewModel.checkedBox(del_rcplist.size());
+//                        viewModel.checkedBox(del_rcplist.size());
                         viewModel.RcpList(del_rcplist);
                     }
                     else {
                         //holder.checkbox.setChecked(true);
                         del_rcplist.add(item);
-                        viewModel.checkedBox(del_rcplist.size());
+//                        viewModel.checkedBox(del_rcplist.size());
                         viewModel.RcpList(del_rcplist);
                     }
 

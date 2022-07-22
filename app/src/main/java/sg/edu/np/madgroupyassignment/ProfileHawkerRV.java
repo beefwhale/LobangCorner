@@ -80,7 +80,7 @@ public class ProfileHawkerRV extends Fragment {
         hcheader.setText(username + "'s Hawker Corner");
 
         //Upon Delete button click
-        hcadapter = new HCMainsAdapter(hawkerCornersList, status);
+        hcadapter = new HCMainsAdapter(hawkerCornersList, status, getActivity());
         deleteBtn = view.findViewById(R.id.deleteBtn);
         editBtn = view.findViewById(R.id.editBtn);
         if (status == false) {
@@ -218,14 +218,14 @@ public class ProfileHawkerRV extends Fragment {
             for (HawkerCornerStalls obj : postsHolder.getUserHawkerPosts()) {
                 hawkerCornersList.add(obj);
             }
-            hcadapter = new HCMainsAdapter(hawkerCornersList, false);
+            hcadapter = new HCMainsAdapter(hawkerCornersList, false, getActivity());
         } else {
             for (HawkerCornerStalls obj : postsHolder.getHawkerPosts()) {
                 if (obj.hcOwner.equals(usernameID)) {
                     hawkerCornersList.add(obj);
                 }
             }
-            hcadapter = new HCMainsAdapter(hawkerCornersList, true);
+            hcadapter = new HCMainsAdapter(hawkerCornersList, true, getActivity());
         }
 
         hcmainrv = view.findViewById(R.id.hawkercornerrv);

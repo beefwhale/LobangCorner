@@ -38,7 +38,7 @@ public class BRCFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_brc, container, false);
         recyclerView = view.findViewById(R.id.brc_rv);
-        delete = view.findViewById(R.id.imageView3);
+//        delete = view.findViewById(R.id.imageView3);
         bookmarkViewModel = new ViewModelProvider(requireParentFragment()).get(BookmarkViewModel.class);
         reference = FirebaseDatabase.getInstance().getReference();
         mAuth = FirebaseAuth.getInstance();
@@ -63,31 +63,31 @@ public class BRCFragment extends Fragment {
         // our recycler view.
         recyclerView.setAdapter(adapter);
         bookmarkViewModel.Rv(recyclerView);
-        delete.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                dellist = adapter.getDel_rcplist();
-                if (rcplist.isEmpty()) {
-                    Toast.makeText(getContext(), "No recipes found", Toast.LENGTH_SHORT).show();
-                } else if (dellist.isEmpty()) {
-                    Toast.makeText(getContext(), "No recipes selected", Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(getContext(), Integer.toString(dellist.size()) + " recipe(s) deleted", Toast.LENGTH_SHORT).show();
-                    List<RecipeCorner> toRemove = new ArrayList<>();
-                    for (RecipeCorner drcpObject : dellist) {
-                        toRemove.add(drcpObject);
-                        //rcplist.remove(drcpObject);
-                        //dellist.remove(drcpObject);
-                        reference.child("UserProfile").child(mAuth.getUid()).child("bmrcplist").child(drcpObject.postID).removeValue();
-                    }
-                    rcplist.removeAll(toRemove);
-                    dellist.removeAll(toRemove);
-                    adapter.delete(rcplist);
-                    recyclerView.setAdapter(adapter);
-                }
-
-            }
-        });
+//        delete.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                dellist = adapter.getDel_rcplist();
+//                if (rcplist.isEmpty()) {
+//                    Toast.makeText(getContext(), "No recipes found", Toast.LENGTH_SHORT).show();
+//                } else if (dellist.isEmpty()) {
+//                    Toast.makeText(getContext(), "No recipes selected", Toast.LENGTH_SHORT).show();
+//                } else {
+//                    Toast.makeText(getContext(), Integer.toString(dellist.size()) + " recipe(s) deleted", Toast.LENGTH_SHORT).show();
+//                    List<RecipeCorner> toRemove = new ArrayList<>();
+//                    for (RecipeCorner drcpObject : dellist) {
+//                        toRemove.add(drcpObject);
+//                        //rcplist.remove(drcpObject);
+//                        //dellist.remove(drcpObject);
+//                        reference.child("UserProfile").child(mAuth.getUid()).child("bmrcplist").child(drcpObject.postID).removeValue();
+//                    }
+//                    rcplist.removeAll(toRemove);
+//                    dellist.removeAll(toRemove);
+//                    adapter.delete(rcplist);
+//                    recyclerView.setAdapter(adapter);
+//                }
+//
+//            }
+//        });
 
         return view;
     }

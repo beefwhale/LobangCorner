@@ -10,6 +10,8 @@ import android.widget.CompoundButton;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.lifecycle.ViewModelStoreOwner;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.squareup.picasso.Picasso;
@@ -28,11 +30,14 @@ public class HCMainsAdapter extends RecyclerView.Adapter<HCMainViewHolder> {
     Integer toRemove;
     View stall;
     public ArrayList<HawkerCornerStalls> del_hcslist = new ArrayList<>();
+    BookmarkViewModel viewModel;
+    ViewModelStoreOwner vmso;
 
     //Constructor for Adapter.
-    public HCMainsAdapter(ArrayList<HawkerCornerStalls> stallsList, Boolean status) {
+    public HCMainsAdapter(ArrayList<HawkerCornerStalls> stallsList, Boolean status, ViewModelStoreOwner viewModelStoreOwner) {
         this.stallsList = stallsList;
         this.status = status;
+        vmso = viewModelStoreOwner;
     }
 
     //Create View holder, parent as Stalls are centered.
@@ -112,10 +117,15 @@ public class HCMainsAdapter extends RecyclerView.Adapter<HCMainViewHolder> {
             holder.hcCheckbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                    viewModel = new ViewModelProvider(vmso).get(BookmarkViewModel.class);
                     if (del_hcslist.contains(newstall)) {
                         del_hcslist.remove(newstall);
+//                        viewModel.checkedBox(del_hcslist.size());
+                        viewModel.hcList(del_hcslist);
                     } else {
                         del_hcslist.add(newstall);
+//                        viewModel.checkedBox(del_hcslist.size());
+                        viewModel.hcList(del_hcslist);
                     }
                 }
             });

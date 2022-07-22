@@ -3,6 +3,7 @@ package sg.edu.np.madgroupyassignment;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -29,13 +30,15 @@ public class BHCFragment extends Fragment {
     public ArrayList<HawkerCornerStalls> dellist = new ArrayList<>();
     DatabaseReference reference;
     FirebaseAuth mAuth;
+    BookmarkViewModel bookmarkViewModel;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_bhc, container, false);
         recyclerView = view.findViewById(R.id.bhc_rv);
-        deletebtn = view.findViewById(R.id.imageView3);
+//        deletebtn = view.findViewById(R.id.imageView3);
+        bookmarkViewModel = new ViewModelProvider(requireParentFragment()).get(BookmarkViewModel.class);
 
         reference = FirebaseDatabase.getInstance().getReference();
         mAuth = FirebaseAuth.getInstance();
@@ -46,7 +49,7 @@ public class BHCFragment extends Fragment {
         }
 
         // initializing our adapter class.
-        adapter = new HCMainsAdapter(hwklist, false);
+        adapter = new HCMainsAdapter(hwklist, false, getParentFragment());
 
         // adding layout manager to our recycler view.
         LinearLayoutManager manager = new LinearLayoutManager(getActivity());
@@ -60,31 +63,33 @@ public class BHCFragment extends Fragment {
         // our recycler view.
         recyclerView.setAdapter(adapter);
 
-        deletebtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                dellist = adapter.getDel_hcslist();
-                if (hwklist.isEmpty()) {
-                    Toast.makeText(getContext(), "No stalls found", Toast.LENGTH_SHORT).show();
-                } else if (dellist.isEmpty()) {
-                    Toast.makeText(getContext(), "No stalls selected", Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(getContext(), Integer.toString(dellist.size()) + " stall(s) deleted", Toast.LENGTH_SHORT).show();
-                    List<HawkerCornerStalls> toRemove = new ArrayList<>();
-                    for (HawkerCornerStalls dhwkObject : dellist) {
-                        toRemove.add(dhwkObject);
-//                        hwklist.remove(dhwkObject);
-//                        dellist.remove(dhwkObject);
-                        reference.child("UserProfile").child(mAuth.getUid()).child("bmhawklist").child(dhwkObject.postid).removeValue();
-                    }
-                    hwklist.removeAll(toRemove);
-                    dellist.removeAll(toRemove);
-                    adapter.delete(hwklist);
-                    adapter = new HCMainsAdapter(hwklist, false);
-                    recyclerView.setAdapter(adapter);
-                }
-            }
-        });
+        bookmarkViewModel.HcRv(recyclerView);
+
+//        deletebtn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                dellist = adapter.getDel_hcslist();
+//                if (hwklist.isEmpty()) {
+//                    Toast.makeText(getContext(), "No stalls found", Toast.LENGTH_SHORT).show();
+//                } else if (dellist.isEmpty()) {
+//                    Toast.makeText(getContext(), "No stalls selected", Toast.LENGTH_SHORT).show();
+//                } else {
+//                    Toast.makeText(getContext(), Integer.toString(dellist.size()) + " stall(s) deleted", Toast.LENGTH_SHORT).show();
+//                    List<HawkerCornerStalls> toRemove = new ArrayList<>();
+//                    for (HawkerCornerStalls dhwkObject : dellist) {
+//                        toRemove.add(dhwkObject);
+////                        hwklist.remove(dhwkObject);
+////                        dellist.remove(dhwkObject);
+//                        reference.child("UserProfile").child(mAuth.getUid()).child("bmhawklist").child(dhwkObject.postid).removeValue();
+//                    }
+//                    hwklist.removeAll(toRemove);
+//                    dellist.removeAll(toRemove);
+//                    adapter.delete(hwklist);
+//                    adapter = new HCMainsAdapter(hwklist, false, getParentFragment());
+//                    recyclerView.setAdapter(adapter);
+//                }
+//            }
+//        });
 
         return view;
     }

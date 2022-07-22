@@ -41,23 +41,26 @@ public class BookmarkActivity extends Fragment {
     private Button b;
     public PostsHolder2 postsHolder2;
     public RecipeAdapter adapter;
+    public HCMainsAdapter hcadapter;
     public ArrayList<RecipeCorner> rcplist = new ArrayList<>();
     public ArrayList<RecipeCorner> dellist = new ArrayList<>();
+    public ArrayList<HawkerCornerStalls> hwklist = new ArrayList<>();
+    public ArrayList<HawkerCornerStalls> hdellist = new ArrayList<>();
     DatabaseReference reference;
     FirebaseAuth mAuth;
-    Integer int2=0;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         View view = inflater.inflate(R.layout.activity_bookmark, container, false);
-        //rcpost = new RecipeCornerPosts();
-        //ArrayList<RecipeCorner> rclist = rcpost.getRcbookmarklist();
 
         tabLayout = view.findViewById(R.id.tabLayout);
         viewPager2 = view.findViewById(R.id.viewPager);
         b = view.findViewById(R.id.delete);
         b.setVisibility(View.GONE);
+        reference = FirebaseDatabase.getInstance().getReference();
+        mAuth = FirebaseAuth.getInstance();
 
         BookmarkVPAdapter vpAdapter = new BookmarkVPAdapter(getChildFragmentManager(), getLifecycle());
         vpAdapter.addFragment(new BHCFragment(), "Hawker Corner");
@@ -70,53 +73,61 @@ public class BookmarkActivity extends Fragment {
                 tab.setText(vpAdapter.getPageTitle(position));
             }
         }).attach();
+
         viewModel = new ViewModelProvider(this).get(BookmarkViewModel.class);
+
         rcplist.removeAll(rcplist);
         for (RecipeCorner obj : postsHolder2.getRecipePosts()) {
             rcplist.add(obj);
         }
-        reference = FirebaseDatabase.getInstance().getReference();
-        mAuth = FirebaseAuth.getInstance();
 
+        hwklist.removeAll(hwklist);
+        for (HawkerCornerStalls obj : postsHolder2.getHawkerPosts()) {
+            hwklist.add(obj);
+        }
 
-        viewModel.getcheckedBox().observe(getViewLifecycleOwner(), new Observer<Integer>() {
+        LinearLayout tabStrip = ((LinearLayout)tabLayout.getChildAt(0));
+        tabStrip.setEnabled(false);
+
+        viewModel.getrcplist().observe(getViewLifecycleOwner(), new Observer<ArrayList<RecipeCorner>>() {
             @Override
-            public void onChanged(Integer integer) {
-                if (integer==0){
+            public void onChanged(ArrayList<RecipeCorner> recipeCorners) {
+                if (recipeCorners.size()==0){
                     b.setVisibility(View.GONE);
-                    LinearLayout tabStrip = ((LinearLayout)tabLayout.getChildAt(0));
-                    tabStrip.setEnabled(false);
                     for(int i = 0; i < tabStrip.getChildCount(); i++) {
                         tabStrip.getChildAt(i).setClickable(true);
                     }
-                    Log.d("Button", "gone");
                 }
                 else{
                     b.setVisibility(View.VISIBLE);
-                    LinearLayout tabStrip = ((LinearLayout)tabLayout.getChildAt(0));
-                    tabStrip.setEnabled(false);
                     for(int i = 0; i < tabStrip.getChildCount(); i++) {
                         tabStrip.getChildAt(i).setClickable(false);
                     }
-                    Log.d("Button", integer.toString());
                 }
             }
         });
+
+        viewModel.gethclist().observe(getViewLifecycleOwner(), new Observer<ArrayList<HawkerCornerStalls>>() {
+            @Override
+            public void onChanged(ArrayList<HawkerCornerStalls> hawkerCornerStalls) {
+                if (hawkerCornerStalls.size()==0){
+                    b.setVisibility(View.GONE);
+                    for(int i = 0; i < tabStrip.getChildCount(); i++) {
+                        tabStrip.getChildAt(i).setClickable(true);
+                    }
+                }
+                else{
+                    b.setVisibility(View.VISIBLE);
+                    for(int i = 0; i < tabStrip.getChildCount(); i++) {
+                        tabStrip.getChildAt(i).setClickable(false);
+                    }
+                }
+            }
+        });
+
         adapter = new RecipeAdapter(rcplist, c, 1, getParentFragment());
-        //viewModel.RcpList(adapter.getDel_rcplist());
-//        viewModel.getrcplist().observe(getViewLifecycleOwner(), new Observer<List<RecipeCorner>>() {
-//            @Override
-//            public void onChanged(List<RecipeCorner> recipeCorners) {
-//                if (recipeCorners.isEmpty()){
-//                    b.setVisibility(View.INVISIBLE);
-//                }
-//                else{
-//                    b.setVisibility(View.VISIBLE);
-//                }
-//            }
-//        });
-//
-//        adapter = new RecipeAdapter(rcplist, getActivity(), 1);
+        hcadapter = new HCMainsAdapter(hwklist, false, getParentFragment());
+
         b.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -130,36 +141,55 @@ public class BookmarkActivity extends Fragment {
                             for (RecipeCorner drcpObject : dellist)
                             {
                                 toRemove.add(drcpObject);
-                                //rcplist.remove(drcpObject);
-                                //dellist.remove(drcpObject);
                                 reference.child("UserProfile").child(mAuth.getUid()).child("bmrcplist").child(drcpObject.postID).removeValue();
                             }
                             rcplist.removeAll(toRemove);
                             dellist.removeAll(toRemove);
                             adapter.delete(rcplist);
-                            viewModel.getRv().observe(getViewLifecycleOwner(), new Observer<RecyclerView>() {
-                                @Override
-                                public void onChanged(RecyclerView recyclerView) {
-                                    recyclerView.setAdapter(adapter);
-                                }
-                            });
-                            b.setVisibility(View.GONE);
+//                            viewModel.getRv().observe(getViewLifecycleOwner(), new Observer<RecyclerView>() {
+//                                @Override
+//                                public void onChanged(RecyclerView recyclerView) {
+//                                    recyclerView.setAdapter(adapter);
+//                                }
+//                            });
+//                            b.setVisibility(View.GONE);
+                            getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, new Home(), "Home").commit();
                         }
                     }
                 });
 
+                viewModel.gethclist().observe(getViewLifecycleOwner(), new Observer<ArrayList<HawkerCornerStalls>>() {
+                    @Override
+                    public void onChanged(ArrayList<HawkerCornerStalls> hawkerCornerStalls) {
+                        if (hawkerCornerStalls.size()!=0){
+                            hdellist = hawkerCornerStalls;
+                            Toast.makeText(getContext(), Integer.toString(hdellist.size()) + " stall(s) deleted", Toast.LENGTH_SHORT).show();
+                            List<HawkerCornerStalls> toRemove2 = new ArrayList<>();
+                            for (HawkerCornerStalls dhwkObject : hdellist) {
+                                toRemove2.add(dhwkObject);
+                                reference.child("UserProfile").child(mAuth.getUid()).child("bmhawklist").child(dhwkObject.postid).removeValue();
+                            }
+                            hwklist.removeAll(toRemove2);
+                            hdellist.removeAll(toRemove2);
+                            hcadapter.delete(hwklist);
+//                            hwklist.removeAll(hwklist);
+//                            for (HawkerCornerStalls obj : postsHolder2.getHawkerPosts()) {
+//                                hwklist.add(obj);
+//                            }
+                            //hcadapter = new HCMainsAdapter(hwklist, false, getParentFragment());
+//                            viewModel.getHcRv().observe(getViewLifecycleOwner(), new Observer<RecyclerView>() {
+//                                @Override
+//                                public void onChanged(RecyclerView recyclerView) {
+//                                    recyclerView.setAdapter(hcadapter);
+//                                }
+//                            });
+//                            b.setVisibility(View.GONE);
+                            getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, new Home(), "Home").commit();
+                        }
+                    }
+                });
             }
         });
-//        RecipeAdapter recipeAdapter = new RecipeAdapter(rcplist, c, 1);
-//
-
-//        if (recipeAdapter.aBoolean == false){
-//            b.setVisibility(View.VISIBLE);
-//        }
-//        else{
-//            b.setVisibility(View.INVISIBLE);
-//        }
-
         return view;
     }
 }
