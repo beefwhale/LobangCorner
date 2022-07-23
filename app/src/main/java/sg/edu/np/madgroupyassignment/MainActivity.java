@@ -13,6 +13,7 @@ import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.Observer;
 
@@ -340,9 +341,16 @@ public class MainActivity extends AppCompatActivity {
                         if (checkFormsNum == 1) { //If never enter forms
 //                            getSupportFragmentManager().popBackStack();
                             mainFAB.show();
-                            getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, homeFragment, "Home")
-                                    .addToBackStack(null).commit();
-
+                            Fragment checkFragment = getSupportFragmentManager().findFragmentByTag("Home");
+                            //If current Fragment is Home Page
+                            if (checkFragment != null && checkFragment.isVisible()){ // Yes
+                                getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, homeFragment, "Home")
+                                        .commit();
+                            }
+                            else{ // No
+                                getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, homeFragment, "Home")
+                                        .addToBackStack(null).commit();
+                            }
                         } else if ((whichForm == 1 && HawkerForm.stallName == "" || whichForm == 1 && HawkerForm.stallName.isEmpty() || whichForm == 1 && HawkerForm.stallName == null) &&
                                 (whichForm == 1 && HawkerForm.desc == "" || whichForm == 1 && HawkerForm.desc.isEmpty() || whichForm == 1 && HawkerForm.desc == null) &&
                                         (whichForm == 1 && HawkerForm.shortDesc == "" || whichForm == 1 && HawkerForm.shortDesc.isEmpty() || whichForm == 1 && HawkerForm.shortDesc == null) &&
@@ -470,8 +478,16 @@ public class MainActivity extends AppCompatActivity {
                         if (checkFormsNum == 1) { //If never enter forms
                             mainFAB.show();
                             //getSupportFragmentManager().popBackStack();
-                            getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, hawkerCornerMain, "HC")
-                                    .addToBackStack(null).commit();
+                            Fragment checkFragment = getSupportFragmentManager().findFragmentByTag("HC");
+                            //If current Fragment is HC Page
+                            if (checkFragment != null && checkFragment.isVisible()) {
+                                getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, hawkerCornerMain, "HC")
+                                        .commit();
+                            }
+                            else{
+                                getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, hawkerCornerMain, "HC")
+                                        .addToBackStack(null).commit();
+                            }
                         } else if ((whichForm == 1 && HawkerForm.stallName == "" || whichForm == 1 && HawkerForm.stallName.isEmpty() || whichForm == 1 && HawkerForm.stallName == null) &&
                                 (whichForm == 1 && HawkerForm.desc == "" || whichForm == 1 && HawkerForm.desc.isEmpty() || whichForm == 1 && HawkerForm.desc == null) &&
                                 (whichForm == 1 && HawkerForm.shortDesc == "" || whichForm == 1 && HawkerForm.shortDesc.isEmpty() || whichForm == 1 && HawkerForm.shortDesc == null) &&
@@ -601,8 +617,17 @@ public class MainActivity extends AppCompatActivity {
                         if (checkFormsNum == 1) { //If never enter forms
                             mainFAB.show();
 //                            getSupportFragmentManager().popBackStack();
-                            getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, recipeCornerMain, "RC")
-                                    .addToBackStack(null).commit();
+                            Fragment checkFragment = getSupportFragmentManager().findFragmentByTag("RC");
+                            //If current Fragment is RC Page
+                            if (checkFragment != null && checkFragment.isVisible()) {
+                                getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, recipeCornerMain, "RC")
+                                        .commit();
+                            }
+                            else{
+                                getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, recipeCornerMain, "RC")
+                                        .addToBackStack(null).commit();
+                            }
+
                         } else if ((whichForm == 1 && HawkerForm.stallName == "" || whichForm == 1 && HawkerForm.stallName.isEmpty() || whichForm == 1 && HawkerForm.stallName == null) &&
                                 (whichForm == 1 && HawkerForm.desc == "" || whichForm == 1 && HawkerForm.desc.isEmpty() || whichForm == 1 && HawkerForm.desc == null) &&
                                 (whichForm == 1 && HawkerForm.shortDesc == "" || whichForm == 1 && HawkerForm.shortDesc.isEmpty() || whichForm == 1 && HawkerForm.shortDesc == null) &&
@@ -731,8 +756,16 @@ public class MainActivity extends AppCompatActivity {
                         if (checkFormsNum == 1) { //If never enter forms
                             mainFAB.show();
 //                            getSupportFragmentManager().popBackStack();
-                            getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, profile, "Profile")
-                                    .addToBackStack(null).commit();
+                            Fragment checkFragment = getSupportFragmentManager().findFragmentByTag("Profile");
+                            //If current Fragment is Profile Page
+                            if (checkFragment != null && checkFragment.isVisible()) {
+                                getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, profile, "Profile")
+                                        .commit();
+                            }
+                            else{
+                                getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, profile, "Profile")
+                                        .addToBackStack(null).commit();
+                            }
                         } else if ((whichForm == 1 && HawkerForm.stallName == "" || whichForm == 1 && HawkerForm.stallName.isEmpty() || whichForm == 1 && HawkerForm.stallName == null) &&
                                 (whichForm == 1 && HawkerForm.desc == "" || whichForm == 1 && HawkerForm.desc.isEmpty() || whichForm == 1 && HawkerForm.desc == null) &&
                                 (whichForm == 1 && HawkerForm.shortDesc == "" || whichForm == 1 && HawkerForm.shortDesc.isEmpty() || whichForm == 1 && HawkerForm.shortDesc == null) &&
@@ -929,19 +962,19 @@ public class MainActivity extends AppCompatActivity {
     public void onBackPressed() {
         checkFormsNum = 1;
         super.onBackPressed();
-        Home homeFragment = (Home) getSupportFragmentManager().findFragmentByTag("Home");
+        Fragment homeFragment = getSupportFragmentManager().findFragmentByTag("Home");
         if (homeFragment != null && homeFragment.isVisible()) {
             MainActivity.bottomNavigationView.getMenu().findItem(R.id.home).setChecked(true);
         }
-        HawkerCornerMain hcFragment = (HawkerCornerMain) getSupportFragmentManager().findFragmentByTag("HC");
+        Fragment hcFragment = getSupportFragmentManager().findFragmentByTag("HC");
         if (hcFragment != null && hcFragment.isVisible()) {
             MainActivity.bottomNavigationView.getMenu().findItem(R.id.hc).setChecked(true);
         }
-        RecipeCornerMain rcFragment = (RecipeCornerMain) getSupportFragmentManager().findFragmentByTag("RC");
+        Fragment rcFragment = getSupportFragmentManager().findFragmentByTag("RC");
         if (rcFragment != null && rcFragment.isVisible()) {
             MainActivity.bottomNavigationView.getMenu().findItem(R.id.rc).setChecked(true);
         }
-        Profile profileFragment = (Profile) getSupportFragmentManager().findFragmentByTag("Profile");
+        Fragment profileFragment = getSupportFragmentManager().findFragmentByTag("Profile");
         if (profileFragment != null && profileFragment.isVisible()) {
             MainActivity.bottomNavigationView.getMenu().findItem(R.id.profile).setChecked(true);
         }
