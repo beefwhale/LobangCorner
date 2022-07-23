@@ -61,7 +61,7 @@ public class RecipeDraftsPage extends Fragment {
 //        Defining items
         View recipeDraftPage = inflater.inflate(R.layout.fragment_recipe_drafts_page, container, false);
         header = recipeDraftPage.findViewById(R.id.recipe_drafts_header);
-        header.setText("Recipe Corner Drafts");
+        header.setText("Create a Recipe Post");
         deleteBtn = recipeDraftPage.findViewById(R.id.deleteBtnDrafts);
         mAuth = FirebaseAuth.getInstance();
         storageReference = FirebaseStorage.getInstance().getReference();
@@ -89,7 +89,7 @@ public class RecipeDraftsPage extends Fragment {
                 if (rcdadapter.cbCount > 0) {
                     //Setting message manually and performing action on button click
                     builder.setTitle("Confirm Delete ?")
-                            .setMessage("You sure you want to permanently delete (" + rcdadapter.cbCount + ") posts?")
+                            .setMessage("You sure you want to permanently delete (" + rcdadapter.cbCount + ") drafts?")
                             .setCancelable(false)
                             .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int id) {
