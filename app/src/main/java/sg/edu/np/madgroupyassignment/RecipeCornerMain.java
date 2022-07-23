@@ -76,6 +76,7 @@ public class RecipeCornerMain extends Fragment implements AdapterView.OnItemSele
             }
         });
 
+        swipeRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.accent));
         //swipe to refresh to refresh data
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
