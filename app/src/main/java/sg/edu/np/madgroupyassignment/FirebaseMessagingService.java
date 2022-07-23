@@ -38,7 +38,7 @@ public class FirebaseMessagingService extends com.google.firebase.messaging.Fire
         getSystemService(NotificationManager.class).createNotificationChannel(channel);
 
         RemoteViews collapsedView = new RemoteViews(getPackageName(), R.layout.notification_layout);
-        collapsedView.setImageViewResource(R.id.PushNotification_Img, R.drawable.fush);
+        collapsedView.setImageViewResource(R.id.PushNotification_Img, R.mipmap.logo_v1);
         collapsedView.setTextViewText(R.id.PushNotification_Title, title);
         collapsedView.setTextViewText(R.id.PushNotification_Body, text);
         collapsedView.setTextViewText(R.id.PushNotification_Timestamp, DateUtils.formatDateTime(this, System.currentTimeMillis(), DateUtils.FORMAT_SHOW_TIME));

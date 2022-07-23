@@ -13,6 +13,9 @@ import android.content.ContentResolver;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -145,6 +148,32 @@ public class Profile extends Fragment {
                 }
             });
         }
+
+//        Ensure that about me has been changed
+        aboutme.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                if (charSequence != null) {
+                    if (userProfile.getAboutMe() != null) {
+                        aboutbtn.setEnabled((charSequence.toString().trim().equals(userProfile.getAboutMe().trim()) ? false : true));
+                    } else {
+                        aboutbtn.setEnabled(true);
+                    }
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+
+        aboutbtn.setEnabled(false);
 
 //        Changes about me text on clicked
         aboutbtn.setOnClickListener(new View.OnClickListener() {

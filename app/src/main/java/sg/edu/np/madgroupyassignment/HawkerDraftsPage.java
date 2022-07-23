@@ -237,9 +237,6 @@ public class HawkerDraftsPage extends Fragment {
                             //Add to list of checked using adapter position
                             adapterListPos.add(holder.getAdapterPosition());
                         }
-                        if (cbCount == 0) {
-                            listPos.clear();
-                        }
                     }
                 });
                 //When click into drafts

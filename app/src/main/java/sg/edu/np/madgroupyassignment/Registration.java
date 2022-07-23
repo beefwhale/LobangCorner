@@ -111,8 +111,7 @@ public class Registration extends AppCompatActivity {
                                 UID = task.getResult().getUser().getUid();
 
 //                                Setting default data
-                                profP = "https://firebasestorage.googleapis.com/v0/b/lobang-corner.appspot.com/o/DefaultProfilePic%2FBlobus.PNG?alt=media&token=2f89a9bb-8292-4578-8d0e-b2fa7e37676d";
-                                aboutMe = "Add something about yourself here... ";
+                                profP = "https://firebasestorage.googleapis.com/v0/b/lobang-corner.appspot.com/o/DefaultProfilePic%2Fdefault-profile.png?alt=media&token=66ecbdef-ebe0-4e5c-be4f-93cfce0416d9";
                                 HawkSeed = new HashMap<String, Object>();
                                 HawkSeed.put("Seed", "HawkSeed");
                                 RcpSeed = new HashMap<String, Object>();

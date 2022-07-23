@@ -62,7 +62,7 @@ public class HCCMapSplash extends Fragment {
 
                 stallmap.setArguments(bundle2);
                 activity.getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, stallmap)
-                        .addToBackStack(null).commit();
+                        .commit();
             }
         }, 3800);
     }
