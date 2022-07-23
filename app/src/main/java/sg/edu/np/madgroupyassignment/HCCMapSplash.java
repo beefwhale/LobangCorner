@@ -52,7 +52,7 @@ public class HCCMapSplash extends Fragment {
 
         //Animation for the text and lottie animation
         splashtxt.animate().translationY(-1400).setDuration(2400).setStartDelay(0);
-        lottie.animate().translationX(2000).setStartDelay(3600);
+        lottie.animate().translationX(2000).setStartDelay(3550);
 
         //After Animation send the information received above to MapFrag
         new Handler().postDelayed(new Runnable() {
@@ -65,9 +65,8 @@ public class HCCMapSplash extends Fragment {
                 bundle2.putString("stallname", hccname);
 
                 stallmap.setArguments(bundle2);
-                activity.getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, stallmap)
-                        .addToBackStack(null).commit();
+                activity.getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, stallmap).commit();
             }
-        }, 3800);
+        }, 3950);
     }
 }

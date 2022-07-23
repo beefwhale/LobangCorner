@@ -291,6 +291,20 @@
             app:layout_constraintEnd_toStartOf="@+id/hcbookmark"
             app:layout_constraintTop_toTopOf="@+id/hccusername" />
 
+        <ImageButton
+            android:id="@+id/hccopybtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="90dp"
+            android:background="@null"
+            android:minWidth="48dp"
+            android:minHeight="48dp"
+            android:visibility="visible"
+            app:layout_constraintBottom_toBottomOf="@+id/addresstv"
+            app:layout_constraintStart_toStartOf="@+id/addresstv"
+            app:layout_constraintTop_toTopOf="@+id/addresstv"
+            app:srcCompat="@drawable/ic_copy" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </ScrollView>
