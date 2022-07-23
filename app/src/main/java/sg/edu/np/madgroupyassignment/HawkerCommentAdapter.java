@@ -147,13 +147,13 @@ public class HawkerCommentAdapter extends RecyclerView.Adapter<CommentViewholder
                 @Override
                 public void onClick(View view) {
                     AppCompatActivity activity = (AppCompatActivity) view.getContext();
-                    Fragment splash = new HCCMapSplash();
+                    Fragment frag = new HCCMapFrag();
                     Bundle bundle = new Bundle();
                     bundle.putString("stalladdr", hccaddress.getText().toString());
                     bundle.putString("stallname", chosenstallname.getText().toString());
 
-                    splash.setArguments(bundle);
-                    activity.getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, splash)
+                    frag.setArguments(bundle);
+                    activity.getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, frag)
                             .addToBackStack(null).commit();
                 }
             });
@@ -198,12 +198,6 @@ public class HawkerCommentAdapter extends RecyclerView.Adapter<CommentViewholder
                                 Toast.makeText(c, "bookmarked", Toast.LENGTH_SHORT).show();             //display toast message
                                 hwklist.put(postID, postID);
                                 databaseReference2.child("UserProfile").child(firebaseAuth.getUid()).child("bmhawklist").updateChildren(hwklist);   //add to firebase (bmhwklist)
-
-                                //Bookmark animation when clicked
-                                AppCompatActivity activity = (AppCompatActivity) view.getContext();
-                                BookmarkAnimation ba = new BookmarkAnimation();
-                                activity.getSupportFragmentManager().beginTransaction().add(R.id.MainFragment, ba)
-                                        .addToBackStack(null).commit();
                             }
                         });
                     }
