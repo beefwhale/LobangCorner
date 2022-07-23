@@ -711,7 +711,11 @@ public class HawkerForm extends Fragment {
         callback = new OnBackPressedCallback(true) {
             @Override
             public void handleOnBackPressed() {
-                if (stallName == "" || stallName.isEmpty() || stallName == null) {
+                if ((stallName == "" || stallName.isEmpty() || stallName == null) &&
+                        (desc == "" || desc.isEmpty() || desc == null) &&
+                                (shortDesc == "" || shortDesc.isEmpty() || shortDesc == null) &&
+                                (address == "" || address.isEmpty() || address == null) &&
+                                (downUrl == "" || downUrl.isEmpty() || downUrl == null)) {
                     getParentFragmentManager().popBackStack();
                 } else {
                     leaveAlert();

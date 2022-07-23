@@ -85,6 +85,7 @@ public class RecipeForm extends Fragment {
         viewModel = new ViewModelProvider(this).get(FormsViewModel.class);
         recipeDrafts = new RecipeCorner();
         recipeName = "";
+        recipeDesc = "";
 
         //Setting this so it can be referenced in the Main/Ingredients/steps fragment
         if (status.equals(0)) { // If Posting
@@ -374,7 +375,9 @@ public class RecipeForm extends Fragment {
                         recipeName = s; //RECIPE TITLE parameter
                     }
                 });
-                if (recipeName == "" || recipeName.isEmpty() || recipeName == null) {
+                if ((recipeName == "" || recipeName.isEmpty() || recipeName == null) &&
+                        (recipeDesc == "" || recipeDesc.isEmpty() || recipeDesc == null) &&
+                        (selectedImg == "" || selectedImg.isEmpty() || selectedImg == null)) {
                     getParentFragmentManager().popBackStack();
                 } else {
                     leaveAlert();

@@ -70,7 +70,7 @@
         <EditText
             android:id="@+id/Desc"
             android:layout_width="match_parent"
-            android:layout_height="100dp"
+            android:layout_height="130dp"
             android:layout_marginHorizontal="20dp"
             android:layout_marginTop="15dp"
             android:background="@drawable/rounded_corners_edittext"

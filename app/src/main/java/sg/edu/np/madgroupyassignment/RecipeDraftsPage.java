@@ -39,6 +39,7 @@ public class RecipeDraftsPage extends Fragment {
     OnBackPressedCallback callback;
     PostsHolder postsHolder;
     ArrayList<RecipeCorner> draftsList = new ArrayList<RecipeCorner>();
+    TextView header;
 
     ImageButton deleteBtn;
     RecipeDraftsAdapter rcdadapter;
@@ -59,6 +60,8 @@ public class RecipeDraftsPage extends Fragment {
                              Bundle savedInstanceState) {
 //        Defining items
         View recipeDraftPage = inflater.inflate(R.layout.fragment_recipe_drafts_page, container, false);
+        header = recipeDraftPage.findViewById(R.id.recipe_drafts_header);
+        header.setText("Recipe Corner Drafts");
         deleteBtn = recipeDraftPage.findViewById(R.id.deleteBtnDrafts);
         mAuth = FirebaseAuth.getInstance();
         storageReference = FirebaseStorage.getInstance().getReference();
@@ -237,9 +240,6 @@ public class RecipeDraftsPage extends Fragment {
                             cbCount = cbCount + 1;
                             //Add to list of checked using adapter position
                             adapterListPos.add(holder.getAdapterPosition());
-                        }
-                        if (cbCount == 0) {
-                            listPos.clear();
                         }
                     }
                 });

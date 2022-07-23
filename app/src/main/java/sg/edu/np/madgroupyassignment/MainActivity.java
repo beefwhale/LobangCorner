@@ -343,7 +343,11 @@ public class MainActivity extends AppCompatActivity {
                             getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, homeFragment, "Home")
                                     .addToBackStack(null).commit();
 
-                        } else if (whichForm == 1 && HawkerForm.stallName == "" || whichForm == 1 && HawkerForm.stallName.isEmpty() || whichForm == 1 && HawkerForm.stallName == null) {
+                        } else if ((whichForm == 1 && HawkerForm.stallName == "" || whichForm == 1 && HawkerForm.stallName.isEmpty() || whichForm == 1 && HawkerForm.stallName == null) &&
+                                (whichForm == 1 && HawkerForm.desc == "" || whichForm == 1 && HawkerForm.desc.isEmpty() || whichForm == 1 && HawkerForm.desc == null) &&
+                                        (whichForm == 1 && HawkerForm.shortDesc == "" || whichForm == 1 && HawkerForm.shortDesc.isEmpty() || whichForm == 1 && HawkerForm.shortDesc == null) &&
+                                                (whichForm == 1 && HawkerForm.address == "" || whichForm == 1 && HawkerForm.address.isEmpty() || whichForm == 1 && HawkerForm.address == null) &&
+                                                        (whichForm == 1 && HawkerForm.downUrl == "" || whichForm == 1 && HawkerForm.downUrl.isEmpty() || whichForm == 1 && HawkerForm.downUrl == null)) {
                             mainFAB.show();
                             checkFormsNum = 1;
 //                            getSupportFragmentManager().popBackStack();
@@ -356,7 +360,21 @@ public class MainActivity extends AppCompatActivity {
                                     RecipeForm.recipeName = s;
                                 }
                             });
-                            if (RecipeForm.recipeName == "" || RecipeForm.recipeName.isEmpty() || RecipeForm.recipeName == null) {
+                            RecipeForm.viewModel.getSelectedRecipeDesc().observe(recipeForm.getViewLifecycleOwner(), new Observer<String>() {
+                                @Override
+                                public void onChanged(String s) {
+                                    RecipeForm.recipeDesc = s;
+                                }
+                            });
+                            RecipeForm.viewModel.getSelectedImg().observe(recipeForm.getViewLifecycleOwner(), new Observer<String>() {
+                                @Override
+                                public void onChanged(String s) {
+                                    RecipeForm.selectedImg = s;
+                                }
+                            });
+                            if ((RecipeForm.recipeName == "" || RecipeForm.recipeName.isEmpty() || RecipeForm.recipeName == null) &&
+                                    (RecipeForm.recipeDesc == "" || RecipeForm.recipeDesc.isEmpty() || RecipeForm.recipeDesc == null) &&
+                                    (RecipeForm.selectedImg == "" || RecipeForm.selectedImg.isEmpty() || RecipeForm.selectedImg == null)) {
                                 mainFAB.show();
                                 checkFormsNum = 1;
                                 getSupportFragmentManager().popBackStack();
@@ -454,7 +472,11 @@ public class MainActivity extends AppCompatActivity {
                             //getSupportFragmentManager().popBackStack();
                             getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, hawkerCornerMain, "HC")
                                     .addToBackStack(null).commit();
-                        } else if (whichForm == 1 && HawkerForm.stallName == "" || whichForm == 1 && HawkerForm.stallName.isEmpty() || whichForm == 1 && HawkerForm.stallName == null) {
+                        } else if ((whichForm == 1 && HawkerForm.stallName == "" || whichForm == 1 && HawkerForm.stallName.isEmpty() || whichForm == 1 && HawkerForm.stallName == null) &&
+                                (whichForm == 1 && HawkerForm.desc == "" || whichForm == 1 && HawkerForm.desc.isEmpty() || whichForm == 1 && HawkerForm.desc == null) &&
+                                (whichForm == 1 && HawkerForm.shortDesc == "" || whichForm == 1 && HawkerForm.shortDesc.isEmpty() || whichForm == 1 && HawkerForm.shortDesc == null) &&
+                                (whichForm == 1 && HawkerForm.address == "" || whichForm == 1 && HawkerForm.address.isEmpty() || whichForm == 1 && HawkerForm.address == null) &&
+                                (whichForm == 1 && HawkerForm.downUrl == "" || whichForm == 1 && HawkerForm.downUrl.isEmpty() || whichForm == 1 && HawkerForm.downUrl == null)) {
                             mainFAB.show();
                             checkFormsNum = 1;
                             getSupportFragmentManager().popBackStack();
@@ -467,7 +489,21 @@ public class MainActivity extends AppCompatActivity {
                                     RecipeForm.recipeName = s; //RECIPE TITLE parameter
                                 }
                             });
-                            if (RecipeForm.recipeName == "" || RecipeForm.recipeName.isEmpty() || RecipeForm.recipeName == null) {
+                            RecipeForm.viewModel.getSelectedRecipeDesc().observe(recipeForm.getViewLifecycleOwner(), new Observer<String>() {
+                                @Override
+                                public void onChanged(String s) {
+                                    RecipeForm.recipeDesc = s;
+                                }
+                            });
+                            RecipeForm.viewModel.getSelectedImg().observe(recipeForm.getViewLifecycleOwner(), new Observer<String>() {
+                                @Override
+                                public void onChanged(String s) {
+                                    RecipeForm.selectedImg = s;
+                                }
+                            });
+                            if ((RecipeForm.recipeName == "" || RecipeForm.recipeName.isEmpty() || RecipeForm.recipeName == null) &&
+                                    (RecipeForm.recipeDesc == "" || RecipeForm.recipeDesc.isEmpty() || RecipeForm.recipeDesc == null) &&
+                                    (RecipeForm.selectedImg == "" || RecipeForm.selectedImg.isEmpty() || RecipeForm.selectedImg == null)) {
                                 mainFAB.show();
                                 checkFormsNum = 1;
                                 getSupportFragmentManager().popBackStack();
@@ -567,7 +603,11 @@ public class MainActivity extends AppCompatActivity {
 //                            getSupportFragmentManager().popBackStack();
                             getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, recipeCornerMain, "RC")
                                     .addToBackStack(null).commit();
-                        } else if (whichForm == 1 && HawkerForm.stallName == "" || whichForm == 1 && HawkerForm.stallName.isEmpty() || whichForm == 1 && HawkerForm.stallName == null) {
+                        } else if ((whichForm == 1 && HawkerForm.stallName == "" || whichForm == 1 && HawkerForm.stallName.isEmpty() || whichForm == 1 && HawkerForm.stallName == null) &&
+                                (whichForm == 1 && HawkerForm.desc == "" || whichForm == 1 && HawkerForm.desc.isEmpty() || whichForm == 1 && HawkerForm.desc == null) &&
+                                (whichForm == 1 && HawkerForm.shortDesc == "" || whichForm == 1 && HawkerForm.shortDesc.isEmpty() || whichForm == 1 && HawkerForm.shortDesc == null) &&
+                                (whichForm == 1 && HawkerForm.address == "" || whichForm == 1 && HawkerForm.address.isEmpty() || whichForm == 1 && HawkerForm.address == null) &&
+                                (whichForm == 1 && HawkerForm.downUrl == "" || whichForm == 1 && HawkerForm.downUrl.isEmpty() || whichForm == 1 && HawkerForm.downUrl == null)) {
                             mainFAB.show();
                             checkFormsNum = 1;
                             getSupportFragmentManager().popBackStack();
@@ -580,7 +620,21 @@ public class MainActivity extends AppCompatActivity {
                                     RecipeForm.recipeName = s; //RECIPE TITLE parameter
                                 }
                             });
-                            if (RecipeForm.recipeName == "" || RecipeForm.recipeName.isEmpty() || RecipeForm.recipeName == null) {
+                            RecipeForm.viewModel.getSelectedRecipeDesc().observe(recipeForm.getViewLifecycleOwner(), new Observer<String>() {
+                                @Override
+                                public void onChanged(String s) {
+                                    RecipeForm.recipeDesc = s;
+                                }
+                            });
+                            RecipeForm.viewModel.getSelectedImg().observe(recipeForm.getViewLifecycleOwner(), new Observer<String>() {
+                                @Override
+                                public void onChanged(String s) {
+                                    RecipeForm.selectedImg = s;
+                                }
+                            });
+                            if ((RecipeForm.recipeName == "" || RecipeForm.recipeName.isEmpty() || RecipeForm.recipeName == null) &&
+                                    (RecipeForm.recipeDesc == "" || RecipeForm.recipeDesc.isEmpty() || RecipeForm.recipeDesc == null) &&
+                                    (RecipeForm.selectedImg == "" || RecipeForm.selectedImg.isEmpty() || RecipeForm.selectedImg == null)) {
                                 mainFAB.show();
                                 checkFormsNum = 1;
                                 getSupportFragmentManager().popBackStack();
@@ -679,7 +733,11 @@ public class MainActivity extends AppCompatActivity {
 //                            getSupportFragmentManager().popBackStack();
                             getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, profile, "Profile")
                                     .addToBackStack(null).commit();
-                        } else if (whichForm == 1 && HawkerForm.stallName == "" || whichForm == 1 && HawkerForm.stallName.isEmpty() || whichForm == 1 && HawkerForm.stallName == null) {
+                        } else if ((whichForm == 1 && HawkerForm.stallName == "" || whichForm == 1 && HawkerForm.stallName.isEmpty() || whichForm == 1 && HawkerForm.stallName == null) &&
+                                (whichForm == 1 && HawkerForm.desc == "" || whichForm == 1 && HawkerForm.desc.isEmpty() || whichForm == 1 && HawkerForm.desc == null) &&
+                                (whichForm == 1 && HawkerForm.shortDesc == "" || whichForm == 1 && HawkerForm.shortDesc.isEmpty() || whichForm == 1 && HawkerForm.shortDesc == null) &&
+                                (whichForm == 1 && HawkerForm.address == "" || whichForm == 1 && HawkerForm.address.isEmpty() || whichForm == 1 && HawkerForm.address == null) &&
+                                (whichForm == 1 && HawkerForm.downUrl == "" || whichForm == 1 && HawkerForm.downUrl.isEmpty() || whichForm == 1 && HawkerForm.downUrl == null)) {
                             mainFAB.show();
                             checkFormsNum = 1;
                             getSupportFragmentManager().popBackStack();
@@ -692,7 +750,21 @@ public class MainActivity extends AppCompatActivity {
                                     RecipeForm.recipeName = s; //RECIPE TITLE parameter
                                 }
                             });
-                            if (RecipeForm.recipeName == "" || RecipeForm.recipeName.isEmpty() || RecipeForm.recipeName == null) {
+                            RecipeForm.viewModel.getSelectedRecipeDesc().observe(recipeForm.getViewLifecycleOwner(), new Observer<String>() {
+                                @Override
+                                public void onChanged(String s) {
+                                    RecipeForm.recipeDesc = s;
+                                }
+                            });
+                            RecipeForm.viewModel.getSelectedImg().observe(recipeForm.getViewLifecycleOwner(), new Observer<String>() {
+                                @Override
+                                public void onChanged(String s) {
+                                    RecipeForm.selectedImg = s;
+                                }
+                            });
+                            if ((RecipeForm.recipeName == "" || RecipeForm.recipeName.isEmpty() || RecipeForm.recipeName == null) &&
+                                    (RecipeForm.recipeDesc == "" || RecipeForm.recipeDesc.isEmpty() || RecipeForm.recipeDesc == null) &&
+                                    (RecipeForm.selectedImg == "" || RecipeForm.selectedImg.isEmpty() || RecipeForm.selectedImg == null)) {
                                 mainFAB.show();
                                 checkFormsNum = 1;
                                 getSupportFragmentManager().popBackStack();

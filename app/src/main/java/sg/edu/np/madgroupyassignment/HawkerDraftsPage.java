@@ -38,6 +38,7 @@ public class HawkerDraftsPage extends Fragment {
     OnBackPressedCallback callback;
     PostsHolder postsHolder;
     ArrayList<HawkerCornerStalls> draftsList = new ArrayList<HawkerCornerStalls>();
+    TextView header;
 
     ImageButton deleteBtn;
     HawkerDraftsAdapter hcdadapter;
@@ -58,6 +59,8 @@ public class HawkerDraftsPage extends Fragment {
                              Bundle savedInstanceState) {
 //        Defining Items
         View hawkerDraftPage = inflater.inflate(R.layout.fragment_hawker_drafts_page, container, false);
+        header = hawkerDraftPage.findViewById(R.id.hawker_drafts_header);
+        header.setText("Hawker Corner Drafts");
         deleteBtn = hawkerDraftPage.findViewById(R.id.deleteBtnDrafts);
         mAuth = FirebaseAuth.getInstance();
         storageReference = FirebaseStorage.getInstance().getReference();
