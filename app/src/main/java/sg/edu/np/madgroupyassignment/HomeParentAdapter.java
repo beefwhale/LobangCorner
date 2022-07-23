@@ -225,7 +225,7 @@ public class HomeParentAdapter extends RecyclerView.Adapter<HomeParentViewHolder
                     AppCompatActivity activity = (AppCompatActivity) parent.getContext();
                     RecipeCornerMain rcmain = new RecipeCornerMain();
                     activity.getSupportFragmentManager().beginTransaction()
-                            .replace(R.id.MainFragment, rcmain).addToBackStack(null).commit();
+                            .replace(R.id.MainFragment, rcmain, "RC").addToBackStack(null).commit();
                     // making bottom nav bar appear checked
                     MainActivity.bottomNavigationView.getMenu().findItem(R.id.rc).setChecked(true);
                 }
@@ -236,7 +236,7 @@ public class HomeParentAdapter extends RecyclerView.Adapter<HomeParentViewHolder
                     AppCompatActivity activity = (AppCompatActivity) parent.getContext();
                     HawkerCornerMain hcmain = new HawkerCornerMain();
                     activity.getSupportFragmentManager().beginTransaction()
-                            .replace(R.id.MainFragment, hcmain).addToBackStack(null).commit();
+                            .replace(R.id.MainFragment, hcmain, "HC").addToBackStack(null).commit();
                     // making bottom nav bar appear checked
                     MainActivity.bottomNavigationView.getMenu().findItem(R.id.hc).setChecked(true);
                 }

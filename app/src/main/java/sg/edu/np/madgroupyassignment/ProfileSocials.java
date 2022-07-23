@@ -88,7 +88,7 @@ public class ProfileSocials extends Fragment {
                 databaseReference.child("UserProfile").child(usernameID).updateChildren(data).addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void unused) {
-                        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, new Profile(true)).commit();
+                        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, new Profile(true), "Profile").commit();
                     }
                 });
 
