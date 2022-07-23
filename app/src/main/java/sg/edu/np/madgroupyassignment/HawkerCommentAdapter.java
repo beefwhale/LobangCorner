@@ -6,6 +6,7 @@ import android.content.ClipboardManager;
 import android.content.Context;
 import android.graphics.Paint;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -14,6 +15,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.TextView;
@@ -111,6 +113,33 @@ public class HawkerCommentAdapter extends RecyclerView.Adapter<CommentViewholder
             TextView descriptionheader = item.findViewById(R.id.descriptiontv);
             TextView hccopendays = item.findViewById(R.id.hccopendays);
             TextView hccopenhours = item.findViewById(R.id.hccopenhours);
+            ImageButton hccopybtn = item.findViewById(R.id.hccopybtn);
+
+            //Copy button for address with animation and toast
+            hccopybtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    ClipboardManager clipboard = (ClipboardManager) item.getContext().getSystemService(Context.CLIPBOARD_SERVICE);
+                    ClipData data = ClipData.newPlainText("addr", hccaddress.getText().toString());
+                    clipboard.setPrimaryClip(data);
+
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            hccopybtn.setImageResource(R.drawable.ic_copytick);
+                        }
+                    },0);
+
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            hccopybtn.setImageResource(R.drawable.ic_copy);
+                        }
+                    },2100);
+
+                    Toast.makeText(item.getContext(), "Address copied", Toast.LENGTH_SHORT).show();
+                }
+            });
 
             //Starts map fragment
             Button hccmapbtn = item.findViewById(R.id.hcctrack);
@@ -151,22 +180,30 @@ public class HawkerCommentAdapter extends RecyclerView.Adapter<CommentViewholder
             dr.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    if (snapshot.hasChild(postID)) {
-                        hcbookmark.setImageResource(R.drawable.ic_bookmark_filled);
-                        hcbookmark.setOnClickListener(new View.OnClickListener() {
+                    if (snapshot.hasChild(postID)) {                        //if post alr exist in bookmark hawker list
+                        hcbookmark.setImageResource(R.drawable.ic_bookmark_filled);             // replace image with a filled icon
+                        hcbookmark.setOnClickListener(new View.OnClickListener() {              //if icon is clicked (to unbookmark)
                             @Override
                             public void onClick(View view) {
-                                Toast.makeText(c, "Hawker stall already saved", Toast.LENGTH_SHORT).show();
+                                hcbookmark.setImageResource(R.drawable.ic_bookmark);            //replace icon with an unfilled icon
+                                Toast.makeText(c, "unbookmarked", Toast.LENGTH_SHORT).show();           //toast message displayed
+                                databaseReference2.child("UserProfile").child(firebaseAuth.getUid()).child("bmhawklist").child(postID).removeValue();   //remove from firebase (bmhwklist)
                             }
                         });
-                    } else {
+                    } else {                                            //if post do not exist, when icon is clicked
                         hcbookmark.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
-                                Toast.makeText(c, "Hawker stall saved!", Toast.LENGTH_SHORT).show();
+                                hcbookmark.setImageResource(R.drawable.ic_bookmark_filled);                  //replace image with a filled icon
+                                Toast.makeText(c, "bookmarked", Toast.LENGTH_SHORT).show();             //display toast message
                                 hwklist.put(postID, postID);
-                                databaseReference2.child("UserProfile").child(firebaseAuth.getUid()).child("bmhawklist").updateChildren(hwklist);
+                                databaseReference2.child("UserProfile").child(firebaseAuth.getUid()).child("bmhawklist").updateChildren(hwklist);   //add to firebase (bmhwklist)
 
+                                //Bookmark animation when clicked
+                                AppCompatActivity activity = (AppCompatActivity) view.getContext();
+                                BookmarkAnimation ba = new BookmarkAnimation();
+                                activity.getSupportFragmentManager().beginTransaction().add(R.id.MainFragment, ba)
+                                        .addToBackStack(null).commit();
                             }
                         });
                     }

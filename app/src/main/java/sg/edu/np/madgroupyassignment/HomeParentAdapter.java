@@ -248,9 +248,9 @@ public class HomeParentAdapter extends RecyclerView.Adapter<HomeParentViewHolder
                     AppCompatActivity activity = (AppCompatActivity) parent.getContext();
                     //Intent in = new Intent(activity, BookmarkActivity.class);
                     //activity.startActivity(in);
-                    BookmarkActivity b = new BookmarkActivity();
-                    activity.getSupportFragmentManager().beginTransaction()
-                            .replace(R.id.MainFragment, b).addToBackStack(null).commit();
+                    Fragment splash = new BookmarkSplash();
+
+                    activity.getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, splash, "Home").addToBackStack(null).commit();
                 }
             });
 

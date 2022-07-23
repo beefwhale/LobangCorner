@@ -1,6 +1,8 @@
 package sg.edu.np.madgroupyassignment;
 
 import android.Manifest;
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -22,12 +24,14 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
+import android.os.Handler;
 import android.provider.Settings;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -71,6 +75,8 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import io.reactivex.Scheduler;
 import io.reactivex.SingleObserver;
@@ -116,6 +122,7 @@ public class HCCMapFrag extends Fragment implements OnMapReadyCallback{
         TextView hccloctext = view.findViewById(R.id.hccloctext);
         mapView = view.findViewById(R.id.hccmapview);
         Button hcctrack = view.findViewById(R.id.hcctrack);
+        ImageButton copybtn = view.findViewById(R.id.copybtn);
 
         geocoder = new Geocoder(this.getContext());
         maptitle.setText(hccname);
@@ -124,6 +131,32 @@ public class HCCMapFrag extends Fragment implements OnMapReadyCallback{
         mapView.onCreate(savedInstanceState);
         mapView.onResume();
         mapView.getMapAsync(this);
+
+        //Copy address to clipboard and also have animation
+        copybtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ClipboardManager clipboard = (ClipboardManager) getActivity().getSystemService(Context.CLIPBOARD_SERVICE);
+                ClipData data = ClipData.newPlainText("addr", hccaddr);
+                clipboard.setPrimaryClip(data);
+
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        copybtn.setImageResource(R.drawable.ic_copytick);
+                    }
+                },0);
+
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        copybtn.setImageResource(R.drawable.ic_copy);
+                    }
+                },2100);
+
+                Toast.makeText(getContext(), "Address copied", Toast.LENGTH_SHORT).show();
+            }
+        });
 
         //When user clicks go there, get user's current location
         hcctrack.setOnClickListener(new View.OnClickListener() {
@@ -186,13 +219,13 @@ public class HCCMapFrag extends Fragment implements OnMapReadyCallback{
         }
     }
 
-    //Google map toolbar disabled, zoom controls and buildings enabled
+    //Google map toolbar to go to google maps directly, zoom controls and buildings enabled
     @Override
     public void onMapReady(@NonNull GoogleMap map) {
         googleMap = map;
         googleMap.setBuildingsEnabled(true);
         googleMap.getUiSettings().setZoomControlsEnabled(true);
-        googleMap.getUiSettings().setMapToolbarEnabled(false);
+        googleMap.getUiSettings().setMapToolbarEnabled(true);
 
         //Set the default map to show the stall location, geocoder to get the lat lng from the name
         try {

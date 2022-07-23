@@ -15,7 +15,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -327,6 +326,7 @@ public class Profile extends Fragment {
         });
 
         SwipeRefreshLayout swipeRefreshLayout = view.findViewById(R.id.swipeRefreshLayout);
+        swipeRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.accent));
         //swipe to refresh to refresh data
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override

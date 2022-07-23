@@ -136,12 +136,15 @@ public class RecipeCommentAdapter extends RecyclerView.Adapter<CommentViewholder
             dr.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    if (snapshot.hasChild(postID)) {                             //if post alr exist in bookmark rcp list,
+                    if (snapshot.hasChild(postID)) {                             //if post alr exist in bookmark rcp list
                         i2.setImageResource(R.drawable.ic_bookmark_filled);     // replace image with a filled icon
-                        i2.setOnClickListener(new View.OnClickListener() {
+                        i2.setOnClickListener(new View.OnClickListener() {      //if icon is clicked (to unbookmark)
                             @Override
                             public void onClick(View view) {
-                                Toast.makeText(c, "Recipe already saved", Toast.LENGTH_SHORT).show();   //when icon is clicked, toast message displayed
+                                i2.setImageResource(R.drawable.ic_bookmark);                        //replace icon with an unfilled icon
+                                Toast.makeText(c, "unbookmarked", Toast.LENGTH_SHORT).show();   //toast message displayed
+                                databaseReference2.child("UserProfile").child(firebaseAuth.getUid()).child("bmrcplist").child(postID).removeValue();    //remove from firebase (bmrcplist)
+
                             }
                         });
                     } else {                                                       //if post do not exist, when icon is clicked
@@ -149,9 +152,15 @@ public class RecipeCommentAdapter extends RecyclerView.Adapter<CommentViewholder
                             @Override
                             public void onClick(View view) {
                                 i2.setImageResource(R.drawable.ic_bookmark_filled);                     //replace image with a filled icon
-                                Toast.makeText(c, "Recipe saved!", Toast.LENGTH_SHORT).show();      //display toast message
-                                rcplist.put(postID, postID);                                             //save in firebase
-                                databaseReference2.child("UserProfile").child(firebaseAuth.getUid()).child("bmrcplist").updateChildren(rcplist);
+                                Toast.makeText(c, "bookmarked", Toast.LENGTH_SHORT).show();      //display toast message
+                                rcplist.put(postID, postID);
+                                databaseReference2.child("UserProfile").child(firebaseAuth.getUid()).child("bmrcplist").updateChildren(rcplist);        //add to firebase (bmrcplist)
+
+                                //Bookmark animation when clicked
+                                AppCompatActivity activity = (AppCompatActivity) view.getContext();
+                                BookmarkAnimation ba = new BookmarkAnimation();
+                                activity.getSupportFragmentManager().beginTransaction().add(R.id.MainFragment, ba)
+                                        .addToBackStack(null).commit();
                             }
                         });
                     }

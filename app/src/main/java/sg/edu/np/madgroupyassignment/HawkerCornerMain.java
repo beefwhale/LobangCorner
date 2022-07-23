@@ -78,6 +78,7 @@ public class HawkerCornerMain extends Fragment implements AdapterView.OnItemSele
         hcmainSpinner.setOnItemSelectedListener(this);
 
         SwipeRefreshLayout swipeRefreshLayout = view.findViewById(R.id.swipeRefreshLayout);
+        swipeRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.accent));
         //swipe to refresh to refresh data
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override

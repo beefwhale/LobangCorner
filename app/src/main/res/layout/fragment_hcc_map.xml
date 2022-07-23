@@ -27,7 +27,7 @@
         android:layout_marginStart="20dp"
         android:layout_marginTop="40dp"
         android:background="@drawable/chosenstallborder"
-        android:fontFamily="@font/montserrat_bold"
+        android:fontFamily="@font/montserrat_semibold"
         android:padding="6dp"
         android:text="Viewing Location Of"
         android:textAlignment="textStart"
@@ -38,7 +38,7 @@
     <Button
         android:id="@+id/hcctrack"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="55dp"
         android:layout_marginStart="20dp"
         android:layout_marginTop="14dp"
         android:layout_marginEnd="20dp"
@@ -52,15 +52,16 @@
         android:id="@+id/hccloctext"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="4dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="6dp"
         android:layout_marginEnd="20dp"
         android:width="250dp"
-        android:fontFamily="@font/montserrat_bold"
+        android:fontFamily="@font/montserrat_regular"
         android:text="Location"
+        android:textAlignment="viewStart"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/copybtn"
         app:layout_constraintTop_toBottomOf="@+id/hccaddrhead" />
 
     <TextView
@@ -69,7 +70,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:layout_marginTop="4dp"
-        android:fontFamily="@font/montserrat_bold"
+        android:fontFamily="@font/montserrat_regular"
         android:text="Stall Title"
         android:textSize="22sp"
         app:layout_constraintStart_toStartOf="parent"
@@ -80,13 +81,24 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="20dp"
         android:background="@drawable/chosenstallborder"
-        android:fontFamily="@font/montserrat_bold"
+        android:fontFamily="@font/montserrat_semibold"
         android:padding="6dp"
         android:text="Address"
-        android:textSize="14sp"
+        android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/hccaddrtxt" />
+
+    <ImageButton
+        android:id="@+id/copybtn"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="4dp"
+        android:background="@null"
+        android:src="@drawable/ic_copy"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/hccaddrhead" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
