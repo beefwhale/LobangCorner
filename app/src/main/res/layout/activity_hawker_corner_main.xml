@@ -50,6 +50,19 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/hcmainspinner" />
 
+        <TextView
+            android:id="@+id/nostalltxt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/montserrat_regular"
+            android:text="No Stalls Found"
+            android:textSize="24sp"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="@+id/hawkercornerrv"
+            app:layout_constraintEnd_toEndOf="@+id/hawkercornerrv"
+            app:layout_constraintStart_toStartOf="@+id/hawkercornerrv"
+            app:layout_constraintTop_toBottomOf="@+id/hcmainspinner" />
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
