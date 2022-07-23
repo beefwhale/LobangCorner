@@ -113,11 +113,11 @@ public class HCMainsAdapter extends RecyclerView.Adapter<HCMainViewHolder> {
                     }
                 }
             });
-
+            viewModel = new ViewModelProvider(vmso).get(BookmarkViewModel.class);
             holder.hcCheckbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                    viewModel = new ViewModelProvider(vmso).get(BookmarkViewModel.class);
+
                     if (del_hcslist.contains(newstall)) {
                         del_hcslist.remove(newstall);
 //                        viewModel.checkedBox(del_hcslist.size());

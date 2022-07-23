@@ -85,7 +85,7 @@ public class RecipeCornerMain extends Fragment implements AdapterView.OnItemSele
                     recipeModalArrayList.add(obj);
                 }
                 Collections.reverse(recipeModalArrayList);
-                adapter = new RecipeAdapter(recipeModalArrayList, getActivity(), 0, requireParentFragment());
+                adapter = new RecipeAdapter(recipeModalArrayList, getActivity(), 0, getActivity());
                 searchView.setQuery("", false);
                 sortSpinner.setSelection(0);
                 recipeRV.setAdapter(adapter);
