@@ -15,6 +15,7 @@
         android:layout_marginStart="20dp"
         android:layout_marginTop="40dp"
         android:text="Sample"
+        android:fontFamily="@font/montserrat_semibold"
         android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

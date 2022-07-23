@@ -53,6 +53,7 @@
         android:layout_marginBottom="13dp"
         android:text="unbookmark"
         android:textSize="14sp"
+        android:animateLayoutChanges="true"
         app:backgroundTint="@color/Main_Primary"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

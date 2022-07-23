@@ -38,8 +38,7 @@
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="@+id/hccoverimg"
             app:layout_constraintTop_toTopOf="@+id/hccoverimg"
-            android:textColor="@color/Main_Primary"
-            android:buttonTint="@color/offwhite" />
+            android:textColor="@color/Main_Primary" />
 
 
         <View

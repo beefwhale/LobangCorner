@@ -44,37 +44,33 @@
         android:layout_height="match_parent"
         android:layout_below="@+id/header"
         android:layout_marginBottom="30dp" />
-    <LinearLayout
-        android:id="@+id/f2linearlayout"
+
+    <TextView
+        android:id="@+id/f3prevbutton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_above="@+id/f3submitbutton"
+        android:layout_gravity="left"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="12dp"
+        android:background="@drawable/rounded_social"
+        android:fontFamily="@font/montserrat_regular"
+        android:text="&lt; Back to Previous"
+        android:textColor="@color/blue_shade_2"
+        android:textSize="16dp" />
+
+    <Button
+        android:id="@+id/f3submitbutton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
-        android:gravity="center"
-        android:orientation="horizontal">
-
-        <Button
-            android:id="@+id/f3prevbutton"
-            android:layout_width="140dp"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentBottom="true"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:background="@drawable/rounded_social"
-            android:text="Previous"
-            android:layout_gravity="left"/>
-
-        <Button
-            android:id="@+id/f3submitbutton"
-            android:layout_width="140dp"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentBottom="true"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:background="@drawable/rounded_social"
-            android:text="Submit"
-            android:layout_gravity="right"/>
-    </LinearLayout>
+        android:layout_gravity="right"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:background="@drawable/rounded_social"
+        android:backgroundTint="@color/Main_Primary"
+        android:text="Submit" />
 
 </RelativeLayout>

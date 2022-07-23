@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -28,7 +29,8 @@ public class RecipePostSteps extends Fragment {
     static String finalSteps;
     private FormsViewModel viewModel;
 
-    Button prevBtn, submitBtn;
+    TextView prevBtn;
+    Button submitBtn;
     RecipeCorner recipeStall = new RecipeCorner();
 
     public RecipePostSteps() {

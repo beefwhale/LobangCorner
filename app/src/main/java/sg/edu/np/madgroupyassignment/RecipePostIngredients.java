@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -32,7 +33,8 @@ public class RecipePostIngredients extends Fragment {
     ArrayList<String> totalIngredList;
     FormsViewModel viewModel;
     String unt;
-    Button nextBtn, prevBtn;
+    Button nextBtn;
+    TextView prevBtn;
 
     RecipeCorner recipeStall = new RecipeCorner();
 
