@@ -60,7 +60,7 @@ public class HawkerDraftsPage extends Fragment {
 //        Defining Items
         View hawkerDraftPage = inflater.inflate(R.layout.fragment_hawker_drafts_page, container, false);
         header = hawkerDraftPage.findViewById(R.id.hawker_drafts_header);
-        header.setText("Hawker Corner Drafts");
+        header.setText("Create a Hawker Post");
         deleteBtn = hawkerDraftPage.findViewById(R.id.deleteBtnDrafts);
         mAuth = FirebaseAuth.getInstance();
         storageReference = FirebaseStorage.getInstance().getReference();

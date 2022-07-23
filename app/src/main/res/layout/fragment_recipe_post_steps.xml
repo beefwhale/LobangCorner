@@ -12,7 +12,8 @@
     <RelativeLayout
         android:id="@+id/header"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:minHeight="100dp"
+        android:layout_height="wrap_content"
         android:background="@color/Background_Cream">
 
         <EditText
@@ -25,7 +26,7 @@
             android:fontFamily="@font/montserrat_italic"
             android:hint="Enter steps here"
             android:minHeight="48dp"
-            android:paddingLeft="10dp"
+            android:padding="8dp"
             android:textColorHint="@color/cameragrey" />
 
         <ImageView
@@ -33,7 +34,7 @@
             android:layout_width="40sp"
             android:layout_height="40sp"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="7sp"
+            android:layout_marginLeft="8dp"
             android:layout_toRightOf="@+id/input"
             android:src="@drawable/add" />
     </RelativeLayout>
@@ -43,7 +44,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/header"
-        android:layout_marginBottom="30dp" />
+        android:layout_above="@id/f3prevbutton"
+        android:layout_marginBottom="8dp" />
 
     <TextView
         android:id="@+id/f3prevbutton"
