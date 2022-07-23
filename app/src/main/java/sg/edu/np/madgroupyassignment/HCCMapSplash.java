@@ -50,10 +50,12 @@ public class HCCMapSplash extends Fragment {
         String hccname = bundle.getString("stallname");
 
         //Animation for the text and lottie animation
-        splashtxt.animate().translationY(-1400).setDuration(1550).setStartDelay(0);
+        splashtxt.animate().translationY(-1500).setDuration(1550).setStartDelay(0);
         lottie.animate().translationX(2000).setStartDelay(3000);
 
         //After Animation send the information received above to MapFrag
+        Handler handler = new Handler();
+
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
