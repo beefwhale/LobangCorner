@@ -196,6 +196,12 @@ public class RecipeForm extends Fragment {
                             recipeCorner = new RecipeCorner(PostID, ownerUID, recipeName, recipeDesc, difficulty, username, duration, steps, totalIngred, timeStamp, selectedImg, false);
                             userCurrentRcp = userProfile.getRcpList();
                         }
+                        else if (status == 2){
+                            timeStamp = System.currentTimeMillis();
+                            PostID = recipeDrafts.getPostID();
+                            recipeCorner = new RecipeCorner(PostID, ownerUID, recipeName, recipeDesc, difficulty, username, duration, steps, totalIngred, timeStamp, selectedImg, false);
+                            userCurrentRcp = userProfile.getRcpList();
+                        }
                         RcpUp(userCurrentRcp, recipeCorner, PostID, status);
                         //getActivity().recreate();
                         getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, new Home(), "Home").commit();
@@ -386,6 +392,12 @@ public class RecipeForm extends Fragment {
                 }
             }
         };
+
+        if (status == 1) {
+            callback.setEnabled(false);
+        } else {
+            callback.setEnabled(true);
+        }
 
         requireActivity().getOnBackPressedDispatcher().addCallback(getActivity(), callback);
         super.onResume();
