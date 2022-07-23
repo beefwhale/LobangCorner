@@ -12,10 +12,6 @@
         <entry key="..\:/NP Y2 S1/MAD/MADA2/app/src/main/res/layout/fragment_hcc_drive_map.xml" value="0.2078125" />
         <entry key="..\:/NP Y2 S1/MAD/MADA2/app/src/main/res/layout/fragment_hcc_map.xml" value="0.25" />
         <entry key="..\:/NP Y2 S1/MAD/MADA2/app/src/main/res/layout/fragment_hcc_map_splash.xml" value="0.2" />
-        <entry key="..\:/NP Y2 S1/MAD/MADA2/app/src/main/res/layout/hawker_corner_stalls.xml" value="0.10916919959473151" />
-        <entry key="..\:/NP Y2 S1/MAD/MADA2/app/src/main/res/layout/ingredient_list_row.xml" value="0.10916919959473151" />
-        <entry key="..\:/NP Y2 S1/MAD/MADA2/app/src/main/res/layout/recipe_comment.xml" value="0.10916919959473151" />
-        <entry key="..\:/NP Y2 S1/MAD/MADA2/app/src/main/res/layout/recipe_corner_layout.xml" value="0.10916919959473151" />
         <entry key="..\:/Users/OwO11/AndroidStudioProjects/LobangCorner/app/src/main/res/drawable/chosenstallborder.xml" value="0.1" />
         <entry key="..\:/Users/OwO11/AndroidStudioProjects/LobangCorner/app/src/main/res/drawable/comment_post_button.xml" value="0.1435" />
         <entry key="..\:/Users/OwO11/AndroidStudioProjects/LobangCorner/app/src/main/res/drawable/comment_post_disabled.xml" value="0.1385" />
@@ -91,6 +87,7 @@
         <entry key="..\:/Users/hasanah/AndroidStudioProjects/LobangCorner/app/src/main/res/layout/activity_hawker_corner_main.xml" value="0.22" />
         <entry key="..\:/Users/hasanah/AndroidStudioProjects/LobangCorner/app/src/main/res/layout/activity_recipe_corner_main.xml" value="0.16666666666666666" />
         <entry key="..\:/Users/hasanah/AndroidStudioProjects/LobangCorner/app/src/main/res/layout/activity_recipe_corner_posts.xml" value="0.1" />
+        <entry key="..\:/Users/hasanah/AndroidStudioProjects/LobangCorner/app/src/main/res/layout/fragment_brc.xml" value="0.14407866609662248" />
         <entry key="..\:/Users/l1ght/AndroidStudioProjects/LobangCorner/app/src/main/res/layout/activity_hawker_corner_main.xml" value="0.22826086956521738" />
         <entry key="..\:/Users/l1ght/AndroidStudioProjects/LobangCorner/app/src/main/res/layout/activity_hcchosen_stall.xml" value="0.22826086956521738" />
         <entry key="..\:/Users/l1ght/AndroidStudioProjects/LobangCorner/app/src/main/res/layout/activity_home.xml" value="0.22826086956521738" />
@@ -99,12 +96,23 @@
         <entry key="..\:/Users/l1ght/AndroidStudioProjects/LobangCorner/app/src/main/res/layout/activity_log_test.xml" value="0.22826086956521738" />
         <entry key="..\:/Users/l1ght/AndroidStudioProjects/LobangCorner/app/src/main/res/layout/activity_login.xml" value="0.22826086956521738" />
         <entry key="..\:/Users/l1ght/AndroidStudioProjects/LobangCorner/app/src/main/res/layout/activity_main.xml" value="0.22826086956521738" />
+        <entry key="..\:/Users/l1ght/AndroidStudioProjects/LobangCorner/app/src/main/res/layout/activity_profile_hawkerrv.xml" value="0.14722222222222223" />
+        <entry key="..\:/Users/l1ght/AndroidStudioProjects/LobangCorner/app/src/main/res/layout/activity_profile_hc_card.xml" value="0.20425724637681159" />
+        <entry key="..\:/Users/l1ght/AndroidStudioProjects/LobangCorner/app/src/main/res/layout/activity_profile_rc_card.xml" value="0.2164855072463768" />
         <entry key="..\:/Users/l1ght/AndroidStudioProjects/LobangCorner/app/src/main/res/layout/activity_recipe_corner_main.xml" value="0.22760416666666666" />
         <entry key="..\:/Users/l1ght/AndroidStudioProjects/LobangCorner/app/src/main/res/layout/activity_recipe_corner_posts.xml" value="0.22760416666666666" />
         <entry key="..\:/Users/l1ght/AndroidStudioProjects/LobangCorner/app/src/main/res/layout/activity_registration.xml" value="0.22826086956521738" />
+        <entry key="..\:/Users/l1ght/AndroidStudioProjects/LobangCorner/app/src/main/res/layout/add_draft.xml" value="0.1762917933130699" />
         <entry key="..\:/Users/l1ght/AndroidStudioProjects/LobangCorner/app/src/main/res/layout/chosenstall_comments.xml" value="0.2234375" />
         <entry key="..\:/Users/l1ght/AndroidStudioProjects/LobangCorner/app/src/main/res/layout/comment_layout.xml" value="0.2234375" />
+        <entry key="..\:/Users/l1ght/AndroidStudioProjects/LobangCorner/app/src/main/res/layout/drafts.xml" value="0.14842958459979735" />
+        <entry key="..\:/Users/l1ght/AndroidStudioProjects/LobangCorner/app/src/main/res/layout/fragment_bhc.xml" value="0.20425724637681159" />
+        <entry key="..\:/Users/l1ght/AndroidStudioProjects/LobangCorner/app/src/main/res/layout/fragment_brc.xml" value="0.34646739130434784" />
+        <entry key="..\:/Users/l1ght/AndroidStudioProjects/LobangCorner/app/src/main/res/layout/fragment_hawker_drafts_page.xml" value="0.25" />
         <entry key="..\:/Users/l1ght/AndroidStudioProjects/LobangCorner/app/src/main/res/layout/fragment_hawker_form.xml" value="0.22760416666666666" />
+        <entry key="..\:/Users/l1ght/AndroidStudioProjects/LobangCorner/app/src/main/res/layout/fragment_hawker_form_edit.xml" value="0.30978260869565216" />
+        <entry key="..\:/Users/l1ght/AndroidStudioProjects/LobangCorner/app/src/main/res/layout/fragment_hcc_map_splash.xml" value="0.2164855072463768" />
+        <entry key="..\:/Users/l1ght/AndroidStudioProjects/LobangCorner/app/src/main/res/layout/fragment_recipe_drafts_page.xml" value="0.33" />
         <entry key="..\:/Users/l1ght/AndroidStudioProjects/LobangCorner/app/src/main/res/layout/fragment_recipe_form.xml" value="0.25" />
         <entry key="..\:/Users/l1ght/AndroidStudioProjects/LobangCorner/app/src/main/res/layout/fragment_recipe_post_ingredients.xml" value="0.25" />
         <entry key="..\:/Users/l1ght/AndroidStudioProjects/LobangCorner/app/src/main/res/layout/fragment_recipe_post_main.xml" value="0.264" />

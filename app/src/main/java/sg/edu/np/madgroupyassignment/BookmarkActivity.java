@@ -66,7 +66,7 @@ public class BookmarkActivity extends Fragment {
         vpAdapter.addFragment(new BHCFragment(), "Hawker Corner");
         vpAdapter.addFragment(new BRCFragment(), "Recipe Corner");
         viewPager2.setAdapter(vpAdapter);
-        viewPager2.setUserInputEnabled(false);
+
         new TabLayoutMediator(tabLayout, viewPager2, new TabLayoutMediator.TabConfigurationStrategy() {
             @Override
             public void onConfigureTab(@NonNull TabLayout.Tab tab, int position) {
@@ -94,12 +94,14 @@ public class BookmarkActivity extends Fragment {
             public void onChanged(ArrayList<RecipeCorner> recipeCorners) {
                 if (recipeCorners.size()==0){
                     b.setVisibility(View.GONE);
+                    viewPager2.setUserInputEnabled(true);
                     for(int i = 0; i < tabStrip.getChildCount(); i++) {
                         tabStrip.getChildAt(i).setClickable(true);
                     }
                 }
                 else{
                     b.setVisibility(View.VISIBLE);
+                    viewPager2.setUserInputEnabled(false);
                     for(int i = 0; i < tabStrip.getChildCount(); i++) {
                         tabStrip.getChildAt(i).setClickable(false);
                     }
@@ -136,7 +138,7 @@ public class BookmarkActivity extends Fragment {
                     public void onChanged(ArrayList<RecipeCorner> recipeCorners) {
                         if (recipeCorners.size()!=0){
                             dellist = recipeCorners;
-                            Toast.makeText(getContext(), Integer.toString(recipeCorners.size()) + " recipe(s) deleted", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getContext(), "unbookmarked", Toast.LENGTH_SHORT).show();
                             List<RecipeCorner> toRemove = new ArrayList<>();
                             for (RecipeCorner drcpObject : dellist)
                             {
@@ -163,7 +165,7 @@ public class BookmarkActivity extends Fragment {
                     public void onChanged(ArrayList<HawkerCornerStalls> hawkerCornerStalls) {
                         if (hawkerCornerStalls.size()!=0){
                             hdellist = hawkerCornerStalls;
-                            Toast.makeText(getContext(), Integer.toString(hdellist.size()) + " stall(s) deleted", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getContext(), "unbookmarked", Toast.LENGTH_SHORT).show();
                             List<HawkerCornerStalls> toRemove2 = new ArrayList<>();
                             for (HawkerCornerStalls dhwkObject : hdellist) {
                                 toRemove2.add(dhwkObject);

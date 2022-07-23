@@ -79,6 +79,7 @@ public class Home extends Fragment {
         home_main_rv.setLayoutManager(main_layout);
 
         SwipeRefreshLayout swipeRefreshLayout = view.findViewById(R.id.swipeRefreshLayout);
+        swipeRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.accent));
         //swipe to refresh to refresh data
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override

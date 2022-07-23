@@ -235,7 +235,7 @@
         <View
             android:id="@+id/CommentLineTop"
             android:layout_width="match_parent"
-            android:layout_height="5dp"
+            android:layout_height="1dp"
             android:layout_marginLeft="10dp"
             android:layout_marginTop="25dp"
             android:layout_marginRight="10dp"
@@ -260,7 +260,7 @@
         <View
             android:id="@+id/CommentLineBottom"
             android:layout_width="match_parent"
-            android:layout_height="5dp"
+            android:layout_height="1dp"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:layout_marginTop="10dp"
@@ -271,13 +271,12 @@
 
         <ImageView
             android:id="@+id/hcbookmark"
-            android:layout_width="30dp"
-            android:layout_height="34dp"
-            android:layout_marginEnd="20dp"
-            app:layout_constraintBottom_toBottomOf="@+id/hccusername"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_marginEnd="10dp"
+            app:layout_constraintBottom_toBottomOf="@+id/hcctrack"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/hccusername"
-            app:layout_constraintVertical_bias="0.875"
+            app:layout_constraintTop_toTopOf="@+id/hcctrack"
             app:srcCompat="@drawable/ic_bookmark" />
 
         <Button

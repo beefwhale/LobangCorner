@@ -180,21 +180,24 @@ public class HawkerCommentAdapter extends RecyclerView.Adapter<CommentViewholder
             dr.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    if (snapshot.hasChild(postID)) {
-                        hcbookmark.setImageResource(R.drawable.ic_bookmark_filled);
-                        hcbookmark.setOnClickListener(new View.OnClickListener() {
+                    if (snapshot.hasChild(postID)) {                        //if post alr exist in bookmark hawker list
+                        hcbookmark.setImageResource(R.drawable.ic_bookmark_filled);             // replace image with a filled icon
+                        hcbookmark.setOnClickListener(new View.OnClickListener() {              //if icon is clicked (to unbookmark)
                             @Override
                             public void onClick(View view) {
-                                Toast.makeText(c, "Hawker stall already saved", Toast.LENGTH_SHORT).show();
+                                hcbookmark.setImageResource(R.drawable.ic_bookmark);            //replace icon with an unfilled icon
+                                Toast.makeText(c, "unbookmarked", Toast.LENGTH_SHORT).show();           //toast message displayed
+                                databaseReference2.child("UserProfile").child(firebaseAuth.getUid()).child("bmhawklist").child(postID).removeValue();   //remove from firebase (bmhwklist)
                             }
                         });
-                    } else {
+                    } else {                                            //if post do not exist, when icon is clicked
                         hcbookmark.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
-                                Toast.makeText(c, "Hawker stall saved!", Toast.LENGTH_SHORT).show();
+                                hcbookmark.setImageResource(R.drawable.ic_bookmark_filled);                  //replace image with a filled icon
+                                Toast.makeText(c, "bookmarked", Toast.LENGTH_SHORT).show();             //display toast message
                                 hwklist.put(postID, postID);
-                                databaseReference2.child("UserProfile").child(firebaseAuth.getUid()).child("bmhawklist").updateChildren(hwklist);
+                                databaseReference2.child("UserProfile").child(firebaseAuth.getUid()).child("bmhawklist").updateChildren(hwklist);   //add to firebase (bmhwklist)
 
                             }
                         });
