@@ -116,10 +116,8 @@ public class HCCMapFrag extends Fragment implements OnMapReadyCallback{
         TextView hccloctext = view.findViewById(R.id.hccloctext);
         mapView = view.findViewById(R.id.hccmapview);
         Button hcctrack = view.findViewById(R.id.hcctrack);
-        Button drivebtn = view.findViewById(R.id.drivebtn);
 
         geocoder = new Geocoder(this.getContext());
-        drivebtn.setVisibility(View.INVISIBLE);
         maptitle.setText(hccname);
         hccloctext.setText(hccaddr);
 
@@ -127,34 +125,18 @@ public class HCCMapFrag extends Fragment implements OnMapReadyCallback{
         mapView.onResume();
         mapView.getMapAsync(this);
 
-        //When user clicks go there
+        //When user clicks go there, get user's current location
         hcctrack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 client = LocationServices.getFusedLocationProviderClient(getContext());
                 getCurrentLocation();
-                drivebtn.setVisibility(View.VISIBLE);
-                drivebtn.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        AppCompatActivity activity = (AppCompatActivity) view.getContext();
-                        Fragment hccDriveMap = new HCCDriveMap();
-                        Bundle bundle2 = new Bundle();
-                        bundle2.putDouble("pos2lat", position2.getPosition().latitude);
-                        bundle2.putDouble("pos2lng", position2.getPosition().longitude);
-                        bundle2.putDouble("pos1lat", position1.getPosition().latitude);
-                        bundle2.putDouble("pos1lng", position1.getPosition().longitude);
-
-                        hccDriveMap.setArguments(bundle2);
-                        activity.getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, hccDriveMap)
-                                .addToBackStack(null).commit();
-                    }
-                });
             }
         });
     }
 
     public void getCurrentLocation() {
+        //Check for permissions
         if (ActivityCompat.checkSelfPermission(getContext(),
                 Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
             googleMap.setMyLocationEnabled(true);
@@ -163,10 +145,14 @@ public class HCCMapFrag extends Fragment implements OnMapReadyCallback{
                 @Override
                 public void onSuccess(@NonNull Location location) {
                     if (location != null) {
+                        //Map sync
                         mapView.getMapAsync(new OnMapReadyCallback() {
                             @Override
                             public void onMapReady(GoogleMap googleMap) {
+                                //Get new location lat lng
                                 LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
+
+                                //Check if polyline already exist in the map, if exist, remove line and previous user's marker location
                                 if (polyline != null){
                                     polyline.remove();
                                     position2.remove();
@@ -185,17 +171,22 @@ public class HCCMapFrag extends Fragment implements OnMapReadyCallback{
                                 polyline = googleMap.addPolyline(polylineOptions);
                             }
                         });
-                    } else {
+                    }
+                    //If location is null
+                    else {
                         Toast.makeText(getActivity(), "Unable to get your location", Toast.LENGTH_SHORT).show();
                     }
                 }
             });
-        } else {
+        }
+        //Request permission
+        else {
             ActivityCompat.requestPermissions(getActivity(),
                     new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 44);
         }
     }
 
+    //Google map toolbar disabled, zoom controls and buildings enabled
     @Override
     public void onMapReady(@NonNull GoogleMap map) {
         googleMap = map;
@@ -203,6 +194,7 @@ public class HCCMapFrag extends Fragment implements OnMapReadyCallback{
         googleMap.getUiSettings().setZoomControlsEnabled(true);
         googleMap.getUiSettings().setMapToolbarEnabled(false);
 
+        //Set the default map to show the stall location, geocoder to get the lat lng from the name
         try {
             List<Address> addressList = geocoder.getFromLocationName(hccaddr, 1);
             if (!addressList.isEmpty()) {
@@ -212,8 +204,9 @@ public class HCCMapFrag extends Fragment implements OnMapReadyCallback{
                         .position(addressloc)
                         .title(hccname));
                 googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(addressloc, 18));
-            } else {
-                //Default viewing Singapore
+            }
+            //If the address list is empty, geocoder cannot find a lat lng for address, default view on Singapore
+            else {
                 LatLng sg = new LatLng(1.3521, 103.8198);
                 MarkerOptions markerOptions = new MarkerOptions()
                         .position(sg)

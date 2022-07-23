@@ -15,7 +15,6 @@ public class SplashPage extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_splash_page, container, false);
-
         return view;
     }
 }
