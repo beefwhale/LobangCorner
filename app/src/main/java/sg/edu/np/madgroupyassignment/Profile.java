@@ -190,19 +190,20 @@ public class Profile extends Fragment {
             public void onClick(View view) {
                 if (postsHolder.getUserHawkerPosts().size() > 0) {
                     AppCompatActivity activity = (AppCompatActivity) view.getContext();
-                    Fragment profileHcFragment = new ProfileHawkerRV(status);
+                    Fragment stallAni = new StallAnimation();
 
                     //pass username
                     Bundle bundle = new Bundle();
                     bundle.putString("username", userProfile.getUsername());
                     bundle.putString("usernameID", userProfile.getUID());
                     bundle.putString("usernameImg", userProfile.getProfileImg());
+                    bundle.putBoolean("status", status);
 
-                    profileHcFragment.setArguments(bundle);
+                    stallAni.setArguments(bundle);
 
                     //change fragment
                     activity.getSupportFragmentManager().beginTransaction()
-                            .replace(R.id.MainFragment, profileHcFragment).addToBackStack(null).commit();
+                            .replace(R.id.MainFragment, stallAni).addToBackStack(null).commit();
                 } else {
                     Toast.makeText(getActivity(), "No Hawker Corner Posts made", Toast.LENGTH_SHORT).show();
                 }
@@ -216,18 +217,19 @@ public class Profile extends Fragment {
                 if (postsHolder.getUserRecipePosts().size() > 0) {
                     AppCompatActivity activity = (AppCompatActivity) view.getContext();
 
-                    Fragment profileRcpFragment = new ProfileRecipeRV(status);
+                    Fragment recipeAni = new RecipeAnimation();
 
                     //pass username
                     Bundle bundle = new Bundle();
                     bundle.putString("username", userProfile.getUsername());
                     bundle.putString("usernameID", userProfile.getUID());
                     bundle.putString("usernameImg", userProfile.getProfileImg());
+                    bundle.putBoolean("status", status);
 
-                    profileRcpFragment.setArguments(bundle);
+                    recipeAni.setArguments(bundle);
 
                     activity.getSupportFragmentManager().beginTransaction()
-                            .replace(R.id.MainFragment, profileRcpFragment).addToBackStack(null).commit();
+                            .replace(R.id.MainFragment, recipeAni).addToBackStack(null).commit();
                 } else {
                     Toast.makeText(getActivity(), "No Recipe Corner Posts made", Toast.LENGTH_SHORT).show();
                 }

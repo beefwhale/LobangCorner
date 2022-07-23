@@ -5,16 +5,17 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/Background_Cream"
-    tools:context=".BookmarkSplash">
+    tools:context=".RecipeAnimation">
 
     <com.airbnb.lottie.LottieAnimationView
-        android:id="@+id/loadinglottie"
+        android:id="@+id/recipelottie"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_centerInParent="true"
         android:elevation="5dp"
+        android:scaleX="-1.2"
+        android:scaleY="1.5"
         app:lottie_autoPlay="true"
-        app:lottie_rawRes="@raw/readbookmark" />
-
+        app:lottie_rawRes="@raw/recipeanimation" />
 
 </RelativeLayout>

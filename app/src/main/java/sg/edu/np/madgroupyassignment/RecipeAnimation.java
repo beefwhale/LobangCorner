@@ -14,11 +14,11 @@ import android.view.ViewGroup;
 
 import com.airbnb.lottie.LottieAnimationView;
 
-public class BookmarkSplash extends Fragment {
+public class RecipeAnimation extends Fragment {
 
     LottieAnimationView lottie;
 
-    public BookmarkSplash() {
+    public RecipeAnimation() {
         // Required empty public constructor
     }
 
@@ -31,27 +31,31 @@ public class BookmarkSplash extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_bookmark_splash, container, false);
+        return inflater.inflate(R.layout.fragment_recipe_animation, container, false);
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        lottie = view.findViewById(R.id.loadinglottie);
+        lottie = view.findViewById(R.id.recipelottie);
+        lottie.animate().setStartDelay(3000);
 
-        //Animation for the text and lottie animation
-        lottie.animate().translationX(2000).setStartDelay(3000);
+        //Get bundle from Profile
+        Bundle bundle = this.getArguments();
+        Boolean status = bundle.getBoolean("status");
 
-        //After Animation send the information received above to MapFrag
+        //After Animation send the information received above to RcpFrag
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
                 AppCompatActivity activity = (AppCompatActivity) view.getContext();
+                Fragment profileRcpFragment = new ProfileRecipeRV(status);
 
-                BookmarkActivity ba = new BookmarkActivity();
-                activity.getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, ba).commit();
+                profileRcpFragment.setArguments(bundle);
+
+                activity.getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, profileRcpFragment).commit();
             }
-        }, 3200);
+        }, 3150);
     }
 }

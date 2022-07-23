@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -62,7 +63,13 @@ public class HawkerCornerMain extends Fragment implements AdapterView.OnItemSele
 
             @Override
             public boolean onQueryTextChange(String newText) {
+                TextView nostall = view.findViewById(R.id.nostalltxt);
                 filterList(newText, view);
+                if (filterList(newText, view).isEmpty()){
+                    nostall.setVisibility(View.VISIBLE);
+                }else{
+                    nostall.setVisibility(View.INVISIBLE);
+                }
                 return true;
             }
         });

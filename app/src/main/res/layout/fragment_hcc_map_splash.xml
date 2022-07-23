@@ -23,7 +23,7 @@
         android:textSize="30dp" />
 
     <com.airbnb.lottie.LottieAnimationView
-        android:id="@+id/bookmarksplashlottie"
+        android:id="@+id/loadinglottie"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_centerInParent="true"
