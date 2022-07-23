@@ -155,12 +155,6 @@ public class RecipeCommentAdapter extends RecyclerView.Adapter<CommentViewholder
                                 Toast.makeText(c, "bookmarked", Toast.LENGTH_SHORT).show();      //display toast message
                                 rcplist.put(postID, postID);
                                 databaseReference2.child("UserProfile").child(firebaseAuth.getUid()).child("bmrcplist").updateChildren(rcplist);        //add to firebase (bmrcplist)
-
-                                //Bookmark animation when clicked
-                                AppCompatActivity activity = (AppCompatActivity) view.getContext();
-                                BookmarkAnimation ba = new BookmarkAnimation();
-                                activity.getSupportFragmentManager().beginTransaction().add(R.id.MainFragment, ba)
-                                        .addToBackStack(null).commit();
                             }
                         });
                     }
