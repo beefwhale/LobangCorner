@@ -8,6 +8,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.net.ConnectivityManager;
 import android.os.Build;
 import android.os.Bundle;
 
@@ -27,6 +28,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.messaging.FirebaseMessaging;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import android.os.Handler;
 import android.preference.PreferenceManager;
@@ -81,7 +84,6 @@ public class MainActivity extends AppCompatActivity {
     //List to store User Recipe Drafts
     public static ArrayList<RecipeCorner> recipeDraftsList;
 
-
     public static BottomNavigationView bottomNavigationView;
 
     public MainActivity() {
@@ -105,6 +107,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+
 
         checkFormsNum = 1; //default for checkFormsNum is 1\
         whichForm = 0; //default for checking which form
@@ -273,8 +277,10 @@ public class MainActivity extends AppCompatActivity {
                 if (prefs.getBoolean("onlyonce", false) != true) {
                     // Default home fragment
                     FragmentManager fm = getSupportFragmentManager();
-                    fm.beginTransaction()
-                            .replace(R.id.MainFragment, new SplashPage(), null).commit();
+                    if(fm.isDestroyed() == false){
+                        fm.beginTransaction()
+                                .replace(R.id.MainFragment, new SplashPage(), null).commit();
+                    }
                     // Shuffles Discover More Section everytime
                     Collections.shuffle(randomMixList);
 
@@ -320,14 +326,8 @@ public class MainActivity extends AppCompatActivity {
             //         Hiding Nav Bars and FAB and during splash page duration
             bottomNavigationView.setVisibility(View.GONE);
             findViewById(R.id.floating_main_nav_button).setVisibility(View.GONE);
-            handler.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, homeFragment, "Home").commit();
-                    bottomNavigationView.setVisibility(View.VISIBLE);
-                    findViewById(R.id.floating_main_nav_button).setVisibility(View.VISIBLE);
-                }
-            }, 2500);
+            // Checking Internet Connection
+            isNetworkAvailable(this);
         }
 
         // Upon Bottom Nav Bar click
@@ -995,5 +995,46 @@ public class MainActivity extends AppCompatActivity {
 //        databaseReferencetest.child("UserProfile").child(mAuth.getUid()).child("hawkList").updateChildren(userHwkDraftList);
         Toast.makeText(this, "Recipe saved to drafts", Toast.LENGTH_SHORT).show();
     }
+    /**
+     * This method check mobile is connected to network.
+     * @param context
+     * @return true if connected otherwise false.
+     */
+    public void isNetworkAvailable(Context context) {
+        ConnectivityManager conMan = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        if(conMan.getActiveNetworkInfo() != null && conMan.getActiveNetworkInfo().isConnected()){
+            Home homeFragment = new Home();
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, homeFragment, "Home").commit();
+                    bottomNavigationView.setVisibility(View.VISIBLE);
+                    findViewById(R.id.floating_main_nav_button).setVisibility(View.VISIBLE);
+                }
+            }, 2500);
+        }
+        else{
+            AlertDialog.Builder builder = new AlertDialog.Builder(context);
+            builder.setTitle("Oh No!")
+                    .setMessage("Network Error! Make sure you are connected to the internet.")
+                    .setCancelable(false)
+                    .setNegativeButton("EXIT", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            //  Action for 'NO' Button
+                            dialog.cancel();
+                            finish();
+                        }
+                    })
+                    .setPositiveButton("TRY AGAIN", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            dialog.cancel();
+                            isNetworkAvailable(context);
+                        }
+                    });
+            //Creating dialog box
+            AlertDialog alert = builder.create();
+            alert.show();
+        }
 
+    }
 }
