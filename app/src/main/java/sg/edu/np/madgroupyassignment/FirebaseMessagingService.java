@@ -6,6 +6,7 @@ import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.text.format.DateUtils;
 import android.widget.RemoteViews;
 
@@ -38,6 +39,13 @@ public class FirebaseMessagingService extends com.google.firebase.messaging.Fire
         getSystemService(NotificationManager.class).createNotificationChannel(channel);
 
         RemoteViews collapsedView = new RemoteViews(getPackageName(), R.layout.notification_layout);
+        switch (getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK) {
+            case Configuration.UI_MODE_NIGHT_YES:
+                collapsedView.setTextColor(R.id.PushNotification_Title, getResources().getColor(R.color.offwhite));
+                collapsedView.setTextColor(R.id.PushNotification_Body, getResources().getColor(R.color.offwhite));
+                collapsedView.setTextColor(R.id.PushNotification_Timestamp, getResources().getColor(R.color.offwhite));
+                break;
+        }
         collapsedView.setImageViewResource(R.id.PushNotification_Img, R.mipmap.logo_v1);
         collapsedView.setTextViewText(R.id.PushNotification_Title, title);
         collapsedView.setTextViewText(R.id.PushNotification_Body, text);
