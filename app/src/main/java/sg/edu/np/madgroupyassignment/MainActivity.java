@@ -1083,7 +1083,7 @@ public class MainActivity extends AppCompatActivity {
                     bottomNavigationView.setVisibility(View.VISIBLE);
                     findViewById(R.id.floating_main_nav_button).setVisibility(View.VISIBLE);
                 }
-            }, 4000);
+            }, 2300);
         }
         else{
             AlertDialog.Builder builder = new AlertDialog.Builder(context);
