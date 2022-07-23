@@ -11,17 +11,14 @@ import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import com.airbnb.lottie.LottieAnimationView;
 
-public class HCCMapSplash extends Fragment {
-    //Splash page between Hawker Corner Chosen Stall and Hawker Map
+public class BookmarkSplash extends Fragment {
 
-    TextView splashtxt;
     LottieAnimationView lottie;
 
-    public HCCMapSplash() {
+    public BookmarkSplash() {
         // Required empty public constructor
     }
 
@@ -34,38 +31,27 @@ public class HCCMapSplash extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_hcc_map_splash, container, false);
+        return inflater.inflate(R.layout.fragment_bookmark_splash, container, false);
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        splashtxt = view.findViewById(R.id.hawkermapsplashtxt);
         lottie = view.findViewById(R.id.bookmarksplashlottie);
 
-        Bundle bundle = this.getArguments();
-        //Get the hawker address and name from HCChosenStall to pass to HCCMapFrag
-        String hccaddr = bundle.getString("stalladdr");
-        String hccname = bundle.getString("stallname");
-
         //Animation for the text and lottie animation
-        splashtxt.animate().translationY(-1400).setDuration(2400).setStartDelay(0);
-        lottie.animate().translationX(2000).setStartDelay(3550);
+        lottie.animate().translationX(2000).setStartDelay(3000);
 
         //After Animation send the information received above to MapFrag
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
                 AppCompatActivity activity = (AppCompatActivity) view.getContext();
-                Fragment stallmap = new HCCMapFrag();
-                Bundle bundle2 = new Bundle();
-                bundle2.putString("stalladdr", hccaddr);
-                bundle2.putString("stallname", hccname);
 
-                stallmap.setArguments(bundle2);
-                activity.getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, stallmap).commit();
+                BookmarkActivity ba = new BookmarkActivity();
+                activity.getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, ba).commit();
             }
-        }, 3950);
+        }, 3200);
     }
 }

@@ -199,6 +199,11 @@ public class HawkerCommentAdapter extends RecyclerView.Adapter<CommentViewholder
                                 hwklist.put(postID, postID);
                                 databaseReference2.child("UserProfile").child(firebaseAuth.getUid()).child("bmhawklist").updateChildren(hwklist);   //add to firebase (bmhwklist)
 
+                                //Bookmark animation when clicked
+                                AppCompatActivity activity = (AppCompatActivity) view.getContext();
+                                BookmarkAnimation ba = new BookmarkAnimation();
+                                activity.getSupportFragmentManager().beginTransaction().add(R.id.MainFragment, ba)
+                                        .addToBackStack(null).commit();
                             }
                         });
                     }
