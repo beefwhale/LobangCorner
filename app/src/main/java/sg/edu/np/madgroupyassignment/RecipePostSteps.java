@@ -72,11 +72,11 @@ public class RecipePostSteps extends Fragment {
                     recipeStall = i;
                     finalSteps = recipeStall.getSteps();
                     if (finalSteps == "" || finalSteps.isEmpty()) {
-                        String[] stepArray1 = recipeStall.getSteps().split("\n\n");
-                        for (String s : stepArray1) {
-                            String[] stepArray2 = s.split(": "); // Removing the "Step: "
-                            items.add(stepArray2[0]);
-                        }
+//                        String[] stepArray1 = recipeStall.getSteps().split("\n\n");
+//                        for (String s : stepArray1) {
+//                            String[] stepArray2 = s.split(": "); // Removing the "Step: "
+//                            items.add(stepArray2[0]);
+//                        }
                     } else {
                         String[] stepArray1 = recipeStall.getSteps().split("\n\n");
                         for (String s : stepArray1) {
