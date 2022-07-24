@@ -242,8 +242,7 @@ public class HCCMapFrag extends Fragment implements OnMapReadyCallback{
                 //Title tells user they can click on marker
                 position1 = googleMap.addMarker(new MarkerOptions()
                         .position(addressloc)
-                        .title("Click me and open Google Maps!")
-                        .icon(bitmapDescriptor(getContext(), R.drawable.ic_stalliconbig)));
+                        .title("Click me and open Google Maps!"));
                 position1.showInfoWindow();
 
                 //Marker on click set title back to name
@@ -269,18 +268,5 @@ public class HCCMapFrag extends Fragment implements OnMapReadyCallback{
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
-
-    //For icon of stall in google map
-    public BitmapDescriptor bitmapDescriptor (Context context, int vectorId) {
-        Drawable icon = ContextCompat.getDrawable(context, vectorId);
-
-        icon.setBounds(100, 100, 100, 100);
-        Bitmap bitmap = Bitmap.createBitmap(100, 100, Bitmap.Config.ARGB_8888);
-
-        Canvas canvas = new Canvas(bitmap);
-        icon.draw(canvas);
-
-        return BitmapDescriptorFactory.fromBitmap(bitmap);
     }
 }
