@@ -20,17 +20,18 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.util.ArrayList;
 import java.util.List;
 
+//Fragment for bookmark recipe corner page
 public class BRCFragment extends Fragment {
 
     RecyclerView recyclerView;
-    ImageView delete;
+//    ImageView delete;
     public RecipeAdapter adapter;
     PostsHolder2 postsHolder2;
     public ArrayList<RecipeCorner> rcplist = new ArrayList<>();
-    public ArrayList<RecipeCorner> dellist = new ArrayList<>();
+//    public ArrayList<RecipeCorner> dellist = new ArrayList<>();
     DatabaseReference reference;
     FirebaseAuth mAuth;
-    BookmarkViewModel bookmarkViewModel;
+//    BookmarkViewModel bookmarkViewModel;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -39,7 +40,7 @@ public class BRCFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_brc, container, false);
         recyclerView = view.findViewById(R.id.brc_rv);
 //        delete = view.findViewById(R.id.imageView3);
-        bookmarkViewModel = new ViewModelProvider(requireParentFragment()).get(BookmarkViewModel.class);
+//        bookmarkViewModel = new ViewModelProvider(requireParentFragment()).get(BookmarkViewModel.class);
         reference = FirebaseDatabase.getInstance().getReference();
         mAuth = FirebaseAuth.getInstance();
 
@@ -62,7 +63,8 @@ public class BRCFragment extends Fragment {
         // setting adapter to
         // our recycler view.
         recyclerView.setAdapter(adapter);
-        bookmarkViewModel.Rv(recyclerView);
+
+//        bookmarkViewModel.Rv(recyclerView);
 //        delete.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View view) {

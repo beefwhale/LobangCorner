@@ -142,7 +142,7 @@ public class RecipeCommentAdapter extends RecyclerView.Adapter<CommentViewholder
                             @Override
                             public void onClick(View view) {
                                 i2.setImageResource(R.drawable.ic_bookmark);                        //replace icon with an unfilled icon
-                                Toast.makeText(c, "unbookmarked", Toast.LENGTH_SHORT).show();   //toast message displayed
+                                Toast.makeText(c, "Unsaved!", Toast.LENGTH_SHORT).show();   //toast message displayed
                                 databaseReference2.child("UserProfile").child(firebaseAuth.getUid()).child("bmrcplist").child(postID).removeValue();    //remove from firebase (bmrcplist)
 
                             }
@@ -152,7 +152,7 @@ public class RecipeCommentAdapter extends RecyclerView.Adapter<CommentViewholder
                             @Override
                             public void onClick(View view) {
                                 i2.setImageResource(R.drawable.ic_bookmark_filled);                     //replace image with a filled icon
-                                Toast.makeText(c, "bookmarked", Toast.LENGTH_SHORT).show();      //display toast message
+                                Toast.makeText(c, "Saved!", Toast.LENGTH_SHORT).show();      //display toast message
                                 rcplist.put(postID, postID);
                                 databaseReference2.child("UserProfile").child(firebaseAuth.getUid()).child("bmrcplist").updateChildren(rcplist);        //add to firebase (bmrcplist)
                             }

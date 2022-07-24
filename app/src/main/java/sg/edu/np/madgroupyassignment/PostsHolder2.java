@@ -2,6 +2,7 @@ package sg.edu.np.madgroupyassignment;
 
 import java.util.ArrayList;
 
+//postholder for bookmarked posts
 public class PostsHolder2 {
     public static ArrayList<HawkerCornerStalls> hawkerPosts;
     public static ArrayList<RecipeCorner> recipePosts;
@@ -11,6 +12,7 @@ public class PostsHolder2 {
         this.recipePosts = new ArrayList<>();
     }
 
+    //getters setters for bookmarked hawker and recipe posts
     public static ArrayList<HawkerCornerStalls> getHawkerPosts() {
         return hawkerPosts;
     }
@@ -27,6 +29,7 @@ public class PostsHolder2 {
         PostsHolder2.recipePosts.add(recipePosts);
     }
 
+    //methods remove the bookmarked hawker and recipe posts
     public void removeHawkerPosts() {
         this.hawkerPosts.removeAll(hawkerPosts);
     }

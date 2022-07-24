@@ -7,10 +7,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.content.Context;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -79,14 +81,21 @@ public class Home extends Fragment {
         home_main_rv.setLayoutManager(main_layout);
 
         SwipeRefreshLayout swipeRefreshLayout = view.findViewById(R.id.swipeRefreshLayout);
-        swipeRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.accent));
+        swipeRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.accent));   //set refresh color to accent yellow
         //swipe to refresh to refresh data
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                HomeParentAdapter tp_adapter = new HomeParentAdapter(c, feed_data);
-                home_main_rv.setAdapter(tp_adapter);
-                swipeRefreshLayout.setRefreshing(false);
+                ConnectivityManager conMan = ((ConnectivityManager) getContext().getSystemService(Context.CONNECTIVITY_SERVICE));
+                if (conMan.getActiveNetworkInfo() != null && conMan.getActiveNetworkInfo().isConnected()) {  //if there is internet connection, update feed
+                    HomeParentAdapter tp_adapter = new HomeParentAdapter(c, feed_data);
+                    home_main_rv.setAdapter(tp_adapter);
+                    swipeRefreshLayout.setRefreshing(false);
+                }
+                else{       //if no internet connection, display toast message
+                    Toast.makeText(getContext(), "Please check your internet and try again", Toast.LENGTH_SHORT).show();
+                    swipeRefreshLayout.setRefreshing(false);
+                }
             }
         });
 

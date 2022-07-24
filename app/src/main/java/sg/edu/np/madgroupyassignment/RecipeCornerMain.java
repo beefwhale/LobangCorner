@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.content.Context;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -58,6 +59,7 @@ public class RecipeCornerMain extends Fragment implements AdapterView.OnItemSele
         // getting search view of our item.
         SearchView searchView = view.findViewById(R.id.SearchID);
 
+        //getting swipe refresh layout
         SwipeRefreshLayout swipeRefreshLayout = view.findViewById(R.id.swipeRefreshLayout);
 
         // below line is to call set on query text listener method for search bar
@@ -76,21 +78,28 @@ public class RecipeCornerMain extends Fragment implements AdapterView.OnItemSele
             }
         });
 
-        swipeRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.accent));
+        swipeRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.accent));   //set refresh color to accent yellow
         //swipe to refresh to refresh data
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                recipeModalArrayList.removeAll(recipeModalArrayList);
-                for (RecipeCorner obj : postsHolder.getRecipePosts()) {
-                    recipeModalArrayList.add(obj);
+                ConnectivityManager conMan = ((ConnectivityManager) getContext().getSystemService(Context.CONNECTIVITY_SERVICE));
+                if (conMan.getActiveNetworkInfo() != null && conMan.getActiveNetworkInfo().isConnected()) {  //if there is internet connection, update the recipe list
+                    recipeModalArrayList.removeAll(recipeModalArrayList);
+                    for (RecipeCorner obj : postsHolder.getRecipePosts()) {
+                        recipeModalArrayList.add(obj);
+                    }
+                    Collections.reverse(recipeModalArrayList);
+                    adapter = new RecipeAdapter(recipeModalArrayList, getActivity(), 0, getActivity());
+                    searchView.setQuery("", false);
+                    sortSpinner.setSelection(0);
+                    recipeRV.setAdapter(adapter);
+                    swipeRefreshLayout.setRefreshing(false);
                 }
-                Collections.reverse(recipeModalArrayList);
-                adapter = new RecipeAdapter(recipeModalArrayList, getActivity(), 0, getActivity());
-                searchView.setQuery("", false);
-                sortSpinner.setSelection(0);
-                recipeRV.setAdapter(adapter);
-                swipeRefreshLayout.setRefreshing(false);
+                else{       //if no internet connection, display toast message
+                    Toast.makeText(getContext(), "Please check your internet and try again", Toast.LENGTH_SHORT).show();
+                    swipeRefreshLayout.setRefreshing(false);
+                }
             }
         });
 

@@ -48,12 +48,12 @@
 
     <Button
         android:id="@+id/delete"
-        android:layout_width="145dp"
+        android:layout_width="100dp"
         android:layout_height="58dp"
         android:layout_marginBottom="13dp"
-        android:text="unbookmark"
-        android:textSize="14sp"
         android:animateLayoutChanges="true"
+        android:text="unsave"
+        android:textSize="14sp"
         app:backgroundTint="@color/Main_Primary"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

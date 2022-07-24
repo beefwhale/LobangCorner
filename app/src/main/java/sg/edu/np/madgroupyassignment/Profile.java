@@ -10,7 +10,9 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.content.ActivityNotFoundException;
 import android.content.ContentResolver;
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.Editable;
@@ -331,8 +333,15 @@ public class Profile extends Fragment {
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                updatePage();
-                swipeRefreshLayout.setRefreshing(false);
+                ConnectivityManager conMan = ((ConnectivityManager) getContext().getSystemService(Context.CONNECTIVITY_SERVICE));
+                if (conMan.getActiveNetworkInfo() != null && conMan.getActiveNetworkInfo().isConnected()) {  //if there is internet connection, update profile
+                    updatePage();
+                    swipeRefreshLayout.setRefreshing(false);
+                }
+                else{   //if no internet connection, display toast message
+                    Toast.makeText(getContext(), "Please check your internet and try again", Toast.LENGTH_SHORT).show();
+                    swipeRefreshLayout.setRefreshing(false);
+                }
             }
         });
 

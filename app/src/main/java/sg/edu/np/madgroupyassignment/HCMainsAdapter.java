@@ -113,19 +113,19 @@ public class HCMainsAdapter extends RecyclerView.Adapter<HCMainViewHolder> {
                     }
                 }
             });
+
+            //for bookmark page
             viewModel = new ViewModelProvider(vmso).get(BookmarkViewModel.class);
-            holder.hcCheckbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            holder.hcCheckbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {     //when checkbox is clicked
                 @Override
                 public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-
-                    if (del_hcslist.contains(newstall)) {
-                        del_hcslist.remove(newstall);
-//                        viewModel.checkedBox(del_hcslist.size());
-                        viewModel.hcList(del_hcslist);
-                    } else {
-                        del_hcslist.add(newstall);
-//                        viewModel.checkedBox(del_hcslist.size());
-                        viewModel.hcList(del_hcslist);
+                    if (del_hcslist.contains(newstall)) {           //if unbookmarked hc list contains the hawker post (checkbox is unchecked)
+                        del_hcslist.remove(newstall);               //remove object from list
+                        viewModel.hcList(del_hcslist);              //send updated list to viewmodel
+                    }
+                    else {                                          //if it does not contain the post (checkbox is checked)
+                        del_hcslist.add(newstall);                  //add object to list
+                        viewModel.hcList(del_hcslist);              //send updated list to viewmodel
                     }
                 }
             });
@@ -133,10 +133,10 @@ public class HCMainsAdapter extends RecyclerView.Adapter<HCMainViewHolder> {
         }
     }
 
-    public ArrayList<HawkerCornerStalls> getDel_hcslist() {
-        return del_hcslist;
-    }
-
+//    public ArrayList<HawkerCornerStalls> getDel_hcslist() {
+//        return del_hcslist;
+//    }
+    //method to update hc list
     public void delete(ArrayList<HawkerCornerStalls> deletelist) {
         stallsList = deletelist;
         notifyDataSetChanged();

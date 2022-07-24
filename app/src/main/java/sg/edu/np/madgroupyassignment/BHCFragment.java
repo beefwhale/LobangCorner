@@ -19,18 +19,18 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 import java.util.List;
-
+//Fragment for bookmark hawker corner page
 public class BHCFragment extends Fragment {
 
     RecyclerView recyclerView;
-    ImageView deletebtn;
+//    ImageView deletebtn;
     HCMainsAdapter adapter;
     PostsHolder2 postsHolder;
     public ArrayList<HawkerCornerStalls> hwklist = new ArrayList<>();
-    public ArrayList<HawkerCornerStalls> dellist = new ArrayList<>();
+//    public ArrayList<HawkerCornerStalls> dellist = new ArrayList<>();
     DatabaseReference reference;
     FirebaseAuth mAuth;
-    BookmarkViewModel bookmarkViewModel;
+//    BookmarkViewModel bookmarkViewModel;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -38,7 +38,7 @@ public class BHCFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_bhc, container, false);
         recyclerView = view.findViewById(R.id.bhc_rv);
 //        deletebtn = view.findViewById(R.id.imageView3);
-        bookmarkViewModel = new ViewModelProvider(requireParentFragment()).get(BookmarkViewModel.class);
+//        bookmarkViewModel = new ViewModelProvider(requireParentFragment()).get(BookmarkViewModel.class);
 
         reference = FirebaseDatabase.getInstance().getReference();
         mAuth = FirebaseAuth.getInstance();
@@ -63,7 +63,7 @@ public class BHCFragment extends Fragment {
         // our recycler view.
         recyclerView.setAdapter(adapter);
 
-        bookmarkViewModel.HcRv(recyclerView);
+//        bookmarkViewModel.HcRv(recyclerView);
 
 //        deletebtn.setOnClickListener(new View.OnClickListener() {
 //            @Override

@@ -241,7 +241,7 @@ public class HomeParentAdapter extends RecyclerView.Adapter<HomeParentViewHolder
                     MainActivity.bottomNavigationView.getMenu().findItem(R.id.hc).setChecked(true);
                 }
             });
-
+            //when bookmark icon is clicked, start bookmark activity
             bookmark_img.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {

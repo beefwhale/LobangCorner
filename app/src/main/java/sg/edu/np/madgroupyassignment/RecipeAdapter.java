@@ -114,22 +114,17 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeViewHolder> {
 
         // for bookmark page
         if (status == 1) {
-            BookmarkActivity bookmarkActivity = new BookmarkActivity();
-            holder.checkbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            holder.checkbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {   //when checkbox is clicked
                 @Override
                 public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                     viewModel = new ViewModelProvider(vmso).get(BookmarkViewModel.class);
-                    if (del_rcplist.contains(item)) {
-                        //holder.checkbox.setChecked(false);
-                        del_rcplist.remove(item);
-//                        viewModel.checkedBox(del_rcplist.size());
-                        viewModel.RcpList(del_rcplist);
+                    if (del_rcplist.contains(item)) {           //if the unbookmarked rcp list contains the rc post
+                        del_rcplist.remove(item);               //remove the rc object from the list
+                        viewModel.RcpList(del_rcplist);         //send the updated unbookmarked rcp list to viewmodel
                     }
-                    else {
-                        //holder.checkbox.setChecked(true);
-                        del_rcplist.add(item);
-//                        viewModel.checkedBox(del_rcplist.size());
-                        viewModel.RcpList(del_rcplist);
+                    else {                                      //if it does not contain the rcp post
+                        del_rcplist.add(item);                  //add rc object to list
+                        viewModel.RcpList(del_rcplist);         //send updated unbookmarked rcp list to viewmodel
                     }
 
                 }
@@ -168,9 +163,9 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeViewHolder> {
         }
     }
 
-    public ArrayList<RecipeCorner> getDel_rcplist() {
-        return del_rcplist;
-    }
+//    public ArrayList<RecipeCorner> getDel_rcplist() {
+//        return del_rcplist;
+//    }
 
     public void delete(ArrayList<RecipeCorner> deletelist) {
         recipeArrayList = deletelist;
