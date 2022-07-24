@@ -121,12 +121,14 @@ public class BookmarkActivity extends Fragment {
                     for(int i = 0; i < tabStrip.getChildCount(); i++) {
                         tabStrip.getChildAt(i).setClickable(true);
                     }
+                    viewPager2.setUserInputEnabled(true);   //enable user to swipe between the tabs
                 }
                 else{
                     b.setVisibility(View.VISIBLE);
                     for(int i = 0; i < tabStrip.getChildCount(); i++) {
                         tabStrip.getChildAt(i).setClickable(false);
                     }
+                    viewPager2.setUserInputEnabled(false);      //user is unable to swipe between the tabs
                 }
             }
         });
