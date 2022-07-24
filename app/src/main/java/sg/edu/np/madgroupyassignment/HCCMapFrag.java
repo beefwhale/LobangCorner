@@ -6,8 +6,11 @@ import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
@@ -59,6 +62,8 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptor;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.ButtCap;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
@@ -233,9 +238,23 @@ public class HCCMapFrag extends Fragment implements OnMapReadyCallback{
             if (!addressList.isEmpty()) {
                 Address address = addressList.get(0);
                 LatLng addressloc = new LatLng(address.getLatitude(), address.getLongitude());
+
+                //Title tells user they can click on marker
                 position1 = googleMap.addMarker(new MarkerOptions()
                         .position(addressloc)
-                        .title(hccname));
+                        .title("Click me and open Google Maps!")
+                        .icon(bitmapDescriptor(getContext(), R.drawable.ic_stalliconbig)));
+                position1.showInfoWindow();
+
+                //Marker on click set title back to name
+                googleMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+                    @Override
+                    public boolean onMarkerClick(@NonNull Marker marker) {
+                        position1.setTitle(hccname);
+                        return false;
+                    }
+                });
+
                 googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(addressloc, 18));
             }
             //If the address list is empty, geocoder cannot find a lat lng for address, default view on Singapore
@@ -250,5 +269,18 @@ public class HCCMapFrag extends Fragment implements OnMapReadyCallback{
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    //For icon of stall in google map
+    public BitmapDescriptor bitmapDescriptor (Context context, int vectorId) {
+        Drawable icon = ContextCompat.getDrawable(context, vectorId);
+
+        icon.setBounds(100, 100, 100, 100);
+        Bitmap bitmap = Bitmap.createBitmap(100, 100, Bitmap.Config.ARGB_8888);
+
+        Canvas canvas = new Canvas(bitmap);
+        icon.draw(canvas);
+
+        return BitmapDescriptorFactory.fromBitmap(bitmap);
     }
 }
