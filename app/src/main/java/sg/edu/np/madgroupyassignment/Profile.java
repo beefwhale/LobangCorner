@@ -72,8 +72,10 @@ public class Profile extends Fragment {
     ActivityResultLauncher<String> getPhoto;
     public Boolean status = true;
     public String userID;
+    Context c;
 
     public Profile(Boolean status) {
+        this.c = c;
         this.status = status; // true = the users own pfp, false = not the user's own pfp (clicked from a post)
     }
 
@@ -279,7 +281,7 @@ public class Profile extends Fragment {
                 String sAppLink = "https://www.instagram.com/" + insta_username + "/";
                 String sPackage = "com.instagram.android";
                 String sWebLink = "https://www.instagram.com/" + insta_username + "/";
-                openLink(sAppLink, sPackage, sWebLink);
+                openLink(sAppLink, sPackage, sWebLink, false);
             }
         });
 
@@ -290,7 +292,7 @@ public class Profile extends Fragment {
                 String sAppLink = fb_username;
                 String sPackage = "com.facebook.katana";
                 String sWebLink = fb_username;
-                openLink(sAppLink, sPackage, sWebLink);
+                openLink(sAppLink, sPackage, sWebLink, true);
             }
         });
 
@@ -301,7 +303,7 @@ public class Profile extends Fragment {
                 String sAppLink = "twitter://user?screen_name=" + twt_username;
                 String sPackage = "com.twitter.android";
                 String sWebLink = "https://twitter.com/" + twt_username;
-                openLink(sAppLink, sPackage, sWebLink);
+                openLink(sAppLink, sPackage, sWebLink, false);
             }
         });
 
@@ -349,20 +351,33 @@ public class Profile extends Fragment {
     }
 
     // Opening social media links
-    private void openLink(String sAppLink, String sPackage, String sWebLink) {
-        try {
-            Uri uri = Uri.parse(sAppLink);
-            Intent intent = new Intent(Intent.ACTION_VIEW);
-            intent.setData(uri);
-            intent.setPackage(sPackage);
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            startActivity(intent);
-        } catch (ActivityNotFoundException activityNotFoundException) {
-            Uri uri = Uri.parse(sWebLink);
-            Intent intent = new Intent(Intent.ACTION_VIEW);
-            intent.setData(uri);
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            startActivity(intent);
+    private void openLink(String sAppLink, String sPackage, String sWebLink, Boolean fbcheck) {
+        if (fbcheck ==false){
+            try { // if not facebook
+                Uri uri = Uri.parse(sAppLink);
+                Intent intent = new Intent(Intent.ACTION_VIEW);
+                intent.setData(uri);
+                intent.setPackage(sPackage);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
+            } catch (ActivityNotFoundException activityNotFoundException) {
+                Uri uri = Uri.parse(sWebLink);
+                Intent intent = new Intent(Intent.ACTION_VIEW);
+                intent.setData(uri);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
+            }
+        }
+        else{ // if facebook
+            try {
+                Uri uri = Uri.parse(sWebLink);
+                Intent intent = new Intent(Intent.ACTION_VIEW);
+                intent.setData(uri);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
+            } catch (ActivityNotFoundException activityNotFoundException) {
+                Toast.makeText(getActivity(), "An Error has Occured", Toast.LENGTH_SHORT).show();
+            }
         }
 
     }
