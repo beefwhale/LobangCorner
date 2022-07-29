@@ -3,6 +3,8 @@ package sg.edu.np.madgroupyassignment;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
+import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -60,9 +62,11 @@ public class ProfileSocials extends Fragment {
         social_twt_warning = view.findViewById(R.id.twtWarning);
         //Set warnings
         social_insta_warning.setText("Please only enter alphabets, numbers, period and underscores");
+        social_fb_warning.setText("Please enter a valid Faceboook link");
         social_twt_warning.setText("Please only enter alphabets, numbers and underscores");
         //Set warning colour
         social_insta_warning.setTextColor(getResources().getColor(R.color.Main_Primary));
+        social_fb_warning.setTextColor(getResources().getColor(R.color.Main_Primary));
         social_twt_warning.setTextColor(getResources().getColor(R.color.Main_Primary));
         //Set Visibility
         social_insta_warning.setVisibility(View.GONE);
@@ -96,6 +100,43 @@ public class ProfileSocials extends Fragment {
                 else{
                     //Toast.makeText(getContext(), "Invalid username", Toast.LENGTH_SHORT).show();
                     social_insta_warning.setVisibility(View.VISIBLE);
+                    socialsaveBtn.setEnabled(false);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+            }
+        });
+
+        //Validate facebook
+        String fb_before = social_fb_input.getText().toString();
+        social_fb_input.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                socialsaveBtn.setEnabled(false);
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (Patterns.WEB_URL.matcher(social_fb_input.getText().toString()).matches()){
+                    socialsaveBtn.setEnabled(true);
+                    social_fb_warning.setVisibility(View.GONE);
+                }
+                else if (social_fb_input.getText().toString().equals("")){
+                    // if its the same as before
+                    if (social_fb_input.getText().toString().equals(fb_before)){ //
+                        socialsaveBtn.setEnabled(false);
+                    }
+                    else{ // if its not the same as before
+                        socialsaveBtn.setEnabled(true);
+                    }
+                    social_fb_warning.setVisibility(View.GONE);
+
+                }
+                else{
+                    //Toast.makeText(getContext(), "Invalid username", Toast.LENGTH_SHORT).show();
+                    social_fb_warning.setVisibility(View.VISIBLE);
                     socialsaveBtn.setEnabled(false);
                 }
             }
