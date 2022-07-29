@@ -1,11 +1,14 @@
 package sg.edu.np.madgroupyassignment;
 
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -22,6 +25,7 @@ import java.util.HashMap;
 public class ProfileSocials extends Fragment {
     Button socialsaveBtn;
     EditText social_insta_input, social_fb_input, social_twt_input;
+    TextView social_insta_warning, social_fb_warning, social_twt_warning;
     String usernameID;
     String instagram, facebook, twitter;
     String insta, fb, twt;
@@ -50,6 +54,21 @@ public class ProfileSocials extends Fragment {
         social_insta_input = view.findViewById(R.id.social_insta_input);
         social_fb_input = view.findViewById(R.id.social_fb_input);
         social_twt_input = view.findViewById(R.id.social_twt_input);
+        //Warning messages
+        social_insta_warning = view.findViewById(R.id.instaWarning);
+        social_fb_warning = view.findViewById(R.id.fbWarning);
+        social_twt_warning = view.findViewById(R.id.twtWarning);
+        //Set warnings
+        social_insta_warning.setText("Please only enter alphabets, numbers, period and underscores");
+        social_twt_warning.setText("Please only enter alphabets, numbers and underscores");
+        //Set warning colour
+        social_insta_warning.setTextColor(getResources().getColor(R.color.Main_Primary));
+        social_twt_warning.setTextColor(getResources().getColor(R.color.Main_Primary));
+        //Set Visibility
+        social_insta_warning.setVisibility(View.GONE);
+        social_fb_warning.setVisibility(View.GONE);
+        social_twt_warning.setVisibility(View.GONE);
+
 
         if (insta.equals("") == false) {
             social_insta_input.setText(insta);
@@ -60,6 +79,56 @@ public class ProfileSocials extends Fragment {
         if (twt.equals("") == false) {
             social_twt_input.setText(twt);
         }
+
+        //Validate insta
+        social_insta_input.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                socialsaveBtn.setEnabled(false);
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (social_insta_input.getText().toString().matches("[a-zA-Z0-9._]*")){
+                    socialsaveBtn.setEnabled(true);
+                    social_insta_warning.setVisibility(View.GONE);
+                }
+                else{
+                    //Toast.makeText(getContext(), "Invalid username", Toast.LENGTH_SHORT).show();
+                    social_insta_warning.setVisibility(View.VISIBLE);
+                    socialsaveBtn.setEnabled(false);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+            }
+        });
+        //Validate twitter
+        social_twt_input.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                socialsaveBtn.setEnabled(false);
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (social_twt_input.getText().toString().matches("[a-zA-Z0-9_]*")){
+                    socialsaveBtn.setEnabled(true);
+                    social_twt_warning.setVisibility(View.GONE);
+                }
+                else{
+                    //Toast.makeText(getContext(), "Invalid username", Toast.LENGTH_SHORT).show();
+                    social_twt_warning.setVisibility(View.VISIBLE);
+                    socialsaveBtn.setEnabled(false);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+            }
+        });
+
 
         //When Changes are saved
         socialsaveBtn.setOnClickListener(new View.OnClickListener() {
