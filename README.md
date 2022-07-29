@@ -210,6 +210,8 @@ Yong Chuen:
 
 Yongqing:
 - Team & Design Lead 
+- Storyboarding & Drafting
+- Documentation & Upload
 - Allow users to access profiles of other users through HC and RC author usernames 
 - Allow Linking of other social media in their profile (Twitter, Instagram, Facebook) 
 - Allow Editing and Deleting of User’s own post 
@@ -217,11 +219,13 @@ Yongqing:
 Celsius: 
 - Users are now able to leave comments on hawker and recipe posts 
 - When a post has been commented on, the post creator receives a notification. 
+- Our amazing aab exporter
 
 Zi Xian:  
 - Implemented Google Maps API for stalls 
 - Allow users to get their current location to the stall 
 - Loading screen animation and Incorporated design ideas 
+- Google Play v2.0 descrption
 
 Hasanah:  
 - Allow users to view saved posts, save and unsave hawker or recipe corner posts 
