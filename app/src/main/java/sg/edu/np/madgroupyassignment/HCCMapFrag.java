@@ -105,7 +105,7 @@ public class HCCMapFrag extends Fragment implements OnMapReadyCallback{
     private String hccname;
     private String hccaddr;
 
-    //Empty Constructor
+    //Default Constructor
     public HCCMapFrag() {
     }
 
@@ -119,6 +119,7 @@ public class HCCMapFrag extends Fragment implements OnMapReadyCallback{
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
 
+        //Get Chosen Stall information for Map
         Bundle bundle = this.getArguments();
         hccaddr = bundle.getString("stalladdr");
         hccname = bundle.getString("stallname");
@@ -173,6 +174,7 @@ public class HCCMapFrag extends Fragment implements OnMapReadyCallback{
         });
     }
 
+    //Method to get user's current location and sync the map
     public void getCurrentLocation() {
         //Check for permissions
         if (ActivityCompat.checkSelfPermission(getContext(),
@@ -203,6 +205,7 @@ public class HCCMapFrag extends Fragment implements OnMapReadyCallback{
                                             .position(latLng).title("Your Location"));
                                     googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15));
                                 }
+                                //Add polyline in
                                 PolylineOptions polylineOptions = new PolylineOptions()
                                         .add(position1.getPosition(), position2.getPosition())
                                         .color(Color.BLUE);
