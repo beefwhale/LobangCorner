@@ -517,7 +517,6 @@ public class HawkerForm extends Fragment {
                     //Clear text view values
                     openDayBtn.setText("");
                     daysOpen = "";
-//                    getActivity().recreate();
                     if (check == 0) {
                         getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, new Home()).commit();
                         MainActivity.bottomNavigationView.getMenu().findItem(R.id.home).setChecked(true);
@@ -527,7 +526,6 @@ public class HawkerForm extends Fragment {
                     }
 
                 }
-                //Toast.makeText(getActivity(),finalTime, Toast.LENGTH_SHORT).show();
 
             }
         });
@@ -541,10 +539,8 @@ public class HawkerForm extends Fragment {
 
 
     private void HwkUp(HashMap<String, Object> userHwkList, HawkerCornerStalls HwkObj, String PostID) {
-//        databaseReferencetest = FirebaseDatabase.getInstance().getReference();
         mAuth = FirebaseAuth.getInstance();
 
-        //String PostID = databaseReferencetest.push().getKey();
         // Posting Forms
         if (check == 0) {
             databaseReferencetest.child("Posts").child("Hawkers").child(PostID).setValue(HwkObj);
@@ -670,8 +666,6 @@ public class HawkerForm extends Fragment {
     private void HwkDraftUp(/*HashMap<String, Object> userHwkDraftList,*/ HawkerCornerStalls HwkDraftObj, String DraftID) {
         mAuth = FirebaseAuth.getInstance();
         databaseReferencetest.child("Drafts").child("Hawkers").child(mAuth.getUid()).child(DraftID).setValue(HwkDraftObj); //Changed to draftid under uid under hawker under drafts
-//        userHwkDraftList.put(DraftID, DraftID);
-//        databaseReferencetest.child("UserProfile").child(mAuth.getUid()).child("hawkList").updateChildren(userHwkDraftList);
         Toast.makeText(getActivity(), "HawkerPost saved to drafts", Toast.LENGTH_SHORT).show();
     }
 

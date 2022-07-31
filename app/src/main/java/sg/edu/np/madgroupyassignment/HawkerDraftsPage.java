@@ -107,8 +107,6 @@ public class HawkerDraftsPage extends Fragment {
                                         HawkerCornerStalls deleteItem = draftsList.get(i - 1);
                                         //removing from database
                                         databaseReference.child("Drafts").child("Hawkers").child(mAuth.getUid()).child(deleteItem.getPostid()).removeValue();
-//                                        StorageReference storageLocationCheck = FirebaseStorage.getInstance().getReferenceFromUrl(deleteItem.hccoverimg);
-//                                        storageLocationCheck.delete();
 
                                         //Updating List
                                         draftsList.remove(i - 1);
@@ -246,7 +244,6 @@ public class HawkerDraftsPage extends Fragment {
                 holder.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-//                        Toast.makeText(getActivity(), "rest", Toast.LENGTH_SHORT).show();
                         HawkerForm = new HawkerForm(2); //Editing draft = 2
                         MainActivity.checkFormsNum = 0; //changes to 0 when click into forms
                         MainActivity.whichForm = 1;

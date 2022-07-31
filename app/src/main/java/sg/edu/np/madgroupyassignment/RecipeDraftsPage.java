@@ -108,8 +108,6 @@ public class RecipeDraftsPage extends Fragment {
                                         RecipeCorner deleteItem = draftsList.get(i - 1);
                                         //removing from database
                                         databaseReference.child("Drafts").child("Recipes").child(mAuth.getUid()).child(deleteItem.getPostID()).removeValue();
-//                                        StorageReference storageLocationCheck = FirebaseStorage.getInstance().getReferenceFromUrl(deleteItem.foodImage);
-//                                        storageLocationCheck.delete();
 
                                         //Updating List
                                         draftsList.remove(i - 1);
@@ -247,7 +245,6 @@ public class RecipeDraftsPage extends Fragment {
                 holder.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-//                        Toast.makeText(getActivity(), "rest", Toast.LENGTH_SHORT).show();
                         MainActivity.recipeForm.status = 2;
                         MainActivity.checkFormsNum = 0; //changes to 0 when click into forms
                         MainActivity.whichForm = 2;

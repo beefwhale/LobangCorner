@@ -203,12 +203,10 @@ public class RecipeForm extends Fragment {
                             userCurrentRcp = userProfile.getRcpList();
                         }
                         RcpUp(userCurrentRcp, recipeCorner, PostID, status);
-                        //getActivity().recreate();
                         getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, new Home(), "Home").commit();
                         MainActivity.bottomNavigationView.getMenu().findItem(R.id.home).setChecked(true);
 
                     }
-                    //Toast.makeText(getActivity(), totalIngred, Toast.LENGTH_SHORT).show();
                 } else {
                     viewModel.changeFragment(0); // Default Zero: forms main page
                 }

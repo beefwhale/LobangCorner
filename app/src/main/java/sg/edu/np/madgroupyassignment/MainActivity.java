@@ -351,7 +351,8 @@ public class MainActivity extends AppCompatActivity {
                                 getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, homeFragment, "Home")
                                         .addToBackStack(null).commit();
                             }
-                        } else if ((whichForm == 1 && HawkerForm.stallName == "" || whichForm == 1 && HawkerForm.stallName.isEmpty() || whichForm == 1 && HawkerForm.stallName == null) &&
+                        }
+                        else if ((whichForm == 1 && HawkerForm.stallName == "" || whichForm == 1 && HawkerForm.stallName.isEmpty() || whichForm == 1 && HawkerForm.stallName == null) &&
                                 (whichForm == 1 && HawkerForm.desc == "" || whichForm == 1 && HawkerForm.desc.isEmpty() || whichForm == 1 && HawkerForm.desc == null) &&
                                         (whichForm == 1 && HawkerForm.shortDesc == "" || whichForm == 1 && HawkerForm.shortDesc.isEmpty() || whichForm == 1 && HawkerForm.shortDesc == null) &&
                                                 (whichForm == 1 && HawkerForm.address == "" || whichForm == 1 && HawkerForm.address.isEmpty() || whichForm == 1 && HawkerForm.address == null) &&
@@ -982,6 +983,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void saveToHawkerDrafts() {
 
+        //Set postid as postid if already exist
         if (HawkerForm.chosenstall != null) {
             hawkerDrafts.hcauthor = userProfile.getUsername();
             hawkerDrafts.hccuserpfp = userProfile.getProfileImg();
@@ -995,7 +997,9 @@ public class MainActivity extends AppCompatActivity {
             hawkerDrafts.postid = HawkerForm.chosenstall.postid;
             hawkerDrafts.daysopen = HawkerForm.daysOpen;
             hawkerDrafts.hoursopen = HawkerForm.finalTime;
-        } else {
+        }
+        //If postid doesnt exist, get new key
+        else {
             hawkerDrafts.hcauthor = userProfile.getUsername();
             hawkerDrafts.hccuserpfp = userProfile.getProfileImg();
             hawkerDrafts.hcOwner = userProfile.getUID();
@@ -1057,6 +1061,7 @@ public class MainActivity extends AppCompatActivity {
                 RecipeForm.selectedImg = s;//Image parameter
             }
         });
+        //Set postid as postid if already exist
         if (recipeForm.status == 2) {
             recipeDrafts.recipeName = RecipeForm.recipeName;
             recipeDrafts.postID = RecipeForm.recipePostID;
@@ -1068,7 +1073,9 @@ public class MainActivity extends AppCompatActivity {
             recipeDrafts.steps = RecipeForm.steps;
             recipeDrafts.ingredients = RecipeForm.totalIngred;
             recipeDrafts.foodImage = RecipeForm.selectedImg;
-        } else {
+        }
+        //If postid doesnt exist, get new key
+        else {
             recipeDrafts.recipeName = RecipeForm.recipeName;
             recipeDrafts.postID = databaseReference.push().getKey();
             recipeDrafts.owner = userProfile.getUID();
@@ -1085,19 +1092,15 @@ public class MainActivity extends AppCompatActivity {
         RcpDraftUp(recipeDrafts, recipeDrafts.postID);
     }
 
-    public void HwkDraftUp(/*HashMap<String, Object> userHwkDraftList,*/ HawkerCornerStalls HwkDraftObj, String DraftID) {
+    public void HwkDraftUp(HawkerCornerStalls HwkDraftObj, String DraftID) {
         mAuth = FirebaseAuth.getInstance();
         databaseReference.child("Drafts").child("Hawkers").child(mAuth.getUid()).child(DraftID).setValue(HwkDraftObj);
-//        userHwkDraftList.put(DraftID, DraftID);
-//        databaseReferencetest.child("UserProfile").child(mAuth.getUid()).child("hawkList").updateChildren(userHwkDraftList);
         Toast.makeText(this, "HawkerPost saved to drafts", Toast.LENGTH_SHORT).show();
     }
 
-    private void RcpDraftUp(/*HashMap<String, Object> userHwkDraftList,*/ RecipeCorner rcpDraftObj, String DraftID) {
+    private void RcpDraftUp(RecipeCorner rcpDraftObj, String DraftID) {
         mAuth = FirebaseAuth.getInstance();
         databaseReference.child("Drafts").child("Recipes").child(mAuth.getUid()).child(DraftID).setValue(rcpDraftObj);
-//        userHwkDraftList.put(DraftID, DraftID);
-//        databaseReferencetest.child("UserProfile").child(mAuth.getUid()).child("hawkList").updateChildren(userHwkDraftList);
         Toast.makeText(this, "Recipe saved to drafts", Toast.LENGTH_SHORT).show();
     }
     /**
