@@ -152,6 +152,7 @@ public class RecipeForm extends Fragment {
                     viewModel.getSelectedRecipeIngred().observe(getViewLifecycleOwner(), new Observer<String>() {
                         @Override
                         public void onChanged(String s) {//INGREDIENT parameter
+                            totalIngred = s;
                         }
                     });
                     viewModel.getSelectedDifficulty().observe(getViewLifecycleOwner(), new Observer<Integer>() {
