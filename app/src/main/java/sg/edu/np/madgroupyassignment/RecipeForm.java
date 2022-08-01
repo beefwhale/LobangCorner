@@ -151,8 +151,7 @@ public class RecipeForm extends Fragment {
                     });
                     viewModel.getSelectedRecipeIngred().observe(getViewLifecycleOwner(), new Observer<String>() {
                         @Override
-                        public void onChanged(String s) {
-                            totalIngred = s;//INGREDIENT parameter
+                        public void onChanged(String s) {//INGREDIENT parameter
                         }
                     });
                     viewModel.getSelectedDifficulty().observe(getViewLifecycleOwner(), new Observer<Integer>() {
@@ -173,8 +172,7 @@ public class RecipeForm extends Fragment {
                             totalIngred == null || totalIngred.length() == 0 || totalIngred.isEmpty() ||
                             steps == null || steps.length() == 0 || steps.isEmpty() ||
                             selectedImg.isEmpty() || selectedImg.length() == 0 || selectedImg == "") {
-                        Log.e("ingred", totalIngred);
-                        Log.e("steps", steps);
+
                         Toast.makeText(getActivity(), "Please input recipe title, description, image, ingredients and steps", Toast.LENGTH_SHORT).show();
                     } else {
                         //POSTING:

@@ -8,6 +8,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -95,8 +96,10 @@ public class RecipePostIngredients extends Fragment {
         add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                totalIngredList = new ArrayList<>();
                 String ingred = ingredientName.getText().toString();
                 totalIngred = "";
+                ingredString = "";
                 String qtyString = qty.getText().toString();
                 if (unit == null || unit.length() == 0 || unit.getText().toString() == "") {
                     unt = "";
@@ -123,7 +126,6 @@ public class RecipePostIngredients extends Fragment {
                             ingredString = ingredList.get(i).qty + "#=#" + ingredList.get(i).unit + "#=#" + ingredList.get(i).name; //String formatting for ingredients
                         }
                         totalIngredList.add(ingredString);
-
                     }
 
                     for (int i = 0; i < totalIngredList.size(); i++) {

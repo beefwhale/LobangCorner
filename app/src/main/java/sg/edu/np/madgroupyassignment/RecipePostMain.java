@@ -157,7 +157,6 @@ public class RecipePostMain extends Fragment {
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 title = titleInput.getText().toString(); //NAME parameter
-                Log.e("beef", title);
             }
 
             @Override
