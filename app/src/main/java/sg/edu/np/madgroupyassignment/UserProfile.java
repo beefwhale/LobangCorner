@@ -11,6 +11,7 @@ public class UserProfile {
     String email;
     String profileImg;
     String aboutMe;
+    Integer tocChecked;
     HashMap<String, Object> HawkList;
     HashMap<String, Object> RcpList;
 
@@ -23,12 +24,13 @@ public class UserProfile {
     }
 
     public UserProfile(String UID, String username, String email, String profileImg, String aboutMe, HashMap<String, Object> hawkList, HashMap<String, Object> rcpList,
-                       String instagram, String facebook, String twitter) {
+                       String instagram, String facebook, String twitter,Integer tocChecked) {
         this.UID = UID;
         this.username = username;
         this.email = email;
         this.profileImg = profileImg;
         this.aboutMe = aboutMe;
+        this.tocChecked = tocChecked;
         HawkList = hawkList;
         RcpList = rcpList;
 
@@ -116,5 +118,13 @@ public class UserProfile {
 
     public void setTwitter(String twitter) {
         this.twitter = twitter;
+    }
+
+    public Integer getTocChecked() {
+        return tocChecked;
+    }
+
+    public void setTocChecked(Integer tocChecked) {
+        this.tocChecked = tocChecked;
     }
 }

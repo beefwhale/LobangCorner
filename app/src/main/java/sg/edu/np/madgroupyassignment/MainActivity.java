@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.net.ConnectivityManager;
@@ -17,6 +18,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.Observer;
 
+import com.google.android.gms.common.internal.FallbackServiceBroker;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -45,12 +47,13 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
+import java.util.HashMap;
 
 public class MainActivity extends AppCompatActivity {
 
     private String UID;
     public static Boolean profileFirstUpdate;
-    private UserProfile userProfile;
+    private UserProfile userProfile, ToCCHECK;
     private ArrayList<UserProfile> authorProfileList;
     private PostsHolder postsHolder;
     private PostsHolder2 postsHolder2;
@@ -108,7 +111,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
 
 
         checkFormsNum = 1; //default for checkFormsNum is 1\
@@ -169,6 +171,7 @@ public class MainActivity extends AppCompatActivity {
 //                Getting user profile
                 userProfile = snapshot.child("UserProfile").child(UID).getValue(UserProfile.class);
                 postsHolder.setUserProfile(userProfile);
+
 
 //                Getting author profile
                 postsHolder.removeAuthorProfileList();
@@ -278,7 +281,7 @@ public class MainActivity extends AppCompatActivity {
                 if (prefs.getBoolean("onlyonce", false) != true) {
                     // Default home fragment
                     FragmentManager fm = getSupportFragmentManager();
-                    if(fm.isDestroyed() == false){
+                    if (fm.isDestroyed() == false) {
                         fm.beginTransaction()
                                 .replace(R.id.MainFragment, new SplashPage(), null).commit();
                     }
@@ -343,20 +346,18 @@ public class MainActivity extends AppCompatActivity {
                             mainFAB.show();
                             Fragment checkFragment = getSupportFragmentManager().findFragmentByTag("Home");
                             //If current Fragment is Home Page
-                            if (checkFragment != null && checkFragment.isVisible()){ // Yes
+                            if (checkFragment != null && checkFragment.isVisible()) { // Yes
                                 getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, homeFragment, "Home")
                                         .commit();
-                            }
-                            else{ // No
+                            } else { // No
                                 getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, homeFragment, "Home")
                                         .addToBackStack(null).commit();
                             }
-                        }
-                        else if ((whichForm == 1 && HawkerForm.stallName == "" || whichForm == 1 && HawkerForm.stallName.isEmpty() || whichForm == 1 && HawkerForm.stallName == null) &&
+                        } else if ((whichForm == 1 && HawkerForm.stallName == "" || whichForm == 1 && HawkerForm.stallName.isEmpty() || whichForm == 1 && HawkerForm.stallName == null) &&
                                 (whichForm == 1 && HawkerForm.desc == "" || whichForm == 1 && HawkerForm.desc.isEmpty() || whichForm == 1 && HawkerForm.desc == null) &&
-                                        (whichForm == 1 && HawkerForm.shortDesc == "" || whichForm == 1 && HawkerForm.shortDesc.isEmpty() || whichForm == 1 && HawkerForm.shortDesc == null) &&
-                                                (whichForm == 1 && HawkerForm.address == "" || whichForm == 1 && HawkerForm.address.isEmpty() || whichForm == 1 && HawkerForm.address == null) &&
-                                                        (whichForm == 1 && HawkerForm.downUrl == "" || whichForm == 1 && HawkerForm.downUrl.isEmpty() || whichForm == 1 && HawkerForm.downUrl == null)) {
+                                (whichForm == 1 && HawkerForm.shortDesc == "" || whichForm == 1 && HawkerForm.shortDesc.isEmpty() || whichForm == 1 && HawkerForm.shortDesc == null) &&
+                                (whichForm == 1 && HawkerForm.address == "" || whichForm == 1 && HawkerForm.address.isEmpty() || whichForm == 1 && HawkerForm.address == null) &&
+                                (whichForm == 1 && HawkerForm.downUrl == "" || whichForm == 1 && HawkerForm.downUrl.isEmpty() || whichForm == 1 && HawkerForm.downUrl == null)) {
                             mainFAB.show();
                             checkFormsNum = 1;
 //                            getSupportFragmentManager().popBackStack();
@@ -484,8 +485,7 @@ public class MainActivity extends AppCompatActivity {
                             if (checkFragment != null && checkFragment.isVisible()) {
                                 getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, hawkerCornerMain, "HC")
                                         .commit();
-                            }
-                            else{
+                            } else {
                                 getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, hawkerCornerMain, "HC")
                                         .addToBackStack(null).commit();
                             }
@@ -623,8 +623,7 @@ public class MainActivity extends AppCompatActivity {
                             if (checkFragment != null && checkFragment.isVisible()) {
                                 getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, recipeCornerMain, "RC")
                                         .commit();
-                            }
-                            else{
+                            } else {
                                 getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, recipeCornerMain, "RC")
                                         .addToBackStack(null).commit();
                             }
@@ -762,8 +761,7 @@ public class MainActivity extends AppCompatActivity {
                             if (checkFragment != null && checkFragment.isVisible()) {
                                 getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, profile, "Profile")
                                         .commit();
-                            }
-                            else{
+                            } else {
                                 getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, profile, "Profile")
                                         .addToBackStack(null).commit();
                             }
@@ -960,6 +958,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
+    protected void onStart() {
+        super.onStart();
+        TOCAGREEMENT();
+    }
+
+    @Override
     public void onBackPressed() {
         checkFormsNum = 1;
         super.onBackPressed();
@@ -1103,14 +1107,16 @@ public class MainActivity extends AppCompatActivity {
         databaseReference.child("Drafts").child("Recipes").child(mAuth.getUid()).child(DraftID).setValue(rcpDraftObj);
         Toast.makeText(this, "Recipe saved to drafts", Toast.LENGTH_SHORT).show();
     }
+
     /**
      * This method check mobile is connected to network.
+     *
      * @param context
      * @return true if connected otherwise false.
      */
     public void isNetworkAvailable(Context context) {
         ConnectivityManager conMan = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-        if(conMan.getActiveNetworkInfo() != null && conMan.getActiveNetworkInfo().isConnected()){
+        if (conMan.getActiveNetworkInfo() != null && conMan.getActiveNetworkInfo().isConnected()) {
             Home homeFragment = new Home();
             handler.postDelayed(new Runnable() {
                 @Override
@@ -1118,10 +1124,11 @@ public class MainActivity extends AppCompatActivity {
                     getSupportFragmentManager().beginTransaction().replace(R.id.MainFragment, homeFragment, "Home").commit();
                     bottomNavigationView.setVisibility(View.VISIBLE);
                     findViewById(R.id.floating_main_nav_button).setVisibility(View.VISIBLE);
+
+
                 }
             }, 2500);
-        }
-        else{
+        } else {
             AlertDialog.Builder builder = new AlertDialog.Builder(context);
             builder.setTitle("Oh No!")
                     .setMessage("Network Error! Make sure you are connected to the internet.")
@@ -1145,4 +1152,51 @@ public class MainActivity extends AppCompatActivity {
         }
 
     }
+
+    public void TOCAGREEMENT() {
+        databaseReference.child("UserProfile").child(mAuth.getUid()).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DataSnapshot> task) {
+                ToCCHECK = task.getResult().getValue(UserProfile.class);
+                try {
+                    if (ToCCHECK.tocChecked != 1) {
+                        new AlertDialog.Builder(MainActivity.this)
+                                .setTitle("Terms and Condition")
+                                .setCancelable(false)
+                                .setMessage("tLobangCorner requires that you agree to any terms and condition that may have been updated or added.")
+                                .setPositiveButton("View T&C", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialogInterface, int i) {
+                                        Intent tncIntent = new Intent(MainActivity.this, ToC.class);
+                                        startActivity(tncIntent);
+                                    }
+                                })
+                                .show();
+                    }
+                } catch (Exception e) {
+                    new AlertDialog.Builder(MainActivity.this)
+                            .setTitle("Terms and Condition")
+                            .setCancelable(false)
+                            .setMessage("LobangCorner requires that you agree to any terms and condition that may have been updated or added.")
+                            .setPositiveButton("View T&C", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    Intent tncIntent = new Intent(MainActivity.this, ToC.class);
+                                    startActivity(tncIntent);
+                                }
+                            })
+                            .setNegativeButton("I disagree", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    finish();
+                                }
+                            })
+                            .show();
+                }
+            }
+        });
+
+
+    }
+
 }

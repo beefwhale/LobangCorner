@@ -12,7 +12,7 @@ android {
         targetSdk 32
         versionCode 1
         versionName "1.0"
-
+        multiDexEnabled = true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -78,10 +78,11 @@ dependencies {
 }
 android {
     defaultConfig {
-        minSdk 19
-        targetSdk 30
-        versionName '1.2'
-        versionCode 4
+
+        minSdk 21
+        targetSdk 32
+        versionName '2.1'
+        versionCode 8
         proguardFiles
 
     }

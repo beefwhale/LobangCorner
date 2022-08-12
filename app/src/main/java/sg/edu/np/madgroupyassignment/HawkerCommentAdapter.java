@@ -181,7 +181,7 @@ public class HawkerCommentAdapter extends RecyclerView.Adapter<CommentViewholder
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     if (snapshot.hasChild(postID)) {                        //if post alr exist in bookmark hawker list
-                        hcbookmark.setImageResource(R.drawable.ic_bookmark_filled);             // replace image with a filled icon
+                        hcbookmark.setImageResource(R.drawable.ic_bookmark);             // replace image with a filled icon
                         hcbookmark.setOnClickListener(new View.OnClickListener() {              //if icon is clicked (to unbookmark)
                             @Override
                             public void onClick(View view) {

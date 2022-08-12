@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/Cream">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ToC">
+
+        <ImageView
+            android:id="@+id/ToCBack"
+            android:layout_width="75dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="20dp"
+            android:src="@drawable/ic_baseline_arrow_back_24"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/ToCImage"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_marginTop="100dp"
+            android:src="@drawable/fush"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/ToCHead"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="50dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="50dp"
+            android:fontFamily="@font/montserrat_bold"
+            android:text="Terms and Condition"
+            android:textAlignment="center"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/ToCImage" />
+
+        <TextView
+            android:id="@+id/Toc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="30dp"
+            android:fontFamily="@font/montserrat_regular"
+            android:justificationMode="inter_word"
+            android:text="Please note that you will be contributing user generated content to the app, which is visible to or accessible by at least a subset of the app's users. This includes, but no limited to: user profiles, comments, media, posts, etc.\n\n We want our service to be as open and inclusive as possible, but we also want it to be safe, secure and in accordance with the law. So, we need you to commit to a few restrictions in order to be part of the LobangCorner Community."
+            android:textSize="16sp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/ToCHead" />
+
+        <TextView
+            android:id="@+id/TocCondition"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="30dp"
+            android:fontFamily="@font/montserrat_regular"
+            android:justificationMode="inter_word"
+            android:text="\t\t•You must be at least 12 years old to use LobangCorner.\n\t\t•We must not have previously disabled your account for violation of law or any of our policies"
+            android:textSize="12sp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/Toc" />
+
+        <TextView
+            android:id="@+id/TocNext"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="30dp"
+            android:fontFamily="@font/montserrat_regular"
+            android:justificationMode="inter_word"
+            android:text="How you can't use LobangCorner. Providing a safe and open service for a broad community requires that we all do our part."
+            android:textSize="16sp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/TocCondition" />
+
+        <TextView
+            android:id="@+id/ToCNo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="30dp"
+            android:fontFamily="@font/montserrat_regular"
+            android:justificationMode="inter_word"
+            android:text="\t\t•You can't impersonate others or provide inaccurate information.\n\t\t•You don't have to disclose your identity on LobangCorner, but you must provide us with accurate and up-to-date information. Which may include data on location shared.\n\t\t•Also, you may not impersonate someone or something you aren't, and you can't create an account for someone else unless you have their express permission."
+            android:textSize="12sp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/TocNext" />
+
+        <TextView
+            android:id="@+id/TocLast"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="30dp"
+            android:layout_marginBottom="50dp"
+            android:fontFamily="@font/montserrat_regular"
+            android:justificationMode="inter_word"
+            android:text="Content removal and disabling or terminating your account.\nWe can remove any content or information that you share on the service if we believe that it violates these Terms of Use."
+            android:textSize="16sp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/ToCNo" />
+
+        <Button
+            android:id="@+id/ToCButton"
+            android:visibility="invisible"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="30dp"
+            android:fontFamily="@font/montserrat_regular"
+            android:background="@drawable/custom_button_back"
+            android:text="I Agree"
+            android:theme="@style/LG_Button"
+            android:textSize="15sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/TocLast" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
