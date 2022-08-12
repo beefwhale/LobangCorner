@@ -922,8 +922,14 @@ public class MainActivity extends AppCompatActivity {
 //                    checkFormsNum = 0; //changes to 0 when click the floating button
                 whichForm = 1;
                 AppCompatActivity activity = (AppCompatActivity) v.getContext();
-                activity.getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.MainFragment, hawkerDraftsPage).addToBackStack(null).commit();
+                if (hawkerDraftsList.size() == 0){
+                    activity.getSupportFragmentManager().beginTransaction()
+                            .replace(R.id.MainFragment, hawkerForm).addToBackStack(null).commit();
+                }
+                else{
+                    activity.getSupportFragmentManager().beginTransaction()
+                            .replace(R.id.MainFragment, hawkerDraftsPage).addToBackStack(null).commit();
+                }
                 mainFAB.hide();
                 rcFAB.hide();
                 hcFAB.hide();
@@ -940,8 +946,14 @@ public class MainActivity extends AppCompatActivity {
 //                    checkFormsNum = 0; //changes to 0 when click the floating button
                 whichForm = 2;
                 AppCompatActivity activity = (AppCompatActivity) v.getContext();
-                activity.getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.MainFragment, recipeDraftsPage).addToBackStack(null).commit();
+                if (recipeDraftsList.size() == 0){
+                    activity.getSupportFragmentManager().beginTransaction()
+                            .replace(R.id.MainFragment, recipeForm).addToBackStack(null).commit();
+                }
+                else{
+                    activity.getSupportFragmentManager().beginTransaction()
+                            .replace(R.id.MainFragment, recipeDraftsPage).addToBackStack(null).commit();
+                }
                 mainFAB.hide();
                 rcFAB.hide();
                 hcFAB.hide();

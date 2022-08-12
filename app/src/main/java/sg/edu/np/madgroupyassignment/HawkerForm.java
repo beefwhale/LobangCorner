@@ -16,6 +16,7 @@ import androidx.fragment.app.Fragment;
 
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -40,6 +41,7 @@ import com.squareup.picasso.Picasso;
 
 import org.parceler.Parcels;
 
+import java.io.Console;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -147,22 +149,49 @@ public class HawkerForm extends Fragment {
         }
         // EDITING : setting values
         else if (check == 1 || check == 2) {
-            if (chosenstall.hoursopen.equals("") == false) {
-                openingTime = chosenstall.hoursopen.substring(0, 5);
-                closingTime = chosenstall.hoursopen.substring(8, 13);
+            if (chosenstall.daysopen.equals("") == false) {
+                daysOpen = chosenstall.daysopen;
+            }
+            Character firstChar = (chosenstall.hoursopen).charAt(0);
+            Log.e("beef", chosenstall.hoursopen);
+            if(Character.toString(firstChar).equals(" ")){ // does not have opening times
+                openingTime = "00:00";
+                closingTime = chosenstall.hoursopen.substring(3, 8);
 
-                clHour = Integer.parseInt(chosenstall.hoursopen.substring(8, 10));
-                clMin = Integer.parseInt(chosenstall.hoursopen.substring(11, 13));
-                opHour = Integer.parseInt(chosenstall.hoursopen.substring(0, 2));
-                opMin = Integer.parseInt(chosenstall.hoursopen.substring(3, 5));
+                clHour = Integer.parseInt(closingTime.substring(0, 2));
+                clMin = Integer.parseInt(closingTime.substring(3, 5));
+                opHour = Integer.parseInt(openingTime.substring(0, 2));
+                opMin = Integer.parseInt(openingTime.substring(3, 5));
 
                 opTInput.setText(openingTime);
                 clTInput.setText(closingTime);
                 finalTime = openingTime + " - " + closingTime;
             }
-            if (chosenstall.daysopen.equals("") == false) {
-                daysOpen = chosenstall.daysopen;
+            else if(chosenstall.hoursopen.length() <= 5){ // does not have closing times
+                openingTime = chosenstall.hoursopen.substring(0, 5);
+                closingTime = "00:00";
 
+                clHour = Integer.parseInt(closingTime.substring(0, 2));
+                clMin = Integer.parseInt(closingTime.substring(3, 5));
+                opHour = Integer.parseInt(openingTime.substring(0, 2));
+                opMin = Integer.parseInt(openingTime.substring(3, 5));
+
+                opTInput.setText(openingTime);
+                clTInput.setText(closingTime);
+                finalTime = openingTime + " - " + closingTime;
+            }
+            else{
+                openingTime = chosenstall.hoursopen.substring(0, 5);
+                closingTime = chosenstall.hoursopen.substring(8, 13);
+
+                clHour = Integer.parseInt(closingTime.substring(0, 2));
+                clMin = Integer.parseInt(closingTime.substring(3, 5));
+                opHour = Integer.parseInt(openingTime.substring(0, 2));
+                opMin = Integer.parseInt(openingTime.substring(3, 5));
+
+                opTInput.setText(openingTime);
+                clTInput.setText(closingTime);
+                finalTime = openingTime + " - " + closingTime;
             }
             stallName = chosenstall.hcstallname;
             desc = chosenstall.hccparagraph;
